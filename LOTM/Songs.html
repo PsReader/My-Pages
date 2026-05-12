@@ -1,0 +1,189 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+    		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>LOTM-Songs</title>
+		<style>
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+				}
+				to {
+					opacity: 1;
+				}
+			}
+			
+			@keyframes slideInDown {
+				from {
+					transform: translateY(-50px);
+					opacity: 0;
+				}
+				to {
+					transform: translateY(0);
+					opacity: 1;
+				}
+			}
+			
+			@keyframes slideInUp {
+				from {
+					transform: translateY(30px);
+					opacity: 0;
+				}
+				to {
+					transform: translateY(0);
+					opacity: 1;
+				}
+			}
+			
+			@keyframes glow {
+				0%, 100% {
+					text-shadow: 0 0 5px #FFC300;
+				}
+				50% {
+					text-shadow: 0 0 15px #FFC300, 0 0 25px #FFD700;
+				}
+			}
+			
+			h1 {
+ 			 background-color: darkred;
+ 			 animation: slideInDown 1s ease-out, glow 3s ease-in-out infinite;
+ 			 border-radius: 10px;
+			}
+			h2 {
+			  background-color: black;
+			  animation: slideInUp 0.8s ease-out;
+			  border-radius: 5px;
+			  transition: all 0.3s ease;
+			}
+			h2:hover {
+			  text-shadow: 0 0 10px #FFC300;
+			  transform: scale(1.05);
+			}
+			h3 {
+			  background-color: black;
+			  animation: fadeIn 0.8s ease-out;
+			  transition: all 0.3s ease;
+			}
+			h3:hover {
+			  transform: translateX(10px);
+			}
+			div {
+			  background-color: gray;
+			  animation: fadeIn 1.5s ease-out;
+			}
+			div {
+  			opacity: 0.9;
+			}
+			.button1 {
+  			background-color: gray; 
+  			color: black; 
+  			border: 2px solid #6f6f6f ;
+  			transition: all 0.3s ease;
+  			animation: fadeIn 1s ease-out;
+			}
+
+			.button1:hover {
+  			background-color: #6f6f6f ;
+  			color: gold;
+  			transform: translateY(-3px);
+  			box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+			}
+			a {
+ 			 color: gold;
+			  background-color: transparent;
+			  text-decoration: none;
+			  transition: all 0.3s ease;
+			}
+			a:hover {
+			  color: purple;
+			  background-color: transparent;
+			  text-decoration: underline;
+			}
+			.topnav {
+			overflow: hidden;
+			background-color: gold;
+			border-radius: 5px;
+			animation: slideInDown 0.8s ease-out;
+			}
+			.topnav a {
+			float: left;
+			display: block;
+			color: gold;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+			animation: slideInUp 0.6s ease-out;
+			transition: all 0.3s ease;
+			}
+			.topnav a:hover {
+			background-color: #FFD700;
+			color: black;
+			transform: translateY(-3px);
+			}
+.zoom {
+  padding: 30px;
+  background-color: transparent;
+  transition: transform .2s;
+  width: 5px;
+  height: 5px;
+  margin: 0 auto;
+}
+
+.zoom:hover {
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale(1.5); 
+}
+table, th, td {
+  border:1px solid white;
+  border-collapse: collapse;
+}
+td:nth-child(even) {
+  background-color: #FFD700;
+}
+th:nth-child(odd),td:nth-child(odd) {
+  background-color: #A020F0;
+}
+th:nth-child(odd) {
+  background-color: #000000;
+}
+		</style>
+		
+	</head>
+	<body align="center" background="images/crimson moon.jpeg" >
+<div class="topnav">
+	<a href="LOTMhome.html">Home</a>
+	<a href="Mc_Profile.html">MC</a>
+	<a href="Novel.html">Novel</a>
+	<a href="Author.html">Author</a>
+	<a href="Songs.html">Songs</a>
+</div>
+
+		<h1 style="color:#FFC300; font-size:60px"><b><i>Composed Songs</i></b></h1>
+			<hr style="width:80%;height:5px; background-color:grey">
+			<a href="LOTMhome.html"><button class="button button1"><--Back</button></a>	
+			<hr style="width:80%;height:5px; background-color:grey">
+			<div>
+			<img src="images/Cuttlefish.jpeg" width="170px" style="border:5px solid Gold">
+			
+			<h2 style="color:#FFC300; font-size:40px"><a href="https://youtu.be/PZXxPPToJYo?si=tL-q1COgdjYDz94W">Praise The Fool</a></h2>
+				<a href="https://youtu.be/PZXxPPToJYo?si=tL-q1COgdjYDz94W"><img src="images/Praise.jpg" width="200px" style="border:5px solid Gold"></a>
+
+			<h2 style="color:#FFC300; font-size:40px"><a href="https://www.bilibili.com/video/BV1z2421M7tF/?t=4.82&spm_id_from=333.1350.jump_directly">The Fool</a></h2>
+				<a href="https://www.bilibili.com/video/BV1z2421M7tF/?t=4.82&spm_id_from=333.1350.jump_directly"><img src="images/The_Fool.jpeg" width="200px" style="border:5px solid Gold"></a>
+
+			<h2 style="color:#FFC300; font-size:40px"><a href="https://youtu.be/xO-so5KM-hs">Song of the Fool</a></h2>
+				<a href="https://youtu.be/xO-so5KM-hs"><img src="images/LOTM_Audio.jpeg" width="200px" style="border:5px solid Gold"></a>
+
+			<h2 style="color:#FFC300; font-size:40px"><a href="https://youtu.be/0scRynTC2dI">Lord of Mysteries</a></h2>
+				<a href="https://youtu.be/0scRynTC2dI"><img src="images/LOTM.jpeg" width="200px" style="border:5px solid Gold"></a>
+<p>.</p><p>.</p>
+
+		</div>
+<hr style="width:80%;height:5px; background-color:grey">
+<a href="LOTMhome.html"><button class="button button1">Home</button></a>
+<hr style="width:80%;height:5px; background-color:grey">
+			
+</body>
+</html>
+

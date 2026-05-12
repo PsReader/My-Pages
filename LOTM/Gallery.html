@@ -1,0 +1,214 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+    		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>LOTM-MC-Gallery</title>
+		<style>
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+				}
+				to {
+					opacity: 1;
+				}
+			}
+			
+			@keyframes slideInDown {
+				from {
+					transform: translateY(-50px);
+					opacity: 0;
+				}
+				to {
+					transform: translateY(0);
+					opacity: 1;
+				}
+			}
+			
+			@keyframes slideInUp {
+				from {
+					transform: translateY(30px);
+					opacity: 0;
+				}
+				to {
+					transform: translateY(0);
+					opacity: 1;
+				}
+			}
+			
+			@keyframes glow {
+				0%, 100% {
+					text-shadow: 0 0 5px #FFC300;
+				}
+				50% {
+					text-shadow: 0 0 15px #FFC300, 0 0 25px #FFD700;
+				}
+			}
+			
+			h1 {
+ 			 background-color: darkred;
+ 			 animation: slideInDown 1s ease-out, glow 3s ease-in-out infinite;
+ 			 border-radius: 10px;
+			}
+			h2 {
+			  background-color: black;
+			  animation: slideInUp 0.8s ease-out;
+			  border-radius: 5px;
+			  transition: all 0.3s ease;
+			}
+			h2:hover {
+			  text-shadow: 0 0 10px #FFC300;
+			  transform: scale(1.05);
+			}
+			h3 {
+			  background-color: white;
+			  animation: fadeIn 0.8s ease-out;
+			  transition: all 0.3s ease;
+			}
+			h3:hover {
+			  transform: translateX(10px);
+			}
+			div {
+			  background-color: gray;
+			  animation: fadeIn 1.5s ease-out;
+			}
+			div {
+  			opacity: 0.9;
+			}
+			.button1 {
+  			background-color: gray; 
+  			color: black; 
+  			border: 2px solid #6f6f6f ;
+  			transition: all 0.3s ease;
+  			animation: fadeIn 1s ease-out;
+			}
+
+			.button1:hover {
+  			background-color: #6f6f6f ;
+  			color: gold;
+  			transform: translateY(-3px);
+  			box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+			}
+			a {
+ 			 color: gold;
+			  background-color: transparent;
+			  text-decoration: none;
+			  transition: all 0.3s ease;
+			}
+			a:hover {
+			  color: yellow;
+			  background-color: transparent;
+			  text-decoration: underline;
+			}
+			.topnav {
+			overflow: hidden;
+			background-color: gold;
+			border-radius: 5px;
+			animation: slideInDown 0.8s ease-out;
+			}
+			.topnav a {
+			float: left;
+			display: block;
+			color: gold;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+			animation: slideInUp 0.6s ease-out;
+			transition: all 0.3s ease;
+			}
+			.topnav a:hover {
+			background-color: #FFD700;
+			color: black;
+			transform: translateY(-3px);
+			}
+.zoom {
+  padding: 30px;
+  background-color: transparent;
+  transition: transform .2s;
+  width: 5px;
+  height: 5px;
+  margin: 0 auto;
+}
+
+.zoom:hover {
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale(1.5); 
+}
+table, th, td {
+  border:1px solid white;
+  border-collapse: collapse;
+}
+td:nth-child(even) {
+  background-color: #FFD700;
+}
+th:nth-child(odd),td:nth-child(odd) {
+  background-color: #A020F0;
+}
+th:nth-child(odd) {
+  background-color: #000000;
+}
+		</style>
+		<link rel="stylesheet" href="assets/dynamic-styles.css">
+		
+	</head>
+	<body align="center" background="images/crimson moon.jpeg" >
+<div class="topnav">
+	<a href="LOTMhome.html">Home</a>
+	<a href="Mc_Profile.html">MC</a>
+	<a href="Novel.html">Novel</a>
+	<a href="Author.html">Author</a>
+	<a href="Songs.html">Songs</a>
+</div>
+
+<div class="search-container">
+	<input type="text" id="searchInput" placeholder="Search this page...">
+</div>
+
+<button id="scrollToTop">↑</button>
+
+		<h1 style="color:#FFC300; font-size:60px"><b>Galllery</b></h1>
+			<hr style="width:80%;height:5px; background-color:grey">
+			<a href="Mc_Profile.html"><button class="button button1"><--Back</button></a>	
+			<hr style="width:80%;height:5px; background-color:grey">
+			<div>
+			<h2 style="color:#FFC300; font-size:40px">Official Art:</h2>
+				<h3 style="color:#FFC300; font-size:40px">1. Klein Moretti</h2>
+				<p style="font-size:20px; color:#000000">
+				<img src="images/Klein-N.jpg" width="190px" style="border:5px solid gold">
+				<img src="images/Klein-N2.jpg" width="190px" style="border:5px solid gold">
+				<img src="images/Klein-T.jpg" width="190px" style="border:5px solid gold">
+				
+				<h3 style="color:#FFC300; font-size:40px">2. Sherlock Moriarty</h2>
+				<p style="font-size:20px; color:#000000">
+				<img src="images/Sherlock-D.jpeg" width="190px" style="border:5px solid gold">
+
+				<h3 style="color:#FFC300; font-size:40px">3. Dwayne Dantes</h2>
+				<p style="font-size:20px; color:#000000">
+				<img src="images/Dwayne-M.jpeg" width="190px" style="border:5px solid gold">
+	
+				<h3 style="color:#FFC300; font-size:40px">4. The Fool</h2>
+				<p style="font-size:20px; color:#000000">
+				<img src="images/Fool-G.jpeg" width="190px" style="border:5px solid gold">
+
+				<h3 style="color:#FFC300; font-size:40px">5. Gehrman Sparrow</h2>
+				<p style="font-size:20px; color:#000000">
+				<img src="images/Gehrman-A.jpeg" width="190px" style="border:5px solid gold">
+
+				<h3 style="color:#FFC300; font-size:40px">6. Merlin Hermes</h2>
+				<p style="font-size:20px; color:#000000">
+				<img src="images/Merlin-W.jpeg" width="190px" style="border:5px solid gold">
+			
+				<h3 style="color:#FFC300; font-size:40px">7. Zhou Mingrou</h2>
+				<p style="font-size:20px; color:#000000">
+				<img src="images/Zhou-S.jpeg" width="190px" style="border:5px solid gold">
+</div>
+
+<hr style="width:80%;height:5px; background-color:grey">
+<a href="Mc_Profile.html"><button class="button button1"><--Back</button></a>
+<a href="LOTMhome.html"><button class="button button1">Home</button></a>
+<hr style="width:80%;height:5px; background-color:grey">
+			
+</body>
+</html>
+<script src="assets/script.js"></script>
+
