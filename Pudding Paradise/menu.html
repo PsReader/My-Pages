@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Pudding Paradise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- 1. CSS VARIABLES & RESET --- */
+        :root {
+            --bg-pink: #FADADD;
+            --main-purple: #8E6B96;
+            --light-purple: #C8AEC8;
+            --card-bg: #D8BFD8;
+            --text-color: #4A4A4A;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .mobile-container {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--bg-pink);
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: relative;
+            padding-bottom: 20px;
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        /* --- 1.5. ANIMATIONS --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes floatPulse {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-4px);
+            }
+        }
+
+        .logo-area,
+        .menu-icon,
+        .contact-icon {
+            animation: floatPulse 4s ease-in-out infinite alternate;
+        }
+
+        .section-box,
+        .menu-card,
+        .menu-item,
+        .review-card,
+        .contact-item,
+        .coupon-card {
+            animation: fadeInUp 0.55s ease-out both;
+        }
+
+        button,
+        .button,
+        .order-button,
+        .submit-btn,
+        .save-btn {
+            transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.2s ease;
+        }
+
+        button:hover,
+        .button:hover,
+        .order-button:hover,
+        .submit-btn:hover,
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(142,107,150,0.18);
+        }
+
+        /* --- 2. HEADER --- */
+        header {
+            background-color: var(--light-purple);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--main-purple);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--main-purple);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .logo-icon {
+            font-size: 1.5rem;
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+        }
+
+        .menu-icon, .contact-icon {
+            color: var(--main-purple);
+            cursor: pointer;
+        }
+
+        .menu-icon {
+            font-size: 2.5rem;
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+        }
+
+        /* --- 3. TITLE SECTION --- */
+        .page-title {
+            padding: 20px 15px;
+            text-align: center;
+        }
+
+        .page-title h1 {
+            color: var(--main-purple);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .page-title p {
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        /* --- 4. SECTIONS GENERAL STYLE --- */
+        .section-box {
+            background-color: #F4A6C1;
+            margin: 15px;
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid var(--main-purple);
+            text-align: center;
+        }
+
+        .section-title-badge {
+            display: inline-block;
+            background-color: var(--main-purple);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 15px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            position: relative;
+            top: -25px;
+        }
+
+        /* --- 5. MENU ITEMS --- */
+        .menu-items {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: -10px;
+        }
+
+        .menu-item {
+            background-color: var(--light-purple);
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid #777;
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 15px;
+        }
+
+        .menu-item-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .menu-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .menu-item-content {
+            flex: 1;
+            text-align: left;
+        }
+
+        .menu-item-name {
+            background-color: var(--main-purple);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        .menu-item-desc {
+            color: #555;
+            font-size: 0.85rem;
+            margin: 5px 0;
+            line-height: 1.4;
+        }
+
+        .menu-item-price {
+            color: var(--main-purple);
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 8px;
+        }
+
+        .counter-box {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+            background-color: rgba(255,255,255,0.5);
+            border-radius: 5px;
+            padding: 5px;
+            margin-top: 8px;
+            width: fit-content;
+        }
+
+        .btn-qty {
+            background: none;
+            border: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #333;
+            width: 25px;
+        }
+
+        .qty-display {
+            font-weight: bold;
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .order-btn {
+            background-color: var(--main-purple);
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            border-radius: 20px;
+            margin: 20px auto;
+            display: block;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: transform 0.1s;
+        }
+
+        .order-btn:active {
+            transform: scale(0.95);
+        }
+
+        .rating-row {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        .star-btn {
+            background: none;
+            border: none;
+            font-size: 2.8rem;
+            cursor: pointer;
+            color: #bbb;
+            transition: transform 0.15s, color 0.15s;
+        }
+
+        .star-btn.active {
+            color: gold;
+            transform: scale(1.2);
+        }
+
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0,0,0,0.4);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .popup-content {
+            background-color: var(--bg-pink);
+            border: 2px solid var(--main-purple);
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .popup-content h2 {
+            margin-bottom: 10px;
+            color: var(--main-purple);
+        }
+
+        .popup-content input,
+        .popup-content textarea {
+            width: 100%;
+            min-height: 42px;
+            border-radius: 12px;
+            border: 2px solid rgba(142, 107, 150, 0.4);
+            resize: vertical;
+            padding: 10px;
+            margin-top: 10px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+        }
+
+        .popup-content textarea {
+            min-height: 90px;
+        }
+
+        .input-label {
+            display: block;
+            text-align: left;
+            margin: 16px 0 6px;
+            color: var(--main-purple);
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .popup-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        /* --- 6. DROPDOWN MENU --- */
+        .dropdown-menu {
+            position: absolute;
+            top: 65px;
+            left: 0;
+            background-color: var(--light-purple);
+            width: 200px;
+            border: 2px solid var(--main-purple);
+            border-radius: 0 0 15px 15px;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px) scale(0.98);
+            transition: max-height 0.35s ease, opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease;
+        }
+
+        .dropdown-menu.active {
+            max-height: 260px;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .dropdown-item {
+            padding: 12px 20px;
+            color: var(--main-purple);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(142, 107, 150, 0.2);
+            font-weight: 600;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .back-btn {
+            background-color: var(--main-purple);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 0;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: background-color 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: #7a5b7f;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="mobile-container">
+    
+    <header>
+        <div class="menu-icon" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        <div class="logo-area">
+            <img src="images/Group1.png" class="logo-icon" alt="Pudding Icon">
+            <span>PUDDING PARADISE</span>
+        </div>
+        <a href="puddinghome.html" class="contact-icon" style="text-decoration: none; color: #8E6B96;"><i class="fas fa-arrow-left"></i></a>
+        
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a href="puddinghome.html"" class="dropdown-item">Beranda</a>
+            <a href="menu.html" class="dropdown-item">Menu</a>
+            <a href="review.html" class="dropdown-item">Review</a>
+            <a href="puddinghome.html#kontak" class="dropdown-item">Kontak</a>
+        </div>
+    </header>
+
+    <div class="page-title">
+        <h1>Menu Kami</h1>
+        <p>Pilih puding favorit Anda!</p>
+    </div>
+
+    <section class="section-box">
+        <div class="section-title-badge">Semua Menu</div>
+        
+        <div class="menu-items">
+            <!-- STRAWBERRY -->
+            <div class="menu-item">
+                <div class="menu-item-img">
+                    <img src="images/strawberry.png" alt="Strawberry">
+                </div>
+                <div class="menu-item-content">
+                    <div class="menu-item-name">Puding Strawberry</div>
+                    <div class="menu-item-desc">Puding lembut dengan topping strawberry segar yang manis dan asam seimbang</div>
+                    <div class="menu-item-price">Rp 5.000</div>
+                    <div class="counter-box">
+                        <button class="btn-qty" onclick="updateQty('strawberry', -1)">-</button>
+                        <span id="qty-strawberry" class="qty-display">0</span>
+                        <button class="btn-qty" onclick="updateQty('strawberry', 1)">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COKLAT -->
+            <div class="menu-item">
+                <div class="menu-item-img">
+                    <img src="images/coklat.png" alt="Coklat">
+                </div>
+                <div class="menu-item-content">
+                    <div class="menu-item-name">Puding Coklat</div>
+                    <div class="menu-item-desc">Puding coklat premium yang kaya rasa dan lumer di mulut</div>
+                    <div class="menu-item-price">Rp 5.000</div>
+                    <div class="counter-box">
+                        <button class="btn-qty" onclick="updateQty('coklat', -1)">-</button>
+                        <span id="qty-coklat" class="qty-display">0</span>
+                        <button class="btn-qty" onclick="updateQty('coklat', 1)">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MANGGA -->
+            <div class="menu-item">
+                <div class="menu-item-img">
+                    <img src="images/mangga.jpg" alt="Mangga">
+                </div>
+                <div class="menu-item-content">
+                    <div class="menu-item-name">Puding Mangga</div>
+                    <div class="menu-item-desc">Puding mangga segar dengan rasa buah mangga yang alami dan tidak terlalu manis</div>
+                    <div class="menu-item-price">Rp 5.000</div>
+                    <div class="counter-box">
+                        <button class="btn-qty" onclick="updateQty('mangga', -1)">-</button>
+                        <span id="qty-mangga" class="qty-display">0</span>
+                        <button class="btn-qty" onclick="updateQty('mangga', 1)">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OREO -->
+            <div class="menu-item">
+                <div class="menu-item-img">
+                    <img src="images/oreo.jpg" alt="Oreo">
+                </div>
+                <div class="menu-item-content">
+                    <div class="menu-item-name">Puding Oreo</div>
+                    <div class="menu-item-desc">Puding oreo dengan rasa kue oreo yang creamy dan crumble coklat oreo di atasnya</div>
+                    <div class="menu-item-price">Rp 5.000</div>
+                    <div class="counter-box">
+                        <button class="btn-qty" onclick="updateQty('oreo', -1)">-</button>
+                        <span id="qty-oreo" class="qty-display">0</span>
+                        <button class="btn-qty" onclick="updateQty('oreo', 1)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="order-btn" onclick="processOrder()">Pesan Sekarang</button>
+
+        <a href="puddinghome.html" class="back-btn" style="margin-left: 10px;">← Kembali</a>
+    </section>
+
+</div>
+
+<script>
+    let cart = {
+        strawberry: 0,
+        coklat: 0,
+        mangga: 0,
+        oreo: 0
+    };
+
+    function toggleMenu() {
+        const dropdown = document.getElementById('dropdownMenu');
+        dropdown.classList.toggle('active');
+    }
+
+    document.addEventListener('click', function(event) {
+        const dropdown = document.getElementById('dropdownMenu');
+        const menuIcon = document.querySelector('.menu-icon');
+        if (!dropdown.contains(event.target) && !menuIcon.contains(event.target)) {
+            dropdown.classList.remove('active');
+        }
+    });
+
+    function updateQty(flavor, change) {
+        let newVal = cart[flavor] + change;
+        if (newVal < 0) newVal = 0;
+        cart[flavor] = newVal;
+        document.getElementById(`qty-${flavor}`).innerText = newVal;
+    }
+
+    function processOrder() {
+        let message = "Halo Admin Pudding Paradise, saya {isi nama} dari {isi kelas} mau pesan:\n\n";
+        let totalItems = 0;
+
+        if (cart.strawberry > 0) {
+            message += `- Puding Strawberry: ${cart.strawberry} pcs\n`;
+            totalItems += cart.strawberry;
+        }
+
+        if (cart.coklat > 0) {
+            message += `- Puding Coklat: ${cart.coklat} pcs\n`;
+            totalItems += cart.coklat;
+        }
+
+        if (cart.mangga > 0) {
+            message += `- Puding Mangga: ${cart.mangga} pcs\n`;
+            totalItems += cart.mangga;
+        }
+
+        if (cart.oreo > 0) {
+            message += `- Puding Oreo: ${cart.oreo} pcs\n`;
+            totalItems += cart.oreo;
+        }
+
+        if (totalItems === 0) {
+            alert("Bro, pilih dulu jumlah pudingnya ya sebelum order! Minimal 1.");
+            return;
+        }
+
+        message += "\nTolong diantarkan ke {isi nama ruang} ya, terima kasih!";
+
+        const phoneNumber = "6288290295374";
+        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+    }
+
+</script>
+
+</body>
+</html>
