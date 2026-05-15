@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>My Portfolio | Outer Space</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -112,6 +112,13 @@
             max-width: 800px;
             padding: 20px;
             animation: fadeInDown 1s ease-out;
+        }
+
+        @media (max-width: 480px) {
+            .hero-content {
+                padding: 15px 10px;
+                max-width: 100%;
+            }
         }
 
         @keyframes fadeInDown {
@@ -425,6 +432,15 @@
             filter: brightness(1.4) drop-shadow(0 0 20px rgba(255, 0, 110, 0.5));
         }
 
+        @media (max-width: 480px) {
+            .btn:hover {
+                transform: translateY(-15px) scale(1.05);
+                box-shadow: 
+                    0 20px 50px rgba(255, 0, 110, 0.6),
+                    0 0 40px rgba(58, 134, 255, 0.5);
+            }
+        }
+
         .btn:hover::after {
             opacity: 0.95;
             transform: scale(1.08);
@@ -495,6 +511,25 @@
             gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
+        }
+
+        @media (max-width: 480px) {
+            .features {
+                padding: 40px 15px;
+            }
+
+            .features h2 {
+                margin-bottom: 30px;
+            }
+
+            .features > p {
+                font-size: 0.95rem;
+                padding: 0 5px;
+            }
+
+            .features-grid {
+                gap: 15px;
+            }
         }
 
         .feature-card {
@@ -571,6 +606,45 @@
             gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .projects {
+                padding: 40px 15px;
+            }
+
+            .projects h2 {
+                margin-bottom: 30px;
+                font-size: 1.5rem;
+            }
+
+            .projects-grid {
+                gap: 15px;
+            }
+
+            .project-card {
+                padding: 20px;
+            }
+
+            .project-card h3 {
+                font-size: 1.3rem;
+                margin-bottom: 10px;
+            }
+
+            .project-card p {
+                font-size: 0.9rem;
+                margin-bottom: 15px;
+            }
         }
 
         .project-card {
@@ -650,10 +724,18 @@
             text-align: center;
             padding: 30px 20px;
             border-top: 1px solid rgba(131, 58, 180, 0.3);
+            font-size: 0.95rem;
         }
 
         footer p {
             margin-bottom: 10px;
+        }
+
+        @media (max-width: 480px) {
+            footer {
+                padding: 20px 15px;
+                font-size: 0.85rem;
+            }
         }
 
         /* ===== RESPONSIVE ===== */
@@ -669,12 +751,19 @@
             .buttons-container {
                 flex-direction: column;
                 align-items: center;
+                gap: 20px;
             }
 
             .btn {
-                width: 100%;
-                max-width: 300px;
+                width: 90%;
+                max-width: 280px;
+                height: 240px;
                 justify-content: center;
+                font-size: 1.1rem;
+            }
+
+            .btn-text {
+                font-size: 1.1rem;
             }
 
             .features, .projects {
@@ -693,25 +782,51 @@
 
         @media (max-width: 480px) {
             .hero {
-                height: 80vh;
-                min-height: 600px;
+                height: auto;
+                min-height: 100vh;
+                padding: 40px 20px;
+            }
+
+            .hero-content {
+                padding: 20px 10px;
             }
 
             .hero h1 {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
+                margin-bottom: 5px;
             }
 
             .hero p {
                 font-size: 0.9rem;
+                margin-bottom: 8px;
             }
 
             .subtitle {
                 font-size: 0.85rem;
+                margin-bottom: 25px;
+            }
+
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                width: 100%;
             }
 
             .btn {
-                padding: 12px 30px;
-                font-size: 0.9rem;
+                width: 85%;
+                max-width: 250px;
+                height: 220px;
+                padding: 15px;
+                font-size: 1rem;
+            }
+
+            .btn-text {
+                font-size: 1rem;
+            }
+
+            .btn:hover {
+                transform: translateY(-15px) scale(1.05) rotateY(-5deg);
             }
 
             .features h2, .projects h2 {
@@ -722,8 +837,78 @@
                 padding: 20px;
             }
 
+            .features-grid {
+                gap: 20px;
+            }
+
+            .features p {
+                font-size: 0.95rem;
+            }
+
             .scroll-indicator {
                 bottom: 15px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero p {
+                font-size: 0.85rem;
+            }
+
+            .subtitle {
+                font-size: 0.8rem;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 220px;
+                height: 200px;
+                padding: 10px;
+            }
+
+            .btn-text {
+                font-size: 0.9rem;
+                letter-spacing: 1px;
+            }
+
+            .features h2, .projects h2 {
+                font-size: 1.3rem;
+            }
+
+            .nebula {
+                opacity: 0.08 !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nebula {
+                opacity: 0.1 !important;
+            }
+
+            .nebula.pink {
+                width: 200px;
+                height: 200px;
+                top: 5%;
+                left: -50px;
+            }
+
+            .nebula.purple {
+                width: 250px;
+                height: 250px;
+                bottom: -80px;
+                right: -50px;
+            }
+
+            .nebula.blue {
+                width: 200px;
+                height: 200px;
+                top: 40%;
+                right: -80px;
             }
         }
     </style>
@@ -746,7 +931,7 @@
                     <div class="btn-label">EXPLORE</div>
                     <span class="btn-text">LOTM</span>
                 </a>
-                <a href="Pudding Paradise/puddinghome.html" class="btn btn-pudding">
+                <a href="Pudding Paradise/puddinghome.html"" class="btn btn-pudding">
                     <div class="shine"></div>
                     <div class="btn-label">DISCOVER</div>
                     <span class="btn-text">Pudding Paradise</span>
