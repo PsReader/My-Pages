@@ -29,17 +29,49 @@
             background-color: #f0f0f0;
             display: flex;
             justify-content: center;
+            align-items: flex-start;
             min-height: 100vh;
+            padding: 0;
+            margin: 0;
         }
 
         .mobile-container {
             width: 100%;
-            max-width: 480px;
             background-color: var(--bg-pink);
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
             position: relative;
-            padding-bottom: 20px;
+            padding-bottom: clamp(20px, 5vh, 50px);
             animation: fadeInUp 0.6s ease-out both;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 0;
+            }
+
+            .mobile-container {
+                padding-bottom: clamp(30px, 5vh, 50px);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            body {
+                padding: 0;
+            }
+
+            .mobile-container {
+                padding-bottom: clamp(40px, 5vh, 60px);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            body {
+                padding: 0;
+            }
+
+            .mobile-container {
+                padding-bottom: clamp(40px, 5vh, 60px);
+            }
         }
 
         /* --- 1.5. ANIMATIONS --- */
@@ -98,26 +130,28 @@
         /* --- 2. HEADER --- */
         header {
             background-color: var(--light-purple);
-            padding: 15px;
+            padding: clamp(12px, 3vw, 35px) clamp(15px, 5vw, 70px);
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 3px solid var(--main-purple);
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: clamp(8px, 2vw, 20px);
             color: var(--main-purple);
             font-weight: 700;
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 3.5vw, 2.8rem);
         }
 
         .logo-icon {
-            font-size: 1.5rem;
-            width: 70px;
-            height: 70px;
+            font-size: clamp(1.2rem, 3.5vw, 2.8rem);
+            width: clamp(50px, 8vw, 110px);
+            height: clamp(50px, 8vw, 110px);
             object-fit: contain;
         }
 
@@ -127,36 +161,36 @@
         }
 
         .menu-icon {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 3.8rem);
         }
 
         .contact-icon {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 3.8rem);
         }
 
         /* --- 3. TITLE SECTION --- */
         .page-title {
-            padding: 20px 15px;
+            padding: clamp(15px, 4vw, 50px) clamp(15px, 5vw, 70px);
             text-align: center;
         }
 
         .page-title h1 {
             color: var(--main-purple);
-            font-size: 2rem;
-            margin-bottom: 10px;
+            font-size: clamp(1.5rem, 4vw, 4rem);
+            margin-bottom: clamp(8px, 1.5vw, 15px);
         }
 
         .page-title p {
             color: #555;
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 2vw, 1.6rem);
         }
 
         /* --- 4. SECTIONS GENERAL STYLE --- */
         .section-box {
             background-color: #F4A6C1;
-            margin: 15px;
-            padding: 15px;
-            border-radius: 15px;
+            margin: clamp(15px, 4vw, 50px) clamp(15px, 5vw, 70px);
+            padding: clamp(15px, 4vw, 45px);
+            border-radius: clamp(10px, 2vw, 25px);
             border: 2px solid var(--main-purple);
             text-align: center;
         }
@@ -165,35 +199,37 @@
             display: inline-block;
             background-color: var(--main-purple);
             color: white;
-            padding: 5px 20px;
+            padding: clamp(5px, 1.5vw, 15px) clamp(15px, 3vw, 45px);
             border-radius: 15px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: clamp(8px, 2vw, 15px);
             position: relative;
-            top: -25px;
+            top: clamp(-20px, -3vw, -30px);
+            font-size: clamp(0.9rem, 2.5vw, 1.7rem);
         }
 
         /* --- 5. MENU ITEMS --- */
         .menu-items {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-top: -10px;
+            gap: clamp(12px, 2.5vw, 30px);
+            margin-top: 0;
         }
 
         .menu-item {
             background-color: var(--light-purple);
-            padding: 15px;
-            border-radius: 15px;
+            padding: clamp(12px, 3vw, 22px);
+            border-radius: clamp(12px, 2vw, 20px);
             border: 2px solid #777;
             box-shadow: 3px 3px 0px rgba(0,0,0,0.1);
             display: flex;
-            gap: 15px;
+            gap: clamp(10px, 2vw, 20px);
+            flex-direction: column;
         }
 
         .menu-item-img {
-            width: 100px;
-            height: 100px;
+            width: 100%;
+            aspect-ratio: 16 / 9;
             border-radius: 10px;
             overflow: hidden;
             flex-shrink: 0;
@@ -213,74 +249,67 @@
         .menu-item-name {
             background-color: var(--main-purple);
             color: white;
-            padding: 5px 10px;
+            padding: clamp(4px, 1vw, 8px) clamp(8px, 1.5vw, 14px);
             border-radius: 10px;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: clamp(4px, 1vw, 8px);
             display: inline-block;
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 1.8vw, 1.3rem);
         }
 
         .menu-item-desc {
             color: #555;
-            font-size: 0.85rem;
-            margin: 5px 0;
+            font-size: clamp(0.75rem, 1.6vw, 1.3rem);
+            margin: clamp(4px, 1vw, 8px) 0;
             line-height: 1.4;
         }
 
         .menu-item-price {
             color: var(--main-purple);
             font-weight: bold;
-            font-size: 1rem;
-            margin-top: 8px;
+            font-size: clamp(0.9rem, 2.2vw, 1.6rem);
+            margin-top: clamp(6px, 1.5vw, 12px);
         }
 
         .counter-box {
             display: flex;
-            justify-content: flex-start;
+            justify-content: center;
             align-items: center;
-            gap: 10px;
+            gap: clamp(8px, 1.5vw, 20px);
             background-color: rgba(255,255,255,0.5);
             border-radius: 5px;
-            padding: 5px;
-            margin-top: 8px;
-            width: fit-content;
+            padding: clamp(2px, 0.5vw, 8px);
         }
 
         .btn-qty {
             background: none;
             border: none;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 2vw, 1.6rem);
             cursor: pointer;
             color: #333;
-            width: 25px;
+            width: clamp(20px, 4vw, 35px);
         }
 
         .qty-display {
             font-weight: bold;
-            font-size: 1rem;
-            width: 20px;
-            text-align: center;
+            font-size: clamp(0.9rem, 1.8vw, 1.3rem);
+            width: clamp(18px, 3vw, 28px);
         }
 
         .order-btn {
             background-color: var(--main-purple);
             color: white;
             border: none;
-            padding: 15px 50px;
+            padding: clamp(12px, 2vw, 18px) clamp(30px, 6vw, 60px);
             border-radius: 20px;
-            margin: 20px auto;
+            margin: clamp(15px, 3vw, 25px) auto;
             display: block;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: clamp(0.95rem, 2vw, 1.3rem);
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0,0,0,0.2);
             transition: transform 0.1s;
-        }
-
-        .order-btn:active {
-            transform: scale(0.95);
         }
 
         .rating-row {
@@ -410,28 +439,52 @@
             border-bottom: none;
         }
 
-        .back-btn {
-            background-color: var(--main-purple);
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 8px;
+        .back-button {
+            position: fixed;
+            top: clamp(15px, 3vw, 35px);
+            right: clamp(15px, 3vw, 35px);
+            z-index: 100;
+            width: clamp(42px, 8vw, 70px);
+            height: clamp(42px, 8vw, 70px);
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--main-purple), var(--light-purple));
+            border: 2px solid var(--main-purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(142, 107, 150, 0.3);
+            animation: floatPulse 4s ease-in-out infinite alternate;
             text-decoration: none;
-            display: inline-block;
-            margin: 10px 0;
-            font-weight: 600;
-            font-size: 0.8rem;
-            transition: background-color 0.2s;
         }
 
-        .back-btn:hover {
-            background-color: #7a5b7f;
+        .back-button:hover {
+            background: linear-gradient(135deg, var(--light-purple), var(--main-purple));
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 8px 20px rgba(142, 107, 150, 0.5);
+        }
+
+        .back-button a {
+            color: white;
+            font-size: clamp(1.3rem, 3.5vw, 2.8rem);
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
         }
 
     </style>
 </head>
 <body>
+
+<!-- Back Button -->
+<div class="back-button">
+    <a href="../../index.html" title="Back to Portfolio">←</a>
+</div>
 
 <div class="mobile-container">
     
@@ -441,10 +494,10 @@
             <img src="images/Group1.png" class="logo-icon" alt="Pudding Icon">
             <span>PUDDING PARADISE</span>
         </div>
-        <a href="puddinghome.html" class="contact-icon" style="text-decoration: none; color: #8E6B96;"><i class="fas fa-arrow-left"></i></a>
+        <a href="puddinghome.html#kontak" class="contact-icon" style="text-decoration: none; color: #8E6B96;"><i class="fas fa-envelope"></i></a>
         
         <div class="dropdown-menu" id="dropdownMenu">
-            <a href="puddinghome.html"" class="dropdown-item">Beranda</a>
+            <a href="puddinghome.html" class="dropdown-item">Beranda</a>
             <a href="menu.html" class="dropdown-item">Menu</a>
             <a href="review.html" class="dropdown-item">Review</a>
             <a href="puddinghome.html#kontak" class="dropdown-item">Kontak</a>
