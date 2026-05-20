@@ -15,7 +15,7 @@
 			
 			@keyframes slideInDown {
 				from {
-					transform: translateY(-50px);
+					transform: translateY(-20px);
 					opacity: 0;
 				}
 				to {
@@ -26,7 +26,7 @@
 			
 			@keyframes slideInUp {
 				from {
-					transform: translateY(30px);
+					transform: translateY(15px);
 					opacity: 0;
 				}
 				to {
@@ -35,72 +35,99 @@
 				}
 			}
 			
-			@keyframes glow {
-				0%, 100% {
-					text-shadow: 0 0 5px #FFC300;
-				}
-				50% {
-					text-shadow: 0 0 15px #FFC300, 0 0 25px #FFD700;
-				}
+			body {
+				background: linear-gradient(135deg, rgba(20, 10, 25, 0.95), rgba(40, 20, 50, 0.95)),
+						url('images/crimson moon.jpeg');
+				background-attachment: fixed;
+				color: #d4af9f;
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 			}
 			
 			h1 {
- 			 background-color: darkred;
- 			 animation: slideInDown 1s ease-out, glow 3s ease-in-out infinite;
- 			 border-radius: 10px;
+				color: #e8c8b8;
+				font-size: 2.5rem;
+				font-weight: 700;
+				text-align: center;
+				margin: 30px 0 20px;
+				animation: slideInDown 0.6s ease-out;
+				letter-spacing: 1px;
+				text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 			}
+			
 			h2 {
-			  background-color: black;
-			  animation: slideInUp 0.8s ease-out;
-			  border-radius: 5px;
-			  transition: all 0.3s ease;
+				color: #d4af9f;
+				font-size: 1.8rem;
+				font-weight: 600;
+				margin: 25px 0 15px;
+				padding: 12px;
+				background-color: rgba(212, 175, 159, 0.1);
+				border-left: 3px solid rgba(212, 175, 159, 0.5);
+				border-radius: 4px;
+				animation: slideInUp 0.4s ease-out;
+				transition: all 0.3s ease;
 			}
+			
 			h2:hover {
-			  text-shadow: 0 0 10px #FFC300;
-			  transform: scale(1.05);
+				background-color: rgba(212, 175, 159, 0.15);
+				border-left-color: rgba(212, 175, 159, 0.8);
+				transform: translateX(5px);
 			}
+			
 			div {
-			  background-color: gray;
-			  animation: fadeIn 1.5s ease-out;
+				animation: fadeIn 0.5s ease-out;
 			}
-			div {
-  			opacity: 0.9;
+			
+			p, li {
+				color: #d4af9f;
+				font-size: 1rem;
+				line-height: 1.6;
+				margin: 10px 0;
 			}
+			
 			.button1 {
-  			background-color: gray; 
-  			color: black; 
-  			border: 2px solid #6f6f6f ;
-  			transition: all 0.3s ease;
-  			animation: fadeIn 1s ease-out;
+				background-color: rgba(212, 175, 159, 0.15);
+				color: #d4af9f;
+				border: 1px solid rgba(212, 175, 159, 0.4);
+				padding: 10px 20px;
+				border-radius: 6px;
+				transition: all 0.3s ease;
+				cursor: pointer;
+				font-weight: 500;
 			}
 
 			.button1:hover {
-  			background-color: #6f6f6f ;
-  			color: gold;
-  			transform: translateY(-3px);
-  			box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+				background-color: rgba(212, 175, 159, 0.25);
+				color: #e8c8b8;
+				border-color: rgba(212, 175, 159, 0.8);
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(212, 175, 159, 0.2);
 			}
+			
 			a {
- 			 color: gold;
-			  background-color: transparent;
-			  text-decoration: none;
-			  transition: all 0.3s ease;
+				color: #d4af9f;
+				background-color: transparent;
+				text-decoration: none;
+				transition: all 0.3s ease;
 			}
+			
 			a:hover {
-			  color: yellow;
-			  background-color: transparent;
-			  text-decoration: underline;
+				color: #e8c8b8;
+				text-decoration: underline;
 			}
+			
 			.topnav {
-			overflow: hidden;
-			background-color: gold;
-			border-radius: 5px;
-			animation: slideInDown 0.8s ease-out;
+				overflow: hidden;
+				background: rgba(212, 175, 159, 0.1);
+				border: 1px solid rgba(212, 175, 159, 0.3);
+				border-radius: 6px;
+				animation: slideInDown 0.6s ease-out;
+				margin: 20px 0;
 			}
+			
 			.topnav a {
 			float: left;
 			display: block;
-			color: gold;
+			color: #d4af9f;
 			text-align: center;
 			padding: 14px 16px;
 			text-decoration: none;
@@ -108,9 +135,10 @@
 			transition: all 0.3s ease;
 			}
 			.topnav a:hover {
-			background-color: #FFD700;
-			color: black;
-			transform: translateY(-3px);
+			background-color: rgba(212, 175, 159, 0.2);
+			border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+			color: #e8c8b8;
+			transform: translateY(-2px);
 			}
 .zoom {
   padding: 30px;
@@ -157,7 +185,7 @@ th:nth-child(odd) {
 			<hr style="width:80%;height:5px; background-color:grey">
 			<div>
 			<h2 style="color:#FFC300; font-size:40px">1. What Is The Fool Pathway?</h2><img src="images/Fool_Art.jpeg" width="170px" style="border:5px solid gold">
-				<p style="font-size:20px; color:#000000" align="left">
+				<p style="font-size:20px; color:#d4af9f" align="left">
 				<b>The Fool Pathway</b> is be about <b>fooling</b> perceptions and reality. 
 				They specialize in divination, illusions, changing appearances, strong muscle and facial expression control, and turn other into marionettes after taking control of their spirit body threads.
 				At High Sequences, they can turn their marionettes into another duplicate of themselves, bring things (including themselves) from the past to the present, create countless miracles, create a mysterious environment that's full of tampering and concealment, and are able to fool all sorts of things. 
@@ -167,85 +195,88 @@ th:nth-child(odd) {
 				It's also one of the four standard pathways compatible with the Boon of the Dancer Pathway.</p>
 
 			<h2 style="color:#FFC300; font-size:40px">2. Pathway Symbol</h2><img src="images/Fool_2.jpeg" width="170px" style="border:5px solid navy">
-				<p style="font-size:20px; color:#000000" align="left">
+				<p style="font-size:20px; color:#d4af9f" align="left">
 				The symbol is a Pupil-less Eye and the Contorted Lines; represented <i>secrecy</i> and <i>change</i>.
 				The official symbol for the Fool Pathway.The color is tyrian purple.
 				</p>
 			
 			<h2 style="color:#FFC300; font-size:40px">3. Corresponding Tarot Card</h2><img src="images/Tarot-fool.jpeg" width="170px" style="border:5px solid white">
-				<p style="font-size:20px; color:#000000" align="left">
+				<p style="font-size:20px; color:#d4af9f" align="left">
 				<i>The corresponding tarot card</i> of <b>the Fool Pathway</b> is <b>The Fool</b>.
 				<b>The Fool (0 or XXII)</b> is one of the <i>22 Major Arcana</i>, sometimes numbered as <b>0</b> or <b>XXII</b>. <b>The Fool is a card of a start, a fresh beginning with all kinds of possibilities</b>.
 				 In many esoteric systems of tarot card interpretation, the Fool is interpreted as the protagonist of a story, and the Major Arcana is the path the Fool takes through the great mysteries of life.
 				This path is known traditionally in cartomancy as the <b>"Fool's Journey"</b>, and is frequently used to introduce the meaning of Major Arcana cards to beginners
 
-			<h2 style="color:#FFC300; font-size:40px">4. Sequence</h2>	
-<table align="center" style="width:50%">
-  <tr>
-    <th colspan="2"><p style="font-size:20px; color:white"">Fool Pathway Index</th>
-  </tr>
-  <tr>
-    <td><b>Sequence</td>
-    <td><b>Name</td>
-  </tr>
-  <tr>
-    <th colspan="2"><p style="font-size:20px; color:white"">Low Sequence</td>
-  </tr>
-   <tr>
-    <td><b>Sequence 1</td>
-    <td><b>Seer</td>
-  </tr>
-  </tr>
-   <tr>
-    <td><b>Sequence 2</td>
-    <td><b>Clown</td>
-  </tr>
-  <tr>
-    <th colspan="2"><p style="font-size:20px; color:white"">Mid Sequence</td>
-  </tr>
-   <tr>
-    <td><b>Sequence 7</td>
-    <td><b>Magician</td>
-  </tr>
-   <tr>
-    <td><b>Sequence 6</td>
-    <td><b>Faceless</td>
-  </tr>
-   <tr>
-    <td><b>Sequence 5</td>
-    <td><b>Marionettist</td>
-  </tr>
-  <tr>
-    <th colspan="2"><p style="font-size:20px; color:white"">High Sequence - Saint</td>
-  </tr>
-  </tr>
-   <tr>
-    <td><b>Sequence 4</td>
-    <td><b>Bizarro Sorcerer</td>
-  </tr>
-   <tr>
-    <td><b>Sequence 3</td>
-    <td><b>Scholar of Yore</td>
-  </tr>
-  <tr>
-    <th colspan="2"><p style="font-size:20px; color:white"">High Sequence - Angel</td>
-  </tr>
-   <tr>
-    <td><b>Sequence 2</td>
-    <td><b>Miracle Invoker</td>
-  </tr>
-   <tr>
-    <td><b>Sequence 1</td>
-    <td><b>Attendant of Mysteries</td>
-  </tr>
-  <tr>
-    <th colspan="2"><p style="font-size:20px; color:white"">Godhood</td>
-  </tr>
-   <tr>
-    <td><b>Sequence 0</td>
-    <td><b>Fool</td>
-  </tr>
-</table>
+			<h2 style="color:#FFC300; font-size:40px">4. Sequence</h2>
+			<table align="center" style="width:60%; border-collapse:collapse; margin:20px auto;">
+				<tr style="background-color:#FFC300; height:40px;">
+					<td colspan="2" style="text-align:center; padding:15px; font-size:22px; color:#000; font-weight:bold; border:2px solid #d4af9f;">Fool Pathway Index</td>
+				</tr>
+				<tr style="background-color:rgba(212, 175, 159, 0.15); height:35px;">
+					<td style="padding:12px; text-align:center; color:#FFC300; font-weight:bold; border:1px solid rgba(212, 175, 159, 0.3); font-size:16px;">Sequence</td>
+					<td style="padding:12px; text-align:center; color:#FFC300; font-weight:bold; border:1px solid rgba(212, 175, 159, 0.3); font-size:16px;">Title</td>
+				</tr>
+				
+				<tr style="background-color:rgba(160, 32, 240, 0.2);">
+					<td colspan="2" style="text-align:center; padding:12px; color:#FFC300; font-weight:bold; border:1px solid rgba(212, 175, 159, 0.3); font-size:16px;">◆ Low Sequence ◆</td>
+				</tr>
+				<tr style="background-color:rgba(212, 175, 159, 0.08); height:32px;">
+					<td style="padding:10px; text-align:center; color:#d4af9f; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Sequence 1</b></td>
+					<td style="padding:10px; text-align:center; color:#e8c8b8; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Seer</b></td>
+				</tr>
+				<tr style="background-color:rgba(212, 175, 159, 0.05); height:32px;">
+					<td style="padding:10px; text-align:center; color:#d4af9f; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Sequence 2</b></td>
+					<td style="padding:10px; text-align:center; color:#e8c8b8; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Clown</b></td>
+				</tr>
+				
+				<tr style="background-color:rgba(160, 32, 240, 0.2);">
+					<td colspan="2" style="text-align:center; padding:12px; color:#FFC300; font-weight:bold; border:1px solid rgba(212, 175, 159, 0.3); font-size:16px;">◆ Mid Sequence ◆</td>
+				</tr>
+				<tr style="background-color:rgba(212, 175, 159, 0.08); height:32px;">
+					<td style="padding:10px; text-align:center; color:#d4af9f; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Sequence 7</b></td>
+					<td style="padding:10px; text-align:center; color:#e8c8b8; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Magician</b></td>
+				</tr>
+				<tr style="background-color:rgba(212, 175, 159, 0.05); height:32px;">
+					<td style="padding:10px; text-align:center; color:#d4af9f; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Sequence 6</b></td>
+					<td style="padding:10px; text-align:center; color:#e8c8b8; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Faceless</b></td>
+				</tr>
+				<tr style="background-color:rgba(212, 175, 159, 0.08); height:32px;">
+					<td style="padding:10px; text-align:center; color:#d4af9f; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Sequence 5</b></td>
+					<td style="padding:10px; text-align:center; color:#e8c8b8; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Marionettist</b></td>
+				</tr>
+				
+				<tr style="background-color:rgba(160, 32, 240, 0.2);">
+					<td colspan="2" style="text-align:center; padding:12px; color:#FFC300; font-weight:bold; border:1px solid rgba(212, 175, 159, 0.3); font-size:16px;">◆ High Sequence - Saint ◆</td>
+				</tr>
+				<tr style="background-color:rgba(212, 175, 159, 0.08); height:32px;">
+					<td style="padding:10px; text-align:center; color:#d4af9f; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Sequence 4</b></td>
+					<td style="padding:10px; text-align:center; color:#e8c8b8; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Bizarro Sorcerer</b></td>
+				</tr>
+				<tr style="background-color:rgba(212, 175, 159, 0.05); height:32px;">
+					<td style="padding:10px; text-align:center; color:#d4af9f; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Sequence 3</b></td>
+					<td style="padding:10px; text-align:center; color:#e8c8b8; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Scholar of Yore</b></td>
+				</tr>
+				
+				<tr style="background-color:rgba(160, 32, 240, 0.2);">
+					<td colspan="2" style="text-align:center; padding:12px; color:#FFC300; font-weight:bold; border:1px solid rgba(212, 175, 159, 0.3); font-size:16px;">◆ High Sequence - Angel ◆</td>
+				</tr>
+				<tr style="background-color:rgba(212, 175, 159, 0.08); height:32px;">
+					<td style="padding:10px; text-align:center; color:#d4af9f; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Sequence 2</b></td>
+					<td style="padding:10px; text-align:center; color:#e8c8b8; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Miracle Invoker</b></td>
+				</tr>
+				<tr style="background-color:rgba(212, 175, 159, 0.05); height:32px;">
+					<td style="padding:10px; text-align:center; color:#d4af9f; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Sequence 1</b></td>
+					<td style="padding:10px; text-align:center; color:#e8c8b8; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Attendant of Mysteries</b></td>
+				</tr>
+				
+				<tr style="background-color:rgba(160, 32, 240, 0.2);">
+					<td colspan="2" style="text-align:center; padding:12px; color:#FFC300; font-weight:bold; border:1px solid rgba(212, 175, 159, 0.3); font-size:16px;">◆ Godhood ◆</td>
+				</tr>
+				<tr style="background-color:rgba(212, 175, 159, 0.1); height:35px;">
+					<td style="padding:12px; text-align:center; color:#FFC300; font-weight:bold; border:1px solid rgba(212, 175, 159, 0.4); font-size:16px;"><b>Sequence 0</b></td>
+					<td style="padding:12px; text-align:center; color:#FFC300; font-weight:bold; border:1px solid rgba(212, 175, 159, 0.4); font-size:16px;"><b>Fool</b></td>
+				</tr>
+			</table>
 <p>.</p>
 <p>.</p>
 </div>

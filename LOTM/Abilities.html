@@ -15,7 +15,7 @@
 			
 			@keyframes slideInDown {
 				from {
-					transform: translateY(-50px);
+					transform: translateY(-20px);
 					opacity: 0;
 				}
 				to {
@@ -26,7 +26,7 @@
 			
 			@keyframes slideInUp {
 				from {
-					transform: translateY(30px);
+					transform: translateY(15px);
 					opacity: 0;
 				}
 				to {
@@ -35,122 +35,136 @@
 				}
 			}
 			
-			@keyframes glow {
-				0%, 100% {
-					text-shadow: 0 0 5px #FFC300;
-				}
-				50% {
-					text-shadow: 0 0 15px #FFC300, 0 0 25px #FFD700;
-				}
+			body {
+				background: linear-gradient(135deg, rgba(20, 10, 25, 0.95), rgba(40, 20, 50, 0.95)),
+						url('images/crimson moon.jpeg');
+				background-attachment: fixed;
+				color: #d4af9f;
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 			}
 			
 			h1 {
- 			 background-color: darkred;
- 			 animation: slideInDown 1s ease-out, glow 3s ease-in-out infinite;
- 			 border-radius: 10px;
+				color: #e8c8b8;
+				font-size: 2.5rem;
+				font-weight: 700;
+				text-align: center;
+				margin: 30px 0 20px;
+				animation: slideInDown 0.6s ease-out;
+				letter-spacing: 1px;
+				text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 			}
+			
 			h2 {
-			  background-color: black;
-			  animation: slideInUp 0.8s ease-out;
-			  border-radius: 5px;
-			  transition: all 0.3s ease;
+				color: #d4af9f;
+				font-size: 1.8rem;
+				font-weight: 600;
+				margin: 25px 0 15px;
+				padding: 12px;
+				background-color: rgba(212, 175, 159, 0.1);
+				border-left: 3px solid rgba(212, 175, 159, 0.5);
+				border-radius: 4px;
+				animation: slideInUp 0.4s ease-out;
+				transition: all 0.3s ease;
 			}
+			
 			h2:hover {
-			  text-shadow: 0 0 10px #FFC300;
-			  transform: scale(1.05);
+				background-color: rgba(212, 175, 159, 0.15);
+				border-left-color: rgba(212, 175, 159, 0.8);
+				transform: translateX(5px);
 			}
+			
 			div {
-			  background-color: gray;
-			  animation: fadeIn 1.5s ease-out;
-			}
-			div {
-  			opacity: 0.9;
-			}
-			.button1 {
-  			background-color: gray; 
-  			color: black; 
-  			border: 2px solid #6f6f6f;
-  			transition: all 0.3s ease;
-  			animation: fadeIn 1s ease-out;
-			}
-
-			.button1:hover {
-  			background-color: #6f6f6f;
-  			color: gold;
-  			transform: translateY(-3px);
-  			box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-			}
-			a {
- 			 color: gold;
-			  background-color: transparent;
-			  text-decoration: none;
-			  transition: all 0.3s ease;
-			}
-			a:hover {
-			  color: yellow;
-			  background-color: transparent;
-			  text-decoration: underline;
-			}
-			.topnav {
-			overflow: hidden;
-			background-color: gold;
-			border-radius: 5px;
-			animation: slideInDown 0.8s ease-out;
-			}
-			.topnav a {
-			float: left;
-			display: block;
-			color: gold;
-			text-align: center;
-			padding: 16px 16px;
-			text-decoration: none;
-			animation: slideInUp 0.6s ease-out;
-			transition: all 0.3s ease;
-			}
-			.topnav a:hover {
-			background-color: #FFD700;
-			color: black;
-			transform: translateY(-3px);
-			}
-			.zoom {
-			  padding: 30px;
-			  background-color: transparent;
-			  transition: transform .2s;
-			  width: 5px;
-			  height: 5px;
-			  margin: 0 auto;
-			  animation: fadeIn 1s ease-out;
-			}
-
-			.zoom:hover {
-			  -ms-transform: scale(1.5);
-			  -webkit-transform: scale(1.5);
-			  transform: scale(1.5);
+				animation: fadeIn 0.5s ease-out;
 			}
 			
 			p, li {
-			  animation: fadeIn 1s ease-out;
+				color: #d4af9f;
+				font-size: 1rem;
+				line-height: 1.6;
+				margin: 10px 0;
 			}
 			
-			img {
-			  animation: fadeIn 1.5s ease-out;
-			  transition: transform 0.3s ease;
+			.button1 {
+				background-color: rgba(212, 175, 159, 0.15);
+				color: #d4af9f;
+				border: 1px solid rgba(212, 175, 159, 0.4);
+				padding: 10px 20px;
+				border-radius: 6px;
+				transition: all 0.3s ease;
+				cursor: pointer;
+				font-weight: 500;
+			}
+
+			.button1:hover {
+				background-color: rgba(212, 175, 159, 0.25);
+				color: #e8c8b8;
+				border-color: rgba(212, 175, 159, 0.8);
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(212, 175, 159, 0.2);
 			}
 			
-			img:hover {
-			  transform: scale(1.1);
+			a {
+				color: #d4af9f;
+				background-color: transparent;
+				text-decoration: none;
+				transition: all 0.3s ease;
+			}
+			
+			a:hover {
+				color: #e8c8b8;
+				text-decoration: underline;
+			}
+			
+			.topnav {
+				overflow: hidden;
+				background: rgba(212, 175, 159, 0.1);
+				border: 1px solid rgba(212, 175, 159, 0.3);
+				border-radius: 6px;
+				animation: slideInDown 0.6s ease-out;
+				margin: 20px 0;
+			}
+			
+			.topnav a {
+				float: left;
+				display: block;
+				color: #d4af9f;
+				text-align: center;
+				padding: 14px 20px;
+				text-decoration: none;
+				transition: all 0.3s ease;
+				font-weight: 500;
+				font-size: 0.95rem;
+			}
+			
+			.topnav a:hover {
+				background-color: rgba(212, 175, 159, 0.2);
+				border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+				color: #e8c8b8;
+			}
+			
+			.topnav a.active-page {
+				background-color: rgba(212, 175, 159, 0.2);
+				border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+				color: #e8c8b8;
+			}
+			
+			@media (max-width: 768px) {
+				h1 { font-size: 2rem; }
+				h2 { font-size: 1.4rem; }
+				.topnav { margin: 15px 0; }
+				p, li { font-size: 0.95rem; }
 			}
 		</style>
 	</head>
-<body align="center" background="images/crimson moon.jpeg" >
-<div class= "topnav">
+<body align="center" background="images/crimson moon.jpeg">
+<div class="topnav">
 	<a href="LOTMhome.html">Home</a>
 	<a href="Mc_Profile.html">MC</a>
 	<a href="Novel.html">Novel</a>
 	<a href="Author.html">Author</a>
 	<a href="Songs.html">Songs</a>
 </div>
-		<h1 style="color:#FFC300; font-size:60px"><b>Klein Moretti</b></h1>
+<h1 style="color:#FFC300; font-size:60px"><b>Abilities</b></h1>
 			<hr style="width:80%;height:5px; background-color:grey">
 	<a href="Pathways.html"><button class="button button1"><--Back</button></a>
 			<hr style="width:80%;height:5px; background-color:grey">

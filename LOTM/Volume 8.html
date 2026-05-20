@@ -15,7 +15,7 @@
 			
 			@keyframes slideInDown {
 				from {
-					transform: translateY(-50px);
+					transform: translateY(-20px);
 					opacity: 0;
 				}
 				to {
@@ -26,7 +26,7 @@
 			
 			@keyframes slideInUp {
 				from {
-					transform: translateY(30px);
+					transform: translateY(15px);
 					opacity: 0;
 				}
 				to {
@@ -35,122 +35,195 @@
 				}
 			}
 			
-			@keyframes glow {
-				0%, 100% {
-					text-shadow: 0 0 5px #FFC300;
-				}
-				50% {
-					text-shadow: 0 0 15px #FFC300, 0 0 25px #FFD700;
-				}
+			body {
+				background: linear-gradient(135deg, rgba(20, 10, 25, 0.95), rgba(40, 20, 50, 0.95)),
+						url('images/crimson moon.jpeg');
+				background-attachment: fixed;
+				color: #d4af9f;
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 			}
 			
 			h1 {
- 			 background-color: darkred;
- 			 animation: slideInDown 1s ease-out, glow 3s ease-in-out infinite;
- 			 border-radius: 10px;
+				color: #e8c8b8;
+				font-size: 2.5rem;
+				font-weight: 700;
+				text-align: center;
+				margin: 30px 0 20px;
+				animation: slideInDown 0.6s ease-out;
+				letter-spacing: 1px;
+				text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 			}
+			
 			h2 {
-			  background-color: black;
-			  animation: slideInUp 0.8s ease-out;
-			  border-radius: 5px;
-			  transition: all 0.3s ease;
+				color: #d4af9f;
+				font-size: 2rem;
+				font-weight: 600;
+				margin: 30px 0 15px;
+				padding: 15px;
+				background-color: rgba(212, 175, 159, 0.1);
+				border-left: 3px solid rgba(212, 175, 159, 0.5);
+				border-radius: 4px;
+				animation: slideInUp 0.4s ease-out;
+				transition: all 0.3s ease;
 			}
+			
 			h2:hover {
-			  text-shadow: 0 0 10px #FFC300;
-			  transform: scale(1.05);
+				background-color: rgba(212, 175, 159, 0.15);
+				border-left-color: rgba(212, 175, 159, 0.8);
+				transform: translateX(5px);
 			}
-			h3 {
-			  background-color: black;
-			  animation: fadeIn 0.8s ease-out;
-			  transition: all 0.3s ease;
+			
+			p {
+				color: #d4af9f;
+				font-size: 1.1rem;
+				line-height: 1.7;
+				margin: 15px 0;
+				opacity: 0.95;
 			}
-			h3:hover {
-			  transform: translateX(10px);
+			
+			hr {
+				border: none;
+				height: 2px;
+				background: linear-gradient(90deg, transparent, rgba(212, 175, 159, 0.5), transparent);
+				margin: 20px auto;
 			}
+
 			div {
-			  background-color: gray;
-			  animation: fadeIn 1.5s ease-out;
+				animation: fadeIn 0.5s ease-out;
 			}
-			div {
-  			opacity: 0.9;
+			
+			/* ===== BACK BUTTON ===== */
+			.back-button {
+				position: fixed;
+				top: 20px;
+				right: 20px;
+				z-index: 100;
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				background-color: rgba(212, 175, 159, 0.15);
+				border: 2px solid rgba(212, 175, 159, 0.5);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+				text-decoration: none;
+				animation: slideInDown 0.6s ease-out;
 			}
+
+			.back-button:hover {
+				background-color: rgba(212, 175, 159, 0.25);
+				border-color: rgba(212, 175, 159, 0.8);
+				transform: scale(1.1);
+				box-shadow: 0 6px 16px rgba(212, 175, 159, 0.3);
+			}
+
+			.back-button a {
+				color: #d4af9f;
+				font-size: 1.8rem;
+				font-weight: bold;
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 100%;
+				height: 100%;
+				transition: color 0.3s ease;
+			}
+			
+			.back-button:hover a {
+				color: #e8c8b8;
+			}
+
+			.topnav {
+				overflow: hidden;
+				background: rgba(212, 175, 159, 0.1);
+				border: 1px solid rgba(212, 175, 159, 0.3);
+				border-radius: 6px;
+				animation: slideInDown 0.6s ease-out;
+				margin: 20px 0;
+			}
+
+			.topnav a {
+				float: left;
+				display: block;
+				color: #d4af9f;
+				text-align: center;
+				padding: 14px 20px;
+				text-decoration: none;
+				transition: all 0.3s ease;
+				font-weight: 500;
+				font-size: 0.95rem;
+			}
+
+			.topnav a:hover {
+				background-color: rgba(212, 175, 159, 0.2);
+				border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+				color: #e8c8b8;
+			}
+			
+			.topnav a.active-page {
+				background-color: rgba(212, 175, 159, 0.2);
+				border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+				color: #e8c8b8;
+			}
+			
+			.button {
+				cursor: pointer;
+				font-weight: 500;
+			}
+			
 			.button1 {
-  			background-color: gray; 
-  			color: black; 
-  			border: 2px solid #6f6f6f ;
-  			transition: all 0.3s ease;
-  			animation: fadeIn 1s ease-out;
+				background-color: rgba(212, 175, 159, 0.15);
+				color: #d4af9f;
+				border: 1px solid rgba(212, 175, 159, 0.4);
+				padding: 10px 20px;
+				border-radius: 6px;
+				transition: all 0.3s ease;
+				cursor: pointer;
+				font-weight: 500;
 			}
 
 			.button1:hover {
-  			background-color: #6f6f6f ;
-  			color: gold;
-  			transform: translateY(-3px);
-  			box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+				background-color: rgba(212, 175, 159, 0.25);
+				color: #e8c8b8;
+				border-color: rgba(212, 175, 159, 0.8);
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(212, 175, 159, 0.2);
 			}
-			a {
- 			 color: gold;
-			  background-color: transparent;
-			  text-decoration: none;
-			  transition: all 0.3s ease;
-			}
-			a:hover {
-			  color: yellow;
-			  background-color: transparent;
-			  text-decoration: underline;
-			}
-			.topnav {
-			overflow: hidden;
-			background-color: gold;
-			border-radius: 5px;
-			animation: slideInDown 0.8s ease-out;
-			}
-			.topnav a {
-			float: left;
-			display: block;
-			color: gold;
-			text-align: center;
-			padding: 14px 16px;
-			text-decoration: none;
-			animation: slideInUp 0.6s ease-out;
-			transition: all 0.3s ease;
-			}
-			.topnav a:hover {
-			background-color: #FFD700;
-			color: black;
-			transform: translateY(-3px);
-			}
-.zoom {
-  padding: 30px;
-  background-color: transparent;
-  transition: transform .2s;
-  width: 5px;
-  height: 5px;
-  margin: 0 auto;
-}
 
-.zoom:hover {
-  -ms-transform: scale(1.5); /* IE 9 */
-  -webkit-transform: scale(1.5); /* Safari 3-8 */
-  transform: scale(1.5); 
-}
-table, th, td {
-  border:1px solid white;
-  border-collapse: collapse;
-}
-td:nth-child(even) {
-  background-color: #FFD700;
-}
-th:nth-child(odd),td:nth-child(odd) {
-  background-color: #A020F0;
-}
-th:nth-child(odd) {
-  background-color: #000000;
-}
+			@media (max-width: 480px) {
+				.back-button {
+					width: 45px;
+					height: 45px;
+					top: 15px;
+					right: 15px;
+				}
+
+				.back-button a {
+					font-size: 1.5rem;
+				}
+				
+				h1 {
+					font-size: 2rem;
+				}
+				
+				h2 {
+					font-size: 1.3rem;
+				}
+				
+				p {
+					font-size: 1rem;
+				}
+			}
 		</style>
+		<link rel="stylesheet" href="assets/dynamic-styles.css">
 		
 	</head>
-	<body align="center" background="images/crimson moon.jpeg" >
+	<body align="center" background="images/crimson moon.jpeg">
+
 <div class="topnav">
 	<a href="LOTMhome.html">Home</a>
 	<a href="Mc_Profile.html">MC</a>
@@ -159,45 +232,38 @@ th:nth-child(odd) {
 	<a href="Songs.html">Songs</a>
 </div>
 
-		<h1 style="color:#FFC300; font-size:60px"><b>Volume 8:Fool</b></h1>
-			<hr style="width:80%;height:5px; background-color:grey">
-			<a href="Volume 7.html"><button class="button button1"><--Back</button></a>	
-			<a href="Novel.html"><button class="button button1">Novel</button></a>
-			<hr style="width:80%;height:5px; background-color:grey">
-			<div>
-			<h3 style="color:gold; font-size:30px"><b>“There are always some things that are more important than others.„</b></h3><h6 style="color:#62009f; font-size:15px">— <a href="Author.html">Cuttlefish That Loves Diving</a> on Volume 8: The Fool</h6>
+<button id="scrollToTop">↑</button>
 
-			<p style="font-size:40px; color:#000000">
-				<b><i>The Fool</i></b> is the eighth and final volume of the Lord of Mysteries series written by Cuttlefish That Loves Diving.
-			
-			<h2 style="color:#FFC300; font-size:40px">Title Meaning</h2>
-				<p style="font-size:20px; color:#000000">
-				In many esoteric systems of tarot card interpretation, the Fool is interpreted as the protagonist of a story, and the Major Arcana is the path the Fool takes through the great mysteries of life. This path is known traditionally in cartomancy as the "Fool's Journey".
-				As a title of final volume, it was a conclusion of Klein Moretti's journey and legend to becomes the Sequence 0: The Fool.
+<h1 style="color:#FFC300; font-size:60px"><b>Volume 8: Fool</b></h1>
+<hr>
+<a href="Novel.html"><button class="button button1">Back</button></a>
+<div style="max-width: 1000px; margin: 0 auto; padding: 0 20px;">
+	<h2>Quote</h2>
+	<p align="left"><i>The Fool walks the path of the extraordinary.</i> — Cuttlefish That Loves Diving</p>
+	
+	<h2>Overview</h2>
+	<p align="left"><b>Fool</b> is the eighth and final volume of the Lord of Mysteries series.</p>
 
-			<h2 style="color:#FFC300; font-size:40px">Synopsis</h2>
-				<p style="font-size:20px; color:#000000">
-				Having defeated Zaratul and ingested his Attendant of Mysteries. Klein managed to stabilize himself from The Celestial Worthy of Heaven and Earth's influence after he advanced with the help of the remnant will of Zaratul inside his Beyonder Characteristics.
-<p style="font-size:20px; color:#000000">He met the Evernight Goddess in a dream, and learnt some truths about the past and how to accommodate the Uniqueness. In order to consolidate his mental state, Klein wandered around in various places where he could resonate with his humanity. Klein visited Audrey Hall to take care of his mental health and he destroyed the Garden of Eden as an act of revenge after Adam made a move against him.
-<p style="font-size:20px; color:#000000">Afterwards, Klein entered the Calderón City to obtain the water from the River of Eternal Darkness and handed it over to the Evernight Goddess. He learned the truth of the fall of The Celestial Worthy of Heaven and Earth. Under the guidance of his spiritual intuition, he gave 5 gold coins which were corrupted by the Sefirah Castle's aura to Azik Eggers's Messenger, Reinette Tinekerr, Maric, Will Auceptin, and Pallez Zoroast to make arrangements for the possible future.
-<p style="font-size:20px; color:#000000"After making a lot of preparations, he went to the peak of the Hornacis Mountain Range. Klein began to accommodate the Uniqueness of the Fool Pathway.
-<p style="font-size:20px; color:#000000">Meanwhile Adam accessed the Chaos Sea to further enhance his Visionary ability, which allowed him to imagine the authorities of the Sun, Tyrant and White Tower. With that, Adam temporarily promoted himself to a half God Almighty. Adam suppressed the Lord of Storms, the Eternal Blazing Sun, and the God of Knowledge and Wisdom by locking them in their Divine Kingdoms. The Evernight Goddess, the Earth Mother, and the God of Steam and Machinery stopped Amon, the Primordial Demoness, and the Hidden Sage.
-<p style="font-size:20px; color:#000000">Amon lost the Uniqueness of both the Error and Door pathways, as well as the corresponding Beyonder characteristics. He was then reborn in the clone kept by Adam. Following a brief conversation with Adam, Amon headed to the cosmos to avoid Klein and seek to better understand the meaning of humanity.
-<p style="font-size:20px; color:#000000">The forced convergence further increased the awakening of The Celestial Worthy's will, pushing Klein even closer towards losing control. Nevertheless, he managed to make his way to the Evernight Goddess' divine kingdom. There, the Evernight Goddess gave Klein a drop of water from the River of Eternal Darkness, temporarily suppressing the will of The Celestial Worthy.
-<p style="font-size:20px; color:#000000">Klein went to the Forsaken Land of the Gods to retrieved the lost Magic Mirror Arrodes, returned the Magic Wishing Lamp to Bernadette Gustav and gifted her an iron cigarette case which corrupted by Sefirah Castle's aura. Finally he met Will Auceptin to help him accommodating the Uniqueness. However, Will refused and said the next opportunity would be better.
-<p style="font-size:20px; color:#000000">Before Klein entered a state of slumber, he held a last-minute meeting and entrusted a long-term commission to all members of the Tarot Club. The main commissions are to spread the name of The Fool widely, spread the news of The World being the Blessed of The Fool, and record it in the Church's Holy Bible.
-<p style="font-size:20px; color:#000000">After the meeting, Klein released all humans in cocoons inside Sefirah Castle to the real world. Then he went into deep sleep together with Arrodes.
-<p style="font-size:20px; color:#000000">Ten years later, Melissa prayed to Mr. Fool with her niece. Klein's niece had a high-five with Mr. Fool's illusory tentacle.
-<p>.</p>
-<p>.</p>
-				</div>
+	<h2>Title Meaning</h2>
+	<p align="left">The Fool represents Klein's journey from an ordinary person to an extraordinary being, coming full circle with the card that started it all.</p>
+
+	<h2>Synopsis</h2>
+	
+	<h3>The Ultimate Confrontation</h3>
+	<p align="left">In this concluding volume, Klein faces his ultimate confrontation with the forces that have shaped his destiny. All the mysteries and questions that have haunted him throughout his journey finally reach their resolution.</p>
+	
+	<h3>Full Circle</h3>
+	<p align="left">The Fool's journey comes full circle as Klein returns to the beginning, but transformed by all he has experienced. The story of the Fool completes its narrative arc in a climactic and unforgettable finale.</p>
+	
+	<h3>The End of Mysteries</h3>
+	<p align="left">The mysteries of the world reveal their deepest truths, and the Lord of Mysteries' dominion reaches its ultimate expression. The conclusion of the Fool's story marks the end of an era and the beginning of a new world.</p>
+</div>
 
 <hr style="width:80%;height:5px; background-color:grey">
-<a href="Volume 7.html"><button class="button button1"><--Back</button></a>
-<a href="Novel.html"><button class="button button1">Novel</button></a>
+<a href="Novel.html"><button class="button button1">Back</button></a>
 <a href="LOTMhome.html"><button class="button button1">Home</button></a>
 <hr style="width:80%;height:5px; background-color:grey">
-			
+
 </body>
 </html>
-
+<script src="assets/script.js"></script>

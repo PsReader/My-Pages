@@ -15,7 +15,7 @@
 			
 			@keyframes slideInDown {
 				from {
-					transform: translateY(-50px);
+					transform: translateY(-20px);
 					opacity: 0;
 				}
 				to {
@@ -26,7 +26,7 @@
 			
 			@keyframes slideInUp {
 				from {
-					transform: translateY(30px);
+					transform: translateY(15px);
 					opacity: 0;
 				}
 				to {
@@ -35,122 +35,195 @@
 				}
 			}
 			
-			@keyframes glow {
-				0%, 100% {
-					text-shadow: 0 0 5px #FFC300;
-				}
-				50% {
-					text-shadow: 0 0 15px #FFC300, 0 0 25px #FFD700;
-				}
+			body {
+				background: linear-gradient(135deg, rgba(20, 10, 25, 0.95), rgba(40, 20, 50, 0.95)),
+						url('images/crimson moon.jpeg');
+				background-attachment: fixed;
+				color: #d4af9f;
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 			}
 			
 			h1 {
- 			 background-color: darkred;
- 			 animation: slideInDown 1s ease-out, glow 3s ease-in-out infinite;
- 			 border-radius: 10px;
+				color: #e8c8b8;
+				font-size: 2.5rem;
+				font-weight: 700;
+				text-align: center;
+				margin: 30px 0 20px;
+				animation: slideInDown 0.6s ease-out;
+				letter-spacing: 1px;
+				text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 			}
+			
 			h2 {
-			  background-color: black;
-			  animation: slideInUp 0.8s ease-out;
-			  border-radius: 5px;
-			  transition: all 0.3s ease;
+				color: #d4af9f;
+				font-size: 2rem;
+				font-weight: 600;
+				margin: 30px 0 15px;
+				padding: 15px;
+				background-color: rgba(212, 175, 159, 0.1);
+				border-left: 3px solid rgba(212, 175, 159, 0.5);
+				border-radius: 4px;
+				animation: slideInUp 0.4s ease-out;
+				transition: all 0.3s ease;
 			}
+			
 			h2:hover {
-			  text-shadow: 0 0 10px #FFC300;
-			  transform: scale(1.05);
+				background-color: rgba(212, 175, 159, 0.15);
+				border-left-color: rgba(212, 175, 159, 0.8);
+				transform: translateX(5px);
 			}
-			h3 {
-			  background-color: black;
-			  animation: fadeIn 0.8s ease-out;
-			  transition: all 0.3s ease;
+			
+			p {
+				color: #d4af9f;
+				font-size: 1.1rem;
+				line-height: 1.7;
+				margin: 15px 0;
+				opacity: 0.95;
 			}
-			h3:hover {
-			  transform: translateX(10px);
+			
+			hr {
+				border: none;
+				height: 2px;
+				background: linear-gradient(90deg, transparent, rgba(212, 175, 159, 0.5), transparent);
+				margin: 20px auto;
 			}
+
 			div {
-			  background-color: gray;
-			  animation: fadeIn 1.5s ease-out;
+				animation: fadeIn 0.5s ease-out;
 			}
-			div {
-  			opacity: 0.9;
+			
+			/* ===== BACK BUTTON ===== */
+			.back-button {
+				position: fixed;
+				top: 20px;
+				right: 20px;
+				z-index: 100;
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				background-color: rgba(212, 175, 159, 0.15);
+				border: 2px solid rgba(212, 175, 159, 0.5);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+				text-decoration: none;
+				animation: slideInDown 0.6s ease-out;
 			}
+
+			.back-button:hover {
+				background-color: rgba(212, 175, 159, 0.25);
+				border-color: rgba(212, 175, 159, 0.8);
+				transform: scale(1.1);
+				box-shadow: 0 6px 16px rgba(212, 175, 159, 0.3);
+			}
+
+			.back-button a {
+				color: #d4af9f;
+				font-size: 1.8rem;
+				font-weight: bold;
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 100%;
+				height: 100%;
+				transition: color 0.3s ease;
+			}
+			
+			.back-button:hover a {
+				color: #e8c8b8;
+			}
+
+			.topnav {
+				overflow: hidden;
+				background: rgba(212, 175, 159, 0.1);
+				border: 1px solid rgba(212, 175, 159, 0.3);
+				border-radius: 6px;
+				animation: slideInDown 0.6s ease-out;
+				margin: 20px 0;
+			}
+
+			.topnav a {
+				float: left;
+				display: block;
+				color: #d4af9f;
+				text-align: center;
+				padding: 14px 20px;
+				text-decoration: none;
+				transition: all 0.3s ease;
+				font-weight: 500;
+				font-size: 0.95rem;
+			}
+
+			.topnav a:hover {
+				background-color: rgba(212, 175, 159, 0.2);
+				border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+				color: #e8c8b8;
+			}
+			
+			.topnav a.active-page {
+				background-color: rgba(212, 175, 159, 0.2);
+				border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+				color: #e8c8b8;
+			}
+			
+			.button {
+				cursor: pointer;
+				font-weight: 500;
+			}
+			
 			.button1 {
-  			background-color: gray; 
-  			color: black; 
-  			border: 2px solid #6f6f6f ;
-  			transition: all 0.3s ease;
-  			animation: fadeIn 1s ease-out;
+				background-color: rgba(212, 175, 159, 0.15);
+				color: #d4af9f;
+				border: 1px solid rgba(212, 175, 159, 0.4);
+				padding: 10px 20px;
+				border-radius: 6px;
+				transition: all 0.3s ease;
+				cursor: pointer;
+				font-weight: 500;
 			}
 
 			.button1:hover {
-  			background-color: #6f6f6f ;
-  			color: gold;
-  			transform: translateY(-3px);
-  			box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+				background-color: rgba(212, 175, 159, 0.25);
+				color: #e8c8b8;
+				border-color: rgba(212, 175, 159, 0.8);
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(212, 175, 159, 0.2);
 			}
-			a {
- 			 color: gold;
-			  background-color: transparent;
-			  text-decoration: none;
-			  transition: all 0.3s ease;
-			}
-			a:hover {
-			  color: yellow;
-			  background-color: transparent;
-			  text-decoration: underline;
-			}
-			.topnav {
-			overflow: hidden;
-			background-color: gold;
-			border-radius: 5px;
-			animation: slideInDown 0.8s ease-out;
-			}
-			.topnav a {
-			float: left;
-			display: block;
-			color: gold;
-			text-align: center;
-			padding: 14px 16px;
-			text-decoration: none;
-			animation: slideInUp 0.6s ease-out;
-			transition: all 0.3s ease;
-			}
-			.topnav a:hover {
-			background-color: #FFD700;
-			color: black;
-			transform: translateY(-3px);
-			}
-.zoom {
-  padding: 30px;
-  background-color: transparent;
-  transition: transform .2s;
-  width: 5px;
-  height: 5px;
-  margin: 0 auto;
-}
 
-.zoom:hover {
-  -ms-transform: scale(1.5); /* IE 9 */
-  -webkit-transform: scale(1.5); /* Safari 3-8 */
-  transform: scale(1.5); 
-}
-table, th, td {
-  border:1px solid white;
-  border-collapse: collapse;
-}
-td:nth-child(even) {
-  background-color: #FFD700;
-}
-th:nth-child(odd),td:nth-child(odd) {
-  background-color: #A020F0;
-}
-th:nth-child(odd) {
-  background-color: #000000;
-}
+			@media (max-width: 480px) {
+				.back-button {
+					width: 45px;
+					height: 45px;
+					top: 15px;
+					right: 15px;
+				}
+
+				.back-button a {
+					font-size: 1.5rem;
+				}
+				
+				h1 {
+					font-size: 2rem;
+				}
+				
+				h2 {
+					font-size: 1.3rem;
+				}
+				
+				p {
+					font-size: 1rem;
+				}
+			}
 		</style>
+		<link rel="stylesheet" href="assets/dynamic-styles.css">
 		
 	</head>
-	<body align="center" background="images/crimson moon.jpeg" >
+	<body align="center" background="images/crimson moon.jpeg">
+
 <div class="topnav">
 	<a href="LOTMhome.html">Home</a>
 	<a href="Mc_Profile.html">MC</a>
@@ -159,46 +232,38 @@ th:nth-child(odd) {
 	<a href="Songs.html">Songs</a>
 </div>
 
-		<h1 style="color:#FFC300; font-size:60px"><b>Volume 3:Traveler</b></h1>
-			<hr style="width:80%;height:5px; background-color:grey">
-			<a href="Volume 2.html"><button class="button button1"><--Back</button></a>
-			<a href="Novel.html"><button class="button button1">Novel</button></a>
-			<a href="Volume 4.html"><button class="button button1">Next--></button></a>	
-			<hr style="width:80%;height:5px; background-color:grey">
-			<div>
-			<h3 style="color:gold; font-size:30px"><b>“Every journey has its destination.„</b></h3><h6 style="color:#62009f; font-size:15px">—  <a href="Author.html">Cuttlefish That Loves Diving</a> on Volume 3: Traveler</h6>
-			<p style="font-size:40px; color:#000000">
-				<b><i>Traveler</i></b> is the third volume of the Lord of Mysteries series written by Cuttlefish That Loves Diving. 
-				It involves the story of Klein Moretti as he leaves Backlund and travels at sea under the identity of Gehrman Sparrow. 
-				During his travels, he meets new friends and hunts various pirates.
+<button id="scrollToTop">↑</button>
 
-			<h2 style="color:#FFC300; font-size:40px">Title Meaning</h2>
-				<p style="font-size:20px; color:#000000">
-				This time, the title does not refer to Klein's Pathway, but is about Klein's travels as he moves from place to place in the sea. 
-				As a traveler, he gets involved with various people's lives and interacts with many things, but simultaneously, he keeps an aloof distance befitting that of a traveler. 
-				In addition, traveler also refers to how the idea of people traveling in search of home, sojourning, yet not having truly arrived. This can be seen with the characters in Groselle's Travels, as well as the souls stored in Creeping Hunger.
+<h1 style="color:#FFC300; font-size:60px"><b>Volume 3: Traveler</b></h1>
+<hr>
+<a href="Novel.html"><button class="button button1">Back</button></a>
+<div style="max-width: 1000px; margin: 0 auto; padding: 0 20px;">
+	<h2>Quote</h2>
+	<p align="left"><i>"Every journey has its destination."</i> — Cuttlefish That Loves Diving</p>
+	
+	<h2>Overview</h2>
+	<p align="left"><b>Traveler</b> is the third volume. Klein leaves Backlund and travels at sea under the identity of Gehrman Sparrow, meeting new friends and hunting pirates.</p>
 
-			<h2 style="color:#FFC300; font-size:40px">Synopsis</h2>
-				<p style="font-size:20px; color:#000000">
-				Klein traveled to the Sonia Sea under the identity of Gerhman Sparrow, a crazy adventurer seeking fortune on the sea. He took the ship from Pritz Harbor to Bayam. Along the way, he met Danitz, the fourth boatswain of the Golden Dream, whom he "captured" and treated as his servant. They passed Bansy Harbor during the trip, at the same time, an old custom in Bansy Harbor was revived. Some of the inhabitants became heretics and were corrupted. This place was later known to be where the descendants of Medici reside.
-<p style="font-size:20px; color:#000000">During his time in Bayam, Klein took many opportunities acting as a Faceless, that is, pretending to be another person and convincing the audience.
-<p style="font-size:20px; color:#000000">Klein and Danitz visited the Resistance, a local resistance army to look for mystical items. After Klein touched a bone dagger, the Sea God Kalvetua attempted to take over his body but failed. Klein then informed the Church of the Lord of Storms, which killed Kalvetua. Klein took the Sea God Scepter, which gave Klein the authority of Kalvetua and made himself the new Sea God.
-<p style="font-size:20px; color:#000000">After killing Mithor King, the third mate of Vice-Admiral of Ailment Tracy, the name of the crazy adventurer Gehrman Sparrow finally spread over the Rorsted Archipelago.
-<p style="font-size:20px; color:#000000">Later Klein was hired as Darkwill's bodyguard to protect him from the Die of Probability's influence and traveled to deliver it to Oravi Island. On Oravi Island, Klein was hired to fake himself as Admiral Amyrius Rieveldt for three days. This job was actually plotted by Mother Tree of Desire who noticed Klein's uniqueness and wanted to corrupt him.
-<p style="font-size:20px; color:#000000">In order to promote to sequence 5, Klein asked a new member of the Tarot Club, Admiral of Stars Cattleya to bring him to the Sea of Ruins and search for the mermaids. Cattleya agreed and they started the journey towards the Sea of Ruins. During this journey, he met Bernadette Gustav, Frank Lee and Anderson Hood, entered a dream world that connects to the Giant King's Court, and successfully promoted to sequence 5.
-<p style="font-size:20px; color:#000000">Sometime later, the Vice Admiral Iceberg of the Golden Dream mysteriously disappeared on her flagship. Danitz wrote to Klein for help. Klein found out that she was sucked into Groselle's Travels. Klein, Danitz and Anderson entered the book, killed the final boss, the ice dragon Ulyssan, and escaped with others who were sucked into the book before. Though these people died immediately after they left the book because they have stayed in the book for too long.
-<p style="font-size:20px; color:#000000">Mother Tree of Desire, or Rose School of Thought, found traces of Klein again and attempted to catch him before Klein leaves Bayam. This led to a chaotic fight that blew up a nearby mountain peak. Klein eventually escaped from the battlefield with the help of Reinette Tinekerr and Mr. Azik. Meanwhile, Jahn Kottman, the Archbishop of Rorsted Sea from Church of Lord of Storms came after the fight. After learning what happened, he put Gehrman Sparrow on the Wanted list, with a bounty of 50k pounds. Klein who successfully escaped and gained the Admiral of Blood Senor to his marionette, decided to return to Backlund. While planning to steal the Antigonus Family's Notebook from Saint Samuel Cathedral for a Sequence 4 potion formula.
-<p>.</p>
-<p>.</p>
-				</div>
+	<h2>Title Meaning</h2>
+	<p align="left">The title refers to Klein's travels across the seas and his encounters with various people and creatures while maintaining his distance as a traveler.</p>
+
+	<h2>Synopsis</h2>
+	
+	<h3>The Wandering Detective</h3>
+	<p align="left">Klein sets sail across the Sonia Sea as Gehrman Sparrow, a wandering sailor and adventurer. This new identity allows him to explore distant lands while maintaining distance from his previous entanglements.</p>
+	
+	<h3>Encounters with Pirates and Mysteries</h3>
+	<p align="left">During his travels, Klein becomes entangled with pirates, pirate hunters, and various mysterious forces seeking the legendary Cards of Blasphemy. His journeys expose him to dangerous powers and forbidden knowledge that test both his wit and his growing abilities.</p>
+	
+	<h3>Spiritual Growth and Promotion</h3>
+	<p align="left">Through his maritime adventures and encounters with powerful adversaries, Klein gains valuable experience and spiritual insights. His journey leads to significant promotions along the Fool Pathway and an expanded sphere of influence across the seas.</p>
+</div>
 
 <hr style="width:80%;height:5px; background-color:grey">
-<a href="Volume 2.html"><button class="button button1"><--Back</button></a>
-<a href="Novel.html"><button class="button button1">Novel</button></a>
+<a href="Novel.html"><button class="button button1">Back</button></a>
 <a href="LOTMhome.html"><button class="button button1">Home</button></a>
-<a href="Volume 4.html"><button class="button button1">Next--></button></a>
 <hr style="width:80%;height:5px; background-color:grey">
-			
+
 </body>
 </html>
-
+<script src="assets/script.js"></script>

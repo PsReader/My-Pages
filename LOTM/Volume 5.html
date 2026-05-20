@@ -15,7 +15,7 @@
 			
 			@keyframes slideInDown {
 				from {
-					transform: translateY(-50px);
+					transform: translateY(-20px);
 					opacity: 0;
 				}
 				to {
@@ -26,7 +26,7 @@
 			
 			@keyframes slideInUp {
 				from {
-					transform: translateY(30px);
+					transform: translateY(15px);
 					opacity: 0;
 				}
 				to {
@@ -35,122 +35,195 @@
 				}
 			}
 			
-			@keyframes glow {
-				0%, 100% {
-					text-shadow: 0 0 5px #FFC300;
-				}
-				50% {
-					text-shadow: 0 0 15px #FFC300, 0 0 25px #FFD700;
-				}
+			body {
+				background: linear-gradient(135deg, rgba(20, 10, 25, 0.95), rgba(40, 20, 50, 0.95)),
+						url('images/crimson moon.jpeg');
+				background-attachment: fixed;
+				color: #d4af9f;
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 			}
 			
 			h1 {
- 			 background-color: darkred;
- 			 animation: slideInDown 1s ease-out, glow 3s ease-in-out infinite;
- 			 border-radius: 10px;
+				color: #e8c8b8;
+				font-size: 2.5rem;
+				font-weight: 700;
+				text-align: center;
+				margin: 30px 0 20px;
+				animation: slideInDown 0.6s ease-out;
+				letter-spacing: 1px;
+				text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 			}
+			
 			h2 {
-			  background-color: black;
-			  animation: slideInUp 0.8s ease-out;
-			  border-radius: 5px;
-			  transition: all 0.3s ease;
+				color: #d4af9f;
+				font-size: 2rem;
+				font-weight: 600;
+				margin: 30px 0 15px;
+				padding: 15px;
+				background-color: rgba(212, 175, 159, 0.1);
+				border-left: 3px solid rgba(212, 175, 159, 0.5);
+				border-radius: 4px;
+				animation: slideInUp 0.4s ease-out;
+				transition: all 0.3s ease;
 			}
+			
 			h2:hover {
-			  text-shadow: 0 0 10px #FFC300;
-			  transform: scale(1.05);
+				background-color: rgba(212, 175, 159, 0.15);
+				border-left-color: rgba(212, 175, 159, 0.8);
+				transform: translateX(5px);
 			}
-			h3 {
-			  background-color: black;
-			  animation: fadeIn 0.8s ease-out;
-			  transition: all 0.3s ease;
+			
+			p {
+				color: #d4af9f;
+				font-size: 1.1rem;
+				line-height: 1.7;
+				margin: 15px 0;
+				opacity: 0.95;
 			}
-			h3:hover {
-			  transform: translateX(10px);
+			
+			hr {
+				border: none;
+				height: 2px;
+				background: linear-gradient(90deg, transparent, rgba(212, 175, 159, 0.5), transparent);
+				margin: 20px auto;
 			}
+
 			div {
-			  background-color: gray;
-			  animation: fadeIn 1.5s ease-out;
+				animation: fadeIn 0.5s ease-out;
 			}
-			div {
-  			opacity: 0.9;
+			
+			/* ===== BACK BUTTON ===== */
+			.back-button {
+				position: fixed;
+				top: 20px;
+				right: 20px;
+				z-index: 100;
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				background-color: rgba(212, 175, 159, 0.15);
+				border: 2px solid rgba(212, 175, 159, 0.5);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+				text-decoration: none;
+				animation: slideInDown 0.6s ease-out;
 			}
+
+			.back-button:hover {
+				background-color: rgba(212, 175, 159, 0.25);
+				border-color: rgba(212, 175, 159, 0.8);
+				transform: scale(1.1);
+				box-shadow: 0 6px 16px rgba(212, 175, 159, 0.3);
+			}
+
+			.back-button a {
+				color: #d4af9f;
+				font-size: 1.8rem;
+				font-weight: bold;
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 100%;
+				height: 100%;
+				transition: color 0.3s ease;
+			}
+			
+			.back-button:hover a {
+				color: #e8c8b8;
+			}
+
+			.topnav {
+				overflow: hidden;
+				background: rgba(212, 175, 159, 0.1);
+				border: 1px solid rgba(212, 175, 159, 0.3);
+				border-radius: 6px;
+				animation: slideInDown 0.6s ease-out;
+				margin: 20px 0;
+			}
+
+			.topnav a {
+				float: left;
+				display: block;
+				color: #d4af9f;
+				text-align: center;
+				padding: 14px 20px;
+				text-decoration: none;
+				transition: all 0.3s ease;
+				font-weight: 500;
+				font-size: 0.95rem;
+			}
+
+			.topnav a:hover {
+				background-color: rgba(212, 175, 159, 0.2);
+				border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+				color: #e8c8b8;
+			}
+			
+			.topnav a.active-page {
+				background-color: rgba(212, 175, 159, 0.2);
+				border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+				color: #e8c8b8;
+			}
+			
+			.button {
+				cursor: pointer;
+				font-weight: 500;
+			}
+			
 			.button1 {
-  			background-color: gray; 
-  			color: black; 
-  			border: 2px solid #6f6f6f ;
-  			transition: all 0.3s ease;
-  			animation: fadeIn 1s ease-out;
+				background-color: rgba(212, 175, 159, 0.15);
+				color: #d4af9f;
+				border: 1px solid rgba(212, 175, 159, 0.4);
+				padding: 10px 20px;
+				border-radius: 6px;
+				transition: all 0.3s ease;
+				cursor: pointer;
+				font-weight: 500;
 			}
 
 			.button1:hover {
-  			background-color: #6f6f6f ;
-  			color: gold;
-  			transform: translateY(-3px);
-  			box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+				background-color: rgba(212, 175, 159, 0.25);
+				color: #e8c8b8;
+				border-color: rgba(212, 175, 159, 0.8);
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(212, 175, 159, 0.2);
 			}
-			a {
- 			 color: gold;
-			  background-color: transparent;
-			  text-decoration: none;
-			  transition: all 0.3s ease;
-			}
-			a:hover {
-			  color: yellow;
-			  background-color: transparent;
-			  text-decoration: underline;
-			}
-			.topnav {
-			overflow: hidden;
-			background-color: gold;
-			border-radius: 5px;
-			animation: slideInDown 0.8s ease-out;
-			}
-			.topnav a {
-			float: left;
-			display: block;
-			color: gold;
-			text-align: center;
-			padding: 14px 16px;
-			text-decoration: none;
-			animation: slideInUp 0.6s ease-out;
-			transition: all 0.3s ease;
-			}
-			.topnav a:hover {
-			background-color: #FFD700;
-			color: black;
-			transform: translateY(-3px);
-			}
-.zoom {
-  padding: 30px;
-  background-color: transparent;
-  transition: transform .2s;
-  width: 5px;
-  height: 5px;
-  margin: 0 auto;
-}
 
-.zoom:hover {
-  -ms-transform: scale(1.5); /* IE 9 */
-  -webkit-transform: scale(1.5); /* Safari 3-8 */
-  transform: scale(1.5); 
-}
-table, th, td {
-  border:1px solid white;
-  border-collapse: collapse;
-}
-td:nth-child(even) {
-  background-color: #FFD700;
-}
-th:nth-child(odd),td:nth-child(odd) {
-  background-color: #A020F0;
-}
-th:nth-child(odd) {
-  background-color: #000000;
-}
+			@media (max-width: 480px) {
+				.back-button {
+					width: 45px;
+					height: 45px;
+					top: 15px;
+					right: 15px;
+				}
+
+				.back-button a {
+					font-size: 1.5rem;
+				}
+				
+				h1 {
+					font-size: 2rem;
+				}
+				
+				h2 {
+					font-size: 1.3rem;
+				}
+				
+				p {
+					font-size: 1rem;
+				}
+			}
 		</style>
+		<link rel="stylesheet" href="assets/dynamic-styles.css">
 		
 	</head>
-	<body align="center" background="images/crimson moon.jpeg" >
+	<body align="center" background="images/crimson moon.jpeg">
+
 <div class="topnav">
 	<a href="LOTMhome.html">Home</a>
 	<a href="Mc_Profile.html">MC</a>
@@ -159,44 +232,38 @@ th:nth-child(odd) {
 	<a href="Songs.html">Songs</a>
 </div>
 
-		<h1 style="color:#FFC300; font-size:60px"><b>Volume 5:Red Priest</b></h1>
-			<hr style="width:80%;height:5px; background-color:grey">
-			<a href="Volume 4.html"><button class="button button1">Next--></button></a>	
-			<a href="Novel.html"><button class="button button1">Novel</button></a>
-			<a href="Volume 6.html"><button class="button button1">Next--></button></a>	
-			<hr style="width:80%;height:5px; background-color:grey">
-			<div>
-			<h3 style="color:gold; font-size:30px"><b>“Every drowning person will struggle.„</b></h3><h6 style="color:#62009f; font-size:15px">— <a href="Author.html">Cuttlefish That Loves Diving</a> on  Volume 5: Red Priest</h6>
-			<p style="font-size:40px; color:#000000">
-				<b><i>Red Priest</i></b> is the fifth volume of the Lord of Mysteries series written by Cuttlefish That Loves Diving.
+<button id="scrollToTop">↑</button>
 
-			<h2 style="color:#FFC300; font-size:40px">Title Meaning</h2>
-				<p style="font-size:20px; color:#000000">
-				Red Priest means war. Although there isn't much direct description of war, it is the overlying theme of the whole volume. The war underlines the struggle of all the "drowning" characters,
-				 such as Klein and Trissy. When Trissy finally falls into the mausoleum, when Amon puts on his monocle in front of Klein, 
-				readers can truly feel that the drowning people finally sank into the water, no matter how they struggled.
+<h1 style="color:#FFC300; font-size:60px"><b>Volume 5: Red Priest</b></h1>
+<hr>
+<a href="Novel.html"><button class="button button1">Back</button></a>
+<div style="max-width: 1000px; margin: 0 auto; padding: 0 20px;">
+	<h2>Quote</h2>
+	<p align="left"><i>"Every drowning person will struggle."</i> — Cuttlefish That Loves Diving</p>
+	
+	<h2>Overview</h2>
+	<p align="left"><b>Red Priest</b> is the fifth volume of the Lord of Mysteries series.</p>
 
-			<h2 style="color:#FFC300; font-size:40px">Synopsis</h2>
-				<p style="font-size:20px; color:#000000">
-				After became a demigod, Klein stepped on the ladder of the door of light in the depth of the Gray Fog and learned about the truth of the Transmigrators.
-<p style="font-size:20px; color:#000000">Klein returned to Backlund in the identity of Dwayne Dantes. He temporarily moved his focus to finding the truth of the Great Smog of Backlund.
-<p style="font-size:20px; color:#000000">Under the cover of Arianna's concealment, Klein killed Qonas Kilgor and Hvin Rambis. He learned about the royal family and Adam's plan by channeling their spirits. However, before he could do anything, Feysac Empire attacked Backlund and Oak Island.
-<p style="font-size:20px; color:#000000">With the information from the Red Angel Evil Spirit, Klein learned about the intent of the current king, George Augustus III, to advance to the Sequence 0 Black Emperor.
-<p style="font-size:20px; color:#000000">Klein, in order to digest his Sequence 4 Potion and advance to sequence 3 Scholar of Yore, used the Life's Cane to treat the innocent people who were injured in the war. This left the hospital lore of the Clown Angel. Klein went to the island in the Berserk Sea and consumed the Sequence 3 Potion. When he advanced to Scholar of Yore, the mysterious space above the gray fog, Sefirah Castle, appeared in the real world. Amon, Pallez and Mother Tree of Desire cast their eyes on it.
-<p style="font-size:20px; color:#000000">George III used the wartime speech to hold his apotheosis ritual. While Klein used the ritual that was provided by Mr. Door through Trissy to enter the mausoleums, Hermes, Zaratul, Suah and others came to stop him. Klein summoned Reinette Tinekerr and Death Consul Mr. Azik to help. Bernadette Gustav used the Magic Wishing Lamp to temporarily advance to Sequence 1 Knowledge Emperor to fight against William Augustus I. Trissy used the Yesterday Once More charm to restore the Primordial Demoness's ring and accepted her descent.
-<p style="font-size:20px; color:#000000">In the end, due to chaos created by the fight of the Angels, the mausoleum collapsed. George III failed to advance and lost control. He died in the mausoleum that was destroyed by the lighting from the Lord of Storms.
-<p style="font-size:20px; color:#000000">Klein, while fleeing, was intercepted by Zaratul who was waiting to ambush him. In order to escape, Klein entered Groselle's Travels and met Adam. He learned that all the plans were arranged by Adam behind the scenes. He was banished from the book and with the help of Arianna, Klein returned to the hotel in Backlund after performing several misdirections. There he was found by Amon through his lost marionette.
-<p>.</p>
-<p>.</p>
-				</div>
+	<h2>Title Meaning</h2>
+	<p align="left">Red Priest means war. It represents the struggle of all drowning characters as they face unprecedented challenges and revelations.</p>
+
+	<h2>Synopsis</h2>
+	
+	<h3>Ascension to Divinity</h3>
+	<p align="left">Klein reaches the peak of godhood and learns profound truths about the nature of the world and its hidden history. This knowledge fundamentally alters his understanding of his place in the cosmos.</p>
+	
+	<h3>The Greatest Challenges</h3>
+	<p align="left">Klein faces his most formidable challenges yet as multiple powerful entities converge on Backlund. Ancient forces thought long dormant awaken, and multiple pathways to divinity collide in spectacular confrontation.</p>
+	
+	<h3>Convergence of Powers</h3>
+	<p align="left">As the strongest powers in existence clash, Klein must navigate through a labyrinth of deception, betrayal, and revelation. The fate of the world hangs in the balance as he fights to protect those he cares about while pursuing his ultimate goals.</p>
+</div>
 
 <hr style="width:80%;height:5px; background-color:grey">
-<a href="Volume 4.html"><button class="button button1"><--Back</button></a>
-<a href="Novel.html"><button class="button button1">Novel</button></a>
+<a href="Novel.html"><button class="button button1">Back</button></a>
 <a href="LOTMhome.html"><button class="button button1">Home</button></a>
-<a href="Volume 6.html"><button class="button button1">Next--></button></a>
 <hr style="width:80%;height:5px; background-color:grey">
-			
+
 </body>
 </html>
-
+<script src="assets/script.js"></script>
