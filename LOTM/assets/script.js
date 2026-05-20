@@ -52,26 +52,7 @@ function setupAccordions() {
   });
 }
 
-// Search functionality
-function setupSearch() {
-  const searchInput = document.getElementById('searchInput');
-  if (!searchInput) return;
 
-  searchInput.addEventListener('keyup', function() {
-    const searchTerm = this.value.toLowerCase();
-    const searchableElements = document.querySelectorAll('[data-searchable]');
-    
-    searchableElements.forEach(element => {
-      const text = element.textContent.toLowerCase();
-      if (text.includes(searchTerm) || searchTerm === '') {
-        element.style.display = 'block';
-        element.classList.add('search-highlight');
-      } else {
-        element.style.display = 'none';
-      }
-    });
-  });
-}
 
 // Smooth scroll to section
 function setupSmoothScroll() {
@@ -213,7 +194,7 @@ function setupScrollToTop() {
 document.addEventListener('DOMContentLoaded', function() {
   setupTabs();
   setupAccordions();
-  setupSearch();
+
   setupSmoothScroll();
   setupModals();
   setupFilters();
