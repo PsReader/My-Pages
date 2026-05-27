@@ -44,8 +44,8 @@
 			}
 			
 			h1 {
-				color: #e8c8b8;
-				font-size: 2.5rem;
+				color: #FFD700;
+				font-size: 3.5rem;
 				font-weight: 700;
 				text-align: center;
 				margin: 30px 0 20px;
@@ -124,9 +124,35 @@
 				transition: all 0.3s ease;
 			}
 			
-			a:hover {
-				color: #e8c8b8;
-				text-decoration: underline;
+			img {
+				animation: fadeIn 0.6s ease-out;
+				max-width: 100%;
+				height: auto;
+			}
+			
+			.image-frame {
+				border: 3px solid #d4af9f;
+				border-radius: 8px;
+				padding: 12px;
+				background: linear-gradient(135deg, rgba(212, 175, 159, 0.1), rgba(255, 215, 0, 0.05));
+				box-shadow: 0 0 20px rgba(212, 175, 159, 0.4), 
+							inset 0 0 15px rgba(255, 215, 0, 0.1);
+				transition: all 0.3s ease;
+				display: inline-block;
+			}
+			
+			.image-frame:hover {
+				border-color: #FFD700;
+				box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), 
+							inset 0 0 20px rgba(255, 215, 0, 0.15);
+				transform: translateY(-5px);
+			}
+			
+			hr {
+				border: none;
+				height: 2px;
+				background: linear-gradient(90deg, transparent, rgba(212, 175, 159, 0.5), transparent);
+				margin: 20px auto;
 			}
 			
 			.topnav {
@@ -194,13 +220,46 @@
 				background-color: rgba(212, 175, 159, 0.04);
 			}
 			
-			@media (max-width: 768px) {
-				h1 { font-size: 2rem; }
-				h2 { font-size: 1.4rem; }
-				.topnav { margin: 15px 0; }
-				p, li { font-size: 0.95rem; }
+			
+			#scrollToTop {
+				position: fixed;
+				bottom: 20px;
+				right: 20px;
+				background-color: rgba(212, 175, 159, 0.15);
+				color: #d4af9f;
+				border: 2px solid rgba(212, 175, 159, 0.5);
+				padding: 10px 15px;
+				border-radius: 6px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				display: none;
+				z-index: 99;
+				font-weight: bold;
+				font-size: 1.2rem;
+			}
+
+			#scrollToTop:hover {
+				background-color: rgba(212, 175, 159, 0.25);
+				border-color: rgba(212, 175, 159, 0.8);
+				color: #e8c8b8;
+				transform: translateY(-2px);
+			}
+
+			@media (max-width: 480px) {
+				h1 {
+					font-size: 2rem;
+				}
+				
+				h2 {
+					font-size: 1.3rem;
+				}
+				
+				p, li {
+					font-size: 1rem;
+				}
 			}
 		</style>
+		<link rel="stylesheet" href="css/dynamic-styles.css">
 		
 	</head>
 	<body align="center" background="images/crimson moon.jpeg" >
@@ -212,39 +271,155 @@
 	<a href="Songs.html">Songs</a>
 </div>
 
-		<h1 style="color:#FFC300; font-size:60px"><b><i>Cuttlefish That Loves Diving</i></b></h1>
-			<hr style="width:80%;height:5px; background-color:grey">
+<button id="scrollToTop">↑</button>
+
+		<h1><b><i>Cuttlefish That Loves Diving</i></b></h1>
+			<hr>
 			<a href="LOTMhome.html"><button class="button button1"><--Back</button></a>	
-			<hr style="width:80%;height:5px; background-color:grey">
-			<div>
-			<img src="images/Cuttlefish.jpeg" width="170px" style="border:5px solid Gold">
+			<hr>
+			<div style="max-width: 1000px; margin: 0 auto; padding: 0 20px;">
 			
-			<h2 style="color:#FFC300; font-size:40px"><b>Yuan Ye</b> (<b>袁野</b>)</h2>
-				<p style="font-size:20px; color:#d4af9f">
-				<b><i>Cuttlefish That Loves Diving</i></b> is a prolific web novel author and the author of Lord of Mysteries.
+			<!-- Author Bio Card -->
+			<div style="background-color: rgba(212, 175, 159, 0.1); padding: 30px; border-radius: 8px; margin-bottom: 40px; border: 2px solid rgba(212, 175, 159, 0.3); display: flex; gap: 30px; align-items: flex-start; flex-wrap: wrap;">
+				<img src="images/Cuttlefish.jpeg" width="170px" class="image-frame">
+				<div style="flex: 1; text-align: left;">
+					<h2 style="color:#FFD700; font-size:2rem; margin-top: 0; border: none; background: none; padding: 0;"><b>Yuan Ye</b> (<b>袁野</b>)</h2>
+					<p style="font-size:16px; color:#e8c8b8; font-style: italic; margin: 10px 0 20px;">Pen Name: <b style="color: #FFD700;">Cuttlefish That Loves Diving</b></p>
+					
+					<p style="font-size:16px; color:#d4af9f; line-height: 1.8;">
+						A prolific and visionary web novel author from <strong>Emeishan City, Sichuan Province</strong>. Yuan Ye graduated from the College of Computer Science at Sichuan University in 2007 and became a freelance writer in 2013.
+					</p>
+					
+					<p style="font-size:16px; color:#d4af9f; line-height: 1.8;">
+						<strong style="color: #e8c8b8;">Achievements:</strong>
+						Member of the China Writers Association | Vice Chairman of Sichuan Writers Association (8th) | Vice Chairman of Sichuan Network Writers Association (1st)
+					</p>
+					
+					<p style="font-size:16px; color:#d4af9f; line-height: 1.8;">
+						His revolutionary works <strong>《Throne of Magical Arcana》</strong> pioneered western fantasy themes in Chinese web fiction, while <strong>《Lord of Mysteries》</strong> set records in the steampunk genre and was permanently collected by the <strong>National Library of China</strong>.
+					</p>
+				</div>
+			</div>
 
-<p style="font-size:20px; color:#d4af9f">His real name is <b>Yuan Ye</b> (<b>袁野</b>). He is from Emeishan City, Sichuan Province. He graduated from College of Computer Science of Sichuan University in 2007. He became a freelance writer in 2013. A member of China Writers Association, Vice Chairman of Sichuan Writers Association (8th), Vice Chairman of Sichuan Network Writers Association (1st).[1]
+			<!-- Works Section -->
+			<h2 style="color:#FFD700; font-size:2rem; text-align: center; margin-bottom: 30px;">Notable Works</h2>
+			
+			<div style="display: grid; gap: 20px;">
+				<!-- Work 1 -->
+				<div style="background-color: rgba(212, 175, 159, 0.08); padding: 20px; border-radius: 8px; border-left: 4px solid #FFD700; transition: all 0.3s ease;">
+					<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+						<div style="flex: 1;">
+						<h3 style="color:#FFD700; margin: 0 0 10px 0; font-size: 1.5rem;"><a href="https://www.webnovel.com/search?keywords=Throne+of+Magical+Arcana" target="_blank" style="color:#FFD700; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#e8c8b8'" onmouseout="this.style.color='#FFD700'">Throne of Magical Arcana</a></h3>
+							<p style="color: #e8c8b8; margin: 5px 0; font-size: 0.95rem;"><strong>Period:</strong> 2013~2018</p>
+							<p style="color: #d4af9f; margin: 5px 0; font-size: 0.95rem;">Pioneering western fantasy and arcane art themes in Chinese web fiction</p>
+						</div>
+						<span style="background-color: rgba(255, 215, 0, 0.3); color: #FFD700; padding: 8px 16px; border-radius: 20px; font-weight: bold; white-space: nowrap;">Completed</span>	
+					</div>
+				</div>
 
-<p style="font-size:20px; color:#d4af9f">His representative works include: <font color="white">《Throne of Magical Arcana》</font><font color="white">《The Sage Who Transcended Samsara》</font><font color="white">《灭运图录》</font><font color="white">《Martial Arts Master》</font><font color="white">《Lord of Mysteries》</font><font color="white">《Embers Ad Infinitum》</font>, etc. The <font color="white">《Throne of Magical Arcana》</font> pioneered the theme of western fantasy and arcane art, while the <font color="white">《Lord of Mysteries》</font> broke the steampunk theme record and was permanently collected by the National Library of China.[1]
+				<!-- Work 2 -->
+				<div style="background-color: rgba(212, 175, 159, 0.08); padding: 20px; border-radius: 8px; border-left: 4px solid #FFD700;">
+					<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+						<div style="flex: 1;">
+						<h3 style="color:#FFD700; margin: 0 0 10px 0; font-size: 1.5rem;"><a href="https://www.webnovel.com/search?keywords=The+Sage+Who+Transcended+Samsara" target="_blank" style="color:#FFD700; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#e8c8b8'" onmouseout="this.style.color='#FFD700'">The Sage Who Transcended Samsara</a></h3>
+							<p style="color: #e8c8b8; margin: 5px 0; font-size: 0.95rem;"><strong>Period:</strong> 2014~2018</p>
+							<p style="color: #d4af9f; margin: 5px 0; font-size: 0.95rem;">An epic journey of enlightenment and transcendence</p>
+						</div>
+						<span style="background-color: rgba(255, 215, 0, 0.3); color: #FFD700; padding: 8px 16px; border-radius: 20px; font-weight: bold; white-space: nowrap;">Completed</span>
+					</div>
+				</div>
 
+				<!-- Work 3 -->
+				<div style="background-color: rgba(212, 175, 159, 0.08); padding: 20px; border-radius: 8px; border-left: 4px solid #FFD700;">
+					<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+						<div style="flex: 1;">
+						<h3 style="color:#FFD700; margin: 0 0 10px 0; font-size: 1.5rem;"><a href="https://www.webnovel.com/search?keywords=Martial+Arts+Master" target="_blank" style="color:#FFD700; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#e8c8b8'" onmouseout="this.style.color='#FFD700'">Martial Arts Master</a></h3>
+							<p style="color: #e8c8b8; margin: 5px 0; font-size: 0.95rem;"><strong>Period:</strong> 2016~2018</p>
+							<p style="color: #d4af9f; margin: 5px 0; font-size: 0.95rem;">A masterful exploration of martial arts and self-improvement</p>
+						</div>
+						<span style="background-color: rgba(255, 215, 0, 0.3); color: #FFD700; padding: 8px 16px; border-radius: 20px; font-weight: bold; white-space: nowrap;">Completed</span>
+					</div>
+				</div>
 
-			<h2 style="color:#FFC300; font-size:40px">Works</h2>
-				<p style="font-size:20px; color:#d4af9f">
-				<b>His other English-translated works include:</b>
-			<ul style="font-size:20px; color:#d4af9f" align="left">
-<li><font color="Gold">2013~2018:</font> <font color="white">Throne of Magical Arcana</font> (Completed)</li>
-<li><font color="Gold">2014~2018:</font> <font color="white">The Sage Who Transcended Samsara</font> (Translation on hiatus)</li>
-<li><font color="Gold">2016~2018:</font> <font color="white"> Martial Arts Master</font> (Completed)</li>
-<li><font color="Gold">2020~2022:</font> <font color="white">Embers Ad Infinitum</font> (Completed)</li>
-<li><font color="Gold">2023:</font> <font color="white">Lord of Mysteries 2: Circle of Inevitability</font> (Ongoing)</li>
-			</ul>
-<p>.</p>
+				<!-- Work 4: Highlighted -->
+				<div style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(212, 175, 159, 0.15)); padding: 25px; border-radius: 8px; border-left: 4px solid #FFD700; border: 2px solid rgba(255, 215, 0, 0.4);">
+					<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+						<div style="flex: 1;">
+						<h3 style="color:#FFD700; margin: 0 0 10px 0; font-size: 1.5rem; text-shadow: 0 2px 5px rgba(255, 215, 0, 0.3);">★ <a href="https://www.webnovel.com/search?keywords=Lord+of+Mysteries" target="_blank" style="color:#FFD700; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#e8c8b8'" onmouseout="this.style.color='#FFD700'">Lord of Mysteries</a></h3>
+							<p style="color: #e8c8b8; margin: 5px 0; font-size: 0.95rem;"><strong>Period:</strong> 2018~2020</p>
+							<p style="color: #d4af9f; margin: 5px 0; font-size: 0.95rem;">Record-breaking steampunk masterpiece | Permanently collected by the National Library of China</p>
+						</div>
+							<span style="background-color: rgba(255, 215, 0, 0.5); color: #FFD700; padding: 8px 16px; border-radius: 20px; font-weight: bold; white-space: nowrap;">★ Completed</span>
+					</div>
+				</div>
+
+				<!-- Work 5 -->
+				<div style="background-color: rgba(212, 175, 159, 0.08); padding: 20px; border-radius: 8px; border-left: 4px solid #FFD700;">
+					<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+						<div style="flex: 1;">
+						<h3 style="color:#FFD700; margin: 0 0 10px 0; font-size: 1.5rem;"><a href="https://www.webnovel.com/search?keywords=Embers+Ad+Infinitum" target="_blank" style="color:#FFD700; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#e8c8b8'" onmouseout="this.style.color='#FFD700'">Embers Ad Infinitum</a></h3>
+							<p style="color: #e8c8b8; margin: 5px 0; font-size: 0.95rem;"><strong>Period:</strong> 2020~2022</p>
+							<p style="color: #d4af9f; margin: 5px 0; font-size: 0.95rem;">A post-apocalyptic tale of survival and hope</p>
+						</div>
+						<span style="background-color: rgba(255, 215, 0, 0.3); color: #FFD700; padding: 8px 16px; border-radius: 20px; font-weight: bold; white-space: nowrap;">Completed</span>
+					</div>
+				</div>
+
+				<!-- Work 6 -->
+				<div style="background-color: rgba(212, 175, 159, 0.08); padding: 20px; border-radius: 8px; border-left: 4px solid #FFD700;">
+					<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+						<div style="flex: 1;">
+						<h3 style="color:#FFD700; margin: 0 0 10px 0; font-size: 1.5rem;"><a href="https://www.webnovel.com/search?keywords=Circle+of+Inevitability" target="_blank" style="color:#FFD700; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#e8c8b8'" onmouseout="this.style.color='#FFD700'">Lord of Mysteries 2: Circle of Inevitability</a></h3>
+							<p style="color: #e8c8b8; margin: 5px 0; font-size: 0.95rem;"><strong>Period:</strong> 2023~2025</p>
+							<p style="color: #d4af9f; margin: 5px 0; font-size: 0.95rem;">The highly anticipated sequel continuing Klein's epic saga</p>
+						</div>
+						<span style="background-color: rgba(255, 215, 0, 0.3); color: #FFD700; padding: 8px 16px; border-radius: 20px; font-weight: bold; white-space: nowrap;">Completed</span>
+					</div>
+				</div>
+			</div>
+
 		</div>
-<hr style="width:80%;height:5px; background-color:grey">
+<hr>
 <a href="LOTMhome.html"><button class="button button1">Home</button></a>
-<hr style="width:80%;height:5px; background-color:grey">
-			
+<hr>
+
+<!-- Professional Footer with Disclaimer -->
+<footer style="background-color: rgba(212, 175, 159, 0.1); border-top: 1px solid rgba(212, 175, 159, 0.3); margin-top: 40px; padding: 30px 20px; text-align: center; animation: slideInUp 0.5s ease-out;">
+	<p style="margin: 10px 0; font-size: 0.95rem; color: #d4af9f;">
+		&copy; 2026 PsReader's LOTM Fan Project. All rights reserved.
+	</p>
+	<p style="margin: 10px 0; font-size: 0.9rem; color: #c49a7f;">
+		<strong>Disclaimer:</strong> This is an unofficial fan project created for educational and entertainment purposes. 
+		<i>"Lord of the Mysteries"</i> and all associated intellectual property are the original works of 
+		<strong>Cuttlefish That Loves Diving</strong> and published by <strong>Qidian</strong>. 
+		No copyright infringement is intended.
+	</p>
+	<p style="margin: 10px 0; font-size: 0.85rem; color: #a87968;">
+		Built with passion by an aspiring web developer | 
+		<a href="LOTMhome.html" style="color: #d4af9f; text-decoration: none; transition: color 0.3s;">Back to Home</a>
+	</p>
+</footer>
+
 </body>
 </html>
-<script src="assets/script.js"></script>
+<script>
+	// Scroll to Top Button Functionality
+	const scrollToTopBtn = document.getElementById('scrollToTop');
+	
+	window.addEventListener('scroll', () => {
+		if (window.pageYOffset > 300) {
+			scrollToTopBtn.style.display = 'block';
+		} else {
+			scrollToTopBtn.style.display = 'none';
+		}
+	});
+	
+	scrollToTopBtn.addEventListener('click', () => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth'
+		});
+	});
+</script>
+<script src="js/script.js"></script>
 

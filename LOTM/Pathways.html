@@ -35,6 +35,11 @@
 				}
 			}
 			
+			@keyframes float {
+				0%, 100% { transform: translateY(0px); }
+				50% { transform: translateY(-10px); }
+			}
+			
 			body {
 				background: linear-gradient(135deg, rgba(20, 10, 25, 0.95), rgba(40, 20, 50, 0.95)),
 						url('images/crimson moon.jpeg');
@@ -44,8 +49,8 @@
 			}
 			
 			h1 {
-				color: #e8c8b8;
-				font-size: 2.5rem;
+				color: #FFD700;
+				font-size: 3.5rem;
 				font-weight: 700;
 				text-align: center;
 				margin: 30px 0 20px;
@@ -73,16 +78,20 @@
 				transform: translateX(5px);
 			}
 			
-			div {
-				animation: fadeIn 0.5s ease-out;
+			h3, h6 {
+				color: #d4af9f;
+				font-size: 1.2rem;
+				font-weight: 600;
+				animation: fadeIn 0.4s ease-out;
+				transition: all 0.3s ease;
+				margin: 15px 0 10px;
 			}
 			
-			p, li {
-				color: #d4af9f;
-				font-size: 1rem;
-				line-height: 1.6;
-				margin: 10px 0;
+			h3:hover {
+				color: #e8c8b8;
+				transform: translateX(5px);
 			}
+			
 			
 			.button1 {
 				background-color: rgba(212, 175, 159, 0.15);
@@ -103,6 +112,11 @@
 				box-shadow: 0 4px 12px rgba(212, 175, 159, 0.2);
 			}
 			
+			.button1:active {
+				transform: translateY(0);
+				box-shadow: 0 2px 6px rgba(212, 175, 159, 0.2);
+			}
+			
 			a {
 				color: #d4af9f;
 				background-color: transparent;
@@ -115,6 +129,31 @@
 				text-decoration: underline;
 			}
 			
+			.image-frame {
+				border: 3px solid #d4af9f;
+				border-radius: 8px;
+				padding: 12px;
+				background: linear-gradient(135deg, rgba(212, 175, 159, 0.1), rgba(255, 215, 0, 0.05));
+				box-shadow: 0 0 20px rgba(212, 175, 159, 0.4), 
+							inset 0 0 15px rgba(255, 215, 0, 0.1);
+				transition: all 0.3s ease;
+				display: inline-block;
+			}
+			
+			.image-frame:hover {
+				border-color: #FFD700;
+				box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), 
+							inset 0 0 20px rgba(255, 215, 0, 0.15);
+				transform: translateY(-5px);
+			}
+			
+			hr {
+				border: none;
+				height: 2px;
+				background: linear-gradient(90deg, transparent, rgba(212, 175, 159, 0.5), transparent);
+				margin: 20px auto;
+			}
+			
 			.topnav {
 				overflow: hidden;
 				background: rgba(212, 175, 159, 0.1);
@@ -125,166 +164,239 @@
 			}
 			
 			.topnav a {
-			float: left;
-			display: block;
-			color: #d4af9f;
-			text-align: center;
-			padding: 14px 16px;
-			text-decoration: none;
-			animation: slideInUp 0.6s ease-out;
-			transition: all 0.3s ease;
+				float: left;
+				display: block;
+				color: #d4af9f;
+				text-align: center;
+				padding: 14px 20px;
+				text-decoration: none;
+				transition: all 0.3s ease;
+				font-weight: 500;
+				font-size: 0.95rem;
 			}
+			
 			.topnav a:hover {
-			background-color: rgba(212, 175, 159, 0.2);
-			border-bottom: 2px solid rgba(212, 175, 159, 0.8);
-			color: #e8c8b8;
-			transform: translateY(-2px);
+				background-color: rgba(212, 175, 159, 0.2);
+				border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+				color: #e8c8b8;
 			}
-.zoom {
-  padding: 30px;
-  background-color: transparent;
-  transition: transform .2s;
-  width: 5px;
-  height: 5px;
-  margin: 0 auto;
-}
+			
+			.topnav a.active-page {
+				background-color: rgba(212, 175, 159, 0.2);
+				border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+				color: #e8c8b8;
+			}
+			
+			div {
+				animation: fadeIn 0.5s ease-out;
+			}
+			
+			p, li {
+				color: #d4af9f;
+				font-size: 1rem;
+				line-height: 1.6;
+				margin: 10px 0;
+			}
+			
+			img {
+				animation: fadeIn 0.6s ease-out;
+				transition: transform 0.3s ease, filter 0.3s ease;
+				border-radius: 4px;
+				max-width: 100%;
+				height: auto;
+			}
+			
+			img:hover {
+				transform: scale(1.05);
+				filter: drop-shadow(0 0 12px rgba(212, 175, 159, 0.4));
+			}
+			
+			.zoom {
+				padding: 10px;
+				background-color: transparent;
+				transition: transform 0.2s ease;
+				cursor: pointer;
+				animation: float 3s ease-in-out infinite;
+			}
+			
+			.zoom:hover {
+				transform: scale(1.2);
+				filter: drop-shadow(0 0 8px rgba(212, 175, 159, 0.5));
+			}
+			
+			@media (max-width: 768px) {
+				h1 { font-size: 2rem; }
+				h2 { font-size: 1.4rem; }
+				.topnav { margin: 15px 0; }
+				p, li { font-size: 0.95rem; }
+			}
 
-.zoom:hover {
-  -ms-transform: scale(1.5); /* IE 9 */
-  -webkit-transform: scale(1.5); /* Safari 3-8 */
-  transform: scale(1.5); 
-}
-table, th, td {
-  border:1px solid white;
-  border-collapse: collapse;
-}
-td:nth-child(even) {
-  background-color: #FFD700;
-}
-th:nth-child(odd),td:nth-child(odd) {
-  background-color: #A020F0;
-}
-th:nth-child(odd) {
-  background-color: #000000;
-}
 		</style>
 		
 	</head>
 	<body align="center" background="images/crimson moon.jpeg" >
-<div class="topnav">
-	<a href="LOTMhome.html">Home</a>
-	<a href="Mc_Profile.html">MC</a>
-	<a href="Novel.html">Novel</a>
-	<a href="Author.html">Author</a>
-	<a href="Songs.html">Songs</a>
-</div>
+	<div class="topnav">
+		<a href="LOTMhome.html">Home</a>
+		<a href="Mc_Profile.html">MC</a>
+		<a href="Novel.html">Novel</a>
+		<a href="Author.html">Author</a>
+		<a href="Songs.html">Songs</a>
+	</div>
+	
+	<h1><b>Fool Pathway</b></h1>
+	<hr>
+	<a href="Mc_Profile.html"><button class="button button1"><--Back</button></a>
+	<hr>
+		
+		<div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+			<!-- Section 1: What Is The Fool Pathway? -->
+			<h2>1. What Is The Fool Pathway?</h2>
+			<p align="left">
+				<b>The Fool Pathway</b> is all about <b>fooling</b> perceptions and reality. They specialize in divination, illusions, changing appearances, strong muscle and facial expression control, and turn others into marionettes after taking control of their spirit body threads.
+			</p>
+			<p align="left">
+				<b>At High Sequences,</b> they can turn their marionettes into duplicates of themselves, bring things (including themselves) from the past to the present, create countless miracles, and create mysterious environments full of tampering and concealment.
+			</p>
+			<p align="left">
+				<img src="images/Fool_Art.jpeg" width="150px" class="image-frame" style="display: block; margin: 15px 0;">
+				<b>Authority:</b> Secrets and Changes | <b>Beyonders:</b> Can only exchange starting at Sequence 3
+			</p>
+			<p align="left">
+				<b>Above Sequence:</b> <i>Lord of Mysteries</i> | <b>Sefirah:</b> <i>Sefirah Castle</i> | <b>Adjacent Pathways:</b> Door Pathway, Error Pathway
+			</p>
 
-		<h1 style="color:#FFC300; font-size:60px"><b>Fool Pathway</b></h1>
-			<hr style="width:80%;height:5px; background-color:grey">
-			<a href="Mc_Profile.html"><button class="button button1"><--Back</button></a>
-			<hr style="width:80%;height:5px; background-color:grey">
-			<div>
-			<h2 style="color:#FFC300; font-size:40px">1. What Is The Fool Pathway?</h2><img src="images/Fool_Art.jpeg" width="170px" style="border:5px solid gold">
-				<p style="font-size:20px; color:#d4af9f" align="left">
-				<b>The Fool Pathway</b> is be about <b>fooling</b> perceptions and reality. 
-				They specialize in divination, illusions, changing appearances, strong muscle and facial expression control, and turn other into marionettes after taking control of their spirit body threads.
-				At High Sequences, they can turn their marionettes into another duplicate of themselves, bring things (including themselves) from the past to the present, create countless miracles, create a mysterious environment that's full of tampering and concealment, and are able to fool all sorts of things. 
-				Their authority represents Secrets and Changes.
-				The Beyonders of this group can only exchange their pathway starting at Sequence 3.
-				The title of Above the Sequence of <b>the Fool Pathway</b> is <i><b>Lord of Mysteries</b></i>, and the corresponding Sefirah is the <i>Sefirah Castle</i>. This Pathway is adjacent to the Door Pathway and Error Pathway. 
-				It's also one of the four standard pathways compatible with the Boon of the Dancer Pathway.</p>
-
-			<h2 style="color:#FFC300; font-size:40px">2. Pathway Symbol</h2><img src="images/Fool_2.jpeg" width="170px" style="border:5px solid navy">
-				<p style="font-size:20px; color:#d4af9f" align="left">
-				The symbol is a Pupil-less Eye and the Contorted Lines; represented <i>secrecy</i> and <i>change</i>.
-				The official symbol for the Fool Pathway.The color is tyrian purple.
-				</p>
+			<!-- Section 2: Pathway Symbol -->
+			<h2>2. Pathway Symbol</h2>
+			<p align="left">
+				<b>Symbol:</b> A Pupil-less Eye and Contorted Lines
+			</p>
+			<p align="left">
+				<img src="images/Fool_2.jpeg" width="150px" class="image-frame" style="display: block; margin: 15px 0;">
+				<b>Meaning:</b> Represents <i>secrecy</i> and <i>change</i> - the core principles of the Fool Pathway.
+			</p>
+			<p align="left">
+				<b>Color:</b> Tyrian Purple - a deep, mystical purple that evokes mystery and divine power.
+			</p>
 			
-			<h2 style="color:#FFC300; font-size:40px">3. Corresponding Tarot Card</h2><img src="images/Tarot-fool.jpeg" width="170px" style="border:5px solid white">
-				<p style="font-size:20px; color:#d4af9f" align="left">
-				<i>The corresponding tarot card</i> of <b>the Fool Pathway</b> is <b>The Fool</b>.
-				<b>The Fool (0 or XXII)</b> is one of the <i>22 Major Arcana</i>, sometimes numbered as <b>0</b> or <b>XXII</b>. <b>The Fool is a card of a start, a fresh beginning with all kinds of possibilities</b>.
-				 In many esoteric systems of tarot card interpretation, the Fool is interpreted as the protagonist of a story, and the Major Arcana is the path the Fool takes through the great mysteries of life.
-				This path is known traditionally in cartomancy as the <b>"Fool's Journey"</b>, and is frequently used to introduce the meaning of Major Arcana cards to beginners
+			<!-- Section 3: Tarot Card -->
+			<h2>3. Corresponding Tarot Card</h2>
+			<p align="left">
+				<b>The Fool (0 or XXII)</b> is one of the 22 Major Arcana cards, symbolizing a fresh beginning with endless possibilities.
+			</p>
+			<p align="left">
+				<img src="images/Tarot-fool.jpeg" width="150px" class="image-frame" style="display: block; margin: 15px 0;">
+				In tarot interpretation, the Fool represents the protagonist embarking on the <b>"Fool's Journey"</b> through the mysteries of life.
+			</p>
+			<p align="left">
+				This journey is frequently used to introduce beginners to the meaning and significance of all Major Arcana cards.
+			</p>
+		</div>
 
-			<h2 style="color:#FFC300; font-size:40px">4. Sequence</h2>
-			<table align="center" style="width:60%; border-collapse:collapse; margin:20px auto;">
-				<tr style="background-color:#FFC300; height:40px;">
-					<td colspan="2" style="text-align:center; padding:15px; font-size:22px; color:#000; font-weight:bold; border:2px solid #d4af9f;">Fool Pathway Index</td>
-				</tr>
-				<tr style="background-color:rgba(212, 175, 159, 0.15); height:35px;">
-					<td style="padding:12px; text-align:center; color:#FFC300; font-weight:bold; border:1px solid rgba(212, 175, 159, 0.3); font-size:16px;">Sequence</td>
-					<td style="padding:12px; text-align:center; color:#FFC300; font-weight:bold; border:1px solid rgba(212, 175, 159, 0.3); font-size:16px;">Title</td>
-				</tr>
-				
-				<tr style="background-color:rgba(160, 32, 240, 0.2);">
-					<td colspan="2" style="text-align:center; padding:12px; color:#FFC300; font-weight:bold; border:1px solid rgba(212, 175, 159, 0.3); font-size:16px;">◆ Low Sequence ◆</td>
-				</tr>
-				<tr style="background-color:rgba(212, 175, 159, 0.08); height:32px;">
-					<td style="padding:10px; text-align:center; color:#d4af9f; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Sequence 1</b></td>
-					<td style="padding:10px; text-align:center; color:#e8c8b8; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Seer</b></td>
-				</tr>
-				<tr style="background-color:rgba(212, 175, 159, 0.05); height:32px;">
-					<td style="padding:10px; text-align:center; color:#d4af9f; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Sequence 2</b></td>
-					<td style="padding:10px; text-align:center; color:#e8c8b8; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Clown</b></td>
+		<!-- Section 4: Sequence Table -->
+		<div style="max-width: 900px; margin: 40px auto; padding: 0 20px;">
+			<h2>4. Sequence Progression</h2>
+			<table align="center" style="width:75%; border-collapse:collapse; margin:30px auto; background: rgba(20, 10, 30, 0.9); border: 2px solid rgba(255, 195, 0, 0.4); border-radius: 10px; overflow: hidden; box-shadow: 0 12px 30px rgba(0,0,0,0.6), inset 0 0 30px rgba(160, 32, 240, 0.1);">
+				<!-- Title Row -->
+				<tr style="background: linear-gradient(90deg, rgba(160, 32, 240, 0.5) 0%, rgba(107, 27, 160, 0.6) 100%); height:52px; border-bottom: 2px solid rgba(255, 195, 0, 0.5);">
+					<td colspan="2" style="text-align:center; padding:20px; font-size:26px; color:#FFD700; font-weight:bold; letter-spacing: 2px; text-shadow: 0 2px 8px rgba(0,0,0,0.5);">✦ Fool Pathway Index ✦</td>
 				</tr>
 				
-				<tr style="background-color:rgba(160, 32, 240, 0.2);">
-					<td colspan="2" style="text-align:center; padding:12px; color:#FFC300; font-weight:bold; border:1px solid rgba(212, 175, 159, 0.3); font-size:16px;">◆ Mid Sequence ◆</td>
-				</tr>
-				<tr style="background-color:rgba(212, 175, 159, 0.08); height:32px;">
-					<td style="padding:10px; text-align:center; color:#d4af9f; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Sequence 7</b></td>
-					<td style="padding:10px; text-align:center; color:#e8c8b8; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Magician</b></td>
-				</tr>
-				<tr style="background-color:rgba(212, 175, 159, 0.05); height:32px;">
-					<td style="padding:10px; text-align:center; color:#d4af9f; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Sequence 6</b></td>
-					<td style="padding:10px; text-align:center; color:#e8c8b8; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Faceless</b></td>
-				</tr>
-				<tr style="background-color:rgba(212, 175, 159, 0.08); height:32px;">
-					<td style="padding:10px; text-align:center; color:#d4af9f; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Sequence 5</b></td>
-					<td style="padding:10px; text-align:center; color:#e8c8b8; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Marionettist</b></td>
+				<!-- Column Headers -->
+				<tr style="background: linear-gradient(90deg, rgba(107, 27, 160, 0.7) 0%, rgba(107, 27, 160, 0.5) 100%); height:42px; border-bottom: 2px solid rgba(255, 195, 0, 0.4);">
+					<td style="padding:14px 20px; text-align:center; color:#FFD700; font-weight:bold; font-size:17px; width: 30%; border-right: 1px solid rgba(255, 195, 0, 0.25); letter-spacing: 0.5px;">Sequence</td>
+					<td style="padding:14px 20px; text-align:center; color:#FFD700; font-weight:bold; font-size:17px; letter-spacing: 0.5px;">Name</td>
 				</tr>
 				
-				<tr style="background-color:rgba(160, 32, 240, 0.2);">
-					<td colspan="2" style="text-align:center; padding:12px; color:#FFC300; font-weight:bold; border:1px solid rgba(212, 175, 159, 0.3); font-size:16px;">◆ High Sequence - Saint ◆</td>
+				<!-- Low Sequence Section -->
+				<tr style="background: linear-gradient(90deg, rgba(107, 27, 160, 0.6) 0%, rgba(107, 27, 160, 0.4) 100%); height:34px; border-bottom: 1px solid rgba(255, 195, 0, 0.25);">
+					<td colspan="2" style="text-align:center; padding:11px; color:#FFD700; font-weight:bold; font-size:15px; letter-spacing: 1px; text-shadow: 0 1px 4px rgba(0,0,0,0.4);">◆ LOW SEQUENCE ◆</td>
 				</tr>
-				<tr style="background-color:rgba(212, 175, 159, 0.08); height:32px;">
-					<td style="padding:10px; text-align:center; color:#d4af9f; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Sequence 4</b></td>
-					<td style="padding:10px; text-align:center; color:#e8c8b8; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Bizarro Sorcerer</b></td>
+				<tr style="background: linear-gradient(90deg, rgba(212, 175, 159, 0.12) 0%, rgba(212, 175, 159, 0.08) 100%); height:38px; border-bottom: 1px solid rgba(255, 195, 0, 0.15); transition: all 0.3s ease; cursor: pointer;">
+					<td style="padding:12px 20px; text-align:center; color:#e8c8b8; border-right: 1px solid rgba(255, 195, 0, 0.15); font-weight:bold; font-size:16px;">9</td>
+					<td style="padding:12px 20px; text-align:center; color:#e8c8b8; font-weight:bold; font-size:16px;">Seer</td>
 				</tr>
-				<tr style="background-color:rgba(212, 175, 159, 0.05); height:32px;">
-					<td style="padding:10px; text-align:center; color:#d4af9f; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Sequence 3</b></td>
-					<td style="padding:10px; text-align:center; color:#e8c8b8; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Scholar of Yore</b></td>
-				</tr>
-				
-				<tr style="background-color:rgba(160, 32, 240, 0.2);">
-					<td colspan="2" style="text-align:center; padding:12px; color:#FFC300; font-weight:bold; border:1px solid rgba(212, 175, 159, 0.3); font-size:16px;">◆ High Sequence - Angel ◆</td>
-				</tr>
-				<tr style="background-color:rgba(212, 175, 159, 0.08); height:32px;">
-					<td style="padding:10px; text-align:center; color:#d4af9f; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Sequence 2</b></td>
-					<td style="padding:10px; text-align:center; color:#e8c8b8; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Miracle Invoker</b></td>
-				</tr>
-				<tr style="background-color:rgba(212, 175, 159, 0.05); height:32px;">
-					<td style="padding:10px; text-align:center; color:#d4af9f; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Sequence 1</b></td>
-					<td style="padding:10px; text-align:center; color:#e8c8b8; border:1px solid rgba(212, 175, 159, 0.2); font-size:15px;"><b>Attendant of Mysteries</b></td>
+				<tr style="background: linear-gradient(90deg, rgba(212, 175, 159, 0.08) 0%, rgba(212, 175, 159, 0.04) 100%); height:38px; border-bottom: 1px solid rgba(255, 195, 0, 0.15); transition: all 0.3s ease; cursor: pointer;">
+					<td style="padding:12px 20px; text-align:center; color:#e8c8b8; border-right: 1px solid rgba(255, 195, 0, 0.15); font-weight:bold; font-size:16px;">8</td>
+					<td style="padding:12px 20px; text-align:center; color:#e8c8b8; font-weight:bold; font-size:16px;">Clown</td>
 				</tr>
 				
-				<tr style="background-color:rgba(160, 32, 240, 0.2);">
-					<td colspan="2" style="text-align:center; padding:12px; color:#FFC300; font-weight:bold; border:1px solid rgba(212, 175, 159, 0.3); font-size:16px;">◆ Godhood ◆</td>
+				<!-- Mid Sequence Section -->
+				<tr style="background: linear-gradient(90deg, rgba(107, 27, 160, 0.6) 0%, rgba(107, 27, 160, 0.4) 100%); height:34px; border-bottom: 1px solid rgba(255, 195, 0, 0.25);">
+					<td colspan="2" style="text-align:center; padding:11px; color:#FFD700; font-weight:bold; font-size:15px; letter-spacing: 1px; text-shadow: 0 1px 4px rgba(0,0,0,0.4);">◆ MID SEQUENCE ◆</td>
 				</tr>
-				<tr style="background-color:rgba(212, 175, 159, 0.1); height:35px;">
-					<td style="padding:12px; text-align:center; color:#FFC300; font-weight:bold; border:1px solid rgba(212, 175, 159, 0.4); font-size:16px;"><b>Sequence 0</b></td>
-					<td style="padding:12px; text-align:center; color:#FFC300; font-weight:bold; border:1px solid rgba(212, 175, 159, 0.4); font-size:16px;"><b>Fool</b></td>
+				<tr style="background: linear-gradient(90deg, rgba(212, 175, 159, 0.12) 0%, rgba(212, 175, 159, 0.08) 100%); height:38px; border-bottom: 1px solid rgba(255, 195, 0, 0.15); transition: all 0.3s ease; cursor: pointer;">
+					<td style="padding:12px 20px; text-align:center; color:#e8c8b8; border-right: 1px solid rgba(255, 195, 0, 0.15); font-weight:bold; font-size:16px;">7</td>
+					<td style="padding:12px 20px; text-align:center; color:#e8c8b8; font-weight:bold; font-size:16px;">Magician</td>
+				</tr>
+				<tr style="background: linear-gradient(90deg, rgba(212, 175, 159, 0.08) 0%, rgba(212, 175, 159, 0.04) 100%); height:38px; border-bottom: 1px solid rgba(255, 195, 0, 0.15); transition: all 0.3s ease; cursor: pointer;">
+					<td style="padding:12px 20px; text-align:center; color:#e8c8b8; border-right: 1px solid rgba(255, 195, 0, 0.15); font-weight:bold; font-size:16px;">6</td>
+					<td style="padding:12px 20px; text-align:center; color:#e8c8b8; font-weight:bold; font-size:16px;">Faceless</td>
+				</tr>
+				<tr style="background: linear-gradient(90deg, rgba(212, 175, 159, 0.12) 0%, rgba(212, 175, 159, 0.08) 100%); height:38px; border-bottom: 1px solid rgba(255, 195, 0, 0.15); transition: all 0.3s ease; cursor: pointer;">
+					<td style="padding:12px 20px; text-align:center; color:#e8c8b8; border-right: 1px solid rgba(255, 195, 0, 0.15); font-weight:bold; font-size:16px;">5</td>
+					<td style="padding:12px 20px; text-align:center; color:#e8c8b8; font-weight:bold; font-size:16px;">Marionettist</td>
+				</tr>
+				
+				<!-- High Sequence - Saint Section -->
+				<tr style="background: linear-gradient(90deg, rgba(107, 27, 160, 0.6) 0%, rgba(107, 27, 160, 0.4) 100%); height:34px; border-bottom: 1px solid rgba(255, 195, 0, 0.25);">
+					<td colspan="2" style="text-align:center; padding:11px; color:#FFD700; font-weight:bold; font-size:15px; letter-spacing: 1px; text-shadow: 0 1px 4px rgba(0,0,0,0.4);">◆ HIGH SEQUENCE - SAINT ◆</td>
+				</tr>
+				<tr style="background: linear-gradient(90deg, rgba(212, 175, 159, 0.12) 0%, rgba(212, 175, 159, 0.08) 100%); height:38px; border-bottom: 1px solid rgba(255, 195, 0, 0.15); transition: all 0.3s ease; cursor: pointer;">
+					<td style="padding:12px 20px; text-align:center; color:#e8c8b8; border-right: 1px solid rgba(255, 195, 0, 0.15); font-weight:bold; font-size:16px;">4</td>
+					<td style="padding:12px 20px; text-align:center; color:#e8c8b8; font-weight:bold; font-size:16px;">Bizarro Sorcerer</td>
+				</tr>
+				<tr style="background: linear-gradient(90deg, rgba(212, 175, 159, 0.08) 0%, rgba(212, 175, 159, 0.04) 100%); height:38px; border-bottom: 1px solid rgba(255, 195, 0, 0.15); transition: all 0.3s ease; cursor: pointer;">
+					<td style="padding:12px 20px; text-align:center; color:#e8c8b8; border-right: 1px solid rgba(255, 195, 0, 0.15); font-weight:bold; font-size:16px;">3</td>
+					<td style="padding:12px 20px; text-align:center; color:#e8c8b8; font-weight:bold; font-size:16px;">Scholar of Yore</td>
+				</tr>
+				
+				<!-- High Sequence - Angel Section -->
+				<tr style="background: linear-gradient(90deg, rgba(107, 27, 160, 0.6) 0%, rgba(107, 27, 160, 0.4) 100%); height:34px; border-bottom: 1px solid rgba(255, 195, 0, 0.25);">
+					<td colspan="2" style="text-align:center; padding:11px; color:#FFD700; font-weight:bold; font-size:15px; letter-spacing: 1px; text-shadow: 0 1px 4px rgba(0,0,0,0.4);">◆ HIGH SEQUENCE - ANGEL ◆</td>
+				</tr>
+				<tr style="background: linear-gradient(90deg, rgba(212, 175, 159, 0.12) 0%, rgba(212, 175, 159, 0.08) 100%); height:38px; border-bottom: 1px solid rgba(255, 195, 0, 0.15); transition: all 0.3s ease; cursor: pointer;">
+					<td style="padding:12px 20px; text-align:center; color:#e8c8b8; border-right: 1px solid rgba(255, 195, 0, 0.15); font-weight:bold; font-size:16px;">2</td>
+					<td style="padding:12px 20px; text-align:center; color:#e8c8b8; font-weight:bold; font-size:16px;">Miracle Invoker</td>
+				</tr>
+				<tr style="background: linear-gradient(90deg, rgba(212, 175, 159, 0.08) 0%, rgba(212, 175, 159, 0.04) 100%); height:38px; border-bottom: 1px solid rgba(255, 195, 0, 0.15); transition: all 0.3s ease; cursor: pointer;">
+					<td style="padding:12px 20px; text-align:center; color:#e8c8b8; border-right: 1px solid rgba(255, 195, 0, 0.15); font-weight:bold; font-size:16px;">1</td>
+					<td style="padding:12px 20px; text-align:center; color:#e8c8b8; font-weight:bold; font-size:16px;">Attendant of Mysteries</td>
+				</tr>
+				
+				<!-- Godhood Section -->
+				<tr style="background: linear-gradient(90deg, rgba(107, 27, 160, 0.6) 0%, rgba(107, 27, 160, 0.4) 100%); height:34px; border-bottom: 1px solid rgba(255, 195, 0, 0.25);">
+					<td colspan="2" style="text-align:center; padding:11px; color:#FFD700; font-weight:bold; font-size:15px; letter-spacing: 1px; text-shadow: 0 1px 4px rgba(0,0,0,0.4);">◆ TRUE GOD ◆</td>
+				</tr>
+				<tr style="background: linear-gradient(90deg, rgba(255, 195, 0, 0.25) 0%, rgba(255, 195, 0, 0.15) 100%); height:42px; box-shadow: inset 0 0 15px rgba(255, 195, 0, 0.1); border-top: 2px solid rgba(255, 195, 0, 0.3);">
+					<td style="padding:14px 20px; text-align:center; color:#FFD700; border-right: 1px solid rgba(255, 195, 0, 0.25); font-weight:bold; font-size:17px; text-shadow: 0 1px 6px rgba(0,0,0,0.5);">0</td>
+					<td style="padding:14px 20px; text-align:center; color:#FFD700; font-weight:bold; font-size:17px; text-shadow: 0 1px 6px rgba(0,0,0,0.5);">Fool</td>
 				</tr>
 			</table>
-<p>.</p>
-<p>.</p>
-</div>
-<hr style="width:80%;height:5px; background-color:grey">
-<a href="Mc_Profile.html"><button class="button button1"><--Back</button></a>
-<a href="LOTMhome.html"><button class="button button1">Home</button></a>
-<hr style="width:80%;height:5px; background-color:grey">
-			
+		</div>
+
+	<hr>
+	<a href="LOTMhome.html"><button class="button button1">Home</button></a>
+	<hr>
+	</div>
+
+	<!-- Professional Footer with Disclaimer -->
+	<footer style="background-color: rgba(212, 175, 159, 0.1); border-top: 1px solid rgba(212, 175, 159, 0.3); margin-top: 40px; padding: 30px 20px; text-align: center; animation: slideInUp 0.5s ease-out;">
+		<p style="margin: 10px 0; font-size: 0.95rem; color: #d4af9f;">
+			&copy; 2026 PsReader's LOTM Fan Project. All rights reserved.
+		</p>
+		<p style="margin: 10px 0; font-size: 0.9rem; color: #c49a7f;">
+			<strong>Disclaimer:</strong> This is an unofficial fan project created for educational and entertainment purposes. 
+			<i>"Lord of the Mysteries"</i> and all associated intellectual property are the original works of 
+			<strong>Cuttlefish That Loves Diving</strong> and published by <strong>Qidian</strong>. 
+			No copyright infringement is intended.
+		</p>
+		<p style="margin: 10px 0; font-size: 0.85rem; color: #a87968;">
+			Built with passion by an aspiring web developer | 
+			<a href="LOTMhome.html" style="color: #d4af9f; text-decoration: none; transition: color 0.3s;">Back to Home</a>
+		</p>
+	</footer>
+
 </body>
 </html>
+<script src="js/script.js"></script>
 

@@ -35,6 +35,22 @@
 				}
 			}
 			
+			@keyframes float {
+				0%, 100% { transform: translateY(0px); }
+				50% { transform: translateY(-10px); }
+			}
+			
+			@keyframes frameGlow {
+				0%, 100% {
+					box-shadow: 0 0 15px rgba(212, 175, 159, 0.3), 
+								inset 0 0 15px rgba(255, 215, 0, 0.08);
+				}
+				50% {
+					box-shadow: 0 0 20px rgba(212, 175, 159, 0.4), 
+								inset 0 0 18px rgba(255, 215, 0, 0.12);
+				}
+			}
+			
 			body {
 				background: linear-gradient(135deg, rgba(20, 10, 25, 0.95), rgba(40, 20, 50, 0.95)),
 						url('images/crimson moon.jpeg');
@@ -44,8 +60,8 @@
 			}
 			
 			h1 {
-				color: #e8c8b8;
-				font-size: 2.5rem;
+				color: #FFD700;
+				font-size: 3.5rem;
 				font-weight: 700;
 				text-align: center;
 				margin: 30px 0 20px;
@@ -53,6 +69,8 @@
 				letter-spacing: 1px;
 				text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 			}
+			
+
 			
 			h2 {
 				color: #d4af9f;
@@ -73,6 +91,8 @@
 				transform: translateX(5px);
 			}
 			
+
+			
 			h3, h6 {
 				color: #d4af9f;
 				font-size: 1.2rem;
@@ -87,9 +107,13 @@
 				transform: translateX(5px);
 			}
 			
+
+			
 			div {
 				animation: fadeIn 0.5s ease-out;
 			}
+			
+
 			
 			p, li {
 				color: #d4af9f;
@@ -97,6 +121,8 @@
 				line-height: 1.6;
 				margin: 10px 0;
 			}
+			
+
 			
 			.button1 {
 				background-color: rgba(212, 175, 159, 0.15);
@@ -117,6 +143,11 @@
 				box-shadow: 0 4px 12px rgba(212, 175, 159, 0.2);
 			}
 			
+			.button1:active {
+				transform: translateY(0);
+				box-shadow: 0 2px 6px rgba(212, 175, 159, 0.2);
+			}
+			
 			a {
 				color: #d4af9f;
 				background-color: transparent;
@@ -127,6 +158,58 @@
 			a:hover {
 				color: #e8c8b8;
 				text-decoration: underline;
+			}
+
+			/* ===== BACK BUTTON ===== */
+			.back-button {
+				position: fixed;
+				top: 20px;
+				right: 20px;
+				z-index: 100;
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				background-color: rgba(212, 175, 159, 0.15);
+				border: 2px solid rgba(212, 175, 159, 0.5);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+				text-decoration: none;
+				animation: slideInDown 0.6s ease-out;
+			}
+
+			.back-button:hover {
+				background-color: rgba(212, 175, 159, 0.25);
+				border-color: rgba(212, 175, 159, 0.8);
+				transform: scale(1.1);
+				box-shadow: 0 6px 16px rgba(212, 175, 159, 0.3);
+			}
+
+			.back-button a {
+				color: #d4af9f;
+				font-size: 1.8rem;
+				font-weight: bold;
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 100%;
+				height: 100%;
+				transition: color 0.3s ease;
+			}
+			
+			.back-button:hover a {
+				color: #e8c8b8;
+			}
+			
+			hr {
+				border: none;
+				height: 2px;
+				background: linear-gradient(90deg, transparent, rgba(212, 175, 159, 0.5), transparent);
+				margin: 20px auto;
 			}
 			
 			.topnav {
@@ -167,15 +250,17 @@
 				background-color: transparent;
 				transition: transform 0.2s ease;
 				cursor: pointer;
+				animation: float 3s ease-in-out infinite;
 			}
 
 			.zoom:hover {
 				transform: scale(1.2);
+				filter: drop-shadow(0 0 8px rgba(212, 175, 159, 0.5));
 			}
 			
 			img {
 				animation: fadeIn 0.6s ease-out;
-				transition: transform 0.3s ease;
+				transition: transform 0.3s ease, filter 0.3s ease;
 				border-radius: 4px;
 				max-width: 100%;
 				height: auto;
@@ -183,7 +268,46 @@
 			
 			img:hover {
 				transform: scale(1.05);
+				filter: drop-shadow(0 0 12px rgba(212, 175, 159, 0.4));
 			}
+			
+			.image-frame {
+				border: 3px solid #d4af9f;
+				border-radius: 8px;
+				padding: 12px;
+				background: linear-gradient(135deg, rgba(212, 175, 159, 0.1), rgba(255, 215, 0, 0.05));
+				box-shadow: 0 0 20px rgba(212, 175, 159, 0.4), 
+							inset 0 0 15px rgba(255, 215, 0, 0.1);
+				transition: all 0.3s ease;
+				display: inline-block;
+			}
+			
+			.image-frame:hover {
+				border-color: #FFD700;
+				box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), 
+							inset 0 0 20px rgba(255, 215, 0, 0.15);
+				transform: translateY(-5px);
+			}
+			
+				border: 2px solid #d4af9f;
+				border-radius: 6px;
+				padding: 10px;
+				background: linear-gradient(135deg, rgba(212, 175, 159, 0.08), rgba(255, 215, 0, 0.03));
+				box-shadow: 0 0 15px rgba(212, 175, 159, 0.3), 
+							inset 0 0 15px rgba(255, 215, 0, 0.08);
+				animation: frameGlow 4s ease-in-out infinite;
+				transition: all 0.3s ease;
+				display: inline-block;
+			}
+			
+			.emblem-frame:hover {
+				border-color: #FFD700;
+				box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 
+							inset 0 0 20px rgba(255, 215, 0, 0.12);
+				transform: translateY(-3px);
+			}
+			
+
 			
 			@media (max-width: 768px) {
 				h1 { font-size: 2rem; }
@@ -192,7 +316,7 @@
 				p, li { font-size: 0.95rem; }
 			}
 		</style>
-		<link rel="stylesheet" href="assets/dynamic-styles.css">
+		<link rel="stylesheet" href="css/dynamic-styles.css">
 	</head>
 <body align="center" background="images/crimson moon.jpeg" >
 <div class= "topnav">
@@ -204,68 +328,86 @@
 </div>
 
 <button id="scrollToTop">↑</button>
-		<h1 style="color:#FFC300; font-size:60px"><b>Klein Moretti</b></h1>
-			<hr style="width:80%;height:5px; background-color:grey">
+		<h1><b>Klein Moretti</b></h1>
+			<hr>
 	<a href="LOTMhome.html"><button class="button button1"><--Back</button></a>
 	<a href="Pathways.html"><button class="button button1">Pathway</button></a>
 	<a href="identities.html"><button class="button button1">Identities</button></a>
 	<a href="Gallery.html"><button class="button button1">Gallery</button></a>
 	<a href="Quotes.html"><button class="button button1">Quotes</button></a>
-			<hr style="width:80%;height:5px; background-color:grey">
+			<hr>
 		<div>
-			<h2 style="color:#FFC300; font-size:40px"><b>1. Who Is Klein Moretti?</b></h2>
-			<h3 style="color:white; font-size:30px"><b>"You can address me as…<a href="identities.html">The Fool</a>.„</b></h3><h6 style="color:#62009f; font-size:15px">— Klein Moretti on <a href="LOTMhome.html">Lord of Mysteries</a>, Chapter 6</h6>
+			<h2>1. Who Is Klein Moretti?</h2>
+			<h3>"You can address me as…<a href="identities.html">The Fool</a>.„</h3><h6>— Klein Moretti on <a href="LOTMhome.html">Lord of Mysteries</a>, Chapter 6</h6>
 			
-				<p style="font-size:20px; color:#d4af9f" align="left">Klein Moretti is the main protagonist of Lord of Mysteries, and a character of Circle of Inevitability.
+				<p align="left">Klein Moretti is the main protagonist of Lord of Mysteries, and a character of Circle of Inevitability.
 				"He" is the current owner of the Sefirah Castle, and Half a Lord of Mysteries with authorities over <i><b>the Fool</i></b> <img src="images/Fool_Symbol2.jpeg">, <i><b>Error</i></b> <img src="images/Error_Symbol2.jpeg">, and <i><b>Door</i></b> <img src="images/Door_Symbol2.jpeg">. 
 				"He" is also the mysterious leader of the Tarot Club known as The <b>Fool</b> and a Transmigrator who comes from the modern era. From year 1352 of the Fifth Epoch, <b>"He"</b> became the God of the <a href="church.html">Church of the Fool</a>.</p>
 
-			<h2 style="color:#FFC300; font-size:40px"><b>2. Appearance</b></h2>
-				<p style="font-size:20px; color:#d4af9f" align="left">
+			<h2>2. Appearance</h2>
+				<p align="left">
 				<i>Zhou Mingrui</i>: A young man with dark brown eyes and short black hair. His facial features were unremarkable, and he appeared refined, but he had obvious eye bags with an inkling of a double chin. He wore glasses.</p>
-				<p style="font-size:20px; color:#d4af9f" align="left">
+				<p align="left">
 				<i>Klein Moretti</i>: <b>"His"</b> original body has black hair, brown eyes, an average-looking face, a deep outline, and is thinly built. Klein also has a distinct scholarly air to <b>"Him"</b>. <b>"His"</b> refined aura is further reinforced by the valuable suits <b>"He"</b> dressed with and the canes <b>"He"</b> held on all occasions.</p>
-			<h2 style="color:#FFC300; font-size:40px"><b>3. Sacred Emblem <img src="images/Sacred.jpeg" width="60px"> </b></h2>
-				<p style="font-size:20px; color:#d4af9f" align="left">Sacred Emblem of the Fool is Pupil-less Eye and the Contorted Lines; represented secrecy and change... </p>
-			<p>.<img src="images/emblem2.jpeg" width="170px" style="border:5px solid darkred"></p>	
-			<h2 style="color:#FFC300; font-size:40px"><b>4. Personality</b></h2>
+			<h2>3. Sacred Emblem <img src="images/Sacred.jpeg" width="60px"></h2>
+				<p align="left">Sacred Emblem of the Fool is Pupil-less Eye and the Contorted Lines; represented secrecy and change... </p>
+			<p>.<img src="images/emblem2.jpeg" width="170px" class="emblem-frame"></p>
+			<h2>4. Personality</h2>
 			
-			<h3 style="color:#d4af9f; font-size:20px; margin-top:20px"><b>Core Traits</b></h3>
-			<p style="font-size:18px; color:#d4af9f; line-height:1.8" align="left">
+			<h3 style="margin-top:20px">Core Traits</h3>
+			<p style="line-height:1.8" align="left">
 				Klein Moretti has exhibited a cautious and good-natured personality. <b>"He"</b> is humorous, polite, mature, and gentlemanly. Fundamentally a lover of justice, <b>"He"</b> will not hesitate to do what is right even at personal cost.
 			</p>
 			
-			<h3 style="color:#d4af9f; font-size:20px; margin-top:20px"><b>Evolution Through Experience</b></h3>
-			<p style="font-size:18px; color:#d4af9f; line-height:1.8" align="left">
+			<h3 style="margin-top:20px">Evolution Through Experience</h3>
+			<p style="line-height:1.8" align="left">
 				As an ordinary citizen of Earth who transmigrated suddenly into a dangerous world, Klein was naturally a bit fearful and indecisive at first. But during the short span of time following <b>"His"</b> transmigration, Klein experienced a lot of dangerous or tragic situations.
 			</p>
-			<p style="font-size:18px; color:#d4af9f; line-height:1.8" align="left">
+			<p style="line-height:1.8" align="left">
 				<b>"He"</b> became the leader of a secret organization, killed numerous monsters and humans, and finally evolved into a Beyonder surpassing the boundaries of a human being (aka Saint, Angel). Klein indeed became much more ruthless, confident, and mysterious.
 			</p>
 			
-			<h3 style="color:#d4af9f; font-size:20px; margin-top:20px"><b>Unwavering Principles</b></h3>
-			<p style="font-size:18px; color:#d4af9f; line-height:1.8" align="left">
+			<h3 style="margin-top:20px">Unwavering Principles</h3>
+			<p style="line-height:1.8" align="left">
 				<b>"His"</b> experiences notwithstanding, Klein still preserves the core of his personality as one who is cautious, yet will uphold justice where necessary and not involve or target the innocent. <b>"He"</b> is also afraid that going against his principles could push him closer to losing control. Not harming the innocent is something he wishes for and a precaution against corruption and madness.
 			</p>
 			
-			<h3 style="color:#d4af9f; font-size:20px; margin-top:20px"><b>Personal Interests & Style</b></h3>
-			<p style="font-size:18px; color:#d4af9f; line-height:1.8" align="left">
+			<h3 style="margin-top:20px">Personal Interests & Style</h3>
+			<p style="line-height:1.8" align="left">
 				The current transmigrator is like the original Klein—<b>"He"</b> is interested in history and cares about his appearance. Klein immediately became a sophisticated and socialite person known for <b>"His"</b> elegant style as soon as <b>"He"</b> could afford the cost of different clothes and accessories.
 			</p>
-			<p style="font-size:18px; color:#d4af9f; line-height:1.8" align="left">
+			<p style="line-height:1.8" align="left">
 				Together with his humorous disposition and status as a Beyonder of the Fool Pathway, <b>"He"</b> gave off an amiable and mysterious aura. His interest in history can be explained in several ways: remnant memories of the history graduate, natural curiosity of a transmigrator, learning more to survive, and Pathway-related mysteries.
 			</p>
 			
-			<h3 style="color:#d4af9f; font-size:20px; margin-top:20px"><b>Acting & Deception</b></h3>
-			<p style="font-size:18px; color:#d4af9f; line-height:1.8" align="left">
+			<h3 style="margin-top:20px">Acting & Deception</h3>
+			<p style="line-height:1.8" align="left">
 				Klein Moretti had a talent for acting even before becoming a Beyonder treading the Fool Pathway. This was first seen when <b>"He"</b> had the reflex of assuming the attitude of a mystical and powerful entity called The Fool during <b>"his"</b> first trip in The Gray Fog. Klein then became much better at posing and faking identities as <b>"He"</b> progressed in the sequences of his Pathway with the Acting Method.
 			</p>
 			<p>.</p>
 		</div>
-<hr style="width:80%;height:5px; background-color:grey">
+<hr>
 <a href="LOTMhome.html"><button class="button button1">Home</button></a>
-<hr style="width:80%;height:5px; background-color:grey">
-			
+<hr>
+		</div>
+
+<!-- Professional Footer with Disclaimer -->
+<footer style="background-color: rgba(212, 175, 159, 0.1); border-top: 1px solid rgba(212, 175, 159, 0.3); margin-top: 40px; padding: 30px 20px; text-align: center; animation: slideInUp 0.5s ease-out;">
+	<p style="margin: 10px 0; font-size: 0.95rem; color: #d4af9f;">
+		&copy; 2026 PsReader's LOTM Fan Project. All rights reserved.
+	</p>
+	<p style="margin: 10px 0; font-size: 0.9rem; color: #c49a7f;">
+		<strong>Disclaimer:</strong> This is an unofficial fan project created for educational and entertainment purposes. 
+		<i>"Lord of the Mysteries"</i> and all associated intellectual property are the original works of 
+		<strong>Cuttlefish That Loves Diving</strong> and published by <strong>Qidian</strong>. 
+		No copyright infringement is intended.
+	</p>
+	<p style="margin: 10px 0; font-size: 0.85rem; color: #a87968;">
+		Built with passion by an aspiring web developer | 
+		<a href="LOTMhome.html" style="color: #d4af9f; text-decoration: none; transition: color 0.3s;">Back to Home</a>
+	</p>
+</footer>
+
 </body>
 </html>
-<script src="assets/script.js"></script>
+<script src="js/script.js"></script>
