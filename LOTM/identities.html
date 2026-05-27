@@ -129,6 +129,13 @@
 				text-decoration: underline;
 			}
 			
+			hr {
+				border: none;
+				height: 2px;
+				background: linear-gradient(90deg, transparent, rgba(212, 175, 159, 0.5), transparent);
+				margin: 20px auto;
+			}
+			
 			.topnav {
 				overflow: hidden;
 				background: rgba(212, 175, 159, 0.1);
@@ -168,7 +175,37 @@
 				.topnav { margin: 15px 0; }
 				p, li { font-size: 0.95rem; }
 			}
-		</style>
+			
+			.image-frame {
+				border: 3px solid #d4af9f;
+				border-radius: 8px;
+				padding: 12px;
+				background: linear-gradient(135deg, rgba(212, 175, 159, 0.1), rgba(255, 215, 0, 0.05));
+				box-shadow: 0 0 20px rgba(212, 175, 159, 0.4), 
+							inset 0 0 15px rgba(255, 215, 0, 0.1);
+				transition: all 0.3s ease;
+				display: inline-block;
+			}
+			
+			.image-frame:hover {
+				border-color: #FFD700;
+				box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), 
+							inset 0 0 20px rgba(255, 215, 0, 0.15);
+				transform: translateY(-5px);
+			}
+			
+			img {
+				animation: fadeIn 0.6s ease-out;
+				transition: transform 0.3s ease, filter 0.3s ease;
+				border-radius: 4px;
+				max-width: 100%;
+				height: auto;
+			}
+			
+			img:hover {
+				transform: scale(1.05);
+				filter: drop-shadow(0 0 12px rgba(212, 175, 159, 0.4));
+			}</style>
 	</head>
 <body align="center" background="images/crimson moon.jpeg">
 <div class="topnav">
@@ -178,11 +215,11 @@
 	<a href="Author.html">Author</a>
 	<a href="Songs.html">Songs</a>
 </div>
-<h1 style="color:#FFC300; font-size:60px"><b>Klein Moretti's Identities</b></h1>
-			<hr style="width:80%;height:5px; background-color:grey">
-	<a href="Mc_Profile.html"><button class="button button1"><--Back</button></a>
-	<a href="Church.html"><button class="button button1">Church Of The Fool</button></a>
-			<hr style="width:80%;height:5px; background-color:grey">
+<h1><b>Klein Moretti's Identities</b></h1>
+		<hr>
+		<a href="Mc_Profile.html"><button class="button button1"><--Back</button></a>
+		<a href="Church.html"><button class="button button1">Church Of The Fool</button></a>
+		<hr>
 		<div>
 				<h2 style="color:#FFC300; font-size:40px"><b>1. The Fool</b></h2>
 				<h3 style="color:white; font-size:30px"><b>“If I wanted to give you my blessings, I wouldn’t have said that. I would have said, I hope that you will still love your family and friends after seeing them as they are.„</b></h3><h6 style="color:#62009f; font-size:15px">— Klein to Audrey on <p><a href="LOTMhome.html">Lord of Mysteries</a></p>, Chapter 1228<h6>
@@ -190,14 +227,14 @@
 				<b>"He"</b> is mysterious and seems to be executing <b>"His"</b> will through the Tarot Club. <b>"He"</b> does not speak often, especially in later meetings, and only gives hints to Tarot Club members.
 				<b>"He"</b> also does not allow members to offend <b>"Him"</b> and punished Cattleya once she let out hints about <b>"Him"</b>.
 				<b>"He"</b> is the <a href="Church.html">God of the Church of the Fool</a>.</p>
-			<h3 style="color:#FFC300; font-size:40px" align="left"><b>A. Appearance</b></h3><img src="images/The Fool.jpeg" width="170px" style="border:5px solid navy">
+			<h3 style="color:#FFC300; font-size:40px" align="left"><b>A. Appearance</b></h3><img src="images/The Fool.jpeg" width="170px" class="image-frame">
 				<p style="font-size:20px; color:#d4af9f" align="left">After becoming <b><i>The Fool</i></b>: "His" facial features are a mix of Klein Moretti and Gehrman Sparrow.
 				<b>"He"</b> wears an illusory mask with blank facial features (uniqueness of the Fool pathway) and wears a black windbreaker.
 				<b>"He"</b> wears a pair of black gloves (uniqueness of the Error pathway) and holds a staff inlaid with star speckles (uniqueness of the Door pathway).</p>
 
 			<h2 style="color:#FFC300; font-size:40px"><b>2. Sherlock Moriarty</b></h2>
 				<p style="font-size:20px; color:#d4af9f" align="left"> Klein did not take much effort distinguishing Sherlock from Klein, so in many ways, they are similar, except that Sherlock is good at deduction and is a great detective.
-			<h3 style="color:#FFC300; font-size:40px" align="left"><b>A. Appearance</b></h3><img src="images/Sherlock.jpeg" width="170px" style="border:5px solid navy">
+			<h3 style="color:#FFC300; font-size:40px" align="left"><b>A. Appearance</b></h3><img src="images/Sherlock.jpeg" width="170px" class="image-frame">
 				<p style="font-size:20px; color:#d4af9f" align="left">Sherlock Moriarty has Brown eyes, slightly long black hair, average-featured face with some stubs of facial hair, thin yet with a moderately muscular build.</p>
 			<h3 style="color:#FFC300; font-size:40px" align="left"><b>B. Relationship</b></h3>
 					<ul style="font-size:20px; color:000000" align="left"> 
@@ -266,10 +303,28 @@
 						<p>.</p>
 						<p>.</p>
 </div>
-<hr style="width:80%;height:5px; background-color:grey">
-<a href="Mc_Profile.html"><button class="button button1"><--Back</button></a>
-<a href="LOTMhome.html"><button class="button button1">Home</button></a>
-<hr style="width:80%;height:5px; background-color:grey">
+	<hr>
+	<a href="Mc_Profile.html"><button class="button button1"><--Back</button></a>
+	<a href="LOTMhome.html"><button class="button button1">Home</button></a>
+	<hr>
+
+	<!-- Professional Footer with Disclaimer -->
+	<footer style="background-color: rgba(212, 175, 159, 0.1); border-top: 1px solid rgba(212, 175, 159, 0.3); margin-top: 40px; padding: 30px 20px; text-align: center; animation: slideInUp 0.5s ease-out;">
+		<p style="margin: 10px 0; font-size: 0.95rem; color: #d4af9f;">
+			&copy; 2026 PsReader's LOTM Fan Project. All rights reserved.
+		</p>
+		<p style="margin: 10px 0; font-size: 0.9rem; color: #c49a7f;">
+			<strong>Disclaimer:</strong> This is an unofficial fan project created for educational and entertainment purposes. 
+			<i>"Lord of the Mysteries"</i> and all associated intellectual property are the original works of 
+			<strong>Cuttlefish That Loves Diving</strong> and published by <strong>Qidian</strong>. 
+			No copyright infringement is intended.
+		</p>
+		<p style="margin: 10px 0; font-size: 0.85rem; color: #a87968;">
+			Built with passion by an aspiring web developer | 
+			<a href="LOTMhome.html" style="color: #d4af9f; text-decoration: none; transition: color 0.3s;">Back to Home</a>
+		</p>
+	</footer>
 
 </body>
 </html>
+<script src="js/script.js"></script>

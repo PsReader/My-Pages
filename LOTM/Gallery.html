@@ -129,6 +129,13 @@
 				text-decoration: underline;
 			}
 			
+			hr {
+				border: none;
+				height: 2px;
+				background: linear-gradient(90deg, transparent, rgba(212, 175, 159, 0.5), transparent);
+				margin: 20px auto;
+			}
+			
 			.topnav {
 				overflow: hidden;
 				background: rgba(212, 175, 159, 0.1);
@@ -162,7 +169,25 @@
 				color: #e8c8b8;
 			}
 			
-			@media (max-width: 768px) {
+			
+			.image-frame {
+				border: 3px solid #d4af9f;
+				border-radius: 8px;
+				padding: 12px;
+				background: linear-gradient(135deg, rgba(212, 175, 159, 0.1), rgba(255, 215, 0, 0.05));
+				box-shadow: 0 0 20px rgba(212, 175, 159, 0.4), 
+							inset 0 0 15px rgba(255, 215, 0, 0.1);
+				transition: all 0.3s ease;
+				display: inline-block;
+			}
+			
+			.image-frame:hover {
+				border-color: #FFD700;
+				box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), 
+							inset 0 0 20px rgba(255, 215, 0, 0.15);
+				transform: translateY(-5px);
+			}
+			
 				h1 { font-size: 2rem; }
 				h2 { font-size: 1.4rem; }
 				.topnav { margin: 15px 0; }
@@ -182,48 +207,65 @@
 <button id="scrollToTop">↑</button>
 
 <h1 style="color:#FFC300; font-size:60px"><b>Gallery</b></h1>
-			<hr style="width:80%;height:5px; background-color:grey">
+			<hr>
 			<a href="Mc_Profile.html"><button class="button button1"><--Back</button></a>	
-			<hr style="width:80%;height:5px; background-color:grey">
+			<hr>
 			<div>
 			<h2 style="color:#FFC300; font-size:40px">Official Art:</h2>
 				<h3 style="color:#FFC300; font-size:40px">1. Klein Moretti</h2>
 				<p style="font-size:20px; color:#d4af9f">
-				<img src="images/Klein-N.jpg" width="190px" style="border:5px solid gold">
-				<img src="images/Klein-N2.jpg" width="190px" style="border:5px solid gold">
-				<img src="images/Klein-T.jpg" width="190px" style="border:5px solid gold">
+				<img src="images/Klein-N.jpg" width="190px" class="image-frame">
+				<img src="images/Klein-N2.jpg" width="190px" class="image-frame">
+				<img src="images/Klein-T.jpg" width="190px" class="image-frame">
 				
 				<h3 style="color:#FFC300; font-size:40px">2. Sherlock Moriarty</h2>
 				<p style="font-size:20px; color:#d4af9f">
-				<img src="images/Sherlock-D.jpeg" width="190px" style="border:5px solid gold">
+				<img src="images/Sherlock-D.jpeg" width="190px" class="image-frame">
 
 				<h3 style="color:#FFC300; font-size:40px">3. Dwayne Dantes</h2>
 				<p style="font-size:20px; color:#d4af9f">
-				<img src="images/Dwayne-M.jpeg" width="190px" style="border:5px solid gold">
+				<img src="images/Dwayne-M.jpeg" width="190px" class="image-frame">
 	
 				<h3 style="color:#FFC300; font-size:40px">4. The Fool</h2>
 				<p style="font-size:20px; color:#d4af9f">
-				<img src="images/Fool-G.jpeg" width="190px" style="border:5px solid gold">
+				<img src="images/Fool-G.jpeg" width="190px" class="image-frame">
 
 				<h3 style="color:#FFC300; font-size:40px">5. Gehrman Sparrow</h2>
 				<p style="font-size:20px; color:#d4af9f">
-				<img src="images/Gehrman-A.jpeg" width="190px" style="border:5px solid gold">
+				<img src="images/Gehrman-A.jpeg" width="190px" class="image-frame">
 
 				<h3 style="color:#FFC300; font-size:40px">6. Merlin Hermes</h2>
 				<p style="font-size:20px; color:#d4af9f">
-				<img src="images/Merlin-W.jpeg" width="190px" style="border:5px solid gold">
+				<img src="images/Merlin-W.jpeg" width="190px" class="image-frame">
 			
 				<h3 style="color:#FFC300; font-size:40px">7. Zhou Mingrou</h2>
 				<p style="font-size:20px; color:#d4af9f">
-				<img src="images/Zhou-S.jpeg" width="190px" style="border:5px solid gold">
+				<img src="images/Zhou-S.jpeg" width="190px" class="image-frame">
 </div>
 
-<hr style="width:80%;height:5px; background-color:grey">
+<hr>
 <a href="Mc_Profile.html"><button class="button button1"><--Back</button></a>
 <a href="LOTMhome.html"><button class="button button1">Home</button></a>
-<hr style="width:80%;height:5px; background-color:grey">
-			
+<hr>
+
+<!-- Professional Footer with Disclaimer -->
+<footer style="background-color: rgba(212, 175, 159, 0.1); border-top: 1px solid rgba(212, 175, 159, 0.3); margin-top: 40px; padding: 30px 20px; text-align: center; animation: slideInUp 0.5s ease-out;">
+	<p style="margin: 10px 0; font-size: 0.95rem; color: #d4af9f;">
+		&copy; 2026 PsReader's LOTM Fan Project. All rights reserved.
+	</p>
+	<p style="margin: 10px 0; font-size: 0.9rem; color: #c49a7f;">
+		<strong>Disclaimer:</strong> This is an unofficial fan project created for educational and entertainment purposes. 
+		<i>"Lord of the Mysteries"</i> and all associated intellectual property are the original works of 
+		<strong>Cuttlefish That Loves Diving</strong> and published by <strong>Qidian</strong>. 
+		No copyright infringement is intended.
+	</p>
+	<p style="margin: 10px 0; font-size: 0.85rem; color: #a87968;">
+		Built with passion by an aspiring web developer | 
+		<a href="LOTMhome.html" style="color: #d4af9f; text-decoration: none; transition: color 0.3s;">Back to Home</a>
+	</p>
+</footer>
+
 </body>
 </html>
-<script src="assets/script.js"></script>
+<script src="js/script.js"></script>
 
