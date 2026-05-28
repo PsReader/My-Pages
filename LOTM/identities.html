@@ -1,330 +1,529 @@
 <html>
-	<head>
-		<meta charset="UTF-8">
-    		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>LOTM-MC</title>
-		<style>
-			@keyframes fadeIn {
-				from {
-					opacity: 0;
-				}
-				to {
-					opacity: 1;
-				}
-			}
-			
-			@keyframes slideInDown {
-				from {
-					transform: translateY(-20px);
-					opacity: 0;
-				}
-				to {
-					transform: translateY(0);
-					opacity: 1;
-				}
-			}
-			
-			@keyframes slideInUp {
-				from {
-					transform: translateY(15px);
-					opacity: 0;
-				}
-				to {
-					transform: translateY(0);
-					opacity: 1;
-				}
-			}
-			
-			body {
-				background: linear-gradient(135deg, rgba(20, 10, 25, 0.95), rgba(40, 20, 50, 0.95)),
-						url('images/crimson moon.jpeg');
-				background-attachment: fixed;
-				color: #d4af9f;
-				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-			}
-			
-			h1 {
-				color: #e8c8b8;
-				font-size: 2.5rem;
-				font-weight: 700;
-				text-align: center;
-				margin: 30px 0 20px;
-				animation: slideInDown 0.6s ease-out;
-				letter-spacing: 1px;
-				text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-			}
-			
-			h2 {
-				color: #d4af9f;
-				font-size: 1.8rem;
-				font-weight: 600;
-				margin: 25px 0 15px;
-				padding: 12px;
-				background-color: rgba(212, 175, 159, 0.1);
-				border-left: 3px solid rgba(212, 175, 159, 0.5);
-				border-radius: 4px;
-				animation: slideInUp 0.4s ease-out;
-				transition: all 0.3s ease;
-			}
-			
-			h2:hover {
-				background-color: rgba(212, 175, 159, 0.15);
-				border-left-color: rgba(212, 175, 159, 0.8);
-				transform: translateX(5px);
-			}
-			
-			h3, h6 {
-				color: #d4af9f;
-				font-size: 1.2rem;
-				font-weight: 600;
-				animation: fadeIn 0.4s ease-out;
-				transition: all 0.3s ease;
-				margin: 15px 0 10px;
-			}
-			
-			h3:hover {
-				color: #e8c8b8;
-				transform: translateX(5px);
-			}
-			
-			div {
-				animation: fadeIn 0.5s ease-out;
-			}
-			
-			p, li {
-				color: #d4af9f;
-				font-size: 1rem;
-				line-height: 1.6;
-				margin: 10px 0;
-			}
-			
-			.button1 {
-				background-color: rgba(212, 175, 159, 0.15);
-				color: #d4af9f;
-				border: 1px solid rgba(212, 175, 159, 0.4);
-				padding: 10px 20px;
-				border-radius: 6px;
-				transition: all 0.3s ease;
-				cursor: pointer;
-				font-weight: 500;
-			}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LOTM-MC</title>
+    <style>
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
 
-			.button1:hover {
-				background-color: rgba(212, 175, 159, 0.25);
-				color: #e8c8b8;
-				border-color: rgba(212, 175, 159, 0.8);
-				transform: translateY(-2px);
-				box-shadow: 0 4px 12px rgba(212, 175, 159, 0.2);
-			}
-			
-			a {
-				color: #d4af9f;
-				background-color: transparent;
-				text-decoration: none;
-				transition: all 0.3s ease;
-			}
-			
-			a:hover {
-				color: #e8c8b8;
-				text-decoration: underline;
-			}
-			
-			hr {
-				border: none;
-				height: 2px;
-				background: linear-gradient(90deg, transparent, rgba(212, 175, 159, 0.5), transparent);
-				margin: 20px auto;
-			}
-			
-			.topnav {
-				overflow: hidden;
-				background: rgba(212, 175, 159, 0.1);
-				border: 1px solid rgba(212, 175, 159, 0.3);
-				border-radius: 6px;
-				animation: slideInDown 0.6s ease-out;
-				margin: 20px 0;
-			}
-			
-			.topnav a {
-				float: left;
-				display: block;
-				color: #d4af9f;
-				text-align: center;
-				padding: 14px 20px;
-				text-decoration: none;
-				transition: all 0.3s ease;
-				font-weight: 500;
-				font-size: 0.95rem;
-			}
-			
-			.topnav a:hover {
-				background-color: rgba(212, 175, 159, 0.2);
-				border-bottom: 2px solid rgba(212, 175, 159, 0.8);
-				color: #e8c8b8;
-			}
-			
-			.topnav a.active-page {
-				background-color: rgba(212, 175, 159, 0.2);
-				border-bottom: 2px solid rgba(212, 175, 159, 0.8);
-				color: #e8c8b8;
-			}
-			
-			@media (max-width: 768px) {
-				h1 { font-size: 2rem; }
-				h2 { font-size: 1.4rem; }
-				.topnav { margin: 15px 0; }
-				p, li { font-size: 0.95rem; }
-			}
-			
-			.image-frame {
-				border: 3px solid #d4af9f;
-				border-radius: 8px;
-				padding: 12px;
-				background: linear-gradient(135deg, rgba(212, 175, 159, 0.1), rgba(255, 215, 0, 0.05));
-				box-shadow: 0 0 20px rgba(212, 175, 159, 0.4), 
-							inset 0 0 15px rgba(255, 215, 0, 0.1);
-				transition: all 0.3s ease;
-				display: inline-block;
-			}
-			
-			.image-frame:hover {
-				border-color: #FFD700;
-				box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), 
-							inset 0 0 20px rgba(255, 215, 0, 0.15);
-				transform: translateY(-5px);
-			}
-			
-			img {
-				animation: fadeIn 0.6s ease-out;
-				transition: transform 0.3s ease, filter 0.3s ease;
-				border-radius: 4px;
-				max-width: 100%;
-				height: auto;
-			}
-			
-			img:hover {
-				transform: scale(1.05);
-				filter: drop-shadow(0 0 12px rgba(212, 175, 159, 0.4));
-			}</style>
-	</head>
-<body align="center" background="images/crimson moon.jpeg">
-<div class="topnav">
-	<a href="LOTMhome.html">Home</a>
-	<a href="Mc_Profile.html">MC</a>
-	<a href="Novel.html">Novel</a>
-	<a href="Author.html">Author</a>
-	<a href="Songs.html">Songs</a>
-</div>
-<h1><b>Klein Moretti's Identities</b></h1>
-		<hr>
-		<a href="Mc_Profile.html"><button class="button button1"><--Back</button></a>
-		<a href="Church.html"><button class="button button1">Church Of The Fool</button></a>
-		<hr>
-		<div>
-				<h2 style="color:#FFC300; font-size:40px"><b>1. The Fool</b></h2>
-				<h3 style="color:white; font-size:30px"><b>“If I wanted to give you my blessings, I wouldn’t have said that. I would have said, I hope that you will still love your family and friends after seeing them as they are.„</b></h3><h6 style="color:#62009f; font-size:15px">— Klein to Audrey on <p><a href="LOTMhome.html">Lord of Mysteries</a></p>, Chapter 1228<h6>
-				<p style="font-size:20px; color:#d4af9f" align="left"> <b>The Fool</b> is an old god that seeks to revive and reclaim his authority.
-				<b>"He"</b> is mysterious and seems to be executing <b>"His"</b> will through the Tarot Club. <b>"He"</b> does not speak often, especially in later meetings, and only gives hints to Tarot Club members.
-				<b>"He"</b> also does not allow members to offend <b>"Him"</b> and punished Cattleya once she let out hints about <b>"Him"</b>.
-				<b>"He"</b> is the <a href="Church.html">God of the Church of the Fool</a>.</p>
-			<h3 style="color:#FFC300; font-size:40px" align="left"><b>A. Appearance</b></h3><img src="images/The Fool.jpeg" width="170px" class="image-frame">
-				<p style="font-size:20px; color:#d4af9f" align="left">After becoming <b><i>The Fool</i></b>: "His" facial features are a mix of Klein Moretti and Gehrman Sparrow.
-				<b>"He"</b> wears an illusory mask with blank facial features (uniqueness of the Fool pathway) and wears a black windbreaker.
-				<b>"He"</b> wears a pair of black gloves (uniqueness of the Error pathway) and holds a staff inlaid with star speckles (uniqueness of the Door pathway).</p>
+      @keyframes slideInDown {
+        from {
+          transform: translateY(-20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
 
-			<h2 style="color:#FFC300; font-size:40px"><b>2. Sherlock Moriarty</b></h2>
-				<p style="font-size:20px; color:#d4af9f" align="left"> Klein did not take much effort distinguishing Sherlock from Klein, so in many ways, they are similar, except that Sherlock is good at deduction and is a great detective.
-			<h3 style="color:#FFC300; font-size:40px" align="left"><b>A. Appearance</b></h3><img src="images/Sherlock.jpeg" width="170px" class="image-frame">
-				<p style="font-size:20px; color:#d4af9f" align="left">Sherlock Moriarty has Brown eyes, slightly long black hair, average-featured face with some stubs of facial hair, thin yet with a moderately muscular build.</p>
-			<h3 style="color:#FFC300; font-size:40px" align="left"><b>B. Relationship</b></h3>
-					<ul style="font-size:20px; color:000000" align="left"> 
-						<li>Talim Dumont: Friend, Klein was involved in the case of his death.</li>
-						<li>Mike Joseph: Friend, a reporter who hired Klein as a bodyguard for an investigation.</li>
-						<li>Aaron Ceres: Friend, father of the Will Auceptin.</li>
-						<li>Sharron and Maric: Friend, they helped each other in multiple occasions.</li>
-						<li>Isengard Stanton: Friend, he was one of his connection to the Church of the God of Steam and Machinery.</li>
-						<li>Old Kohler: Worked as Klein's informant in East Borough.</li>
-						<li>Ian Wright: Friend, he was Klein's first client as a detective.</li>
-						<li>Utravsky: Friend, Klein helped him.</li>
-						<li>Emlyn White: Friend</li>
-					</ul>
-			<h3 style="color:#FFC300; font-size:40px" align="left"><b>C. Reference</b></h3>
-					<p style="font-size:20px; color:#d4af9f" align="left">Sherlock Moriarty. This name is a combination of names from the famous detective Sherlock Holmes and his nemesis, James Moriarty.
-					The fictional characters in the Sherlock Holmes stories written by Sir Arthur Conan Doyle.</p>
+      @keyframes slideInUp {
+        from {
+          transform: translateY(15px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
 
-			<h2 style="color:#FFC300; font-size:40px"><b>3. Gehrman Sparrow/The World</b></h2>
-				<p style="font-size:20px; color:#d4af9f" align="left"> He is a crazy adventurer who began to hunt pirates on the sea before being involved in many Beyonders' incidents at the Demigod level. 
-				He doesn't talk much, stays cold and calm all the time while being very assertive with others.
-				Gehrman is also known as The World of the Tarot Club, a mad believer and the <b>Angel of Redemption of The Fool.</b></p>
-			<h3 style="color:#FFC300; font-size:40px" align="left"><b>A. Appearance</b></h3><img src="images/Gehrman.jpeg" width="170px" style="border:5px solid navy">
-				<p style="font-size:20px; color:#d4af9f" align="left">Gehrman Sparrow is a young gentleman with gold-rimmed glasses, neat black hair and dark brown eyes.
-				He looks colder and sharper than Sherlock or Klein.
-				Gehrman refined demeanor and gloomy aura make him appear as an experienced, ruthless adventurer.</p>
-			<h3 style="color:#FFC300; font-size:40px" align="left"><b>B. Relationship</b></h3>
-					<ul style="font-size:20px; color:000000" align="left"> 
-						<li>Blazing Danitz: Servant/Friend/Fool's believer</li>
-						<li>Reinette Tinekerr: Messenger/Ally</li>
-						<li>Edwina Edwards: Ally/Friend</li>
-						<li>Frank Lee: Friend</li>
-						<li>Anderson Hood : Ally/Friend</li>
-					</ul>
-			<h3 style="color:#FFC300; font-size:40px" align="left"><b>C. Reference</b></h3>
-					<p style="font-size:20px; color:000000" align="left">Gehrman Sparrow: Gehrman is a reference to Gehrman, the First Hunter, a boss character in Bloodborne.
-					And Captain Jack Sparrow, the protagonist of the Pirate of the Caribbean.</p>
+      body {
+        background:
+          linear-gradient(
+            135deg,
+            rgba(20, 10, 25, 0.95),
+            rgba(40, 20, 50, 0.95)
+          ),
+          url("images/crimson moon.jpeg");
+        background-attachment: fixed;
+        color: #d4af9f;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
 
-			<h2 style="color:#FFC300; font-size:40px"><b>4. Dwayne Dantès</b></h2>
-				<p style="font-size:20px; color:#d4af9f" align="left"> Dwayne Dantès is a mysterious tycoon from Desi Bay and a devout believer of Evernight Goddess. He came to Backlund to seek new opportunities, and to a certain extent, tries to enter the upper hierarchy of Backlund nobles.
-				In fact, he was an adventurer who accumulated wealth in the Southern Continent, and since the fortune was not gained in a completely legal way, he came to Backlund to clean up the fortune.
-				If any official Beyonders wish to dig deeper than this, they would then discover that he is a cheat who disguises himself as a rich man and makes big investments for the final scam.
-				He is known as a womanizer because of <i>Arrodes<i>.
-			<h3 style="color:#FFC300; font-size:40px" align="left"><b>A. Appearance</b></h3><img src="images/Dwayne.jpeg" width="170px" style="border:5px solid navy">
-				<p style="font-size:20px; color:#d4af9f" align="left">Dwayne Dantès is a middle-aged gentleman with a mature appearance, deep-blue eyes, black hair with few silver strands, and profound gaze.
-				Someone who exhibits the aura of a person who had experienced the vicissitudes of life.</p>
-			<h3 style="color:#FFC300; font-size:40px" align="left"><b>B. Relationship</b></h3>
-					<ul style="font-size:20px; color:000000" align="left"> 
-						<li>Walter: Butler</li>
-						<li>Richardson: Valet, Land Steward of Maygur Manor</li>
-						<li>Taneja: Housekeeper</li>
-						<li>Maury Macht: Neighbor</li>
-						<li>Portland Moment: Neighbor</li>
-					</ul>
-			<h3 style="color:#FFC300; font-size:40px" align="left"><b>C. Reference</b></h3>
-					<p style="font-size:20px; color:#d4af9f" align="left">Dwayne Dantès: Dantès is a reference to a famous avenger, Edmond Dantès from The Count of the Monte Cristo, a French adventure novel written in 1844.</p>
+      h1 {
+        color: #ffd700;
+        font-size: 3.5rem;
+        font-weight: 700;
+        text-align: center;
+        margin: 30px 0 20px;
+        animation: slideInDown 0.6s ease-out;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+      }
 
-			<h2 style="color:#FFC300; font-size:40px"><b>5. Merlin Hermes</b></h2>
-				<p style="font-size:20px; color:000000" align="left">Merlin Hermes: A wandering magician who travels and grants people's wishes. “He” is the creator of the Fully Automatic Wishing Machine, a machine that can supposedly grant its users three wishes. 
-				However, it was actually Merlin Hermes granting the wishes. "He" calls himself the Miracle Magician and servant of <b>"The Fool"</b>, Lord of Mysteries, Great Ruler of the Spirit World."</b></p>
-			<h3 style="color:#FFC300; font-size:40px" align="left"><b>A. Appearance</b></h3><img src="images/Merlin.jpeg" width="170px" style="border:5px solid navy">
-				<p style="font-size:20px; color:#d4af9f" align="left">Merlin Hermes is a wandering magician, 
-				he wears a black robe and classic hat. He looked nothing special.</p>
-			<h3 style="color:#FFC300; font-size:40px" align="left"><b>B. Reference</b></h3>
-					<p style="font-size:20px; color:#d4af9f" align="left">Merlin Hermes: Merlin refers to the legendary wizard featured in Arthurian legend.
-					 And Hermes is originated from Greek Mythology, who is the Herald of the Gods, Protector of travelers and merchants.</p>
-						<p>.</p>
-						<p>.</p>
-</div>
-	<hr>
-	<a href="Mc_Profile.html"><button class="button button1"><--Back</button></a>
-	<a href="LOTMhome.html"><button class="button button1">Home</button></a>
-	<hr>
+      h2 {
+        color: #d4af9f;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin: 25px 0 15px;
+        padding: 12px;
+        background-color: rgba(212, 175, 159, 0.1);
+        border-left: 3px solid rgba(212, 175, 159, 0.5);
+        border-radius: 4px;
+        animation: slideInUp 0.4s ease-out;
+        transition: all 0.3s ease;
+      }
 
-	<!-- Professional Footer with Disclaimer -->
-	<footer style="background-color: rgba(212, 175, 159, 0.1); border-top: 1px solid rgba(212, 175, 159, 0.3); margin-top: 40px; padding: 30px 20px; text-align: center; animation: slideInUp 0.5s ease-out;">
-		<p style="margin: 10px 0; font-size: 0.95rem; color: #d4af9f;">
-			&copy; 2026 PsReader's LOTM Fan Project. All rights reserved.
-		</p>
-		<p style="margin: 10px 0; font-size: 0.9rem; color: #c49a7f;">
-			<strong>Disclaimer:</strong> This is an unofficial fan project created for educational and entertainment purposes. 
-			<i>"Lord of the Mysteries"</i> and all associated intellectual property are the original works of 
-			<strong>Cuttlefish That Loves Diving</strong> and published by <strong>Qidian</strong>. 
-			No copyright infringement is intended.
-		</p>
-		<p style="margin: 10px 0; font-size: 0.85rem; color: #a87968;">
-			Built with passion by an aspiring web developer | 
-			<a href="LOTMhome.html" style="color: #d4af9f; text-decoration: none; transition: color 0.3s;">Back to Home</a>
-		</p>
-	</footer>
+      h2:hover {
+        background-color: rgba(212, 175, 159, 0.15);
+        border-left-color: rgba(212, 175, 159, 0.8);
+        transform: translateX(5px);
+      }
 
-</body>
+      h3,
+      h6 {
+        color: #d4af9f;
+        font-size: 1.2rem;
+        font-weight: 600;
+        animation: fadeIn 0.4s ease-out;
+        transition: all 0.3s ease;
+        margin: 15px 0 10px;
+      }
+
+      h3:hover {
+        color: #e8c8b8;
+        transform: translateX(5px);
+      }
+
+      div {
+        animation: fadeIn 0.5s ease-out;
+      }
+
+      p,
+      li {
+        color: #d4af9f;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin: 10px 0;
+      }
+
+      .button1 {
+        background-color: rgba(212, 175, 159, 0.15);
+        color: #d4af9f;
+        border: 1px solid rgba(212, 175, 159, 0.4);
+        padding: 10px 20px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      .button1:hover {
+        background-color: rgba(212, 175, 159, 0.25);
+        color: #e8c8b8;
+        border-color: rgba(212, 175, 159, 0.8);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(212, 175, 159, 0.2);
+      }
+
+      a {
+        color: #d4af9f;
+        background-color: transparent;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      a:hover {
+        color: #e8c8b8;
+        text-decoration: underline;
+      }
+
+      hr {
+        border: none;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(212, 175, 159, 0.5),
+          transparent
+        );
+        margin: 20px auto;
+      }
+
+      .topnav {
+        overflow: hidden;
+        background: rgba(212, 175, 159, 0.1);
+        border: 1px solid rgba(212, 175, 159, 0.3);
+        border-radius: 6px;
+        animation: slideInDown 0.6s ease-out;
+        margin: 20px 0;
+      }
+
+      .topnav a {
+        float: left;
+        display: block;
+        color: #d4af9f;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        font-size: 0.95rem;
+      }
+
+      .topnav a:hover {
+        background-color: rgba(212, 175, 159, 0.2);
+        border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+        color: #e8c8b8;
+      }
+
+      .topnav a.active-page {
+        background-color: rgba(212, 175, 159, 0.2);
+        border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+        color: #e8c8b8;
+      }
+
+      /* ===== BACK BUTTON ===== */
+      .back-button {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: rgba(212, 175, 159, 0.15);
+        border: 2px solid rgba(212, 175, 159, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
+        animation: slideInDown 0.6s ease-out;
+      }
+
+      .back-button:hover {
+        background-color: rgba(212, 175, 159, 0.25);
+        border-color: rgba(212, 175, 159, 0.8);
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(212, 175, 159, 0.3);
+      }
+
+      .back-button a {
+        color: #d4af9f;
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        transition: color 0.3s ease;
+      }
+
+      .back-button:hover a {
+        color: #e8c8b8;
+      }
+
+      .left-align {
+        text-align: left;
+      }
+
+      .center-align {
+        text-align: center;
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
+        }
+        h2 {
+          font-size: 1.4rem;
+        }
+        .topnav {
+          margin: 15px 0;
+        }
+        p,
+        li {
+          font-size: 0.95rem;
+        }
+      }
+
+      .image-frame {
+        border: 3px solid #d4af9f;
+        border-radius: 8px;
+        padding: 12px;
+        background: linear-gradient(
+          135deg,
+          rgba(212, 175, 159, 0.1),
+          rgba(255, 215, 0, 0.05)
+        );
+        box-shadow:
+          0 0 20px rgba(212, 175, 159, 0.4),
+          inset 0 0 15px rgba(255, 215, 0, 0.1);
+        transition: all 0.3s ease;
+        display: inline-block;
+      }
+
+      .image-frame:hover {
+        border-color: #ffd700;
+        box-shadow:
+          0 0 25px rgba(255, 215, 0, 0.6),
+          inset 0 0 20px rgba(255, 215, 0, 0.15);
+        transform: translateY(-5px);
+      }
+
+      img {
+        animation: fadeIn 0.6s ease-out;
+        transition:
+          transform 0.3s ease,
+          filter 0.3s ease;
+        border-radius: 4px;
+        max-width: 100%;
+        height: auto;
+      }
+
+      img:hover {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 12px rgba(212, 175, 159, 0.4));
+      }
+    </style>
+  </head>
+  <body style="text-align: center">
+    <div class="topnav">
+      <a href="LOTMhome.html">Home</a>
+      <a href="Mc_Profile.html">MC</a>
+      <a href="Novel.html">Novel</a>
+      <a href="Author.html">Author</a>
+      <a href="Songs.html">Songs</a>
+    </div>
+
+    <h1><b>Klein Moretti's Identities</b></h1>
+    <hr />
+    <div class="center-align">
+      <a href="Mc_Profile.html"><button class="button1">← Back</button></a>
+      <a href="Church.html"
+        ><button class="button1">Church Of The Fool</button></a
+      >
+    </div>
+    <hr />
+    <div>
+      <h2><b>1. The Fool</b></h2>
+      <h3>
+        <b
+          >"If I wanted to give you my blessings, I wouldn't have said that. I
+          would have said, I hope that you will still love your family and
+          friends after seeing them as they are."</b
+        >
+      </h3>
+      <h6>
+        — Klein to Audrey on <a href="LOTMhome.html">Lord of Mysteries</a>,
+        Chapter 1228
+      </h6>
+      <p class="left-align">
+        <b>The Fool</b> is an old god that seeks to revive and reclaim his
+        authority. <b>"He"</b> is mysterious and seems to be executing
+        <b>"His"</b> will through the Tarot Club. <b>"He"</b> does not speak
+        often, especially in later meetings, and only gives hints to Tarot Club
+        members. <b>"He"</b> also does not allow members to offend
+        <b>"Him"</b> and punished Cattleya once she let out hints about
+        <b>"Him"</b>. <b>"He"</b> is the
+        <a href="Church.html">God of the Church of the Fool</a>.
+      </p>
+      <h3><b>A. Appearance</b></h3>
+      <div class="center-align">
+        <img src="images/The Fool.jpeg" width="170px" class="image-frame" />
+      </div>
+      <p class="left-align">
+        After becoming <b><i>The Fool</i></b
+        >: "His" facial features are a mix of Klein Moretti and Gehrman Sparrow.
+        <b>"He"</b> wears an illusory mask with blank facial features
+        (uniqueness of the Fool pathway) and wears a black windbreaker.
+        <b>"He"</b> wears a pair of black gloves (uniqueness of the Error
+        pathway) and holds a staff inlaid with star speckles (uniqueness of the
+        Door pathway).
+      </p>
+
+      <h2><b>2. Sherlock Moriarty</b></h2>
+      <p class="left-align">
+        Klein did not take much effort distinguishing Sherlock from Klein, so in
+        many ways, they are similar, except that Sherlock is good at deduction
+        and is a great detective.
+      </p>
+      <h3><b>A. Appearance</b></h3>
+      <div class="center-align">
+        <img src="images/Sherlock.jpeg" width="170px" class="image-frame" />
+      </div>
+      <p class="left-align">
+        Sherlock Moriarty has Brown eyes, slightly long black hair,
+        average-featured face with some stubs of facial hair, thin yet with a
+        moderately muscular build.
+      </p>
+      <h3><b>B. Relationship</b></h3>
+      <ul class="left-align">
+        <li>
+          Talim Dumont: Friend, Klein was involved in the case of his death.
+        </li>
+        <li>
+          Mike Joseph: Friend, a reporter who hired Klein as a bodyguard for an
+          investigation.
+        </li>
+        <li>Aaron Ceres: Friend, father of the Will Auceptin.</li>
+        <li>
+          Sharron and Maric: Friend, they helped each other in multiple
+          occasions.
+        </li>
+        <li>
+          Isengard Stanton: Friend, he was one of his connection to the Church
+          of the God of Steam and Machinery.
+        </li>
+        <li>Old Kohler: Worked as Klein's informant in East Borough.</li>
+        <li>Ian Wright: Friend, he was Klein's first client as a detective.</li>
+        <li>Utravsky: Friend, Klein helped him.</li>
+        <li>Emlyn White: Friend</li>
+      </ul>
+      <h3><b>C. Reference</b></h3>
+      <p class="left-align">
+        Sherlock Moriarty. This name is a combination of names from the famous
+        detective Sherlock Holmes and his nemesis, James Moriarty. The fictional
+        characters in the Sherlock Holmes stories written by Sir Arthur Conan
+        Doyle.
+      </p>
+
+      <h2><b>3. Gehrman Sparrow/The World</b></h2>
+      <p class="left-align">
+        He is a crazy adventurer who began to hunt pirates on the sea before
+        being involved in many Beyonders' incidents at the Demigod level. He
+        doesn't talk much, stays cold and calm all the time while being very
+        assertive with others. Gehrman is also known as The World of the Tarot
+        Club, a mad believer and the <b>Angel of Redemption of The Fool.</b>
+      </p>
+      <h3><b>A. Appearance</b></h3>
+      <div class="center-align">
+        <img src="images/Gehrman.jpeg" width="170px" class="image-frame" />
+      </div>
+      <p class="left-align">
+        Gehrman Sparrow is a young gentleman with gold-rimmed glasses, neat
+        black hair and dark brown eyes. He looks colder and sharper than
+        Sherlock or Klein. Gehrman refined demeanor and gloomy aura make him
+        appear as an experienced, ruthless adventurer.
+      </p>
+      <h3><b>B. Relationship</b></h3>
+      <ul class="left-align">
+        <li>Blazing Danitz: Servant/Friend/Fool's believer</li>
+        <li>Reinette Tinekerr: Messenger/Ally</li>
+        <li>Edwina Edwards: Ally/Friend</li>
+        <li>Frank Lee: Friend</li>
+        <li>Anderson Hood : Ally/Friend</li>
+      </ul>
+      <h3><b>C. Reference</b></h3>
+      <p class="left-align">
+        Gehrman Sparrow: Gehrman is a reference to Gehrman, the First Hunter, a
+        boss character in Bloodborne. And Captain Jack Sparrow, the protagonist
+        of the Pirate of the Caribbean.
+      </p>
+
+      <h2><b>4. Dwayne Dantès</b></h2>
+      <p class="left-align">
+        Dwayne Dantès is a mysterious tycoon from Desi Bay and a devout believer
+        of Evernight Goddess. He came to Backlund to seek new opportunities, and
+        to a certain extent, tries to enter the upper hierarchy of Backlund
+        nobles. In fact, he was an adventurer who accumulated wealth in the
+        Southern Continent, and since the fortune was not gained in a completely
+        legal way, he came to Backlund to clean up the fortune. If any official
+        Beyonders wish to dig deeper than this, they would then discover that he
+        is a cheat who disguises himself as a rich man and makes big investments
+        for the final scam. He is known as a womanizer because of
+        <i>Arrodes</i>.
+      </p>
+      <h3><b>A. Appearance</b></h3>
+      <div class="center-align">
+        <img src="images/Dwayne.jpeg" width="170px" class="image-frame" />
+      </div>
+      <p class="left-align">
+        Dwayne Dantès is a middle-aged gentleman with a mature appearance,
+        deep-blue eyes, black hair with few silver strands, and profound gaze.
+        Someone who exhibits the aura of a person who had experienced the
+        vicissitudes of life.
+      </p>
+      <h3><b>B. Relationship</b></h3>
+      <ul class="left-align">
+        <li>Walter: Butler</li>
+        <li>Richardson: Valet, Land Steward of Maygur Manor</li>
+        <li>Taneja: Housekeeper</li>
+        <li>Maury Macht: Neighbor</li>
+        <li>Portland Moment: Neighbor</li>
+      </ul>
+      <h3><b>C. Reference</b></h3>
+      <p class="left-align">
+        Dwayne Dantès: Dantès is a reference to a famous avenger, Edmond Dantès
+        from The Count of the Monte Cristo, a French adventure novel written in
+        1844.
+      </p>
+
+      <h2><b>5. Merlin Hermes</b></h2>
+      <p class="left-align">
+        <b>Merlin Hermes:</b> A wandering magician who travels and grants
+        people's wishes. "He" is the creator of the Fully Automatic Wishing
+        Machine, a machine that can supposedly grant its users three wishes.
+        However, it was actually Merlin Hermes granting the wishes. "He" calls
+        himself the Miracle Magician and servant of <b>"The Fool"</b>, Lord of
+        Mysteries, Great Ruler of the Spirit World.
+      </p>
+      <h3><b>A. Appearance</b></h3>
+      <div class="center-align">
+        <img src="images/Merlin.jpeg" width="170px" class="image-frame" />
+      </div>
+      <p class="left-align">
+        Merlin Hermes is a wandering magician, he wears a black robe and classic
+        hat. He looked nothing special.
+      </p>
+      <h3><b>B. Reference</b></h3>
+      <p class="left-align">
+        Merlin Hermes: Merlin refers to the legendary wizard featured in
+        Arthurian legend. And Hermes is originated from Greek Mythology, who is
+        the Herald of the Gods, Protector of travelers and merchants.
+      </p>
+    </div>
+    <hr />
+    <div class="center-align">
+      <a href="Mc_Profile.html"><button class="button1">← Back</button></a>
+      <a href="LOTMhome.html"><button class="button1">Home</button></a>
+    </div>
+    <hr />
+
+    <!-- Professional Footer with Disclaimer -->
+    <footer
+      style="
+        background-color: rgba(212, 175, 159, 0.1);
+        border-top: 1px solid rgba(212, 175, 159, 0.3);
+        margin-top: 40px;
+        padding: 30px 20px;
+        text-align: center;
+        animation: slideInUp 0.5s ease-out;
+      "
+    >
+      <p style="margin: 10px 0; font-size: 0.95rem; color: #d4af9f">
+        &copy; 2026 PsReader's LOTM Fan Project. All rights reserved.
+      </p>
+      <p style="margin: 10px 0; font-size: 0.9rem; color: #c49a7f">
+        <strong>Disclaimer:</strong> This is an unofficial fan project created
+        for educational and entertainment purposes.
+        <i>"Lord of the Mysteries"</i> and all associated intellectual property
+        are the original works of
+        <strong>Cuttlefish That Loves Diving</strong> and published by
+        <strong>Qidian</strong>. No copyright infringement is intended.
+      </p>
+      <p style="margin: 10px 0; font-size: 0.85rem; color: #a87968">
+        Built with passion by an aspiring web developer |
+        <a
+          href="LOTMhome.html"
+          style="color: #d4af9f; text-decoration: none; transition: color 0.3s"
+          >Back to Home</a
+        >
+      </p>
+    </footer>
+  </body>
 </html>
 <script src="js/script.js"></script>

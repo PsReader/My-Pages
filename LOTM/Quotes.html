@@ -1,257 +1,414 @@
 <html>
-	<head>
-		<meta charset="UTF-8">
-    		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>LOTM-MC-Quotes</title>
-		<style>
-			@keyframes fadeIn {
-				from {
-					opacity: 0;
-				}
-				to {
-					opacity: 1;
-				}
-			}
-			
-			@keyframes slideInDown {
-				from {
-					transform: translateY(-20px);
-					opacity: 0;
-				}
-				to {
-					transform: translateY(0);
-					opacity: 1;
-				}
-			}
-			
-			@keyframes slideInUp {
-				from {
-					transform: translateY(15px);
-					opacity: 0;
-				}
-				to {
-					transform: translateY(0);
-					opacity: 1;
-				}
-			}
-			
-			body {
-				background: linear-gradient(135deg, rgba(20, 10, 25, 0.95), rgba(40, 20, 50, 0.95)),
-						url('images/crimson moon.jpeg');
-				background-attachment: fixed;
-				color: #d4af9f;
-				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-			}
-			
-			h1 {
-				color: #e8c8b8;
-				font-size: 2.5rem;
-				font-weight: 700;
-				text-align: center;
-				margin: 30px 0 20px;
-				animation: slideInDown 0.6s ease-out;
-				letter-spacing: 1px;
-				text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-			}
-			
-			h2 {
-				color: #d4af9f;
-				font-size: 1.8rem;
-				font-weight: 600;
-				margin: 25px 0 15px;
-				padding: 12px;
-				background-color: rgba(212, 175, 159, 0.1);
-				border-left: 3px solid rgba(212, 175, 159, 0.5);
-				border-radius: 4px;
-				animation: slideInUp 0.4s ease-out;
-				transition: all 0.3s ease;
-			}
-			
-			h2:hover {
-				background-color: rgba(212, 175, 159, 0.15);
-				border-left-color: rgba(212, 175, 159, 0.8);
-				transform: translateX(5px);
-			}
-			
-			h3 {
-				color: #d4af9f;
-				font-size: 1.2rem;
-				font-weight: 600;
-				animation: fadeIn 0.4s ease-out;
-				transition: all 0.3s ease;
-				margin: 15px 0 10px;
-			}
-			
-			h3:hover {
-				color: #e8c8b8;
-				transform: translateX(5px);
-			}
-			
-			div {
-				animation: fadeIn 0.5s ease-out;
-			}
-			
-			p, li {
-				color: #d4af9f;
-				font-size: 1rem;
-				line-height: 1.6;
-				margin: 10px 0;
-			}
-			
-			.button1 {
-				background-color: rgba(212, 175, 159, 0.15);
-				color: #d4af9f;
-				border: 1px solid rgba(212, 175, 159, 0.4);
-				padding: 10px 20px;
-				border-radius: 6px;
-				transition: all 0.3s ease;
-				cursor: pointer;
-				font-weight: 500;
-			}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LOTM-MC-Quotes</title>
+    <style>
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
 
-			.button1:hover {
-				background-color: rgba(212, 175, 159, 0.25);
-				color: #e8c8b8;
-				border-color: rgba(212, 175, 159, 0.8);
-				transform: translateY(-2px);
-				box-shadow: 0 4px 12px rgba(212, 175, 159, 0.2);
-			}
-			
-			a {
-				color: #d4af9f;
-				background-color: transparent;
-				text-decoration: none;
-				transition: all 0.3s ease;
-			}
-			
-			a:hover {
-				color: #e8c8b8;
-				text-decoration: underline;
-			}
-			
-			hr {
-				border: none;
-				height: 2px;
-				background: linear-gradient(90deg, transparent, rgba(212, 175, 159, 0.5), transparent);
-				margin: 20px auto;
-			}
-			
-			.topnav {
-				overflow: hidden;
-				background: rgba(212, 175, 159, 0.1);
-				border: 1px solid rgba(212, 175, 159, 0.3);
-				border-radius: 6px;
-				animation: slideInDown 0.6s ease-out;
-				margin: 20px 0;
-			}
-			
-			.topnav a {
-				float: left;
-				display: block;
-				color: #d4af9f;
-				text-align: center;
-				padding: 14px 20px;
-				text-decoration: none;
-				transition: all 0.3s ease;
-				font-weight: 500;
-				font-size: 0.95rem;
-			}
-			
-			.topnav a:hover {
-				background-color: rgba(212, 175, 159, 0.2);
-				border-bottom: 2px solid rgba(212, 175, 159, 0.8);
-				color: #e8c8b8;
-			}
-			
-			.topnav a.active-page {
-				background-color: rgba(212, 175, 159, 0.2);
-				border-bottom: 2px solid rgba(212, 175, 159, 0.8);
-				color: #e8c8b8;
-			}
-			
-			@media (max-width: 768px) {
-				h1 { font-size: 2rem; }
-				h2 { font-size: 1.4rem; }
-				.topnav { margin: 15px 0; }
-				p, li { font-size: 0.95rem; }
-			}
-		</style>
-	</head>
-	<body align="center" background="images/crimson moon.jpeg" >
-<div class="topnav">
-	<a href="LOTMhome.html">Home</a>
-	<a href="Mc_Profile.html">MC</a>
-	<a href="Novel.html">Novel</a>
-	<a href="Author.html">Author</a>
-	<a href="Songs.html">Songs</a>
-</div>
+      @keyframes slideInDown {
+        from {
+          transform: translateY(-20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
 
-		<h1 style="color:#FFC300; font-size:60px"><b>Quotes</b></h1>
-			<hr>
-			<a href="MC_Profile.html"><button class="button button1"><--Back</button></a>	
-			<hr>
-			<div>
-				<h2 style="color:white; font-size:30px"><b><i>“Free things cost the most.„</b></h2>
-				<h6 style="color:#62009f; font-size:15px">— Klein Moretti on <a href="LOTMhome.html">Lord of Mysteries</a>, Chapter 5</h6>
+      @keyframes slideInUp {
+        from {
+          transform: translateY(15px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
 
-				<h2 style="color:white; font-size:30px"><b><i>“The oldest and strongest emotion of mankind is fear, and the oldest and strongest fear is the fear of the unknown.„</b></h2>
-				<h6 style="color:#62009f; font-size:15px">— Klein Moretti on <a href="LOTMhome.html">Lord of Mysteries</a>, Chapter 9 (Original quote from H.P. Lovecraft,Supernatural Horror in Literature)</h6>
+      body {
+        background:
+          linear-gradient(
+            135deg,
+            rgba(20, 10, 25, 0.95),
+            rgba(40, 20, 50, 0.95)
+          ),
+          url("images/crimson moon.jpeg");
+        background-attachment: fixed;
+        color: #d4af9f;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
 
-				<h2 style="color:white; font-size:30px"><b><i>“A true professor can communicate with people gently and politely, but he can also educate the other person using the principles of physics by raising a cane to convince someone when there is an obstacle in communication.„</b></h2>
-				<h6 style="color:#62009f; font-size:15px">—  Klein to Melissa <a href="LOTMhome.html">Lord of Mysteries</a>, Chapter 98</h6>
+      h1 {
+        color: #ffd700;
+        font-size: 3.5rem;
+        font-weight: 700;
+        text-align: center;
+        margin: 30px 0 20px;
+        animation: slideInDown 0.6s ease-out;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+      }
 
-				<h2 style="color:white; font-size:30px"><b><i>“Fate never repeats itself indefinitely. It always brings us some surprises.„</b></h2>
-				<h6 style="color:#62009f; font-size:15px">— Klein Moretti on <a href="LOTMhome.html">Lord of Mysteries</a>, Chapter 153</h6>
+      h2 {
+        color: #d4af9f;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin: 25px 0 15px;
+        padding: 12px;
+        background-color: rgba(212, 175, 159, 0.1);
+        border-left: 3px solid rgba(212, 175, 159, 0.5);
+        border-radius: 4px;
+        animation: slideInUp 0.4s ease-out;
+        transition: all 0.3s ease;
+      }
 
-				<h2 style="color:white; font-size:30px"><b><i>“Knowledge can change one’s destiny, and diligence will result in Glory.„</b></h2>
-				<h6 style="color:#62009f; font-size:15px">— Klein to Melissa on <a href="LOTMhome.html">Lord of Mysteries</a>, Chapter 183</h6>
+      h2:hover {
+        background-color: rgba(212, 175, 159, 0.15);
+        border-left-color: rgba(212, 175, 159, 0.8);
+        transform: translateX(5px);
+      }
 
-				<h2 style="color:white; font-size:30px"><b><i>“Life is full of hard choices...„</b></h2>
-				<h6 style="color:#62009f; font-size:15px">— Klein Moretti on <a href="LOTMhome.html">Lord of Mysteries</a>, Chapter 401</h6>
+      h3 {
+        color: #d4af9f;
+        font-size: 1.2rem;
+        font-weight: 600;
+        animation: fadeIn 0.4s ease-out;
+        transition: all 0.3s ease;
+        margin: 15px 0 10px;
+      }
 
-				<h2 style="color:white; font-size:30px"><b><i>“As long as you choose this path, you’ll constantly be accompanied by threats and madness. You can beat them a hundred times, a thousand times, but as long as you lose once, you’ll end up like that fallen bishop.„</b></h2>
-				<h6 style="color:#62009f; font-size:15px">— Klein Moretti on <a href="LOTMhome.html">Lord of Mysteries</a>, Chapter 513</h6>
+      h3:hover {
+        color: #e8c8b8;
+        transform: translateX(5px);
+      }
 
-				<h2 style="color:white; font-size:30px"><b><i>“A price is always exacted for what fatebestows, isn’t it?„</b></h2>
-				<h6 style="color:#62009f; font-size:15px">— Klein to Will Auceptin on <a href="LOTMhome.html">Lord of Mysteries</a>, Chapter 980</h6>
+      h6 {
+        color: #d4af9f;
+        font-size: 0.95rem;
+        font-weight: 500;
+        animation: fadeIn 0.4s ease-out;
+        transition: all 0.3s ease;
+        margin: 10px 0 15px;
+      }
 
-				<h2 style="color:white; font-size:30px"><b><i>“Even if it’s meaningless, some things still ought to be done.„</b></h2>
-				<h6 style="color:#62009f; font-size:15px">— Klein Moretti on <a href="LOTMhome.html">Lord of Mysteries</a>, Chapter 1091</h6>
+      h6:hover {
+        color: #e8c8b8;
+      }
 
-				<h2 style="color:white; font-size:30px"><b><i>“In this world, nothing can be easily resolved without taking risks. Sometimes, I do something with the thought that ‘death is a possibility.’„</b></h2>
-				<h6 style="color:#62009f; font-size:15px">— Klein to Audrey on <a href="LOTMhome.html">Lord of Mysteries</a>, Chapter 1225</h6>
+      div {
+        animation: fadeIn 0.5s ease-out;
+      }
 
-				<h2 style="color:white; font-size:30px"><b><i>“Miracles are only for a moment, but fate is often a long-lasting event.„</b></h2>
-				<h6 style="color:#62009f; font-size:15px">— Klein to Arrodes on <a href="LOTMhome.html">Lord of Mysteries</a>, Chapter 1314</h6>
+      p,
+      li {
+        color: #d4af9f;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin: 10px 0;
+      }
 
-				<h2 style="color:white; font-size:30px"><b><i>“I won't lose too much, just myself. There are always some things that are more important than others.„</b></h2>
-				<h6 style="color:#62009f; font-size:15px">— The Fool on <a href="LOTMhome.html">Lord of Mysteries</a>, Chapter 1386</h6>
+      .button1 {
+        background-color: rgba(212, 175, 159, 0.15);
+        color: #d4af9f;
+        border: 1px solid rgba(212, 175, 159, 0.4);
+        padding: 10px 20px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        font-weight: 500;
+      }
 
-</div>
+      .button1:hover {
+        background-color: rgba(212, 175, 159, 0.25);
+        color: #e8c8b8;
+        border-color: rgba(212, 175, 159, 0.8);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(212, 175, 159, 0.2);
+      }
 
-<hr>
-<a href="Mc_Profile.html"><button class="button button1"><--Back</button></a>
-<a href="LOTMhome.html"><button class="button button1">Home</button></a>
-<hr>
+      a {
+        color: #d4af9f;
+        background-color: transparent;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
 
-<!-- Professional Footer with Disclaimer -->
-<footer style="background-color: rgba(212, 175, 159, 0.1); border-top: 1px solid rgba(212, 175, 159, 0.3); margin-top: 40px; padding: 30px 20px; text-align: center; animation: slideInUp 0.5s ease-out;">
-	<p style="margin: 10px 0; font-size: 0.95rem; color: #d4af9f;">
-		&copy; 2026 PsReader's LOTM Fan Project. All rights reserved.
-	</p>
-	<p style="margin: 10px 0; font-size: 0.9rem; color: #c49a7f;">
-		<strong>Disclaimer:</strong> This is an unofficial fan project created for educational and entertainment purposes. 
-		<i>"Lord of the Mysteries"</i> and all associated intellectual property are the original works of 
-		<strong>Cuttlefish That Loves Diving</strong> and published by <strong>Qidian</strong>. 
-		No copyright infringement is intended.
-	</p>
-	<p style="margin: 10px 0; font-size: 0.85rem; color: #a87968;">
-		Built with passion by an aspiring web developer | 
-		<a href="LOTMhome.html" style="color: #d4af9f; text-decoration: none; transition: color 0.3s;">Back to Home</a>
-	</p>
-</footer>
+      a:hover {
+        color: #e8c8b8;
+        text-decoration: underline;
+      }
 
-</body>
+      hr {
+        border: none;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(212, 175, 159, 0.5),
+          transparent
+        );
+        margin: 20px auto;
+      }
+
+      .topnav {
+        overflow: hidden;
+        background: rgba(212, 175, 159, 0.1);
+        border: 1px solid rgba(212, 175, 159, 0.3);
+        border-radius: 6px;
+        animation: slideInDown 0.6s ease-out;
+        margin: 20px 0;
+      }
+
+      .topnav a {
+        float: left;
+        display: block;
+        color: #d4af9f;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        font-size: 0.95rem;
+      }
+
+      .topnav a:hover {
+        background-color: rgba(212, 175, 159, 0.2);
+        border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+        color: #e8c8b8;
+      }
+
+      .topnav a.active-page {
+        background-color: rgba(212, 175, 159, 0.2);
+        border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+        color: #e8c8b8;
+      }
+
+      blockquote {
+        color: #d4af9f;
+        font-size: 1.1rem;
+        font-style: italic;
+        line-height: 1.8;
+        margin: 20px 0 10px 0;
+        padding: 15px;
+        border-left: 4px solid rgba(212, 175, 159, 0.5);
+        background-color: rgba(212, 175, 159, 0.05);
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        animation: slideInUp 0.4s ease-out;
+      }
+
+      blockquote:hover {
+        background-color: rgba(212, 175, 159, 0.08);
+        border-left-color: rgba(212, 175, 159, 0.8);
+        color: #e8c8b8;
+      }
+
+      #scrollToTop:hover {
+        background-color: rgba(212, 175, 159, 0.25);
+        transform: translateY(-3px);
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
+        }
+        h2 {
+          font-size: 1.4rem;
+        }
+        .topnav {
+          margin: 15px 0;
+        }
+        p,
+        li {
+          font-size: 0.95rem;
+        }
+      }
+
+      #scrollToTop {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 99;
+        font-size: 1.5rem;
+        background-color: rgba(212, 175, 159, 0.15);
+        color: #d4af9f;
+        cursor: pointer;
+        padding: 12px 15px;
+        border-radius: 6px;
+        border: 1px solid rgba(212, 175, 159, 0.4);
+        transition: all 0.3s ease;
+      }
+    </style>
+  </head>
+  <body style="text-align: center">
+    <div class="topnav">
+      <a href="LOTMhome.html">Home</a>
+      <a href="Mc_Profile.html">MC</a>
+      <a href="Novel.html">Novel</a>
+      <a href="Author.html">Author</a>
+      <a href="Songs.html">Songs</a>
+    </div>
+
+    <h1>Quotes</h1>
+    <hr />
+    <a href="Mc_Profile.html"><button class="button button1">← Back</button></a>
+    <hr />
+    <div>
+      <blockquote>"Free things cost the most."</blockquote>
+      <h6>
+        — Klein Moretti on <a href="LOTMhome.html">Lord of Mysteries</a>,
+        Chapter 5
+      </h6>
+
+      <blockquote>
+        "The oldest and strongest emotion of mankind is fear, and the oldest and
+        strongest fear is the fear of the unknown."
+      </blockquote>
+      <h6>
+        — Klein Moretti on <a href="LOTMhome.html">Lord of Mysteries</a>,
+        Chapter 9 (Original quote from H.P. Lovecraft, Supernatural Horror in
+        Literature)
+      </h6>
+
+      <blockquote>
+        "A true professor can communicate with people gently and politely, but
+        he can also educate the other person using the principles of physics by
+        raising a cane to convince someone when there is an obstacle in
+        communication."
+      </blockquote>
+      <h6>
+        — Klein to Melissa <a href="LOTMhome.html">Lord of Mysteries</a>,
+        Chapter 98
+      </h6>
+
+      <blockquote>
+        "Fate never repeats itself indefinitely. It always brings us some
+        surprises."
+      </blockquote>
+      <h6>
+        — Klein Moretti on <a href="LOTMhome.html">Lord of Mysteries</a>,
+        Chapter 153
+      </h6>
+
+      <blockquote>
+        "Knowledge can change one's destiny, and diligence will result in
+        Glory."
+      </blockquote>
+      <h6>
+        — Klein to Melissa on <a href="LOTMhome.html">Lord of Mysteries</a>,
+        Chapter 183
+      </h6>
+
+      <blockquote>"Life is full of hard choices..."</blockquote>
+      <h6>
+        — Klein Moretti on <a href="LOTMhome.html">Lord of Mysteries</a>,
+        Chapter 401
+      </h6>
+
+      <blockquote>
+        "As long as you choose this path, you'll constantly be accompanied by
+        threats and madness. You can beat them a hundred times, a thousand
+        times, but as long as you lose once, you'll end up like that fallen
+        bishop."
+      </blockquote>
+      <h6>
+        — Klein Moretti on <a href="LOTMhome.html">Lord of Mysteries</a>,
+        Chapter 513
+      </h6>
+
+      <blockquote>
+        "A price is always exacted for what fate bestows, isn't it?"
+      </blockquote>
+      <h6>
+        — Klein to Will Auceptin on
+        <a href="LOTMhome.html">Lord of Mysteries</a>, Chapter 980
+      </h6>
+
+      <blockquote>
+        "Even if it's meaningless, some things still ought to be done."
+      </blockquote>
+      <h6>
+        — Klein Moretti on <a href="LOTMhome.html">Lord of Mysteries</a>,
+        Chapter 1091
+      </h6>
+
+      <blockquote>
+        "In this world, nothing can be easily resolved without taking risks.
+        Sometimes, I do something with the thought that 'death is a
+        possibility.'"
+      </blockquote>
+      <h6>
+        — Klein to Audrey on <a href="LOTMhome.html">Lord of Mysteries</a>,
+        Chapter 1225
+      </h6>
+
+      <blockquote>
+        "Miracles are only for a moment, but fate is often a long-lasting
+        event."
+      </blockquote>
+      <h6>
+        — Klein to Arrodes on <a href="LOTMhome.html">Lord of Mysteries</a>,
+        Chapter 1314
+      </h6>
+
+      <blockquote>
+        "I won't lose too much, just myself. There are always some things that
+        are more important than others."
+      </blockquote>
+      <h6>
+        — The Fool on <a href="LOTMhome.html">Lord of Mysteries</a>, Chapter
+        1386
+      </h6>
+    </div>
+
+    <hr />
+    <a href="Mc_Profile.html"
+      ><button class="button button1"><--Back</button></a
+    >
+    <a href="LOTMhome.html"><button class="button button1">Home</button></a>
+    <hr />
+
+    <!-- Professional Footer -->
+    <footer
+      style="
+        background-color: rgba(212, 175, 159, 0.1);
+        border-top: 1px solid rgba(212, 175, 159, 0.3);
+        margin-top: 40px;
+        padding: 30px 20px;
+        text-align: center;
+      "
+    >
+      <p style="margin: 10px 0; font-size: 0.95rem; color: #d4af9f">
+        &copy; 2026 PsReader's LOTM Fan Project. All rights reserved.
+      </p>
+      <p style="margin: 10px 0; font-size: 0.9rem; color: #c49a7f">
+        <strong>Disclaimer:</strong> This is an unofficial fan project created
+        for educational and entertainment purposes.
+        <i>"Lord of the Mysteries"</i> and all associated intellectual property
+        are the original works of
+        <strong>Cuttlefish That Loves Diving</strong> and published by
+        <strong>Qidian</strong>. No copyright infringement is intended.
+      </p>
+      <p style="margin: 10px 0; font-size: 0.85rem; color: #a87968">
+        Built with passion by an aspiring web developer |
+        <a
+          href="LOTMhome.html"
+          style="color: #d4af9f; text-decoration: none; transition: color 0.3s"
+          >Back to Home</a
+        >
+      </p>
+    </footer>
+  </body>
 </html>
 <script src="js/script.js"></script>
-
