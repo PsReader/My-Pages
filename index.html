@@ -5,1297 +5,648 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="PsReader's Portfolio - Explore interactive projects and creative work across the digital universe"
+      content="PsReader — Vocational school student building web projects with HTML, CSS, and JavaScript. View my work."
     />
-    <title>PsReader's Portfolio | Cosmic Universe</title>
+    <title>PsReader — Web Developer Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      crossorigin="anonymous"
     />
     <style>
-      * {
+      *,
+      *::before,
+      *::after {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
 
       :root {
-        --space-dark: #0a0e27;
-        --space-purple: #2d1b4e;
-        --space-blue: #1a3a52;
-        --star-white: #ffffff;
-        --nebula-pink: #ff006e;
-        --nebula-purple: #8338ec;
-        --nebula-blue: #3a86ff;
-        --accent-cyan: #06ffa5;
-        --text-light: #e0e0e0;
-        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --bg-primary: #0f1117;
+        --bg-secondary: #161922;
+        --bg-card: #1c1f2e;
+        --bg-card-hover: #22263a;
+        --border: #2a2e3f;
+        --border-hover: #3b405a;
+
+        /* Accent — refined indigo */
+        --accent: #6366f1;
+        --accent-hover: #818cf8;
+        --accent-muted: rgba(99, 102, 241, 0.12);
+
+        /* Text hierarchy */
+        --text-primary: #e8eaed;
+        --text-secondary: #9ca3af;
+        --text-tertiary: #6b7280;
+
+        /* Functional */
+        --radius: 8px;
+        --radius-lg: 12px;
+        --max-width: 720px;
+        --transition: 150ms ease;
       }
 
-      
+      html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
       body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        overflow-x: hidden;
-        background: linear-gradient(180deg, #0a0e27 0%, #2d1b4e 50%, #1a0033 100%);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          Roboto, sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-secondary);
         line-height: 1.6;
+        overflow-x: hidden;
       }
 
-      header {
-        position: fixed;
+      a {
+        color: var(--accent);
+        text-decoration: none;
+        transition: color var(--transition);
+      }
+
+      a:hover {
+        color: var(--accent-hover);
+      }
+
+      ::selection {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      /* ------------------------------------------------------------------ */
+      /*  HEADER                                                            */
+      /* ------------------------------------------------------------------ */
+      .site-header {
+        position: sticky;
         top: 0;
-        left: 0;
-        right: 0;
-        background: rgba(10, 14, 39, 0.95);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid rgba(131, 58, 180, 0.2);
-        z-index: 90;
-        padding: 1rem 0;
+        z-index: 50;
+        background: rgba(15, 17, 23, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
       }
 
-      .header-content {
-        width: 100%;
-        padding: 0 40px;
+      .header-inner {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 0 24px;
+        height: 56px;
         display: flex;
+        align-items: center;
         justify-content: space-between;
-        align-items: center;
       }
 
-      .logo-section {
+      .site-name {
+        font-size: 0.9375rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        letter-spacing: -0.01em;
+      }
+
+      .header-nav {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 24px;
       }
 
-      .logo {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 700;
-        font-size: 1.3rem;
-        background: linear-gradient(135deg, var(--nebula-pink), var(--nebula-blue));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .logo-icon {
-        font-size: 1.5rem;
-      }
-
-      .github-icon-link {
-        color: var(--text-light);
-        font-size: 2.5rem;
-        text-decoration: none;
-        transition: var(--transition);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 8px 12px;
-        border-radius: 8px;
-        background: linear-gradient(135deg, rgba(58, 134, 255, 0.15), rgba(255, 0, 110, 0.1));
-        border: 1px solid rgba(58, 134, 255, 0.2);
-      }
-
-      .github-icon-link:hover {
-        color: var(--nebula-blue);
-        background: linear-gradient(135deg, rgba(58, 134, 255, 0.25), rgba(255, 0, 110, 0.15));
-        border-color: rgba(58, 134, 255, 0.4);
-        box-shadow: 0 0 20px rgba(58, 134, 255, 0.3);
-      }
-
-      .nav-links {
-        display: flex;
-        gap: 30px;
-        align-items: center;
-      }
-
-      .nav-link {
-        color: var(--text-light);
-        text-decoration: none;
+      .header-nav a {
+        font-size: 0.8125rem;
         font-weight: 500;
-        transition: var(--transition);
-        position: relative;
+        color: var(--text-secondary);
+        transition: color var(--transition);
       }
 
-      .nav-link::after {
-        content: '';
-        position: absolute;
-        bottom: -5px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: linear-gradient(90deg, var(--nebula-pink), var(--nebula-blue));
-        transition: var(--transition);
+      .header-nav a:hover {
+        color: var(--text-primary);
       }
 
-      .nav-link:hover {
-        color: var(--nebula-blue);
-      }
-
-      .nav-link:hover::after {
-        width: 100%;
-      }
-
-      @media (max-width: 768px) {
-        .nav-links {
-          gap: 15px;
-        }
-
-        .logo-text {
-          display: none;
-        }
-
-        .header-content {
-          padding: 0 15px;
-        }
-      }
-
-       @keyframes twinkle {
-        0%,
-        100% {
-          opacity: 0.4;
-        }
-        50% {
-          opacity: 0.6;
-        }
-      }
-
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0) translateX(0);
-        }
-        50% {
-          transform: translateY(-30px) translateX(15px);
-        }
-      }
-
-      @keyframes fadeInDown {
-        from {
-          opacity: 0;
-          transform: translateY(-30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @keyframes popIn {
-        from {
-          opacity: 0;
-          transform: scale(0.5) translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: scale(1) translateY(0);
-        }
-      }
-
-      @keyframes borderGlow {
-        0%,
-        100% {
-          opacity: 0;
-        }
-        50% {
-          opacity: 0.2;
-        }
-      }
-
-      @keyframes borderGlowHover {
-        0% {
-          box-shadow: 0 0 10px rgba(255, 0, 110, 0.3);
-        }
-        50% {
-          box-shadow: 0 0 30px rgba(255, 0, 110, 0.8);
-        }
-        100% {
-          box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
-        }
-      }
-
-      @keyframes labelPulse {
-        0%,
-        100% {
-          transform: scale(1) rotate(0);
-        }
-        50% {
-          transform: scale(1.1) rotate(2deg);
-        }
-      }
-
-      @keyframes textGlow {
-        0%,
-        100% {
-          text-shadow: 0 0 12px rgba(0, 0, 0, 0.9),
-            0 0 20px rgba(58, 134, 255, 0.3);
-        }
-        50% {
-          text-shadow: 0 0 15px rgba(0, 0, 0, 0.9),
-            0 0 30px rgba(58, 134, 255, 0.6),
-            0 0 40px rgba(255, 0, 110, 0.3);
-        }
-      }
-
-      @keyframes shineEffect {
-        0% {
-          opacity: 0;
-          transform: translateX(-100%);
-        }
-        50% {
-          opacity: 1;
-        }
-        100% {
-          opacity: 0;
-          transform: translateX(100%);
-        }
-      }
-
-      @keyframes bounce {
-        0%,
-        100% {
-          transform: translateX(-50%) translateY(0);
-        }
-        50% {
-          transform: translateX(-50%) translateY(-10px);
-        }
-      }
-
-      @keyframes slideInUp {
-        from {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .hero {
-        position: relative;
-        height: 100vh;
+      .gh-link {
         display: flex;
         align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        background: linear-gradient(135deg, #0a0e27 0%, #2d1b4e 50%, #1a0033 100%);
-        margin-top: 60px;
+        gap: 6px;
+        color: var(--text-secondary);
+        padding: 6px 12px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        font-size: 0.8125rem;
+        font-weight: 500;
+        transition: all var(--transition);
       }
 
-      .hero::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0, 0, 0, 0)),
-          radial-gradient(2px 2px at 60px 70px, #fff, rgba(0, 0, 0, 0)),
-          radial-gradient(1px 1px at 50px 50px, #fff, rgba(0, 0, 0, 0)),
-          radial-gradient(1px 1px at 130px 80px, #fff, rgba(0, 0, 0, 0)),
-          radial-gradient(2px 2px at 90px 10px, #fff, rgba(0, 0, 0, 0));
-        background-repeat: repeat;
-        background-size: 200px 200px;
-        animation: twinkle 3s infinite;
-        opacity: 0.6;
+      .gh-link:hover {
+        color: var(--text-primary);
+        border-color: var(--border-hover);
+        background: var(--bg-card);
       }
 
-      .nebula {
-        position: absolute;
-        border-radius: 50%;
-        opacity: 0.08;
-        filter: blur(40px);
-        animation: float 12s ease-in-out infinite;
+      .gh-link svg {
+        width: 16px;
+        height: 16px;
       }
 
-      .nebula.pink {
-        width: 300px;
-        height: 300px;
-        background: var(--nebula-pink);
-        top: 10%;
-        left: 5%;
-      }
-
-      .nebula.purple {
-        width: 400px;
-        height: 400px;
-        background: var(--nebula-purple);
-        bottom: -100px;
-        right: 10%;
-        animation-delay: 2s;
-      }
-
-      .nebula.blue {
-        width: 350px;
-        height: 350px;
-        background: var(--nebula-blue);
-        top: 50%;
-        right: -100px;
-        animation-delay: 4s;
-      }
-
-      .hero-content {
-        position: relative;
-        z-index: 10;
-        text-align: center;
-        color: white;
-        max-width: 800px;
-        padding: 20px;
-        animation: fadeInDown 1s ease-out;
+      /* ------------------------------------------------------------------ */
+      /*  HERO                                                              */
+      /* ------------------------------------------------------------------ */
+      .hero {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 96px 24px 80px;
       }
 
       .hero h1 {
-        font-size: clamp(2rem, 8vw, 4rem);
-        margin-bottom: 10px;
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
         font-weight: 700;
-        letter-spacing: 3px;
-        background: linear-gradient(
-          135deg,
-          var(--nebula-pink),
-          var(--nebula-blue),
-          var(--nebula-purple)
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--text-primary);
+        line-height: 1.2;
+        letter-spacing: -0.025em;
+        margin-bottom: 16px;
       }
 
-      .hero p {
-        font-size: clamp(1rem, 3vw, 1.3rem);
-        color: var(--text-light);
-        margin-bottom: 15px;
-        font-weight: 300;
-        letter-spacing: 1px;
+      .hero-intro {
+        font-size: 1.0625rem;
+        line-height: 1.65;
+        color: var(--text-secondary);
+        max-width: 560px;
+        margin-bottom: 32px;
       }
 
-      .subtitle {
-        font-size: clamp(0.9rem, 2vw, 1.1rem);
-        color: var(--accent-cyan);
-        margin-bottom: 40px;
-        opacity: 0.9;
-      }
-
-      @media (max-width: 480px) {
-        .hero-content {
-          padding: 15px 10px;
-          max-width: 100%;
-        }
-      }
-
-      .buttons-container {
+      .hero-skills {
         display: flex;
         flex-wrap: wrap;
-        gap: 30px;
-        justify-content: center;
-        animation: fadeInUp 1s ease-out 0.3s both;
-      }
-
-      .btn {
-        position: relative;
-        width: 200px;
-        height: 280px;
-        border: 2px solid var(--nebula-blue);
-        border-radius: 15px;
-        cursor: pointer;
-        transition: all 0.4s ease;
-        text-decoration: none;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-end;
-        padding: 20px;
-        overflow: visible;
-        text-align: center;
-        animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        perspective: 1000px;
-        background: radial-gradient(
-            circle at 8% 8%,
-            rgba(58, 134, 255, 0.4) 0%,
-            transparent 40%
-          ),
-          radial-gradient(
-            circle at 92% 8%,
-            rgba(255, 0, 110, 0.3) 0%,
-            transparent 40%
-          ),
-          radial-gradient(
-            circle at 92% 92%,
-            rgba(131, 58, 180, 0.4) 0%,
-            transparent 40%
-          ),
-          linear-gradient(135deg, rgba(51, 56, 236, 0.3), rgba(131, 58, 180, 0.3));
-        box-shadow: 0 0 25px rgba(58, 134, 255, 0.3),
-          inset 0 0 25px rgba(58, 134, 255, 0.15);
-      }
-
-      .btn:nth-child(2) {
-        animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
-      }
-
-      .btn::before {
-        content: '';
-        position: absolute;
-        top: -3px;
-        left: -3px;
-        right: -3px;
-        bottom: -3px;
-        background: linear-gradient(
-          135deg,
-          var(--nebula-pink),
-          var(--nebula-blue),
-          var(--nebula-purple),
-          var(--nebula-pink)
-        );
-        border-radius: 15px;
-        z-index: -1;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        animation: borderGlow 3s ease-in-out infinite;
-      }
-
-      .btn:hover::before {
-        opacity: 0.5;
-        animation: borderGlowHover 0.6s ease-in-out;
-      }
-
-      .btn::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-position: center;
-        opacity: 0.75;
-        z-index: 1;
-        transition: all 0.4s ease;
-        border-radius: 13px;
-      }
-
-      .btn-lotm::after {
-        background-image: url('./LOTM/images/The_Fool.jpeg');
-      }
-
-      .btn-pudding::after {
-        background-image: url('./Pudding Paradise/images/PuddingLogo.png');
-      }
-
-      .btn-trackback::after {
-        background: linear-gradient(135deg, #3a86ff 0%, #8338ec 100%);
-      }
-
-      .btn .shine {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 50%;
-        background: linear-gradient(
-          135deg,
-          rgba(255, 255, 255, 0.15) 0%,
-          transparent 70%
-        );
-        border-radius: 13px 13px 0 0;
-        z-index: 2;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-      }
-
-      .btn:hover {
-        box-shadow: 0 0 20px rgba(58, 134, 255, 0.3),
-          inset 0 0 15px rgba(255, 0, 110, 0.1);
-        transform: translateY(-8px) scale(1.03);
-        border-color: var(--nebula-pink);
-        filter: brightness(1.15);
-      }
-
-      .btn:hover::after {
-        opacity: 0.90;
-        transform: scale(1.02);
-      }
-
-      .btn:hover .shine {
-        opacity: 0.5;
-      }
-
-      .btn:active {
-        transform: scale(0.92) translateY(-20px);
-      }
-
-      .btn-label {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: linear-gradient(135deg, var(--nebula-pink), var(--nebula-blue));
-        color: white;
-        padding: 5px 14px;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 1px;
-        opacity: 0;
-        transform: scale(0) rotate(-45deg);
-        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        z-index: 5;
-        text-transform: uppercase;
-        box-shadow: 0 0 15px rgba(255, 0, 110, 0.3);
-      }
-
-      .btn:hover .btn-label {
-        opacity: 1;
-        transform: scale(1) rotate(0);
-        background: linear-gradient(135deg, var(--nebula-blue), var(--nebula-pink));
-        box-shadow: 0 0 15px rgba(255, 0, 110, 0.5);
-      }
-
-      .btn-text {
-        position: relative;
-        z-index: 3;
-        color: white;
-        font-weight: 700;
-        font-size: 1.3rem;
-        letter-spacing: 2px;
-        text-shadow: 0 0 12px rgba(0, 0, 0, 0.9),
-          0 0 20px rgba(58, 134, 255, 0.4);
-        text-transform: uppercase;
-        animation: textGlow 2s ease-in-out infinite;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         gap: 8px;
+        margin-bottom: 0;
       }
 
-      .btn-text::before {
-        content: '';
-        width: 40px;
-        height: 3px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          var(--nebula-pink),
-          transparent
-        );
-        opacity: 0;
-        transition: opacity 0.3s ease;
+      .skill-tag {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--accent);
+        background: var(--accent-muted);
+        padding: 4px 12px;
+        border-radius: 100px;
+        letter-spacing: 0.01em;
       }
 
-      .btn:hover .btn-text::before {
-        opacity: 1;
-      }
-
-      @media (max-width: 480px) {
-        .btn:hover {
-          transform: translateY(-5px) scale(1.02);
-          box-shadow: 0 10px 25px rgba(255, 0, 110, 0.4),
-            0 0 20px rgba(58, 134, 255, 0.3);
-        }
-      }
-
-      .scroll-indicator {
-        position: absolute;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        animation: bounce 2s infinite;
-        color: var(--accent-cyan);
-        font-size: 1.5rem;
-        z-index: 20;
-        cursor: pointer;
-      }
-
-      @media (max-width: 480px) {
-        .scroll-indicator {
-          bottom: 15px;
-          font-size: 1.2rem;
-        }
-      }
-
-      .features {
-        padding: 80px 20px;
-        background: linear-gradient(
-          180deg,
-          rgba(10, 14, 39, 0.9),
-          rgba(45, 27, 78, 0.9)
-        );
-        text-align: center;
-        color: white;
-        border-top: 1px solid var(--nebula-blue);
-      }
-
-      .features h2 {
-        font-size: 2.5rem;
-        margin-bottom: 50px;
-        background: linear-gradient(135deg, var(--nebula-pink), var(--nebula-blue));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 30px;
-        max-width: 1200px;
+      /* ------------------------------------------------------------------ */
+      /*  SECTION COMMON                                                    */
+      /* ------------------------------------------------------------------ */
+      .section {
+        max-width: var(--max-width);
         margin: 0 auto;
+        padding: 0 24px 96px;
       }
 
-      .feature-card {
-        padding: 30px;
-        background: rgba(51, 56, 236, 0.1);
-        border: 1px solid var(--nebula-blue);
-        border-radius: 10px;
-        transition: all 0.3s ease;
-        animation: slideInUp 0.6s ease-out both;
+      .section-label {
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 24px;
       }
 
-      .feature-card:nth-child(2) {
-        animation-delay: 0.1s;
-      }
-
-      .feature-card:nth-child(3) {
-        animation-delay: 0.2s;
-      }
-
-      .feature-card:hover {
-        background: rgba(255, 0, 110, 0.1);
-        border-color: var(--nebula-pink);
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(255, 0, 110, 0.2);
-      }
-
-      .feature-card i {
-        font-size: 2rem;
-        background: linear-gradient(135deg, var(--nebula-pink), var(--nebula-blue));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin-bottom: 15px;
-      }
-
-      .feature-card h3 {
-        margin-bottom: 10px;
-        font-size: 1.3rem;
-      }
-
-      .feature-card p {
-        font-size: 0.95rem;
-        opacity: 0.85;
-        line-height: 1.6;
-      }
-
-      @media (max-width: 768px) {
-        .features-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .features {
-          padding: 40px 15px;
-        }
-
-        .features h2 {
-          margin-bottom: 30px;
-        }
-
-        .features > p {
-          font-size: 0.95rem;
-          padding: 0 5px;
-        }
-
-        .features-grid {
-          gap: 15px;
-        }
-
-        .feature-card {
-          padding: 20px;
-        }
-      }
-
-      .projects {
-        padding: 80px 20px;
-        background: linear-gradient(
-          180deg,
-          rgba(45, 27, 78, 0.9),
-          rgba(10, 14, 39, 0.9)
-        );
-        text-align: center;
-        color: white;
-        border-top: 1px solid var(--nebula-purple);
-      }
-
-      .projects h2 {
-        font-size: 2.5rem;
-        margin-bottom: 50px;
-        background: linear-gradient(
-          135deg,
-          var(--nebula-blue),
-          var(--nebula-purple)
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .projects-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 30px;
-        max-width: 1200px;
-        margin: 0 auto;
+      /* ------------------------------------------------------------------ */
+      /*  PROJECT CARDS  — browser-window mockup                            */
+      /* ------------------------------------------------------------------ */
+      .project-list {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
       }
 
       .project-card {
-        background: rgba(51, 56, 236, 0.1);
-        border: 2px solid var(--nebula-purple);
-        border-radius: 15px;
-        padding: 30px;
-        transition: var(--transition);
-        animation: slideInUp 0.6s ease-out both;
-        display: flex;
-        flex-direction: column;
-      }
-
-      .project-card:nth-child(2) {
-        animation-delay: 0.1s;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        transition: border-color var(--transition),
+          box-shadow 300ms ease;
       }
 
       .project-card:hover {
-        background: rgba(131, 58, 180, 0.2);
-        border-color: var(--nebula-pink);
-        transform: translateY(-10px);
-        box-shadow: 0 15px 40px rgba(131, 58, 180, 0.3);
+        border-color: var(--border-hover);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
       }
 
-      .project-header {
+      /* Browser chrome bar */
+      .project-chrome {
         display: flex;
-        flex-direction: column;
-        gap: 8px;
-        margin-bottom: 15px;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 16px;
+        background: var(--bg-secondary);
+        border-bottom: 1px solid var(--border);
       }
 
-      .project-card h3 {
-        font-size: 1.8rem;
-        margin: 0;
-        background: linear-gradient(135deg, var(--nebula-pink), var(--nebula-blue));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+      .chrome-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--border);
       }
 
-      .tech-stack {
-        font-size: 0.85rem;
-        color: var(--accent-cyan);
-        opacity: 0.8;
+      .chrome-bar {
+        flex: 1;
+        height: 24px;
+        background: var(--bg-primary);
+        border-radius: 6px;
+        margin-left: 8px;
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
+      }
+
+      .chrome-url {
+        font-size: 0.6875rem;
+        color: var(--text-tertiary);
+        font-family: 'Inter', monospace;
+      }
+
+      /* Screenshot area */
+      .project-preview {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background: var(--bg-secondary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .project-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 300ms ease;
+      }
+
+      .project-card:hover .project-preview img {
+        transform: scale(1.02);
+      }
+
+      .preview-placeholder {
+        color: var(--text-tertiary);
+        font-size: 0.8125rem;
+        text-align: center;
+        padding: 24px;
+        line-height: 1.5;
+      }
+
+      /* Card body */
+      .project-body {
+        padding: 24px;
+      }
+
+      .project-title {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 4px;
+      }
+
+      .project-stack {
+        font-size: 0.75rem;
         font-weight: 500;
-        letter-spacing: 0.5px;
+        color: var(--text-tertiary);
+        margin-bottom: 12px;
+        letter-spacing: 0.02em;
       }
 
-      .project-card p {
-        font-size: 1rem;
-        margin-bottom: 25px;
-        opacity: 0.85;
+      .project-desc {
+        font-size: 0.875rem;
         line-height: 1.6;
-        flex-grow: 1;
+        color: var(--text-secondary);
+        margin-bottom: 20px;
       }
 
-      .project-links {
+      .project-actions {
         display: flex;
-        gap: 15px;
+        gap: 10px;
         flex-wrap: wrap;
       }
 
-      .btn-primary {
-        display: inline-block;
-        padding: 12px 30px;
-        background: linear-gradient(135deg, var(--nebula-pink), var(--nebula-blue));
-        color: white;
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 16px;
+        border-radius: var(--radius);
+        font-size: 0.8125rem;
+        font-weight: 500;
+        transition: all var(--transition);
+        cursor: pointer;
+        border: none;
         text-decoration: none;
-        border-radius: 25px;
-        font-weight: 600;
-        transition: var(--transition);
-        position: relative;
-        overflow: hidden;
-        flex: 1;
-        text-align: center;
-        min-width: 150px;
       }
 
-      .btn-primary::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.3);
-        transform: translate(-50%, -50%);
-        transition: width 0.6s, height 0.6s;
-      }
-
-      .btn-primary:hover::before {
-        width: 300px;
-        height: 300px;
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
       }
 
       .btn-primary:hover {
-        transform: scale(1.05);
-        box-shadow: 0 8px 20px rgba(255, 0, 110, 0.4);
+        background: var(--accent-hover);
+        color: #fff;
       }
 
-      @media (max-width: 768px) {
-        .projects-grid {
-          grid-template-columns: 1fr;
-        }
+      .btn-outline {
+        background: transparent;
+        color: var(--text-secondary);
+        border: 1px solid var(--border);
       }
 
-      @media (max-width: 480px) {
-        .projects {
-          padding: 40px 15px;
+      .btn-outline:hover {
+        color: var(--text-primary);
+        border-color: var(--border-hover);
+        background: var(--bg-card-hover);
+      }
+
+      .btn svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      /* ------------------------------------------------------------------ */
+      /*  ABOUT                                                             */
+      /* ------------------------------------------------------------------ */
+      .about-text {
+        font-size: 0.9375rem;
+        line-height: 1.7;
+        color: var(--text-secondary);
+        max-width: 560px;
+      }
+
+      .about-text + .about-text {
+        margin-top: 16px;
+      }
+
+      /* ------------------------------------------------------------------ */
+      /*  FOOTER                                                            */
+      /* ------------------------------------------------------------------ */
+      .site-footer {
+        border-top: 1px solid var(--border);
+        padding: 32px 24px;
+      }
+
+      .footer-inner {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .footer-copy {
+        font-size: 0.75rem;
+        color: var(--text-tertiary);
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .footer-links a {
+        font-size: 0.75rem;
+        color: var(--text-tertiary);
+        transition: color var(--transition);
+      }
+
+      .footer-links a:hover {
+        color: var(--text-secondary);
+      }
+
+      /* ------------------------------------------------------------------ */
+      /*  RESPONSIVE                                                        */
+      /* ------------------------------------------------------------------ */
+      @media (max-width: 640px) {
+        .hero {
+          padding: 64px 20px 56px;
         }
 
-        .projects h2 {
-          margin-bottom: 30px;
-          font-size: 1.5rem;
+        .section {
+          padding: 0 20px 64px;
         }
 
-        .projects-grid {
-          gap: 15px;
+        .header-inner {
+          padding: 0 20px;
         }
 
-        .project-card {
+        .project-body {
           padding: 20px;
         }
 
-        .project-card h3 {
-          font-size: 1.3rem;
-          margin-bottom: 10px;
-        }
-
-        .project-card p {
-          font-size: 0.9rem;
-          margin-bottom: 15px;
-        }
-      }
-
-      footer {
-        background: var(--space-dark);
-        color: var(--text-light);
-        padding: 50px 20px 30px;
-        border-top: 1px solid rgba(131, 58, 180, 0.3);
-        font-size: 0.95rem;
-      }
-
-      .footer-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 40px;
-        margin-bottom: 30px;
-      }
-
-      .footer-section h4 {
-        font-size: 1rem;
-        margin-bottom: 15px;
-        background: linear-gradient(135deg, var(--nebula-pink), var(--nebula-blue));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .footer-section ul {
-        list-style: none;
-      }
-
-      .footer-section li {
-        margin-bottom: 10px;
-      }
-
-      .footer-section a {
-        color: var(--text-light);
-        text-decoration: none;
-        transition: var(--transition);
-        opacity: 0.8;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .footer-section a:hover {
-        color: var(--nebula-blue);
-        opacity: 1;
-      }
-
-      .footer-bottom {
-        text-align: center;
-        padding-top: 30px;
-        border-top: 1px solid rgba(131, 58, 180, 0.2);
-        opacity: 0.7;
-      }
-
-      @media (max-width: 480px) {
-        footer {
-          padding: 20px 15px;
-          font-size: 0.85rem;
-        }
-      }
-
-      @media (max-width: 768px) {
-        .hero h1 {
-          font-size: 2rem;
-        }
-
-        .hero p {
-          font-size: 1rem;
-        }
-
-        .buttons-container {
+        .project-actions {
           flex-direction: column;
-          align-items: center;
-          gap: 20px;
         }
 
         .btn {
-          width: 90%;
-          max-width: 280px;
-          height: 240px;
           justify-content: center;
-          font-size: 1.1rem;
         }
 
-        .btn-text {
-          font-size: 1.1rem;
-        }
-
-        .features,
-        .projects {
-          padding: 60px 15px;
-        }
-
-        .features h2,
-        .projects h2 {
-          font-size: 1.8rem;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .hero {
-          height: auto;
-          min-height: 100vh;
-          padding: 40px 20px;
-        }
-
-        .hero-content {
-          padding: 20px 10px;
-        }
-
-        .hero h1 {
-          font-size: 1.8rem;
-          margin-bottom: 5px;
-        }
-
-        .hero p {
-          font-size: 0.9rem;
-          margin-bottom: 8px;
-        }
-
-        .subtitle {
-          font-size: 0.85rem;
-          margin-bottom: 25px;
-        }
-
-        .buttons-container {
+        .footer-inner {
           flex-direction: column;
-          align-items: center;
-          gap: 15px;
-          width: 100%;
-        }
-
-        .btn {
-          width: 85%;
-          max-width: 250px;
-          height: 220px;
-          padding: 15px;
-          font-size: 1rem;
-        }
-
-        .btn-text {
-          font-size: 1rem;
-        }
-
-        .nebula {
-          opacity: 0.1 !important;
-        }
-
-        .nebula.pink {
-          width: 200px;
-          height: 200px;
-          top: 5%;
-          left: -50px;
-        }
-
-        .nebula.purple {
-          width: 250px;
-          height: 250px;
-          bottom: -80px;
-          right: -50px;
-        }
-
-        .nebula.blue {
-          width: 200px;
-          height: 200px;
-          top: 40%;
-          right: -80px;
+          text-align: center;
         }
       }
 
-      @media (max-width: 360px) {
-        .hero h1 {
-          font-size: 1.5rem;
+      /* ------------------------------------------------------------------ */
+      /*  SUBTLE ENTRANCE ANIMATION                                         */
+      /* ------------------------------------------------------------------ */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
         }
-
-        .hero p {
-          font-size: 0.85rem;
-        }
-
-        .subtitle {
-          font-size: 0.8rem;
-        }
-
-        .btn {
-          width: 100%;
-          max-width: 220px;
-          height: 200px;
-          padding: 10px;
-        }
-
-        .btn-text {
-          font-size: 0.9rem;
-          letter-spacing: 1px;
-        }
-
-        .features h2,
-        .projects h2 {
-          font-size: 1.3rem;
-        }
-
-        .nebula {
-          opacity: 0.08 !important;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
       }
+
+      .animate-in {
+        opacity: 0;
+        animation: fadeUp 0.5s ease forwards;
+      }
+
+      .delay-1 { animation-delay: 0.1s; }
+      .delay-2 { animation-delay: 0.2s; }
+      .delay-3 { animation-delay: 0.3s; }
     </style>
   </head>
   <body>
-    <!-- Navigation Header -->
-    <header class="header" role="navigation">
-      <div class="header-content">
-        <div class="logo-section">
-          <a href="https://github.com/PsReader" target="_blank" rel="noopener noreferrer" class="github-icon-link" title="Visit GitHub Profile" aria-label="GitHub Profile">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+    <!-- Header -->
+    <header class="site-header" id="top">
+      <div class="header-inner">
+        <span class="site-name">PsReader</span>
+        <nav class="header-nav" aria-label="Main navigation">
+          <a href="#projects">Projects</a>
+          <a href="#about">About</a>
+          <a
+            href="https://github.com/PsReader"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="gh-link"
+            aria-label="GitHub profile"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
             </svg>
+            GitHub
           </a>
-        </div>
-        <nav class="nav-links" aria-label="Main navigation">
-          <a href="#about" class="nav-link">About</a>
-          <a href="#projects" class="nav-link">Projects</a>
         </nav>
       </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" role="banner">
-      <div class="nebula pink" aria-hidden="true"></div>
-      <div class="nebula purple" aria-hidden="true"></div>
-      <div class="nebula blue" aria-hidden="true"></div>
-
-      <div class="hero-content">
-        <h1>PsReader's</h1>
-        <h1>PORTFOLIO</h1>
-        <p>Explore the Cosmic Universe</p>
-        <p class="subtitle">Journey through interactive projects across the stars</p>
-
-        <div class="buttons-container">
-          <a href="LOTM/LOTMhome.html" class="btn btn-lotm" title="Explore LOTM Project">
-            <div class="shine" aria-hidden="true"></div>
-            <div class="btn-label" aria-hidden="true">EXPLORE</div>
-            <span class="btn-text">LOTM</span>
-          </a>
-          <a
-            href="Pudding Paradise/puddinghome.html"
-            class="btn btn-pudding"
-            title="Discover Pudding Paradise Project"
-          >
-            <div class="shine" aria-hidden="true"></div>
-            <div class="btn-label" aria-hidden="true">DISCOVER</div>
-            <span class="btn-text">Pudding Paradise</span>
-          </a>
-        </div>
-
-        <div class="scroll-indicator" role="button" aria-label="Scroll to about section">
-          <i class="fas fa-chevron-down"></i>
-        </div>
-      </div>
-    </section>
-
-    <!-- Features/About Section -->
-    <section class="features" id="about">
-      <h2>About PsReader</h2>
-      <p style="
-        font-size: 1.1rem;
-        margin-bottom: 40px;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-        opacity: 0.9;
-        line-height: 1.8;
-      ">
-        I am an aspiring developer with a passion for creating interactive and
-        innovative digital experiences. I like to dabble in a little bit of
-        everything—from web development and design to creative storytelling and
-        interactive narratives.
+    <!-- Hero -->
+    <section class="hero" aria-label="Introduction">
+      <h1 class="animate-in">Hi, I'm PsReader.</h1>
+      <p class="hero-intro animate-in delay-1">
+        Vocational school student learning to build for the web.
+        I work with HTML, CSS, and JavaScript to create multi-page sites
+        with clean layouts, working navigation, and responsive design.
       </p>
-      <div class="features-grid">
-        <div class="feature-card">
-          <i class="fas fa-code"></i>
-          <h3>Web Development</h3>
-          <p>
-            Building responsive, interactive websites with modern technologies.
-            I explore HTML, CSS, JavaScript, and continuously learn new
-            frameworks and tools.
-          </p>
-        </div>
-        <div class="feature-card">
-          <i class="fas fa-palette"></i>
-          <h3>Design & Creativity</h3>
-          <p>
-            Crafting beautiful user experiences through thoughtful design. Every
-            project is an opportunity to blend aesthetics with functionality and
-            create something meaningful.
-          </p>
-        </div>
-        <div class="feature-card">
-          <i class="fas fa-lightbulb"></i>
-          <h3>Experimentation</h3>
-          <p>
-            I thrive on exploring new ideas and technologies. Whether it's a
-            themed interface or interactive game, I'm always eager to learn,
-            experiment, and push creative boundaries.
-          </p>
-        </div>
+      <div class="hero-skills animate-in delay-2">
+        <span class="skill-tag">HTML</span>
+        <span class="skill-tag">CSS</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">Responsive Design</span>
+        <span class="skill-tag">Git / GitHub</span>
       </div>
     </section>
 
-    <!-- Projects Section -->
-    <section class="projects" id="projects">
-      <h2>My Stellar Projects</h2>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="project-header">
-            <h3>📜 LOTM</h3>
-            <span class="tech-stack">HTML • CSS • JavaScript</span>
+    <!-- Projects -->
+    <section class="section" id="projects">
+      <p class="section-label">Projects</p>
+
+      <div class="project-list">
+        <!-- LOTM -->
+        <article class="project-card animate-in">
+          <div class="project-chrome" aria-hidden="true">
+            <span class="chrome-dot"></span>
+            <span class="chrome-dot"></span>
+            <span class="chrome-dot"></span>
+            <div class="chrome-bar">
+              <span class="chrome-url">LOTM/LOTMhome.html</span>
+            </div>
           </div>
-          <p>
-            A comprehensive explanation of the novel Lord of the Mysteries. Dive deep into the intricate world of mythology, pathways, and character identities.
-          </p>
-          <div class="project-links">
-            <a href="LOTM/LOTMhome.html" class="btn-primary">View Project</a>
+          <div class="project-preview">
+            <img src="LOTM/images/The_Fool.jpeg" alt="Lord of the Mysteries — The Fool character art" />
           </div>
-        </div>
-        <div class="project-card">
-          <div class="project-header">
-            <h3>🍮 Pudding Paradise</h3>
-            <span class="tech-stack">HTML • CSS • JavaScript</span>
+          <div class="project-body">
+            <h2 class="project-title">Lord of the Mysteries — Fan Wiki</h2>
+            <p class="project-stack">HTML · CSS · JavaScript</p>
+            <p class="project-desc">
+              A multi-page reference site for the novel <em>Lord of the Mysteries</em>.
+              Covers pathway systems, character profiles, volume summaries, and a
+              gallery — all connected through consistent navigation and a shared
+              design system.
+            </p>
+            <div class="project-actions">
+              <a href="LOTM/LOTMhome.html" class="btn btn-primary">
+                View Live
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <a href="https://github.com/PsReader" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                Source Code
+              </a>
+            </div>
           </div>
-          <p>
-            A sweet and interactive dessert paradise. Explore delicious menu items, browse our gallery, and read customer reviews from pudding enthusiasts.
-          </p>
-          <div class="project-links">
-            <a href="Pudding Paradise/puddinghome.html" class="btn-primary">View Project</a>
+        </article>
+
+        <!-- Pudding Paradise -->
+        <article class="project-card animate-in delay-1">
+          <div class="project-chrome" aria-hidden="true">
+            <span class="chrome-dot"></span>
+            <span class="chrome-dot"></span>
+            <span class="chrome-dot"></span>
+            <div class="chrome-bar">
+              <span class="chrome-url">Pudding Paradise/puddinghome.html</span>
+            </div>
           </div>
-        </div>
+          <div class="project-preview">
+            <div class="preview-placeholder">
+              Screenshot — replace this div with<br />
+              <code>&lt;img src="..." alt="Pudding Paradise screenshot" /&gt;</code>
+            </div>
+          </div>
+          <div class="project-body">
+            <h2 class="project-title">Pudding Paradise</h2>
+            <p class="project-stack">HTML · CSS · JavaScript</p>
+            <p class="project-desc">
+              A themed restaurant site with a menu page, image gallery, and customer
+              reviews section. Built with a consistent visual identity, responsive
+              grid layouts, and interactive UI elements.
+            </p>
+            <div class="project-actions">
+              <a href="Pudding Paradise/puddinghome.html" class="btn btn-primary">
+                View Live
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <a href="https://github.com/PsReader" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                Source Code
+              </a>
+            </div>
+          </div>
+        </article>
       </div>
+    </section>
+
+    <!-- About -->
+    <section class="section" id="about">
+      <p class="section-label">About</p>
+      <p class="about-text">
+        I'm a vocational school student focused on front-end web development.
+        Right now I'm building multi-page sites from scratch using semantic HTML,
+        CSS layouts (flexbox, grid), and vanilla JavaScript for interactivity.
+      </p>
+      <p class="about-text">
+        Each project in this portfolio is hand-coded — no templates, no
+        page builders. I'm working toward writing cleaner code, improving
+        my understanding of responsive design, and learning version control
+        with Git.
+      </p>
     </section>
 
     <!-- Footer -->
-    <footer>
-      <div class="footer-content">
-        <div class="footer-section">
-          <h4>Portfolio</h4>
-          <ul>
-            <li><a href="#about">About Me</a></li>
-            <li><a href="#projects">My Projects</a></li>
-            <li><a href="https://github.com/PsReader" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h4>Projects</h4>
-          <ul>
-            <li><a href="LOTM/LOTMhome.html">Lord of the Mysteries</a></li>
-            <li><a href="Pudding Paradise/puddinghome.html">Pudding Paradise</a></li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h4>Let's Connect</h4>
-          <ul>
-            <li><a href="https://github.com/PsReader" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 6px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg> GitHub</a></li>
-            <li><span style="opacity: 0.7; font-size: 0.9rem;">More coming soon...</span></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 PsReader's Portfolio. All rights reserved.</p>
-        <p style="font-size: 0.85rem; opacity: 0.6;">Built with passion for creative web experiences</p>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span class="footer-copy">&copy; 2026 PsReader</span>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="#projects">Projects</a>
+          <a href="#about">About</a>
+          <a href="https://github.com/PsReader" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </nav>
       </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Minimal scroll-triggered fade-in -->
     <script>
-      // Smooth scroll for scroll indicator
-      document.querySelector('.scroll-indicator').addEventListener('click', () => {
-        document.querySelector('#about').scrollIntoView({ behavior: 'smooth' });
-      });
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animate-in');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
 
-      // Parallax effect for nebulas on scroll
-      window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const nebulas = document.querySelectorAll('.nebula');
-        nebulas.forEach((nebula, index) => {
-          nebula.style.transform = `translateY(${scrolled * 0.3 + index * 10}px) translateX(${
-            index * 5
-          }px)`;
-        });
-      });
-
-      // Intersection Observer for animation on scroll
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.animation = 'slideInUp 0.6s ease-out forwards';
-          }
-        });
-      });
-
-      document.querySelectorAll('.feature-card, .project-card').forEach(el => {
-        observer.observe(el);
-      });
+      document
+        .querySelectorAll('.project-card')
+        .forEach((el) => observer.observe(el));
     </script>
   </body>
 </html>
