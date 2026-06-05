@@ -11,10 +11,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <style>
+      /* =================================================================
+         RESET
+         ================================================================= */
       *,
       *::before,
       *::after {
@@ -23,30 +26,50 @@
         box-sizing: border-box;
       }
 
+      /* =================================================================
+         DESIGN TOKENS
+         ================================================================= */
       :root {
-        --bg-base: #0c0e14;
-        --bg-raised: #12141c;
-        --bg-card: #181b27;
-        --bg-card-hover: #1e2233;
-        --border: #252a3a;
-        --border-hover: #363d54;
+        /* Surface palette — premium deep slate, never pure black */
+        --bg-base: #0b0d13;
+        --bg-raised: #10121a;
+        --bg-card: #161923;
+        --bg-card-hover: #1c1f2e;
+        --bg-surface: #1a1d2b;
 
+        /* Borders */
+        --border: #21263a;
+        --border-hover: #2f3652;
+        --border-active: #3d4563;
+
+        /* Single accent — deep indigo */
         --accent: #6366f1;
         --accent-hover: #818cf8;
-        --accent-subtle: rgba(99, 102, 241, 0.10);
-        --accent-glow: rgba(99, 102, 241, 0.06);
+        --accent-muted: rgba(99, 102, 241, 0.12);
+        --accent-glow: rgba(99, 102, 241, 0.08);
 
-        --text-primary: #eaecf0;
-        --text-secondary: #94a3b8;
-        --text-tertiary: #5e6a80;
+        /* Typography scale */
+        --text-primary: #e8eaf0;
+        --text-secondary: #8b95ad;
+        --text-tertiary: #505872;
 
+        /* Radius */
+        --radius-sm: 6px;
         --radius: 8px;
         --radius-lg: 12px;
         --radius-xl: 16px;
-        --max-w: 760px;
+
+        /* Widths */
+        --max-w: 960px;
+
+        /* Motion */
         --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
       }
 
+      /* =================================================================
+         BASE
+         ================================================================= */
       html {
         scroll-behavior: smooth;
         -webkit-font-smoothing: antialiased;
@@ -54,7 +77,7 @@
       }
 
       body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
           Roboto, sans-serif;
         background: var(--bg-base);
         color: var(--text-secondary);
@@ -62,31 +85,52 @@
         overflow-x: hidden;
       }
 
+      /* Dot grid pattern overlay */
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(
+          circle,
+          rgba(99, 102, 241, 0.09) 1px,
+          transparent 1px
+        );
+        background-size: 32px 32px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
       a {
         color: var(--accent);
         text-decoration: none;
         transition: color 150ms var(--ease);
       }
-      a:hover { color: var(--accent-hover); }
+      a:hover {
+        color: var(--accent-hover);
+      }
 
       ::selection {
         background: var(--accent);
         color: #fff;
       }
 
-      /* ============================================================
-         HEADER
-         ============================================================ */
+      /* =================================================================
+         HEADER — glassmorphism sticky bar
+         ================================================================= */
       .site-header {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         z-index: 100;
-        background: rgba(12, 14, 20, 0.8);
-        backdrop-filter: blur(16px) saturate(1.6);
-        -webkit-backdrop-filter: blur(16px) saturate(1.6);
+        background: rgba(11, 13, 19, 0.75);
+        backdrop-filter: blur(20px) saturate(1.8);
+        -webkit-backdrop-filter: blur(20px) saturate(1.8);
         border-bottom: 1px solid var(--border);
+        transition: background 300ms var(--ease);
       }
 
       .header-inner {
@@ -100,16 +144,33 @@
       }
 
       .wordmark {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
         font-size: 0.9375rem;
-        font-weight: 700;
+        font-weight: 800;
         color: var(--text-primary);
-        letter-spacing: -0.02em;
+        letter-spacing: -0.03em;
+      }
+
+      .wordmark-avatar {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1.5px solid var(--border-hover);
+        transition: border-color 250ms var(--ease), transform 300ms var(--ease-spring);
+        flex-shrink: 0;
+      }
+      .wordmark:hover .wordmark-avatar {
+        border-color: var(--accent);
+        transform: scale(1.08);
       }
 
       .header-nav {
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: 24px;
       }
 
       .header-nav a {
@@ -118,30 +179,36 @@
         color: var(--text-tertiary);
         transition: color 150ms var(--ease);
       }
-      .header-nav a:hover { color: var(--text-primary); }
+      .header-nav a:hover {
+        color: var(--text-primary);
+      }
 
       .nav-gh {
         display: inline-flex;
         align-items: center;
         gap: 6px;
         color: var(--text-secondary);
-        padding: 5px 12px;
+        padding: 6px 14px;
         border: 1px solid var(--border);
         border-radius: var(--radius);
         font-size: 0.8125rem;
         font-weight: 500;
-        transition: all 150ms var(--ease);
+        transition: all 180ms var(--ease);
       }
       .nav-gh:hover {
         color: var(--text-primary);
         border-color: var(--border-hover);
         background: var(--bg-card);
       }
-      .nav-gh svg { width: 15px; height: 15px; flex-shrink: 0; }
+      .nav-gh svg {
+        width: 15px;
+        height: 15px;
+        flex-shrink: 0;
+      }
 
-      /* ============================================================
-         HERO — full viewport with scroll cue
-         ============================================================ */
+      /* =================================================================
+         HERO — full viewport, generous breathing room
+         ================================================================= */
       .hero {
         position: relative;
         min-height: 100vh;
@@ -149,47 +216,108 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 120px 24px 80px;
+        padding: 140px 24px 100px;
         max-width: var(--max-w);
         margin: 0 auto;
       }
 
+      /* Ambient glow behind hero content */
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 30%;
+        left: -20%;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(
+          circle,
+          rgba(99, 102, 241, 0.06) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Second ambient glow — right side */
+      .hero::after {
+        content: "";
+        position: absolute;
+        top: 10%;
+        right: -15%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          circle,
+          rgba(139, 92, 246, 0.05) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .hero > * {
+        position: relative;
+        z-index: 1;
+      }
+
+
+
       .hero-eyebrow {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
         font-size: 0.6875rem;
         font-weight: 600;
-        letter-spacing: 0.1em;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
         color: var(--accent);
-        margin-bottom: 20px;
+        margin-bottom: 24px;
       }
 
       .hero-eyebrow::before {
-        content: '';
-        width: 20px;
+        content: "";
+        width: 24px;
         height: 1px;
         background: var(--accent);
         opacity: 0.5;
       }
 
       .hero h1 {
-        font-size: clamp(2rem, 5vw, 2.75rem);
-        font-weight: 700;
-        color: var(--text-primary);
-        line-height: 1.15;
-        letter-spacing: -0.03em;
-        margin-bottom: 20px;
-        max-width: 600px;
+        font-size: clamp(2.125rem, 5.5vw, 3rem);
+        font-weight: 800;
+        line-height: 1.12;
+        letter-spacing: -0.035em;
+        margin-bottom: 24px;
+        max-width: 620px;
+        /* Animated gradient text */
+        background: linear-gradient(
+          135deg,
+          var(--text-primary) 0%,
+          var(--accent-hover) 50%,
+          var(--text-primary) 100%
+        );
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradientShift 6s ease-in-out infinite;
+      }
+
+      @keyframes gradientShift {
+        0%, 100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
       }
 
       .hero-desc {
         font-size: 1.0625rem;
-        line-height: 1.7;
+        line-height: 1.75;
         color: var(--text-secondary);
         max-width: 520px;
-        margin-bottom: 36px;
+        margin-bottom: 40px;
       }
 
       .hero-cta {
@@ -198,82 +326,94 @@
         flex-wrap: wrap;
       }
 
-      /* Scroll cue — fixed to bottom of hero viewport */
+      /* Scroll indicator — subtle gradient fade at the bottom of hero */
+      .hero-scroll-fade {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 160px;
+        background: linear-gradient(
+          to top,
+          var(--bg-base) 0%,
+          transparent 100%
+        );
+        pointer-events: none;
+        z-index: 2;
+        transition: opacity 500ms var(--ease);
+      }
+
+      body.scrolled .hero-scroll-fade {
+        opacity: 0;
+      }
+
+      /* Scroll cue — animated line + label */
       .scroll-cue {
         position: absolute;
-        bottom: 32px;
+        bottom: 40px;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
         color: var(--text-tertiary);
-        font-size: 0.6875rem;
-        font-weight: 500;
-        letter-spacing: 0.06em;
+        font-size: 0.625rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         cursor: pointer;
         transition: color 200ms var(--ease);
+        z-index: 3;
       }
-      .scroll-cue:hover { color: var(--text-secondary); }
+      .scroll-cue:hover {
+        color: var(--text-secondary);
+      }
 
       .scroll-cue-line {
         width: 1px;
-        height: 32px;
+        height: 36px;
         position: relative;
         overflow: hidden;
         background: var(--border);
       }
       .scroll-cue-line::after {
-        content: '';
+        content: "";
         position: absolute;
         top: -100%;
         left: 0;
         width: 1px;
         height: 100%;
         background: var(--accent);
-        animation: scrollPulse 2s var(--ease) infinite;
+        animation: scrollPulse 2.4s var(--ease) infinite;
       }
 
       @keyframes scrollPulse {
-        0%   { top: -100%; }
-        50%  { top: 100%; }
-        100% { top: 100%; }
+        0% {
+          top: -100%;
+        }
+        50% {
+          top: 100%;
+        }
+        100% {
+          top: 100%;
+        }
       }
 
-      /* Gradient fade at hero bottom edge */
-      .hero::after {
-        content: '';
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 120px;
-        background: linear-gradient(to top, var(--bg-base) 0%, transparent 100%);
-        pointer-events: none;
-        z-index: 1;
-        opacity: 1;
-        transition: opacity 400ms var(--ease);
-      }
-
-      body.scrolled .hero::after {
-        opacity: 0;
-      }
-
-      /* ============================================================
+      /* =================================================================
          TRUST SIGNALS
-         ============================================================ */
+         ================================================================= */
       .trust-bar {
         border-top: 1px solid var(--border);
         border-bottom: 1px solid var(--border);
         background: var(--bg-raised);
+        position: relative;
       }
 
       .trust-inner {
         max-width: var(--max-w);
         margin: 0 auto;
-        padding: 28px 24px;
+        padding: 32px 24px;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 16px;
@@ -281,39 +421,56 @@
 
       .trust-item {
         text-align: center;
+        padding: 8px 0;
+        transition: transform 300ms var(--ease-spring);
+      }
+      .trust-item:hover {
+        transform: scale(1.05);
       }
 
       .trust-value {
-        font-size: 1.25rem;
-        font-weight: 700;
+        font-size: 1.375rem;
+        font-weight: 800;
         color: var(--text-primary);
         line-height: 1;
-        margin-bottom: 4px;
+        margin-bottom: 6px;
+        letter-spacing: -0.02em;
       }
 
       .trust-label {
         font-size: 0.6875rem;
         font-weight: 500;
         color: var(--text-tertiary);
-        letter-spacing: 0.02em;
+        letter-spacing: 0.03em;
       }
 
-      /* ============================================================
+      /* =================================================================
          SECTIONS
-         ============================================================ */
+         ================================================================= */
       .section {
         max-width: var(--max-w);
         margin: 0 auto;
-        padding: 80px 24px;
+        padding: 88px 24px;
       }
 
       .section-label {
         font-size: 0.6875rem;
         font-weight: 600;
-        letter-spacing: 0.1em;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
         color: var(--accent);
         margin-bottom: 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .section-label::before {
+        content: "";
+        width: 24px;
+        height: 1px;
+        background: var(--accent);
+        opacity: 0.5;
       }
 
       .section-heading {
@@ -322,16 +479,27 @@
         color: var(--text-primary);
         letter-spacing: -0.02em;
         line-height: 1.25;
-        margin-bottom: 40px;
+        margin-bottom: 48px;
+        position: relative;
       }
 
-      /* ============================================================
-         PROJECT CARDS — browser-window mockup
-         ============================================================ */
+      .section-heading::after {
+        content: "";
+        display: block;
+        width: 48px;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent), transparent);
+        margin-top: 16px;
+        border-radius: 2px;
+      }
+
+      /* =================================================================
+         PROJECT CARDS — clean browser-window containers
+         ================================================================= */
       .project-list {
-        display: flex;
-        flex-direction: column;
-        gap: 40px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
       }
 
       .project-card {
@@ -339,17 +507,42 @@
         border: 1px solid var(--border);
         border-radius: var(--radius-xl);
         overflow: hidden;
-        transition: border-color 200ms var(--ease),
-                    box-shadow 300ms var(--ease),
-                    transform 300ms var(--ease);
-      }
-      .project-card:hover {
-        border-color: var(--border-hover);
-        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35),
-                    0 0 0 1px var(--border-hover);
-        transform: translateY(-2px);
+        transition: border-color 250ms var(--ease),
+          box-shadow 350ms var(--ease), transform 350ms var(--ease);
+        position: relative;
       }
 
+      /* Accent glow on hover — top edge */
+      .project-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 20%;
+        right: 20%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--accent),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 350ms var(--ease);
+        z-index: 5;
+      }
+
+      .project-card:hover {
+        border-color: var(--border-hover);
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4),
+          0 0 0 1px var(--border-hover),
+          0 0 60px rgba(99, 102, 241, 0.06);
+        transform: translateY(-5px);
+      }
+      .project-card:hover::before {
+        opacity: 1;
+      }
+
+      /* Browser chrome bar */
       .project-chrome {
         display: flex;
         align-items: center;
@@ -359,19 +552,36 @@
         border-bottom: 1px solid var(--border);
       }
 
-      .dot { width: 10px; height: 10px; border-radius: 50%; }
-      .dot--close { background: #3b3b3b; }
-      .dot--min   { background: #3b3b3b; }
-      .dot--max   { background: #3b3b3b; }
-      .project-card:hover .dot--close { background: #ff5f57; }
-      .project-card:hover .dot--min   { background: #febc2e; }
-      .project-card:hover .dot--max   { background: #28c840; }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        transition: background 200ms var(--ease);
+      }
+      .dot--close {
+        background: #2a2a2a;
+      }
+      .dot--min {
+        background: #2a2a2a;
+      }
+      .dot--max {
+        background: #2a2a2a;
+      }
+      .project-card:hover .dot--close {
+        background: #ff5f57;
+      }
+      .project-card:hover .dot--min {
+        background: #febc2e;
+      }
+      .project-card:hover .dot--max {
+        background: #28c840;
+      }
 
       .chrome-address {
         flex: 1;
-        height: 26px;
+        height: 28px;
         background: var(--bg-base);
-        border-radius: 6px;
+        border-radius: var(--radius-sm);
         margin-left: 10px;
         display: flex;
         align-items: center;
@@ -380,13 +590,15 @@
       .chrome-url {
         font-size: 0.6875rem;
         color: var(--text-tertiary);
-        font-family: 'Inter', ui-monospace, monospace;
+        font-family: "Inter", ui-monospace, monospace;
+        letter-spacing: 0.01em;
       }
 
+      /* Screenshot viewport */
       .project-viewport {
         width: 100%;
-        aspect-ratio: 16 / 9;
-        background: var(--bg-raised);
+        max-height: 220px;
+        background: var(--bg-surface);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -398,28 +610,22 @@
       .project-viewport img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
-        transition: transform 500ms var(--ease);
+        object-fit: contain;
+        display: block;
+        transition: transform 600ms var(--ease);
       }
       .project-card:hover .project-viewport img {
-        transform: scale(1.03);
+        transform: scale(1.04);
       }
 
-      .viewport-empty {
-        color: var(--text-tertiary);
-        font-size: 0.8125rem;
-        text-align: center;
-        padding: 24px;
-        line-height: 1.5;
-      }
-
+      /* Card body */
       .project-body {
-        padding: 28px;
+        padding: 20px 22px 24px;
       }
 
       .project-name {
-        font-size: 1.125rem;
-        font-weight: 600;
+        font-size: 1rem;
+        font-weight: 700;
         color: var(--text-primary);
         margin-bottom: 4px;
         letter-spacing: -0.01em;
@@ -429,15 +635,15 @@
         font-size: 0.75rem;
         font-weight: 500;
         color: var(--text-tertiary);
-        margin-bottom: 14px;
-        letter-spacing: 0.03em;
+        margin-bottom: 16px;
+        letter-spacing: 0.04em;
       }
 
       .project-summary {
-        font-size: 0.875rem;
+        font-size: 0.8125rem;
         line-height: 1.65;
         color: var(--text-secondary);
-        margin-bottom: 24px;
+        margin-bottom: 20px;
       }
 
       .project-cta {
@@ -446,33 +652,61 @@
         flex-wrap: wrap;
       }
 
-      /* ============================================================
+      /* =================================================================
          BUTTONS
-         ============================================================ */
+         ================================================================= */
       .btn {
         display: inline-flex;
         align-items: center;
         gap: 7px;
-        padding: 9px 18px;
+        padding: 10px 20px;
         border-radius: var(--radius);
         font-size: 0.8125rem;
-        font-weight: 500;
+        font-weight: 600;
         border: none;
         cursor: pointer;
         text-decoration: none;
-        transition: all 150ms var(--ease);
+        transition: all 180ms var(--ease);
         line-height: 1;
       }
-      .btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+      .btn svg {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+      }
 
       .btn--primary {
         background: var(--accent);
         color: #fff;
+        position: relative;
+        overflow: hidden;
       }
+
+      /* Shimmer sweep effect on primary buttons */
+      .btn--primary::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -75%;
+        width: 50%;
+        height: 200%;
+        background: linear-gradient(
+          105deg,
+          transparent 40%,
+          rgba(255, 255, 255, 0.08) 50%,
+          transparent 60%
+        );
+        transition: left 500ms var(--ease);
+      }
+      .btn--primary:hover::after {
+        left: 130%;
+      }
+
       .btn--primary:hover {
         background: var(--accent-hover);
         color: #fff;
-        box-shadow: 0 2px 12px rgba(99, 102, 241, 0.3);
+        box-shadow: 0 4px 24px rgba(99, 102, 241, 0.25);
+        transform: translateY(-2px);
       }
 
       .btn--ghost {
@@ -486,28 +720,103 @@
         background: var(--bg-card-hover);
       }
 
-      /* ============================================================
+      /* =================================================================
+         TECH STACK GRID
+         ================================================================= */
+      .stack-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 12px;
+        margin-top: 32px;
+      }
+
+      .stack-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 16px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        transition: border-color 200ms var(--ease),
+          background 200ms var(--ease),
+          transform 300ms var(--ease-spring),
+          box-shadow 300ms var(--ease);
+      }
+      .stack-item:hover {
+        border-color: var(--border-hover);
+        background: var(--bg-card-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .stack-icon {
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent);
+        flex-shrink: 0;
+        background: var(--accent-muted);
+        border-radius: var(--radius-sm);
+        transition: transform 300ms var(--ease-spring);
+      }
+      .stack-item:hover .stack-icon {
+        transform: rotate(-8deg) scale(1.1);
+      }
+      .stack-icon svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .stack-name {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        letter-spacing: -0.01em;
+      }
+
+      /* =================================================================
          ABOUT
-         ============================================================ */
+         ================================================================= */
       .about-body {
-        max-width: 540px;
+        max-width: 560px;
       }
 
       .about-body p {
         font-size: 0.9375rem;
-        line-height: 1.75;
+        line-height: 1.8;
         color: var(--text-secondary);
       }
       .about-body p + p {
-        margin-top: 16px;
+        margin-top: 18px;
       }
 
-      /* ============================================================
+      /* =================================================================
          FOOTER
-         ============================================================ */
+         ================================================================= */
       .site-footer {
         border-top: 1px solid var(--border);
-        padding: 28px 24px;
+        padding: 32px 24px;
+        position: relative;
+      }
+
+      /* Gradient accent line at the top of footer */
+      .site-footer::before {
+        content: "";
+        position: absolute;
+        top: -1px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(200px, 40%);
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--accent),
+          transparent
+        );
       }
 
       .footer-inner {
@@ -527,93 +836,332 @@
 
       .footer-nav {
         display: flex;
-        gap: 20px;
+        gap: 24px;
       }
       .footer-nav a {
         font-size: 0.75rem;
         color: var(--text-tertiary);
         transition: color 150ms var(--ease);
       }
-      .footer-nav a:hover { color: var(--text-secondary); }
+      .footer-nav a:hover {
+        color: var(--text-secondary);
+      }
 
-      /* ============================================================
+      /* =================================================================
          ANIMATIONS
-         ============================================================ */
+         ================================================================= */
       @keyframes fadeUp {
-        from { opacity: 0; transform: translateY(16px); }
-        to   { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       .reveal {
         opacity: 0;
-        transform: translateY(16px);
-        transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+        transform: translateY(20px);
+        transition: opacity 650ms var(--ease), transform 650ms var(--ease);
       }
       .reveal.visible {
         opacity: 1;
         transform: translateY(0);
       }
 
-      .stagger-1 { transition-delay: 0.05s; }
-      .stagger-2 { transition-delay: 0.10s; }
-      .stagger-3 { transition-delay: 0.15s; }
-      .stagger-4 { transition-delay: 0.20s; }
+      .stagger-1 {
+        transition-delay: 0.06s;
+      }
+      .stagger-2 {
+        transition-delay: 0.12s;
+      }
+      .stagger-3 {
+        transition-delay: 0.18s;
+      }
+      .stagger-4 {
+        transition-delay: 0.24s;
+      }
 
-      /* Hero elements use CSS animation (above fold, no observer needed) */
+      /* Hero elements — CSS animation, no observer needed */
       .hero-animate {
         opacity: 0;
-        animation: fadeUp 0.6s var(--ease) forwards;
+        animation: fadeUp 0.7s var(--ease) forwards;
       }
-      .hero-d1 { animation-delay: 0.1s; }
-      .hero-d2 { animation-delay: 0.2s; }
-      .hero-d3 { animation-delay: 0.3s; }
-      .hero-d4 { animation-delay: 0.4s; }
+      .hero-d1 {
+        animation-delay: 0.12s;
+      }
+      .hero-d2 {
+        animation-delay: 0.24s;
+      }
+      .hero-d3 {
+        animation-delay: 0.36s;
+      }
+      .hero-d4 {
+        animation-delay: 0.48s;
+      }
 
-      /* ============================================================
-         RESPONSIVE
-         ============================================================ */
+      /* =================================================================
+         MOBILE HAMBURGER MENU
+         ================================================================= */
+      .mobile-menu-toggle {
+        display: none;
+        background: none;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 6px 10px;
+        cursor: pointer;
+        color: var(--text-secondary);
+        transition: all 180ms var(--ease);
+        z-index: 110;
+      }
+      .mobile-menu-toggle:hover {
+        color: var(--text-primary);
+        border-color: var(--border-hover);
+        background: var(--bg-card);
+      }
+      .mobile-menu-toggle svg {
+        width: 20px;
+        height: 20px;
+        display: block;
+      }
+
+      .mobile-menu-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(11, 13, 19, 0.6);
+        z-index: 99;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+      .mobile-menu-overlay.active {
+        display: block;
+      }
+
+      /* =================================================================
+         RESPONSIVE — Tablet (≤ 900px)
+         ================================================================= */
+      @media (max-width: 900px) {
+        .project-list {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .hero h1 {
+          font-size: clamp(1.75rem, 5vw, 2.5rem);
+        }
+
+        .section {
+          padding: 64px 24px;
+        }
+      }
+
+      /* =================================================================
+         RESPONSIVE — Mobile (≤ 640px)
+         ================================================================= */
       @media (max-width: 640px) {
         .hero {
-          padding: 100px 20px 64px;
+          padding: 110px 20px 80px;
           min-height: 100vh;
           min-height: 100dvh;
         }
 
-        .hero h1 { font-size: 1.75rem; }
+        .hero h1 {
+          font-size: 1.625rem;
+          max-width: 100%;
+        }
+
+        .hero-desc {
+          font-size: 0.9375rem;
+          max-width: 100%;
+        }
+
+        .hero::before {
+          width: 300px;
+          height: 300px;
+          left: -10%;
+        }
 
         .trust-inner {
           grid-template-columns: repeat(2, 1fr);
-          gap: 20px;
+          gap: 16px;
           padding: 24px 20px;
+        }
+
+        .trust-value {
+          font-size: 1.2rem;
+        }
+
+        .trust-label {
+          font-size: 0.625rem;
         }
 
         .section {
           padding: 56px 20px;
         }
 
-        .project-body { padding: 20px; }
+        .section-heading {
+          font-size: 1.25rem;
+          margin-bottom: 32px;
+        }
+
+        .project-list {
+          grid-template-columns: 1fr;
+        }
+
+        .project-viewport {
+          max-height: 180px;
+        }
+
+        .project-body {
+          padding: 16px 18px 20px;
+        }
+
+        .project-name {
+          font-size: 0.9375rem;
+        }
+
+        .project-summary {
+          font-size: 0.8125rem;
+          margin-bottom: 16px;
+        }
 
         .project-cta,
         .hero-cta {
           flex-direction: column;
         }
 
-        .btn { justify-content: center; }
+        .btn {
+          justify-content: center;
+          padding: 12px 20px;
+          font-size: 0.8125rem;
+        }
 
-        .header-nav a:not(.nav-gh) { display: none; }
+        /* Mobile hamburger nav */
+        .mobile-menu-toggle {
+          display: flex;
+          align-items: center;
+        }
+
+        .header-nav {
+          position: fixed;
+          top: 0;
+          right: -280px;
+          width: 260px;
+          height: 100vh;
+          height: 100dvh;
+          background: var(--bg-raised);
+          border-left: 1px solid var(--border);
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 80px 24px 32px;
+          gap: 8px;
+          z-index: 100;
+          transition: right 320ms var(--ease);
+        }
+        .header-nav.open {
+          right: 0;
+        }
+
+        .header-nav a {
+          font-size: 0.9375rem;
+          padding: 10px 12px;
+          width: 100%;
+          border-radius: var(--radius);
+          transition: background 150ms var(--ease), color 150ms var(--ease);
+        }
+        .header-nav a:hover {
+          background: var(--accent-muted);
+        }
+
+        .nav-gh {
+          margin-top: 16px;
+          width: 100%;
+          justify-content: center;
+        }
 
         .footer-inner {
           flex-direction: column;
           text-align: center;
+          gap: 16px;
         }
 
-        .scroll-cue { bottom: 20px; }
+        .footer-nav {
+          justify-content: center;
+        }
+
+        .scroll-cue {
+          bottom: 24px;
+        }
+
+        .stack-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+
+        .stack-item {
+          padding: 12px 14px;
+        }
+
+        .about-body p {
+          font-size: 0.875rem;
+        }
       }
 
+      /* =================================================================
+         RESPONSIVE — Small mobile (≤ 380px)
+         ================================================================= */
       @media (max-width: 380px) {
+        .hero {
+          padding: 100px 16px 60px;
+        }
+
+        .hero h1 {
+          font-size: 1.375rem;
+        }
+
+        .hero-desc {
+          font-size: 0.875rem;
+          margin-bottom: 28px;
+        }
+
+        .header-inner {
+          padding: 0 16px;
+        }
+
         .trust-inner {
           grid-template-columns: repeat(2, 1fr);
-          gap: 16px;
+          gap: 12px;
+          padding: 20px 16px;
+        }
+
+        .section {
+          padding: 48px 16px;
+        }
+
+        .section-heading {
+          font-size: 1.125rem;
+        }
+
+        .stack-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .stack-name {
+          font-size: 0.75rem;
+        }
+
+        .project-body {
+          padding: 14px 16px 18px;
+        }
+
+        .scroll-cue {
+          display: none;
         }
       }
     </style>
@@ -624,7 +1172,23 @@
          ============================================================ -->
     <header class="site-header">
       <div class="header-inner">
-        <span class="wordmark">PsReader</span>
+        <span class="wordmark">
+          <img
+            src="https://github.com/PsReader.png?size=56"
+            alt="PsReader avatar"
+            class="wordmark-avatar"
+            width="28"
+            height="28"
+          />
+          PsReader
+        </span>
+        <button class="mobile-menu-toggle" aria-label="Open menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
         <nav class="header-nav" aria-label="Main navigation">
           <a href="#work">Work</a>
           <a href="#about">About</a>
@@ -636,11 +1200,14 @@
             aria-label="GitHub profile"
           >
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+              />
             </svg>
             GitHub
           </a>
         </nav>
+        <div class="mobile-menu-overlay" aria-hidden="true"></div>
       </div>
     </header>
 
@@ -648,36 +1215,61 @@
          HERO
          ============================================================ -->
     <section class="hero" aria-label="Introduction">
-      <span class="hero-eyebrow hero-animate">Portfolio</span>
+      <span class="hero-eyebrow hero-animate">Frontend Portfolio</span>
       <h1 class="hero-animate hero-d1">
-        Building Functional<br />Web Experiences
+        Engineering Functional<br />Web Experiences
       </h1>
       <p class="hero-desc hero-animate hero-d2">
-        Vocational school student focused on hand-coded, multi-page websites.
-        I work with semantic HTML, CSS layout systems, and vanilla JavaScript
-        to ship responsive sites with real structure and working navigation.
+        Hand-coded, multi-page websites built with semantic HTML, CSS layout
+        systems, and vanilla JavaScript. Every project ships with real
+        structure, working navigation, and responsive design — no templates,
+        no page builders.
       </p>
       <div class="hero-cta hero-animate hero-d3">
-        <a href="#work" class="btn btn--primary">
-          View Live Projects
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <a href="#work" class="btn btn--primary" id="cta-view-demos">
+          View Live Demos
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
         </a>
         <a
           href="https://github.com/PsReader"
           target="_blank"
           rel="noopener noreferrer"
           class="btn btn--ghost"
+          id="cta-github-source"
         >
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+            />
+          </svg>
           Explore GitHub Source
         </a>
       </div>
 
       <!-- Scroll cue -->
-      <div class="scroll-cue hero-animate hero-d4" role="button" tabindex="0" aria-label="Scroll to projects">
+      <div
+        class="scroll-cue hero-animate hero-d4"
+        role="button"
+        tabindex="0"
+        aria-label="Scroll to projects"
+      >
         <span class="scroll-cue-line" aria-hidden="true"></span>
         Scroll
       </div>
+
+      <!-- Gradient fade — curiosity pull -->
+      <div class="hero-scroll-fade" aria-hidden="true"></div>
     </section>
 
     <!-- ============================================================
@@ -686,15 +1278,15 @@
     <div class="trust-bar" aria-label="Developer overview">
       <div class="trust-inner">
         <div class="trust-item reveal stagger-1">
-          <div class="trust-value">2</div>
+          <div class="trust-value" data-count="2">0</div>
           <div class="trust-label">Live Projects</div>
         </div>
         <div class="trust-item reveal stagger-2">
-          <div class="trust-value">20+</div>
-          <div class="trust-label">HTML Pages</div>
+          <div class="trust-value" data-count="20" data-suffix="+">0</div>
+          <div class="trust-label">HTML Pages Shipped</div>
         </div>
         <div class="trust-item reveal stagger-3">
-          <div class="trust-value">3</div>
+          <div class="trust-value" data-count="3">0</div>
           <div class="trust-label">Core Languages</div>
         </div>
         <div class="trust-item reveal stagger-4">
@@ -709,42 +1301,73 @@
          ============================================================ -->
     <section class="section" id="work">
       <p class="section-label reveal">Selected Work</p>
-      <h2 class="section-heading reveal stagger-1">Frontend Projects, Built from Scratch</h2>
+      <h2 class="section-heading reveal stagger-1">
+        Frontend Projects, Built from Scratch
+      </h2>
 
       <div class="project-list">
         <!-- LOTM -->
-        <article class="project-card reveal">
+        <article class="project-card reveal" id="project-lotm">
           <div class="project-chrome" aria-hidden="true">
             <span class="dot dot--close"></span>
             <span class="dot dot--min"></span>
             <span class="dot dot--max"></span>
             <div class="chrome-address">
-              <span class="chrome-url">psreader.github.io/My-Projects/LOTM/</span>
+              <span class="chrome-url"
+                >psreader.github.io/My-Projects/LOTM/</span
+              >
             </div>
           </div>
           <div class="project-viewport">
             <img
-              src="LOTM/images/The_Fool.jpeg"
+              src="LOTM/images/Fool_2.jpeg"
               alt="Lord of the Mysteries companion site — The Fool character illustration"
               loading="lazy"
             />
           </div>
           <div class="project-body">
-            <h3 class="project-name">Lord of the Mysteries — Fan Wiki</h3>
+            <h3 class="project-name">
+              Lord of the Mysteries — Fan Reference Site
+            </h3>
             <p class="project-tech">HTML · CSS · JavaScript</p>
             <p class="project-summary">
-              A multi-page reference site for the novel <em>Lord of the Mysteries</em>.
-              Covers pathway systems, character profiles, volume summaries, and a
-              gallery — connected through consistent navigation and a shared
-              stylesheet across 20+ pages.
+              A multi-page reference site for the novel
+              <em>Lord of the Mysteries</em>. Covers pathway systems, character
+              profiles, volume summaries, and a gallery — connected through
+              consistent navigation and a shared stylesheet across 20+ pages.
             </p>
             <div class="project-cta">
               <a href="LOTM/LOTMhome.html" class="btn btn--primary">
                 View Live Demo
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
               </a>
-              <a href="https://github.com/PsReader" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              <a
+                href="https://github.com/PsReader"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn--ghost"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                  />
+                </svg>
                 Source Code
               </a>
             </div>
@@ -752,13 +1375,15 @@
         </article>
 
         <!-- Pudding Paradise -->
-        <article class="project-card reveal stagger-1">
+        <article class="project-card reveal stagger-1" id="project-pudding">
           <div class="project-chrome" aria-hidden="true">
             <span class="dot dot--close"></span>
             <span class="dot dot--min"></span>
             <span class="dot dot--max"></span>
             <div class="chrome-address">
-              <span class="chrome-url">psreader.github.io/My-Projects/Pudding-Paradise/</span>
+              <span class="chrome-url"
+                >psreader.github.io/My-Projects/Pudding-Paradise/</span
+              >
             </div>
           </div>
           <div class="project-viewport">
@@ -772,17 +1397,46 @@
             <h3 class="project-name">Pudding Paradise</h3>
             <p class="project-tech">HTML · CSS · JavaScript</p>
             <p class="project-summary">
-              A themed restaurant landing page with a menu browser, image gallery,
-              and customer reviews section. Built with consistent visual identity,
-              responsive grid layouts, and interactive form elements.
+              A themed restaurant landing page with a menu browser, image
+              gallery, and customer reviews section. Built with consistent
+              visual identity, responsive grid layouts, and interactive form
+              elements.
             </p>
             <div class="project-cta">
-              <a href="Pudding Paradise/puddinghome.html" class="btn btn--primary">
+              <a
+                href="Pudding Paradise/puddinghome.html"
+                class="btn btn--primary"
+              >
                 View Live Demo
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
               </a>
-              <a href="https://github.com/PsReader" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              <a
+                href="https://github.com/PsReader"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn--ghost"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                  />
+                </svg>
                 Source Code
               </a>
             </div>
@@ -792,7 +1446,7 @@
     </section>
 
     <!-- ============================================================
-         ABOUT
+         ABOUT — with inline tech stack grid
          ============================================================ -->
     <section class="section" id="about">
       <p class="section-label reveal">About</p>
@@ -800,16 +1454,50 @@
       <div class="about-body">
         <p class="reveal stagger-2">
           I'm a vocational school student focused on front-end web development.
-          I build multi-page sites from scratch using semantic HTML,
-          CSS layout systems (flexbox and grid), and vanilla JavaScript
-          for interactivity and DOM manipulation.
+          I build multi-page sites from scratch using semantic HTML, CSS layout
+          systems (flexbox and grid), and vanilla JavaScript for interactivity
+          and DOM manipulation.
         </p>
         <p class="reveal stagger-3">
-          Every project in this portfolio is hand-coded — no templates,
-          no page builders, no frameworks. I'm currently working toward
-          writing cleaner, more maintainable code, deepening my understanding
-          of responsive design patterns, and practicing version control with Git.
+          Every project in this portfolio is hand-coded — no templates, no page
+          builders, no frameworks. I'm currently working toward writing cleaner,
+          more maintainable code, deepening my understanding of responsive
+          design patterns, and practicing version control with Git.
         </p>
+      </div>
+
+      <!-- Tech Stack grid -->
+      <div class="stack-grid reveal stagger-4">
+        <div class="stack-item">
+          <div class="stack-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <span class="stack-name">HTML5</span>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M8 10h8"/><path d="M8 14h8"/></svg>
+          </div>
+          <span class="stack-name">CSS3</span>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
+          </div>
+          <span class="stack-name">JavaScript</span>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v3m0 12v3M3 12h3m12 0h3m-2.636-6.364-2.121 2.121M7.757 16.243l-2.121 2.121m0-12.728 2.121 2.121m8.486 8.486 2.121 2.121"/></svg>
+          </div>
+          <span class="stack-name">Git</span>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <span class="stack-name">Responsive Design</span>
+        </div>
       </div>
     </section>
 
@@ -822,7 +1510,12 @@
         <nav class="footer-nav" aria-label="Footer navigation">
           <a href="#work">Work</a>
           <a href="#about">About</a>
-          <a href="https://github.com/PsReader" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a
+            href="https://github.com/PsReader"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub</a
+          >
         </nav>
       </div>
     </footer>
@@ -836,28 +1529,115 @@
         (entries) => {
           entries.forEach((e) => {
             if (e.isIntersecting) {
-              e.target.classList.add('visible');
+              e.target.classList.add("visible");
               io.unobserve(e.target);
             }
           });
         },
-        { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+        { threshold: 0.12, rootMargin: "0px 0px -50px 0px" }
       );
-      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+      document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
       // Scroll cue click
-      document.querySelector('.scroll-cue')?.addEventListener('click', () => {
-        document.querySelector('.trust-bar')?.scrollIntoView({ behavior: 'smooth' });
+      document.querySelector(".scroll-cue")?.addEventListener("click", () => {
+        document
+          .querySelector(".trust-bar")
+          ?.scrollIntoView({ behavior: "smooth" });
       });
 
-      // Fade out hero gradient after first scroll
+      // Keyboard accessibility for scroll cue
+      document
+        .querySelector(".scroll-cue")
+        ?.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            document
+              .querySelector(".trust-bar")
+              ?.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+
+      // Fade out hero gradient after first meaningful scroll
       let scrolled = false;
-      window.addEventListener('scroll', () => {
-        if (!scrolled && window.scrollY > 80) {
-          scrolled = true;
-          document.body.classList.add('scrolled');
-        }
-      }, { passive: true });
+      window.addEventListener(
+        "scroll",
+        () => {
+          if (!scrolled && window.scrollY > 100) {
+            scrolled = true;
+            document.body.classList.add("scrolled");
+          }
+        },
+        { passive: true }
+      );
+
+      // Mobile hamburger menu
+      const menuToggle = document.querySelector(".mobile-menu-toggle");
+      const headerNav = document.querySelector(".header-nav");
+      const menuOverlay = document.querySelector(".mobile-menu-overlay");
+
+      function openMobileMenu() {
+        headerNav.classList.add("open");
+        menuOverlay.classList.add("active");
+        menuToggle.setAttribute("aria-expanded", "true");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeMobileMenu() {
+        headerNav.classList.remove("open");
+        menuOverlay.classList.remove("active");
+        menuToggle.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      }
+
+      menuToggle?.addEventListener("click", () => {
+        const isOpen = headerNav.classList.contains("open");
+        isOpen ? closeMobileMenu() : openMobileMenu();
+      });
+
+      menuOverlay?.addEventListener("click", closeMobileMenu);
+
+      // Close menu when a nav link is clicked
+      headerNav?.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          if (headerNav.classList.contains("open")) {
+            closeMobileMenu();
+          }
+        });
+      });
+
+      // ===== Animated number counters =====
+      const counterObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const el = entry.target;
+              const target = parseInt(el.dataset.count);
+              const suffix = el.dataset.suffix || "";
+              if (isNaN(target)) return;
+
+              let current = 0;
+              const duration = 1200;
+              const step = target / (duration / 16);
+              const counter = () => {
+                current += step;
+                if (current >= target) {
+                  el.textContent = target + suffix;
+                  return;
+                }
+                el.textContent = Math.floor(current) + suffix;
+                requestAnimationFrame(counter);
+              };
+              counter();
+              counterObserver.unobserve(el);
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      document.querySelectorAll(".trust-value[data-count]").forEach((el) => {
+        counterObserver.observe(el);
+      });
     </script>
   </body>
 </html>
