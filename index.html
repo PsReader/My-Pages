@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -77,8 +77,13 @@
       }
 
       body {
-        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
-          Roboto, sans-serif;
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
         background: var(--bg-base);
         color: var(--text-secondary);
         line-height: 1.6;
@@ -159,7 +164,9 @@
         border-radius: 50%;
         object-fit: cover;
         border: 1.5px solid var(--border-hover);
-        transition: border-color 250ms var(--ease), transform 300ms var(--ease-spring);
+        transition:
+          border-color 250ms var(--ease),
+          transform 300ms var(--ease-spring);
         flex-shrink: 0;
       }
       .wordmark:hover .wordmark-avatar {
@@ -260,8 +267,6 @@
         z-index: 1;
       }
 
-
-
       .hero-eyebrow {
         display: inline-flex;
         align-items: center;
@@ -304,7 +309,8 @@
       }
 
       @keyframes gradientShift {
-        0%, 100% {
+        0%,
+        100% {
           background-position: 0% 50%;
         }
         50% {
@@ -507,8 +513,10 @@
         border: 1px solid var(--border);
         border-radius: var(--radius-xl);
         overflow: hidden;
-        transition: border-color 250ms var(--ease),
-          box-shadow 350ms var(--ease), transform 350ms var(--ease);
+        transition:
+          border-color 250ms var(--ease),
+          box-shadow 350ms var(--ease),
+          transform 350ms var(--ease);
         position: relative;
       }
 
@@ -533,7 +541,8 @@
 
       .project-card:hover {
         border-color: var(--border-hover);
-        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4),
+        box-shadow:
+          0 12px 48px rgba(0, 0, 0, 0.4),
           0 0 0 1px var(--border-hover),
           0 0 60px rgba(99, 102, 241, 0.06);
         transform: translateY(-5px);
@@ -738,7 +747,8 @@
         background: var(--bg-card);
         border: 1px solid var(--border);
         border-radius: var(--radius-lg);
-        transition: border-color 200ms var(--ease),
+        transition:
+          border-color 200ms var(--ease),
           background 200ms var(--ease),
           transform 300ms var(--ease-spring),
           box-shadow 300ms var(--ease);
@@ -864,7 +874,9 @@
       .reveal {
         opacity: 0;
         transform: translateY(20px);
-        transition: opacity 650ms var(--ease), transform 650ms var(--ease);
+        transition:
+          opacity 650ms var(--ease),
+          transform 650ms var(--ease);
       }
       .reveal.visible {
         opacity: 1;
@@ -1048,6 +1060,19 @@
           align-items: center;
         }
 
+        .header-inner {
+          padding: 0 16px;
+          position: relative;
+        }
+
+        .mobile-menu-toggle {
+          display: flex;
+          align-items: center;
+          position: absolute;
+          top: 14px;
+          right: 16px;
+        }
+
         .header-nav {
           position: fixed;
           top: 0;
@@ -1073,7 +1098,9 @@
           padding: 10px 12px;
           width: 100%;
           border-radius: var(--radius);
-          transition: background 150ms var(--ease), color 150ms var(--ease);
+          transition:
+            background 150ms var(--ease),
+            color 150ms var(--ease);
         }
         .header-nav a:hover {
           background: var(--accent-muted);
@@ -1182,11 +1209,23 @@
           />
           PsReader
         </span>
-        <button class="mobile-menu-toggle" aria-label="Open menu" aria-expanded="false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <line x1="3" y1="12" x2="21" y2="12"/>
-            <line x1="3" y1="18" x2="21" y2="18"/>
+        <button
+          class="mobile-menu-toggle"
+          aria-label="Open menu"
+          aria-expanded="false"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
           </svg>
         </button>
         <nav class="header-nav" aria-label="Main navigation">
@@ -1220,10 +1259,9 @@
         Engineering Functional<br />Web Experiences
       </h1>
       <p class="hero-desc hero-animate hero-d2">
-        Hand-coded, multi-page websites built with semantic HTML, CSS layout
-        systems, and vanilla JavaScript. Every project ships with real
-        structure, working navigation, and responsive design — no templates,
-        no page builders.
+        all projects are built with HTML, CSS, and JavaScript. I focus on
+        creating responsive, accessible, and performant websites that provide a
+        seamless user experience.
       </p>
       <div class="hero-cta hero-animate hero-d3">
         <a href="#work" class="btn btn--primary" id="cta-view-demos">
@@ -1255,17 +1293,6 @@
           </svg>
           Explore GitHub Source
         </a>
-      </div>
-
-      <!-- Scroll cue -->
-      <div
-        class="scroll-cue hero-animate hero-d4"
-        role="button"
-        tabindex="0"
-        aria-label="Scroll to projects"
-      >
-        <span class="scroll-cue-line" aria-hidden="true"></span>
-        Scroll
       </div>
 
       <!-- Gradient fade — curiosity pull -->
@@ -1348,7 +1375,9 @@
                   stroke-linejoin="round"
                   aria-hidden="true"
                 >
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <path
+                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                  />
                   <polyline points="15 3 21 3 21 9" />
                   <line x1="10" y1="14" x2="21" y2="3" />
                 </svg>
@@ -1359,11 +1388,7 @@
                 rel="noopener noreferrer"
                 class="btn btn--ghost"
               >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path
                     d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
                   />
@@ -1417,7 +1442,9 @@
                   stroke-linejoin="round"
                   aria-hidden="true"
                 >
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <path
+                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                  />
                   <polyline points="15 3 21 3 21 9" />
                   <line x1="10" y1="14" x2="21" y2="3" />
                 </svg>
@@ -1428,11 +1455,74 @@
                 rel="noopener noreferrer"
                 class="btn btn--ghost"
               >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                  />
+                </svg>
+                Source Code
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- The Akashic -->
+        <article class="project-card reveal stagger-2" id="project-akashic">
+          <div class="project-chrome" aria-hidden="true">
+            <span class="dot dot--close"></span>
+            <span class="dot dot--min"></span>
+            <span class="dot dot--max"></span>
+            <div class="chrome-address">
+              <span class="chrome-url">theakashic.app</span>
+            </div>
+          </div>
+          <div class="project-viewport">
+            <img
+              src="TheAkashic/logo.svg"
+              alt="The Akashic — Codex Aperture portal logo"
+              loading="lazy"
+            />
+          </div>
+          <div class="project-body">
+            <h3 class="project-name">The Akashic</h3>
+            <p class="project-tech">React · Vite · Tailwind CSS · Supabase</p>
+            <p class="project-summary">
+              A modern web application built with React and Vite, featuring a
+              responsive design with Tailwind CSS and integrated Supabase
+              backend. Showcasing advanced component architecture and state
+              management patterns.
+            </p>
+            <div class="project-cta">
+              <a
+                href="http://127.0.0.1:5173/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn--primary"
+              >
+                View Live Demo
                 <svg
                   viewBox="0 0 24 24"
-                  fill="currentColor"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
                   aria-hidden="true"
                 >
+                  <path
+                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                  />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+              </a>
+              <a
+                href="https://github.com/PsReader"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn--ghost"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path
                     d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
                   />
@@ -1459,10 +1549,10 @@
           and DOM manipulation.
         </p>
         <p class="reveal stagger-3">
-          Every project in this portfolio is hand-coded — no templates, no page
-          builders, no frameworks. I'm currently working toward writing cleaner,
-          more maintainable code, deepening my understanding of responsive
-          design patterns, and practicing version control with Git.
+          I'm currently working toward writing cleaner, more maintainable code,
+          learning more about responsive design patterns, and practicing version
+          control with Git. thanks for visiting my portfolio! You can check out
+          my GitHub for more projects and code samples.
         </p>
       </div>
 
@@ -1470,31 +1560,88 @@
       <div class="stack-grid reveal stagger-4">
         <div class="stack-item">
           <div class="stack-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="16 18 22 12 16 6" />
+              <polyline points="8 6 2 12 8 18" />
+            </svg>
           </div>
           <span class="stack-name">HTML5</span>
         </div>
         <div class="stack-item">
           <div class="stack-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M8 10h8"/><path d="M8 14h8"/></svg>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"
+              />
+              <path d="M8 10h8" />
+              <path d="M8 14h8" />
+            </svg>
           </div>
           <span class="stack-name">CSS3</span>
         </div>
         <div class="stack-item">
           <div class="stack-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m18 16 4-4-4-4" />
+              <path d="m6 8-4 4 4 4" />
+              <path d="m14.5 4-5 16" />
+            </svg>
           </div>
           <span class="stack-name">JavaScript</span>
         </div>
         <div class="stack-item">
           <div class="stack-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v3m0 12v3M3 12h3m12 0h3m-2.636-6.364-2.121 2.121M7.757 16.243l-2.121 2.121m0-12.728 2.121 2.121m8.486 8.486 2.121 2.121"/></svg>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M12 3v3m0 12v3M3 12h3m12 0h3m-2.636-6.364-2.121 2.121M7.757 16.243l-2.121 2.121m0-12.728 2.121 2.121m8.486 8.486 2.121 2.121"
+              />
+            </svg>
           </div>
           <span class="stack-name">Git</span>
         </div>
         <div class="stack-item">
           <div class="stack-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <line x1="8" y1="21" x2="16" y2="21" />
+              <line x1="12" y1="17" x2="12" y2="21" />
+            </svg>
           </div>
           <span class="stack-name">Responsive Design</span>
         </div>
@@ -1534,28 +1681,9 @@
             }
           });
         },
-        { threshold: 0.12, rootMargin: "0px 0px -50px 0px" }
+        { threshold: 0.12, rootMargin: "0px 0px -50px 0px" },
       );
       document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
-
-      // Scroll cue click
-      document.querySelector(".scroll-cue")?.addEventListener("click", () => {
-        document
-          .querySelector(".trust-bar")
-          ?.scrollIntoView({ behavior: "smooth" });
-      });
-
-      // Keyboard accessibility for scroll cue
-      document
-        .querySelector(".scroll-cue")
-        ?.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            document
-              .querySelector(".trust-bar")
-              ?.scrollIntoView({ behavior: "smooth" });
-          }
-        });
 
       // Fade out hero gradient after first meaningful scroll
       let scrolled = false;
@@ -1567,7 +1695,7 @@
             document.body.classList.add("scrolled");
           }
         },
-        { passive: true }
+        { passive: true },
       );
 
       // Mobile hamburger menu
@@ -1632,7 +1760,7 @@
             }
           });
         },
-        { threshold: 0.5 }
+        { threshold: 0.5 },
       );
 
       document.querySelectorAll(".trust-value[data-count]").forEach((el) => {
