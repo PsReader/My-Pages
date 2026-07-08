@@ -517,9 +517,14 @@
         scroll-behavior: smooth;
         scrollbar-width: none;
         padding-bottom: 12px;
+        scroll-snap-stop: always;
       }
       .project-list::-webkit-scrollbar {
         display: none;
+      }
+      
+      .project-list.animating {
+        scroll-behavior: auto;
       }
 
       .project-card {
@@ -1608,7 +1613,7 @@
           </div>
           <div class="project-viewport">
             <img
-              src="TheAkashic/logo.svg"
+              src="TheAkashic/assets/logo.svg"
               alt="The Akashic — Codex Aperture portal logo"
               loading="lazy"
             />
@@ -1930,140 +1935,154 @@
       const indicatorsContainer = document.getElementById("carousel-indicators");
       const prevBtn = document.querySelector(".carousel-nav-prev");
       const nextBtn = document.querySelector(".carousel-nav-next");
-      const realCards = Array.from(carousel.querySelectorAll(".project-card"));
-      const totalCards = realCards.length;
-      let activeIndex = 0;
-      let isLooping = false;
+      const originalCards = Array.from(document.querySelectorAll(".project-card"));
 
-      const firstClone = realCards[0].cloneNode(true);
-      firstClone.classList.add("is-clone");
-      firstClone.setAttribute("aria-hidden", "true");
-      carousel.prepend(firstClone);
+      if (carousel && indicatorsContainer && originalCards.length > 0) {
+        const cardCount = originalCards.length;
+        const firstClone = originalCards[0].cloneNode(true);
+        const lastClone = originalCards[cardCount - 1].cloneNode(true);
 
-      const lastClone = realCards[realCards.length - 1].cloneNode(true);
-      lastClone.classList.add("is-clone");
-      lastClone.setAttribute("aria-hidden", "true");
-      carousel.append(lastClone);
-
-      const allCards = Array.from(carousel.querySelectorAll(".project-card"));
-
-      // Create indicators
-      realCards.forEach((_, index) => {
-        const indicator = document.createElement("button");
-        indicator.classList.add("carousel-indicator");
-        if (index === 0) indicator.classList.add("active");
-        indicator.setAttribute("aria-label", `Go to project ${index + 1}`);
-        indicator.addEventListener("click", () => moveToCard(index));
-        indicatorsContainer.appendChild(indicator);
-      });
-
-      function normalizeIndex(index) {
-        return ((index % totalCards) + totalCards) % totalCards;
-      }
-
-      function updateIndicators() {
-        const indicators = document.querySelectorAll(".carousel-indicator");
-        indicators.forEach((indicator, index) => {
-          indicator.classList.toggle("active", index === activeIndex);
-        });
-      }
-
-      function moveToCard(index, behavior = "smooth") {
-        if (isLooping) return;
-
-        const normalizedIndex = normalizeIndex(index);
-        const isJumpFromLastToFirst = activeIndex === totalCards - 1 && normalizedIndex === 0;
-        const isJumpFromFirstToLast = activeIndex === 0 && normalizedIndex === totalCards - 1;
-
-        if (isJumpFromLastToFirst) {
-          isLooping = true;
-          activeIndex = 0;
-          const clonedFirstCard = allCards[0];
-          carousel.scrollTo({
-            left: clonedFirstCard.offsetLeft - carousel.offsetLeft,
-            behavior,
+        [firstClone, lastClone].forEach((clone) => {
+          clone.classList.add("is-clone");
+          clone.setAttribute("aria-hidden", "true");
+          clone.querySelectorAll("a, button").forEach((control) => {
+            control.setAttribute("tabindex", "-1");
           });
-          updateIndicators();
+        });
 
-          window.setTimeout(() => {
-            carousel.scrollTo({
-              left: realCards[0].offsetLeft - carousel.offsetLeft,
-              behavior: "auto",
-            });
-            updateIndicators();
-            isLooping = false;
-          }, behavior === "smooth" ? 420 : 0);
-          return;
+        carousel.prepend(lastClone);
+        carousel.append(firstClone);
+
+        const cards = Array.from(carousel.querySelectorAll(".project-card"));
+        let currentIndex = 1;
+        let autoRotateTimer;
+        let isAnimating = false;
+        let wrapTimer;
+        const transitionDuration = 260;
+
+        function getRealIndex(index) {
+          return ((index - 1) % cardCount + cardCount) % cardCount;
         }
 
-        if (isJumpFromFirstToLast) {
-          isLooping = true;
-          activeIndex = totalCards - 1;
-          const clonedLastCard = allCards[allCards.length - 1];
-          carousel.scrollTo({
-            left: clonedLastCard.offsetLeft - carousel.offsetLeft,
-            behavior,
+        function updateIndicators() {
+          const indicators = document.querySelectorAll(".carousel-indicator");
+          const realIndex = getRealIndex(currentIndex);
+          indicators.forEach((indicator, index) => {
+            indicator.classList.toggle("active", index === realIndex);
           });
-          updateIndicators();
-
-          window.setTimeout(() => {
-            carousel.scrollTo({
-              left: realCards[realCards.length - 1].offsetLeft - carousel.offsetLeft,
-              behavior: "auto",
-            });
-            updateIndicators();
-            isLooping = false;
-          }, behavior === "smooth" ? 420 : 0);
-          return;
         }
 
-        activeIndex = normalizedIndex;
-        const targetCard = realCards[normalizedIndex];
-        carousel.scrollTo({
-          left: targetCard.offsetLeft - carousel.offsetLeft,
-          behavior,
+        function scrollToCard(index, behavior = "smooth") {
+          const card = cards[index];
+          if (!card) return;
+
+          clearTimeout(wrapTimer);
+          currentIndex = index;
+          const targetLeft = card.offsetLeft - carousel.offsetLeft;
+
+          const finalizePosition = () => {
+            if (index === 0) {
+              currentIndex = cardCount;
+              carousel.scrollTo({
+                left: cards[currentIndex].offsetLeft - carousel.offsetLeft,
+                behavior: "auto",
+              });
+            } else if (index === cards.length - 1) {
+              currentIndex = 1;
+              carousel.scrollTo({
+                left: cards[currentIndex].offsetLeft - carousel.offsetLeft,
+                behavior: "auto",
+              });
+            }
+
+            updateIndicators();
+            isAnimating = false;
+          };
+
+          if (behavior === "smooth") {
+            isAnimating = true;
+            carousel.classList.add("animating");
+            carousel.scrollTo({ left: targetLeft, behavior: "smooth" });
+            wrapTimer = window.setTimeout(finalizePosition, transitionDuration);
+          } else {
+            carousel.classList.remove("animating");
+            carousel.scrollTo({ left: targetLeft, behavior: "auto" });
+            finalizePosition();
+          }
+        }
+
+        originalCards.forEach((_, index) => {
+          const indicator = document.createElement("button");
+          indicator.classList.add("carousel-indicator");
+          if (index === 0) indicator.classList.add("active");
+          indicator.setAttribute("aria-label", `Go to project ${index + 1}`);
+          indicator.addEventListener("click", () =>
+            scrollToCard(index + 1, "smooth"),
+          );
+          indicatorsContainer.appendChild(indicator);
         });
+
         updateIndicators();
-      }
 
-      // Update indicators on scroll
-      carousel.addEventListener("scroll", () => {
-        if (isLooping) return;
+        carousel.addEventListener(
+          "scroll",
+          () => {
+            if (isAnimating) return;
 
-        let closestIndex = activeIndex;
-        let closestDistance = Number.POSITIVE_INFINITY;
-        const carouselCenter = carousel.scrollLeft + carousel.offsetWidth / 2;
+            const carouselCenter = carousel.scrollLeft + carousel.clientWidth / 2;
+            let closestIndex = 1;
+            let minDistance = Infinity;
 
-        realCards.forEach((card, index) => {
-          const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-          const distance = Math.abs(cardCenter - carouselCenter);
-          if (distance < closestDistance) {
-            closestDistance = distance;
-            closestIndex = index;
+            cards.forEach((card, index) => {
+              const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+              const distance = Math.abs(cardCenter - carouselCenter);
+
+              if (distance < minDistance) {
+                minDistance = distance;
+                closestIndex = index;
+              }
+            });
+
+            if (closestIndex !== currentIndex) {
+              currentIndex = closestIndex;
+              updateIndicators();
+            }
+          },
+          { passive: true },
+        );
+
+        prevBtn?.addEventListener("click", () => {
+          const prevIndex = currentIndex > 0 ? currentIndex - 1 : cards.length - 1;
+          scrollToCard(prevIndex, "smooth");
+        });
+
+        nextBtn?.addEventListener("click", () => {
+          const nextIndex = currentIndex < cards.length - 1 ? currentIndex + 1 : 0;
+          scrollToCard(nextIndex, "smooth");
+        });
+
+        const startAutoRotate = () => {
+          clearInterval(autoRotateTimer);
+          autoRotateTimer = setInterval(() => {
+            const nextIndex = currentIndex < cards.length - 1 ? currentIndex + 1 : 0;
+            scrollToCard(nextIndex, "smooth");
+          }, 6000);
+        };
+
+        window.requestAnimationFrame(() => {
+          scrollToCard(1, "auto");
+        });
+
+        startAutoRotate();
+
+        document.addEventListener("visibilitychange", () => {
+          if (document.hidden) {
+            clearInterval(autoRotateTimer);
+          } else {
+            startAutoRotate();
           }
         });
-
-        activeIndex = closestIndex;
-        updateIndicators();
-      });
-
-      // Navigation button handlers
-      prevBtn?.addEventListener("click", () => {
-        moveToCard(activeIndex - 1, "smooth");
-      });
-
-      nextBtn?.addEventListener("click", () => {
-        moveToCard(activeIndex + 1, "smooth");
-      });
-
-      // Auto-rotate carousel every 6 seconds
-      setInterval(() => {
-        moveToCard(activeIndex + 1);
-      }, 6000);
-
-      window.requestAnimationFrame(() => {
-        moveToCard(0, "auto");
-      });
+      }
     </script>
   </body>
 </html>
