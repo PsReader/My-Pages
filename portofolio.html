@@ -316,73 +316,6 @@
         flex-wrap: wrap;
       }
 
-      .hero-scroll-fade {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 160px;
-        background: linear-gradient(to bottom, transparent, var(--bg-base));
-        pointer-events: none;
-        z-index: 2;
-        transition: opacity 500ms var(--ease);
-      }
-
-      body.scrolled .hero-scroll-fade {
-        opacity: 0;
-      }
-
-      .scroll-cue {
-        position: absolute;
-        bottom: 40px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        color: var(--text-tertiary);
-        font-size: 0.625rem;
-        font-weight: 600;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: color 200ms var(--ease);
-        z-index: 3;
-      }
-      .scroll-cue:hover {
-        color: var(--text-secondary);
-      }
-
-      .scroll-cue-line {
-        width: 1px;
-        height: 36px;
-        position: relative;
-        overflow: hidden;
-        background: var(--border);
-      }
-      .scroll-cue-line::after {
-        content: "";
-        position: absolute;
-        top: -100%;
-        left: 0;
-        width: 1px;
-        height: 100%;
-        background: var(--accent);
-        animation: scrollPulse 2.4s var(--ease) infinite;
-      }
-
-      @keyframes scrollPulse {
-        0% {
-          top: -100%;
-        }
-        50% {
-          top: 100%;
-        }
-        100% {
-          top: 100%;
-        }
-      }
 
       /* =================================================================
          STATS SECTION
@@ -976,10 +909,6 @@
           justify-content: center;
         }
 
-        .scroll-cue {
-          bottom: 24px;
-        }
-
         .skills-grid {
           grid-template-columns: repeat(2, 1fr);
           gap: 10px;
@@ -1035,10 +964,6 @@
 
         .skill-name {
           font-size: 0.75rem;
-        }
-
-        .scroll-cue {
-          display: none;
         }
 
         .about-highlights {
@@ -1160,11 +1085,6 @@
         </a>
       </div>
 
-      <div class="hero-scroll-fade" aria-hidden="true"></div>
-      <div class="scroll-cue" aria-hidden="true">
-        <div class="scroll-cue-line"></div>
-        <span>Scroll to explore</span>
-      </div>
     </section>
 
     <!-- ============================================================
@@ -1682,19 +1602,6 @@
         { threshold: 0.12, rootMargin: "0px 0px -50px 0px" },
       );
       document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
-
-      // Fade out hero gradient after first meaningful scroll
-      let scrolled = false;
-      window.addEventListener(
-        "scroll",
-        () => {
-          if (!scrolled && window.scrollY > 100) {
-            scrolled = true;
-            document.body.classList.add("scrolled");
-          }
-        },
-        { passive: true },
-      );
 
       // Mobile hamburger menu
       const menuToggle = document.querySelector(".mobile-menu-toggle");

@@ -1931,6 +1931,7 @@
       const prevBtn = document.querySelector(".carousel-nav-prev");
       const nextBtn = document.querySelector(".carousel-nav-next");
       const cards = document.querySelectorAll(".project-card");
+      let activeIndex = 0;
 
       // Create indicators
       cards.forEach((_, index) => {
@@ -1942,51 +1943,59 @@
         indicatorsContainer.appendChild(indicator);
       });
 
+      function normalizeIndex(index) {
+        return ((index % cards.length) + cards.length) % cards.length;
+      }
+
+      function updateIndicators() {
+        const indicators = document.querySelectorAll(".carousel-indicator");
+        indicators.forEach((indicator, index) => {
+          indicator.classList.toggle("active", index === activeIndex);
+        });
+      }
+
       // Scroll to specific card
-      function scrollToCard(index) {
-        const card = cards[index];
+      function scrollToCard(index, behavior = "smooth") {
+        const normalizedIndex = normalizeIndex(index);
+        const card = cards[normalizedIndex];
+        if (!card) return;
+
+        activeIndex = normalizedIndex;
         carousel.scrollTo({
           left: card.offsetLeft - carousel.offsetLeft,
-          behavior: "smooth",
+          behavior,
         });
+        updateIndicators();
       }
 
       // Update indicators on scroll
       carousel.addEventListener("scroll", () => {
-        const indicators = document.querySelectorAll(".carousel-indicator");
-        let activeIndex = 0;
+        let closestIndex = activeIndex;
 
         cards.forEach((card, index) => {
           const cardCenter = card.offsetLeft + card.offsetWidth / 2;
           const carouselCenter = carousel.scrollLeft + carousel.offsetWidth / 2;
           if (Math.abs(cardCenter - carouselCenter) < card.offsetWidth / 2) {
-            activeIndex = index;
+            closestIndex = index;
           }
         });
 
-        indicators.forEach((indicator, index) => {
-          indicator.classList.toggle("active", index === activeIndex);
-        });
+        activeIndex = closestIndex;
+        updateIndicators();
       });
 
       // Navigation button handlers
       prevBtn?.addEventListener("click", () => {
-        const currentScroll = carousel.scrollLeft;
-        const cardWidth = cards[0].offsetWidth + 24; // Include gap
-        carousel.scrollLeft = currentScroll - cardWidth;
+        scrollToCard(activeIndex - 1, "smooth");
       });
 
       nextBtn?.addEventListener("click", () => {
-        const currentScroll = carousel.scrollLeft;
-        const cardWidth = cards[0].offsetWidth + 24; // Include gap
-        carousel.scrollLeft = currentScroll + cardWidth;
+        scrollToCard(activeIndex + 1, "smooth");
       });
 
-      // Optional: Auto-rotate carousel every 6 seconds
-      let autoRotateIndex = 0;
+      // Auto-rotate carousel every 6 seconds
       setInterval(() => {
-        autoRotateIndex = (autoRotateIndex + 1) % cards.length;
-        scrollToCard(autoRotateIndex);
+        scrollToCard(activeIndex + 1);
       }, 6000);
     </script>
   </body>
