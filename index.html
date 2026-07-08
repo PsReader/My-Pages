@@ -1930,21 +1930,35 @@
       const indicatorsContainer = document.getElementById("carousel-indicators");
       const prevBtn = document.querySelector(".carousel-nav-prev");
       const nextBtn = document.querySelector(".carousel-nav-next");
-      const cards = document.querySelectorAll(".project-card");
+      const realCards = Array.from(carousel.querySelectorAll(".project-card"));
+      const totalCards = realCards.length;
       let activeIndex = 0;
+      let isLooping = false;
+
+      const firstClone = realCards[0].cloneNode(true);
+      firstClone.classList.add("is-clone");
+      firstClone.setAttribute("aria-hidden", "true");
+      carousel.prepend(firstClone);
+
+      const lastClone = realCards[realCards.length - 1].cloneNode(true);
+      lastClone.classList.add("is-clone");
+      lastClone.setAttribute("aria-hidden", "true");
+      carousel.append(lastClone);
+
+      const allCards = Array.from(carousel.querySelectorAll(".project-card"));
 
       // Create indicators
-      cards.forEach((_, index) => {
+      realCards.forEach((_, index) => {
         const indicator = document.createElement("button");
         indicator.classList.add("carousel-indicator");
         if (index === 0) indicator.classList.add("active");
         indicator.setAttribute("aria-label", `Go to project ${index + 1}`);
-        indicator.addEventListener("click", () => scrollToCard(index));
+        indicator.addEventListener("click", () => moveToCard(index));
         indicatorsContainer.appendChild(indicator);
       });
 
       function normalizeIndex(index) {
-        return ((index % cards.length) + cards.length) % cards.length;
+        return ((index % totalCards) + totalCards) % totalCards;
       }
 
       function updateIndicators() {
@@ -1954,15 +1968,59 @@
         });
       }
 
-      // Scroll to specific card
-      function scrollToCard(index, behavior = "smooth") {
+      function moveToCard(index, behavior = "smooth") {
+        if (isLooping) return;
+
         const normalizedIndex = normalizeIndex(index);
-        const card = cards[normalizedIndex];
-        if (!card) return;
+        const isJumpFromLastToFirst = activeIndex === totalCards - 1 && normalizedIndex === 0;
+        const isJumpFromFirstToLast = activeIndex === 0 && normalizedIndex === totalCards - 1;
+
+        if (isJumpFromLastToFirst) {
+          isLooping = true;
+          activeIndex = 0;
+          const clonedFirstCard = allCards[0];
+          carousel.scrollTo({
+            left: clonedFirstCard.offsetLeft - carousel.offsetLeft,
+            behavior,
+          });
+          updateIndicators();
+
+          window.setTimeout(() => {
+            carousel.scrollTo({
+              left: realCards[0].offsetLeft - carousel.offsetLeft,
+              behavior: "auto",
+            });
+            updateIndicators();
+            isLooping = false;
+          }, behavior === "smooth" ? 420 : 0);
+          return;
+        }
+
+        if (isJumpFromFirstToLast) {
+          isLooping = true;
+          activeIndex = totalCards - 1;
+          const clonedLastCard = allCards[allCards.length - 1];
+          carousel.scrollTo({
+            left: clonedLastCard.offsetLeft - carousel.offsetLeft,
+            behavior,
+          });
+          updateIndicators();
+
+          window.setTimeout(() => {
+            carousel.scrollTo({
+              left: realCards[realCards.length - 1].offsetLeft - carousel.offsetLeft,
+              behavior: "auto",
+            });
+            updateIndicators();
+            isLooping = false;
+          }, behavior === "smooth" ? 420 : 0);
+          return;
+        }
 
         activeIndex = normalizedIndex;
+        const targetCard = realCards[normalizedIndex];
         carousel.scrollTo({
-          left: card.offsetLeft - carousel.offsetLeft,
+          left: targetCard.offsetLeft - carousel.offsetLeft,
           behavior,
         });
         updateIndicators();
@@ -1970,12 +2028,17 @@
 
       // Update indicators on scroll
       carousel.addEventListener("scroll", () => {
-        let closestIndex = activeIndex;
+        if (isLooping) return;
 
-        cards.forEach((card, index) => {
+        let closestIndex = activeIndex;
+        let closestDistance = Number.POSITIVE_INFINITY;
+        const carouselCenter = carousel.scrollLeft + carousel.offsetWidth / 2;
+
+        realCards.forEach((card, index) => {
           const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-          const carouselCenter = carousel.scrollLeft + carousel.offsetWidth / 2;
-          if (Math.abs(cardCenter - carouselCenter) < card.offsetWidth / 2) {
+          const distance = Math.abs(cardCenter - carouselCenter);
+          if (distance < closestDistance) {
+            closestDistance = distance;
             closestIndex = index;
           }
         });
@@ -1986,17 +2049,21 @@
 
       // Navigation button handlers
       prevBtn?.addEventListener("click", () => {
-        scrollToCard(activeIndex - 1, "smooth");
+        moveToCard(activeIndex - 1, "smooth");
       });
 
       nextBtn?.addEventListener("click", () => {
-        scrollToCard(activeIndex + 1, "smooth");
+        moveToCard(activeIndex + 1, "smooth");
       });
 
       // Auto-rotate carousel every 6 seconds
       setInterval(() => {
-        scrollToCard(activeIndex + 1);
+        moveToCard(activeIndex + 1);
       }, 6000);
+
+      window.requestAnimationFrame(() => {
+        moveToCard(0, "auto");
+      });
     </script>
   </body>
 </html>
