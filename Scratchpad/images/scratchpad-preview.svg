@@ -1,0 +1,18 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="760" rx="36" fill="#0F172A"/>
+  <rect x="56" y="56" width="1088" height="648" rx="24" fill="#111827" stroke="#334155" stroke-width="2"/>
+  <rect x="96" y="112" width="260" height="32" rx="16" fill="#7C3AED"/>
+  <rect x="96" y="172" width="420" height="24" rx="12" fill="#475569"/>
+  <rect x="96" y="214" width="360" height="24" rx="12" fill="#334155"/>
+  <rect x="96" y="280" width="360" height="190" rx="20" fill="#1E293B" stroke="#475569"/>
+  <rect x="484" y="280" width="300" height="190" rx="20" fill="#111827" stroke="#475569"/>
+  <rect x="96" y="500" width="688" height="118" rx="20" fill="#0B1220" stroke="#475569"/>
+  <circle cx="132" cy="560" r="16" fill="#A78BFA"/>
+  <rect x="168" y="548" width="260" height="16" rx="8" fill="#E2E8F0"/>
+  <rect x="168" y="580" width="180" height="14" rx="7" fill="#64748B"/>
+  <rect x="532" y="324" width="196" height="20" rx="10" fill="#FBBF24"/>
+  <rect x="532" y="356" width="148" height="18" rx="9" fill="#94A3B8"/>
+  <rect x="532" y="390" width="182" height="18" rx="9" fill="#475569"/>
+  <text x="96" y="668" fill="#F8FAFC" font-family="Segoe UI, Arial, sans-serif" font-size="44" font-weight="700">Scratchpad</text>
+  <text x="96" y="708" fill="#94A3B8" font-family="Segoe UI, Arial, sans-serif" font-size="24">Ideas • Notes • Personal workspace</text>
+</svg>
