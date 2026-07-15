@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scratchpad</title>
+    <title>Thought Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,8 +16,8 @@
     <div class="container">
       <header>
         <div class="header-content">
-          <h1>Scratchpad</h1>
-          <p class="subtitle">Your Personal Scratchpad</p>
+          <h1>Thought Dashboard</h1>
+          <p class="subtitle">Capture ideas, reflections, and quick sparks</p>
         </div>
         <div class="header-actions">
           <div class="theme-picker" id="themePicker">
@@ -54,39 +54,215 @@
               aria-label="Choose a theme"
             ></div>
           </div>
-          <button
-            id="focusToggle"
-            class="focus-toggle"
-            type="button"
-            aria-pressed="false"
-          >
-            <span class="focus-toggle__label">Focus Mode</span>
-            <span class="focus-toggle__pill">
-              <span class="focus-toggle__dot"></span>
-            </span>
-          </button>
           <div class="header-info">
-            <span class="char-count" id="charCount">0</span> characters
+            <span class="notes-count" id="notesCount">0 notes</span>
             <button id="clearBtn" class="clear-btn" title="Clear all notes">
-              Clear
+              Clear all
             </button>
           </div>
         </div>
       </header>
 
-      <main>
-        <textarea
-          id="notepad"
-          placeholder="Write your thoughts, ideas, and notes here... They'll be saved automatically as you type."
-          spellcheck="true"
-        ></textarea>
+      <main class="dashboard-shell">
+        <section class="dashboard-toolbar">
+          <div class="search-wrap">
+            <label class="search-label" for="searchNotes"
+              >Search thoughts</label
+            >
+            <input
+              id="searchNotes"
+              class="search-input"
+              type="search"
+              placeholder="Search titles, content, or tags..."
+            />
+          </div>
+
+          <div class="composer-card">
+            <div class="composer-card__header">
+              <h2>New thought</h2>
+              <label class="pin-toggle" for="notePinned">
+                <input id="notePinned" type="checkbox" />
+                <span>Pin to top</span>
+              </label>
+            </div>
+
+            <form id="noteForm" class="composer-form">
+              <div class="composer-form__row">
+                <input
+                  id="noteTitle"
+                  name="title"
+                  type="text"
+                  maxlength="60"
+                  placeholder="Give this note a title"
+                />
+                <div class="custom-section-picker-wrapper">
+                  <button
+                    id="sectionPicker"
+                    type="button"
+                    class="custom-section-picker"
+                    aria-haspopup="listbox"
+                    aria-expanded="false"
+                  >
+                    <span class="custom-section-picker__left">
+                      <span
+                        class="custom-section-picker__icon"
+                        aria-hidden="true"
+                      >
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path
+                            d="M6 5h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm2 2v2h8V7H8Zm0 4v2h5v-2H8Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </span>
+                      <span>
+                        <span class="custom-section-picker__title"
+                          >Quick Notes</span
+                        >
+                        <span class="custom-section-picker__caption"
+                          >Section</span
+                        >
+                      </span>
+                    </span>
+                    <span
+                      class="custom-section-picker__arrow"
+                      aria-hidden="true"
+                    ></span>
+                  </button>
+
+                  <div
+                    id="sectionOptions"
+                    class="custom-section-menu"
+                    role="listbox"
+                    aria-label="Choose note section"
+                  >
+                    <button
+                      type="button"
+                      class="custom-section-option is-selected"
+                      data-value="Quick Notes"
+                    >
+                      Quick Notes
+                    </button>
+                    <button
+                      type="button"
+                      class="custom-section-option"
+                      data-value="Ideas"
+                    >
+                      Ideas
+                    </button>
+                    <button
+                      type="button"
+                      class="custom-section-option"
+                      data-value="Journal"
+                    >
+                      Journal
+                    </button>
+                  </div>
+                </div>
+                <select id="noteSection" name="section" hidden>
+                  <option value="Quick Notes">Quick Notes</option>
+                  <option value="Ideas">Ideas</option>
+                  <option value="Journal">Journal</option>
+                </select>
+              </div>
+
+              <input
+                id="noteTags"
+                name="tags"
+                type="text"
+                placeholder="Tags, separated by commas"
+              />
+              <textarea
+                id="noteContent"
+                name="content"
+                rows="4"
+                placeholder="Write a thought, idea, or reflection..."
+              ></textarea>
+
+              <div class="composer-actions">
+                <span class="composer-hint"
+                  >Saved automatically in this browser.</span
+                >
+                <div class="editor-actions">
+                  <button
+                    id="undoBtn"
+                    class="action-btn"
+                    type="button"
+                    disabled
+                    title="Undo last action"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M8 7 3 12l5 5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M3 12h7a5 5 0 1 1 5 5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    <span class="action-btn__label">Undo</span>
+                  </button>
+                  <button
+                    id="redoBtn"
+                    class="action-btn"
+                    type="button"
+                    disabled
+                    title="Redo last undone action"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M16 7 21 12l-5 5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M21 12h-7a5 5 0 1 0-5 5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    <span class="action-btn__label">Redo</span>
+                  </button>
+                </div>
+                <button id="addNoteBtn" class="add-note-btn" type="submit">
+                  Add note
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section
+          id="dashboardSections"
+          class="dashboard-sections"
+          aria-label="Thought sections"
+        ></section>
       </main>
 
-      <footer>
-        <p>
-          Saved automatically to your browser | No backend, no accounts needed
+      <footer class="app-footer">
+        <p style="margin: 0 0 8px">
+          Organize your thinking without losing the thread.
         </p>
-        <p class="last-saved" id="lastSaved"></p>
+        <p style="margin: 0 0 8px">
+          &copy; 2026 Thought Dashboard. Notes are stored locally in your
+          browser only.
+        </p>
+        <p style="margin: 0" class="last-saved" id="lastSaved"></p>
       </footer>
     </div>
 

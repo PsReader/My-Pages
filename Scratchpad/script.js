@@ -1,13 +1,23 @@
-const storageKey = "scratchpad-theme";
+const themeStorageKey = "scratchpad-theme";
+const notesStorageKey = "scratchpad-thought-dashboard";
+
 const themePicker = document.getElementById("themePicker");
 const themeButton = document.getElementById("themeButton");
 const themeMenu = document.getElementById("themeMenu");
 const themeValue = document.getElementById("themeValue");
-const focusToggle = document.getElementById("focusToggle");
-const charCount = document.getElementById("charCount");
+const notesCount = document.getElementById("notesCount");
 const clearBtn = document.getElementById("clearBtn");
-const notepad = document.getElementById("notepad");
 const lastSaved = document.getElementById("lastSaved");
+const searchNotes = document.getElementById("searchNotes");
+const noteForm = document.getElementById("noteForm");
+const noteTitle = document.getElementById("noteTitle");
+const noteSection = document.getElementById("noteSection");
+const sectionPicker = document.getElementById("sectionPicker");
+const sectionOptions = document.getElementById("sectionOptions");
+const noteTags = document.getElementById("noteTags");
+const noteContent = document.getElementById("noteContent");
+const notePinned = document.getElementById("notePinned");
+const dashboardSections = document.getElementById("dashboardSections");
 
 const themes = [
   {
@@ -60,8 +70,31 @@ const themes = [
   },
 ];
 
+const sectionConfig = [
+  {
+    value: "Quick Notes",
+    title: "Quick Notes",
+    description: "Fast captures and reminders",
+  },
+  {
+    value: "Ideas",
+    title: "Ideas",
+    description: "Project sparks and possibilities",
+  },
+  {
+    value: "Journal",
+    title: "Journal",
+    description: "Reflections and progress",
+  },
+];
+
 let activeTheme = "midnight-studio";
-let focusModeEnabled = false;
+let notes = loadNotes();
+let undoStack = [];
+let redoStack = [];
+
+const undoBtn = document.getElementById("undoBtn");
+const redoBtn = document.getElementById("redoBtn");
 
 function closeThemeMenu() {
   if (!themePicker) return;
@@ -110,7 +143,6 @@ function renderThemeMenu() {
           </span>
           <span class="theme-option__meta">
             <span class="theme-option__swatch" style="--swatch-a:${theme.swatch[0]}; --swatch-b:${theme.swatch[1]};"></span>
-            <span class="theme-option__badge">${badgeMap[theme.value] || "Theme"}</span>
           </span>
           <span class="theme-option__check">✓</span>
         </button>
@@ -134,11 +166,11 @@ function applyTheme(themeName) {
     themeValue.textContent = selectedTheme ? selectedTheme.label : themeName;
   }
   renderThemeMenu();
-  localStorage.setItem(storageKey, themeName);
+  localStorage.setItem(themeStorageKey, themeName);
 }
 
 function loadTheme() {
-  const savedTheme = localStorage.getItem(storageKey);
+  const savedTheme = localStorage.getItem(themeStorageKey);
   const initialTheme =
     savedTheme && themes.some((theme) => theme.value === savedTheme)
       ? savedTheme
@@ -146,25 +178,18 @@ function loadTheme() {
   applyTheme(initialTheme);
 }
 
-function applyFocusMode(enabled) {
-  focusModeEnabled = enabled;
-  document.body.toggleAttribute("data-focus-mode", enabled);
-  if (focusToggle) {
-    focusToggle.classList.toggle("is-active", enabled);
-    focusToggle.setAttribute("aria-pressed", String(enabled));
+function loadNotes() {
+  try {
+    const savedNotes = localStorage.getItem(notesStorageKey);
+    return savedNotes ? JSON.parse(savedNotes) : [];
+  } catch (error) {
+    console.error("Unable to load notes", error);
+    return [];
   }
-  localStorage.setItem("scratchpad-focus-mode", String(enabled));
 }
 
-function loadFocusMode() {
-  const savedFocusMode = localStorage.getItem("scratchpad-focus-mode");
-  applyFocusMode(savedFocusMode === "true");
-}
-
-function saveDraft() {
-  if (!notepad) return;
-
-  localStorage.setItem("scratchpad-draft", notepad.value);
+function saveNotes() {
+  localStorage.setItem(notesStorageKey, JSON.stringify(notes));
   if (lastSaved) {
     const time = new Date().toLocaleTimeString([], {
       hour: "numeric",
@@ -174,18 +199,204 @@ function saveDraft() {
   }
 }
 
-function loadDraft() {
-  if (!notepad) return;
+function updateUndoRedoButtons() {
+  if (undoBtn) undoBtn.disabled = undoStack.length === 0;
+  if (redoBtn) redoBtn.disabled = redoStack.length === 0;
+}
 
-  const draft = localStorage.getItem("scratchpad-draft");
-  if (draft !== null) {
-    notepad.value = draft;
+function pushHistory(state) {
+  undoStack.push(JSON.stringify(state));
+  redoStack = [];
+  updateUndoRedoButtons();
+}
+
+function restoreHistory(stackFrom, stackTo) {
+  if (!stackFrom.length) return;
+  stackTo.push(JSON.stringify(notes));
+  notes = JSON.parse(stackFrom.pop());
+  saveNotes();
+  renderNotes();
+  updateUndoRedoButtons();
+}
+
+function undo() {
+  restoreHistory(undoStack, redoStack);
+}
+
+function redo() {
+  restoreHistory(redoStack, undoStack);
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function formatDate(value) {
+  return new Date(value).toLocaleString([], {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+}
+
+function getVisibleNotes() {
+  const query = searchNotes?.value.trim().toLowerCase() || "";
+
+  return [...notes]
+    .filter((note) => {
+      if (!query) return true;
+      const searchable =
+        `${note.title} ${note.content} ${note.tags.join(" ")} ${note.section}`.toLowerCase();
+      return searchable.includes(query);
+    })
+    .sort((a, b) => {
+      return (
+        Number(b.pinned) - Number(a.pinned) ||
+        new Date(b.createdAt) - new Date(a.createdAt)
+      );
+    });
+}
+
+function renderNotes() {
+  if (!dashboardSections) return;
+
+  const visibleNotes = getVisibleNotes();
+  const visibleCount = visibleNotes.length;
+
+  dashboardSections.innerHTML = sectionConfig
+    .map((section) => {
+      const sectionNotes = visibleNotes.filter(
+        (note) => note.section === section.value,
+      );
+      const cards = sectionNotes.length
+        ? `<div class="notes-grid">${sectionNotes.map((note) => renderNoteCard(note)).join("")}</div>`
+        : `<div class="empty-state"><p>No ${section.value.toLowerCase()} yet.</p><span>Capture your next thought.</span></div>`;
+
+      return `
+        <section class="dashboard-section">
+          <div class="section-header">
+            <div>
+              <h3>${escapeHtml(section.title)}</h3>
+              <p>${escapeHtml(section.description)}</p>
+            </div>
+            <span class="section-pill">${sectionNotes.length}</span>
+          </div>
+          ${cards}
+        </section>
+      `;
+    })
+    .join("");
+
+  if (notesCount) {
+    notesCount.textContent = `${visibleCount} ${visibleCount === 1 ? "note" : "notes"}`;
   }
 }
 
-function updateCharCount() {
-  if (!charCount || !notepad) return;
-  charCount.textContent = notepad.value.length;
+function renderNoteCard(note) {
+  const tags = note.tags.length
+    ? `<div class="note-tags">${note.tags.map((tag) => `<span class="note-tag">${escapeHtml(tag)}</span>`).join("")}</div>`
+    : "";
+
+  return `
+    <article class="note-card ${note.pinned ? "is-pinned" : ""}">
+      <div class="note-card__top">
+        <div>
+          <div class="note-card__title-row">
+            <h4>${escapeHtml(note.title || "Untitled thought")}</h4>
+            ${note.pinned ? '<span class="pin-badge">Pinned</span>' : ""}
+          </div>
+          <p class="note-card__meta">${escapeHtml(note.section)} • ${formatDate(note.createdAt)}</p>
+        </div>
+        <button class="icon-button" type="button" data-action="toggle-pin" data-id="${note.id}">
+          ${note.pinned ? "Unpin" : "Pin"}
+        </button>
+      </div>
+      <p class="note-card__content">${escapeHtml(note.content || "")}</p>
+      ${tags}
+      <div class="note-card__footer">
+        <button class="icon-button danger" type="button" data-action="delete" data-id="${note.id}">Delete</button>
+      </div>
+    </article>
+  `;
+}
+
+function createNoteFromForm() {
+  if (!noteTitle || !noteSection || !noteContent) return null;
+
+  const title = noteTitle.value.trim();
+  const content = noteContent.value.trim();
+
+  if (!title && !content) return null;
+
+  const tags =
+    noteTags?.value
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter(Boolean) || [];
+
+  return {
+    id: crypto.randomUUID
+      ? crypto.randomUUID()
+      : `note-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    title: title || "Untitled thought",
+    content: content || "No details yet.",
+    section: noteSection.value,
+    tags,
+    pinned: Boolean(notePinned?.checked),
+    createdAt: new Date().toISOString(),
+  };
+}
+
+function addNote(event) {
+  event.preventDefault();
+  const newNote = createNoteFromForm();
+
+  if (!newNote) return;
+
+  pushHistory(notes);
+  notes = [newNote, ...notes];
+  saveNotes();
+  renderNotes();
+  noteForm.reset();
+  notePinned.checked = false;
+  noteSection.value = "Quick Notes";
+  const selectedLabel = sectionPicker?.querySelector(
+    ".custom-section-picker__title",
+  );
+  if (selectedLabel) selectedLabel.textContent = "Quick Notes";
+  sectionOptions
+    ?.querySelectorAll(".custom-section-option")
+    .forEach((option) => {
+      option.classList.toggle(
+        "is-selected",
+        option.dataset.value === "Quick Notes",
+      );
+    });
+  sectionPicker?.parentElement?.classList.remove("menu-open");
+  sectionPicker?.setAttribute("aria-expanded", "false");
+  noteTitle.focus();
+}
+
+function togglePin(noteId) {
+  pushHistory(notes);
+  notes = notes.map((note) =>
+    note.id === noteId ? { ...note, pinned: !note.pinned } : note,
+  );
+  saveNotes();
+  renderNotes();
+}
+
+function deleteNote(noteId) {
+  pushHistory(notes);
+  notes = notes.filter((note) => note.id !== noteId);
+  saveNotes();
+  renderNotes();
 }
 
 if (themeButton) {
@@ -208,32 +419,101 @@ document.addEventListener("click", (event) => {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     closeThemeMenu();
+    if (sectionPicker && sectionPicker.parentElement) {
+      sectionPicker.parentElement.classList.remove("menu-open");
+      sectionPicker.setAttribute("aria-expanded", "false");
+    }
   }
 });
 
-if (notepad) {
-  loadDraft();
-  updateCharCount();
+if (sectionPicker && sectionOptions && noteSection) {
+  sectionPicker.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const wrapper = sectionPicker.parentElement;
+    const isOpen = wrapper?.classList.contains("menu-open");
+    wrapper?.classList.toggle("menu-open", !isOpen);
+    sectionPicker.setAttribute("aria-expanded", String(!isOpen));
+  });
 
-  notepad.addEventListener("input", () => {
-    updateCharCount();
-    saveDraft();
+  sectionOptions.addEventListener("click", (event) => {
+    const option = event.target.closest("button.custom-section-option");
+    if (!option) return;
+
+    const value = option.dataset.value;
+    const selectedLabel = sectionPicker.querySelector(
+      ".custom-section-picker__title",
+    );
+    selectedLabel.textContent = value;
+    noteSection.value = value;
+
+    sectionOptions
+      .querySelectorAll(".custom-section-option")
+      .forEach((optionButton) => {
+        optionButton.classList.toggle("is-selected", optionButton === option);
+      });
+
+    const wrapper = sectionPicker.parentElement;
+    wrapper?.classList.remove("menu-open");
+    sectionPicker.setAttribute("aria-expanded", "false");
+  });
+
+  document.addEventListener("click", (event) => {
+    if (
+      sectionPicker &&
+      !sectionPicker.contains(event.target) &&
+      !sectionOptions.contains(event.target)
+    ) {
+      const wrapper = sectionPicker.parentElement;
+      wrapper?.classList.remove("menu-open");
+      sectionPicker.setAttribute("aria-expanded", "false");
+    }
   });
 }
 
-if (clearBtn && notepad) {
+if (noteForm) {
+  noteForm.addEventListener("submit", addNote);
+}
+
+if (dashboardSections) {
+  dashboardSections.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-action]");
+    if (!button) return;
+
+    const noteId = button.getAttribute("data-id");
+    if (button.dataset.action === "toggle-pin") {
+      togglePin(noteId);
+    }
+
+    if (button.dataset.action === "delete") {
+      deleteNote(noteId);
+    }
+  });
+}
+
+if (searchNotes) {
+  searchNotes.addEventListener("input", renderNotes);
+}
+
+if (clearBtn) {
   clearBtn.addEventListener("click", () => {
-    notepad.value = "";
-    updateCharCount();
-    saveDraft();
+    if (window.confirm("Clear all notes?")) {
+      pushHistory(notes);
+      notes = [];
+      saveNotes();
+      renderNotes();
+    }
   });
 }
 
-if (focusToggle) {
-  focusToggle.addEventListener("click", () => {
-    applyFocusMode(!focusModeEnabled);
-  });
+if (undoBtn) {
+  undoBtn.addEventListener("click", undo);
 }
+
+if (redoBtn) {
+  redoBtn.addEventListener("click", redo);
+}
+
+updateUndoRedoButtons();
 
 loadTheme();
-loadFocusMode();
+renderNotes();
