@@ -1535,6 +1535,10 @@ footer {
 }
 
 @media (max-width: 640px) {
+  .container {
+    padding: 20px 14px 28px;
+  }
+
   header {
     flex-direction: column;
     align-items: stretch;
@@ -1542,22 +1546,77 @@ footer {
 
   .header-actions {
     justify-content: flex-start;
+    align-items: stretch;
   }
 
-  .theme-picker {
+  .theme-picker,
+  .theme-button,
+  .custom-section-picker {
     width: 100%;
-  }
-
-  .theme-button {
-    width: 100%;
+    min-width: 0;
   }
 
   .theme-menu {
     left: 0;
     right: auto;
+    width: 100%;
+    max-width: calc(100vw - 32px);
+  }
+
+  .dashboard-shell {
+    gap: 20px;
+  }
+
+  .dashboard-toolbar {
+    gap: 16px;
+  }
+
+  .composer-card {
+    padding: 16px;
+  }
+
+  .search-wrap {
+    gap: 10px;
   }
 
   .composer-form__row {
     grid-template-columns: 1fr;
+  }
+
+  .custom-section-picker__left {
+    flex-wrap: wrap;
+  }
+
+  .composer-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .editor-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .add-note-btn {
+    width: 100%;
+  }
+
+  .search-input,
+  .composer-form input,
+  .composer-form textarea {
+    font-size: 1rem;
+  }
+
+  .dashboard-sections {
+    gap: 14px;
+  }
+
+  .dashboard-section {
+    min-height: auto;
+  }
+
+  .app-footer {
+    padding: 16px 14px;
   }
 }
