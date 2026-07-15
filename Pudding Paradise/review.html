@@ -1,697 +1,837 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Review - Pudding Paradise</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
     <style>
-        /* --- 1. CSS VARIABLES & RESET --- */
-        :root {
-            --bg-pink: #FADADD;
-            --main-purple: #8E6B96;
-            --light-purple: #C8AEC8;
-            --card-bg: #D8BFD8;
-            --text-color: #4A4A4A;
-            --white: #ffffff;
-        }
+      /* --- 1. CSS VARIABLES & RESET --- */
+      :root {
+        --bg-pink: #fadadd;
+        --main-purple: #8e6b96;
+        --light-purple: #c8aec8;
+        --card-bg: #d8bfd8;
+        --text-color: #4a4a4a;
+        --white: #ffffff;
+      }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Quicksand', sans-serif;
-        }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Quicksand", sans-serif;
+      }
 
+      body {
+        background-color: #f0f0f0;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px 16px;
+        overflow-x: hidden;
+      }
+
+      .mobile-container {
+        width: min(100%, 980px);
+        max-width: 980px;
+        margin: 0 auto;
+        background-color: var(--bg-pink);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.12);
+        position: relative;
+        border-radius: 24px;
+        padding-bottom: clamp(20px, 5vh, 50px);
+        animation: fadeInUp 0.6s ease-out both;
+      }
+
+      @media (min-width: 768px) {
         body {
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding: 0;
-            margin: 0;
+          padding: 0;
         }
 
         .mobile-container {
-            width: 100%;
-            background-color: var(--bg-pink);
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            position: relative;
-            padding-bottom: clamp(20px, 5vh, 50px);
-            animation: fadeInUp 0.6s ease-out both;
+          padding-bottom: clamp(30px, 5vh, 50px);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        body {
+          padding: 0;
         }
 
-        @media (min-width: 768px) {
-            body {
-                padding: 0;
-            }
+        .mobile-container {
+          padding-bottom: clamp(40px, 5vh, 60px);
+        }
+      }
 
-            .mobile-container {
-                padding-bottom: clamp(30px, 5vh, 50px);
-            }
+      @media (min-width: 1200px) {
+        body {
+          padding: 0;
         }
 
-        @media (min-width: 1024px) {
-            body {
-                padding: 0;
-            }
-
-            .mobile-container {
-                padding-bottom: clamp(40px, 5vh, 60px);
-            }
+        .mobile-container {
+          padding-bottom: clamp(40px, 5vh, 60px);
         }
+      }
 
-        @media (min-width: 1200px) {
-            body {
-                padding: 0;
-            }
-
-            .mobile-container {
-                padding-bottom: clamp(40px, 5vh, 60px);
-            }
+      /* --- 1.5. ANIMATIONS --- */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
         }
-
-        /* --- 1.5. ANIMATIONS --- */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(18px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
+      }
 
-        @keyframes floatPulse {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-4px);
-            }
+      @keyframes floatPulse {
+        0%,
+        100% {
+          transform: translateY(0);
         }
-
-        .logo-area,
-        .menu-icon,
-        .contact-icon {
-            animation: floatPulse 4s ease-in-out infinite alternate;
+        50% {
+          transform: translateY(-4px);
         }
+      }
 
-        .section-box,
-        .menu-card,
-        .menu-item,
-        .review-card,
-        .contact-item,
-        .coupon-card {
-            animation: fadeInUp 0.55s ease-out both;
+      .logo-area,
+      .menu-icon,
+      .contact-icon {
+        animation: floatPulse 4s ease-in-out infinite alternate;
+      }
+
+      .section-box,
+      .menu-card,
+      .menu-item,
+      .review-card,
+      .contact-item,
+      .coupon-card {
+        animation: fadeInUp 0.55s ease-out both;
+      }
+
+      button,
+      .button,
+      .order-button,
+      .submit-btn,
+      .save-btn {
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.18s ease,
+          background-color 0.2s ease;
+      }
+
+      button:hover,
+      .button:hover,
+      .order-button:hover,
+      .submit-btn:hover,
+      .save-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 22px rgba(142, 107, 150, 0.18);
+      }
+
+      /* --- 2. HEADER --- */
+      header {
+        background-color: var(--light-purple);
+        padding: clamp(12px, 3vw, 35px) clamp(15px, 5vw, 70px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 3px solid var(--main-purple);
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .logo-area {
+        display: flex;
+        align-items: center;
+        gap: clamp(8px, 2vw, 20px);
+        color: var(--main-purple);
+        font-weight: 700;
+        font-size: clamp(1.2rem, 3.5vw, 2.8rem);
+      }
+
+      .logo-icon {
+        font-size: clamp(1.2rem, 3.5vw, 2.8rem);
+        width: clamp(50px, 8vw, 110px);
+        height: clamp(50px, 8vw, 110px);
+        object-fit: contain;
+      }
+
+      .menu-icon,
+      .contact-icon {
+        color: var(--main-purple);
+        cursor: pointer;
+      }
+
+      .menu-icon {
+        font-size: clamp(1.8rem, 4vw, 3.8rem);
+      }
+
+      .contact-icon {
+        font-size: clamp(1.8rem, 4vw, 3.8rem);
+      }
+
+      .header-controls {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .back-button {
+        width: clamp(38px, 6vw, 54px);
+        height: clamp(38px, 6vw, 54px);
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--main-purple),
+          var(--light-purple)
+        );
+        border: 2px solid var(--main-purple);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(142, 107, 150, 0.3);
+        animation: floatPulse 4s ease-in-out infinite alternate;
+        text-decoration: none;
+      }
+
+      .back-button:hover {
+        background: linear-gradient(
+          135deg,
+          var(--light-purple),
+          var(--main-purple)
+        );
+        transform: scale(1.1) translateY(-3px);
+        box-shadow: 0 8px 20px rgba(142, 107, 150, 0.5);
+      }
+
+      .back-button,
+      .back-button a {
+        color: white;
+        font-size: clamp(1.2rem, 3vw, 2.4rem);
+        font-weight: bold;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        line-height: 1;
+      }
+
+      /* --- 3. TITLE SECTION --- */
+      .page-title {
+        padding: clamp(15px, 4vw, 50px) clamp(15px, 5vw, 70px);
+        text-align: center;
+      }
+
+      .page-title h1 {
+        color: var(--main-purple);
+        font-size: clamp(1.5rem, 4vw, 4rem);
+        margin-bottom: clamp(8px, 1.5vw, 15px);
+      }
+
+      .page-title p {
+        color: #555;
+        font-size: clamp(0.8rem, 2vw, 1.6rem);
+      }
+
+      /* --- 4. SECTIONS GENERAL STYLE --- */
+      .section-box {
+        background-color: #f4a6c1;
+        margin: clamp(15px, 4vw, 50px) clamp(15px, 5vw, 70px);
+        padding: clamp(15px, 4vw, 45px);
+        border-radius: clamp(10px, 2vw, 25px);
+        border: 2px solid var(--main-purple);
+        text-align: center;
+      }
+
+      .section-title-badge {
+        display: inline-block;
+        background-color: var(--main-purple);
+        color: white;
+        padding: clamp(5px, 1.5vw, 15px) clamp(15px, 3vw, 45px);
+        border-radius: 15px;
+        font-weight: bold;
+        margin-bottom: clamp(8px, 2vw, 15px);
+        position: relative;
+        top: clamp(-20px, -3vw, -30px);
+        font-size: clamp(0.9rem, 2.5vw, 1.7rem);
+      }
+
+      .review-toolbar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: clamp(8px, 2vw, 15px);
+        margin-bottom: clamp(12px, 2vw, 20px);
+        position: relative;
+        top: 0;
+      }
+
+      .review-toolbar .section-title-badge {
+        top: 0;
+        position: static;
+        margin-bottom: 0;
+        font-size: clamp(0.9rem, 2.5vw, 1.7rem);
+        padding: clamp(5px, 1.5vw, 15px) clamp(15px, 3vw, 45px);
+      }
+
+      .review-filter {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: clamp(8px, 1.5vw, 15px);
+      }
+
+      .review-filter select {
+        width: 100%;
+        max-width: clamp(280px, 80vw, 380px);
+        padding: clamp(10px, 2vw, 14px) clamp(40px, 5vw, 50px)
+          clamp(10px, 2vw, 14px) clamp(14px, 2vw, 18px);
+        border-radius: clamp(18px, 3vw, 25px);
+        border: 2px solid var(--main-purple);
+        background-color: var(--light-purple);
+        color: var(--main-purple);
+        font-family: "Quicksand", sans-serif;
+        font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+        cursor: pointer;
+        box-shadow: 0 6px 15px rgba(142, 107, 150, 0.2);
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%238E6B96' d='M4.646 6.646a.5.5 0 0 1 .708 0L8 9.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right clamp(12px, 2vw, 18px) center;
+        background-size: 16px;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease,
+          border-color 0.25s ease,
+          background-position 0.25s ease;
+        animation: dropdownFadeIn 0.5s ease-out both;
+      }
+
+      .review-filter select:hover,
+      .review-filter select:focus {
+        border-color: var(--main-purple);
+        box-shadow: 0 10px 22px rgba(142, 107, 150, 0.25);
+        outline: none;
+        transform: translateY(-2px);
+        background-position: right clamp(10px, 1.8vw, 14px) center;
+      }
+
+      .review-filter select:focus {
+        outline: none;
+        border-color: var(--main-purple);
+      }
+
+      @keyframes dropdownFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
         }
-
-        button,
-        .button,
-        .order-button,
-        .submit-btn,
-        .save-btn {
-            transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.2s ease;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
+      }
 
-        button:hover,
-        .button:hover,
-        .order-button:hover,
-        .submit-btn:hover,
-        .save-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 22px rgba(142,107,150,0.18);
-        }
+      /* --- 5. REVIEW ITEMS --- */
+      .review-list {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(10px, 2vw, 20px);
+        margin-top: clamp(-10px, -2vw, -15px);
+      }
 
-        /* --- 2. HEADER --- */
-        header {
-            background-color: var(--light-purple);
-            padding: clamp(12px, 3vw, 35px) clamp(15px, 5vw, 70px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid var(--main-purple);
-            width: 100%;
-            box-sizing: border-box;
-        }
+      .review-card {
+        background-color: var(--light-purple);
+        padding: clamp(10px, 2vw, 18px);
+        border-radius: clamp(12px, 2vw, 20px);
+        border: 2px solid #777;
+        box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
+        text-align: left;
+      }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: clamp(8px, 2vw, 20px);
-            color: var(--main-purple);
-            font-weight: 700;
-            font-size: clamp(1.2rem, 3.5vw, 2.8rem);
-        }
+      .review-header {
+        display: flex;
+        align-items: center;
+        gap: clamp(8px, 2vw, 15px);
+        margin-bottom: clamp(8px, 1.5vw, 12px);
+      }
 
-        .logo-icon {
-            font-size: clamp(1.2rem, 3.5vw, 2.8rem);
-            width: clamp(50px, 8vw, 110px);
-            height: clamp(50px, 8vw, 110px);
-            object-fit: contain;
-        }
+      .avatar {
+        width: clamp(40px, 8vw, 60px);
+        height: clamp(40px, 8vw, 60px);
+        border-radius: 50%;
+        background-color: white;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
 
-        .menu-icon, .contact-icon {
-            color: var(--main-purple);
-            cursor: pointer;
-        }
+      .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
 
-        .menu-icon {
-            font-size: clamp(1.8rem, 4vw, 3.8rem);
-        }
+      .review-user-info {
+        flex: 1;
+      }
 
-        .contact-icon {
-            font-size: clamp(1.8rem, 4vw, 3.8rem);
-        }
+      .user-badge {
+        background-color: var(--main-purple);
+        color: white;
+        font-size: clamp(0.65rem, 1.5vw, 1rem);
+        padding: clamp(3px, 0.7vw, 6px) clamp(8px, 1.5vw, 12px);
+        border-radius: 10px;
+        font-weight: bold;
+      }
 
-        /* --- 3. TITLE SECTION --- */
-        .page-title {
-            padding: clamp(15px, 4vw, 50px) clamp(15px, 5vw, 70px);
-            text-align: center;
-        }
+      .stars {
+        color: gold;
+        font-size: clamp(0.7rem, 1.5vw, 1rem);
+        margin-top: clamp(2px, 0.5vw, 5px);
+      }
 
-        .page-title h1 {
-            color: var(--main-purple);
-            font-size: clamp(1.5rem, 4vw, 4rem);
-            margin-bottom: clamp(8px, 1.5vw, 15px);
-        }
+      .review-text {
+        background-color: rgba(255, 255, 255, 0.6);
+        padding: clamp(8px, 1.5vw, 12px);
+        border-radius: 8px;
+        font-size: clamp(0.75rem, 1.6vw, 1.1rem);
+        font-style: italic;
+        line-height: 1.5;
+        color: #555;
+        margin: clamp(8px, 1.5vw, 12px) 0;
+      }
 
-        .page-title p {
-            color: #555;
-            font-size: clamp(0.8rem, 2vw, 1.6rem);
-        }
+      .review-date {
+        font-size: clamp(0.65rem, 1.2vw, 0.85rem);
+        color: #999;
+        text-align: right;
+      }
 
-        /* --- 4. SECTIONS GENERAL STYLE --- */
-        .section-box {
-            background-color: #F4A6C1;
-            margin: clamp(15px, 4vw, 50px) clamp(15px, 5vw, 70px);
-            padding: clamp(15px, 4vw, 45px);
-            border-radius: clamp(10px, 2vw, 25px);
-            border: 2px solid var(--main-purple);
-            text-align: center;
-        }
+      .rating-row {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        margin: 12px 0 8px;
+      }
 
-        .section-title-badge {
-            display: inline-block;
-            background-color: var(--main-purple);
-            color: white;
-            padding: clamp(5px, 1.5vw, 15px) clamp(15px, 3vw, 45px);
-            border-radius: 15px;
-            font-weight: bold;
-            margin-bottom: clamp(8px, 2vw, 15px);
-            position: relative;
-            top: clamp(-20px, -3vw, -30px);
-            font-size: clamp(0.9rem, 2.5vw, 1.7rem);
-        }
+      .star-btn {
+        background: none;
+        border: none;
+        font-size: 2.5rem;
+        cursor: pointer;
+        color: #bbb;
+        transition:
+          transform 0.15s,
+          color 0.15s;
+      }
 
-        .review-toolbar {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: clamp(8px, 2vw, 15px);
-            margin-bottom: clamp(12px, 2vw, 20px);
-            position: relative;
-            top: 0;
-        }
+      .star-btn.active {
+        color: gold;
+        transform: scale(1.1);
+      }
 
-        .review-toolbar .section-title-badge {
-            top: 0;
-            position: static;
-            margin-bottom: 0;
-            font-size: clamp(0.9rem, 2.5vw, 1.7rem);
-            padding: clamp(5px, 1.5vw, 15px) clamp(15px, 3vw, 45px);
-        }
+      .feedback-textarea {
+        width: 100%;
+        min-height: 90px;
+        border-radius: 12px;
+        border: 2px solid rgba(142, 107, 150, 0.4);
+        padding: 10px;
+        resize: vertical;
+        font-family: "Quicksand", sans-serif;
+        margin-bottom: 12px;
+      }
 
-        .review-filter {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            margin-top: clamp(8px, 1.5vw, 15px);
-        }
+      .name-input {
+        width: 85%;
+        max-width: 320px;
+        margin: 0 auto 12px;
+        height: 34px;
+        border-radius: 12px;
+        border: 2px solid rgba(142, 107, 150, 0.4);
+        padding: 8px 10px;
+        font-family: "Quicksand", sans-serif;
+        font-size: 1rem;
+        display: block;
+      }
 
-        .review-filter select {
-            width: 100%;
-            max-width: clamp(280px, 80vw, 380px);
-            padding: clamp(10px, 2vw, 14px) clamp(40px, 5vw, 50px) clamp(10px, 2vw, 14px) clamp(14px, 2vw, 18px);
-            border-radius: clamp(18px, 3vw, 25px);
-            border: 2px solid var(--main-purple);
-            background-color: var(--light-purple);
-            color: var(--main-purple);
-            font-family: 'Quicksand', sans-serif;
-            font-size: clamp(0.85rem, 1.8vw, 1.1rem);
-            cursor: pointer;
-            box-shadow: 0 6px 15px rgba(142,107,150,0.2);
-            appearance: none;
-            -webkit-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%238E6B96' d='M4.646 6.646a.5.5 0 0 1 .708 0L8 9.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right clamp(12px, 2vw, 18px) center;
-            background-size: 16px;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background-position 0.25s ease;
-            animation: dropdownFadeIn 0.5s ease-out both;
-        }
+      /* --- 6. DROPDOWN MENU --- */
+      .dropdown-menu {
+        position: absolute;
+        top: 65px;
+        left: 0;
+        background-color: var(--light-purple);
+        width: 200px;
+        border: 2px solid var(--main-purple);
+        border-radius: 0 0 15px 15px;
+        display: flex;
+        flex-direction: column;
+        z-index: 1000;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px) scale(0.98);
+        transition:
+          max-height 0.35s ease,
+          opacity 0.35s ease,
+          transform 0.35s ease,
+          visibility 0.35s ease;
+      }
 
-        .review-filter select:hover,
-        .review-filter select:focus {
-            border-color: var(--main-purple);
-            box-shadow: 0 10px 22px rgba(142,107,150,0.25);
-            outline: none;
-            transform: translateY(-2px);
-            background-position: right clamp(10px, 1.8vw, 14px) center;
-        }
+      .dropdown-menu.active {
+        max-height: 260px;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+      }
 
-        .review-filter select:focus {
-            outline: none;
-            border-color: var(--main-purple);
-        }
+      .dropdown-item {
+        padding: 12px 20px;
+        color: var(--main-purple);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(142, 107, 150, 0.2);
+        font-weight: 600;
+        transition:
+          background-color 0.2s,
+          transform 0.2s;
+      }
 
-        @keyframes dropdownFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+      .dropdown-item:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
 
-        /* --- 5. REVIEW ITEMS --- */
-        .review-list {
-            display: flex;
-            flex-direction: column;
-            gap: clamp(10px, 2vw, 20px);
-            margin-top: clamp(-10px, -2vw, -15px);
-        }
+      .dropdown-item:last-child {
+        border-bottom: none;
+      }
 
-        .review-card {
-            background-color: var(--light-purple);
-            padding: clamp(10px, 2vw, 18px);
-            border-radius: clamp(12px, 2vw, 20px);
-            border: 2px solid #777;
-            box-shadow: 3px 3px 0px rgba(0,0,0,0.1);
-            text-align: left;
-        }
+      .back-btn {
+        background-color: var(--main-purple);
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        margin: 10px 0;
+        font-weight: 600;
+        font-size: 0.8rem;
+        transition: background-color 0.2s;
+      }
 
-        .review-header {
-            display: flex;
-            align-items: center;
-            gap: clamp(8px, 2vw, 15px);
-            margin-bottom: clamp(8px, 1.5vw, 12px);
-        }
+      .back-btn:hover {
+        background-color: #7a5b7f;
+      }
 
-        .avatar {
-            width: clamp(40px, 8vw, 60px);
-            height: clamp(40px, 8vw, 60px);
-            border-radius: 50%;
-            background-color: white;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
+      .order-btn {
+        background-color: var(--main-purple);
+        color: white;
+        border: none;
+        padding: 15px 50px;
+        border-radius: 20px;
+        margin: 20px auto;
+        display: block;
+        font-weight: bold;
+        font-size: 1.1rem;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        transition: transform 0.1s;
+      }
 
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+      .order-btn:active {
+        transform: scale(0.95);
+      }
 
-        .review-user-info {
-            flex: 1;
-        }
+      .back-button {
+        position: fixed;
+        top: clamp(15px, 3vw, 35px);
+        right: clamp(15px, 3vw, 35px);
+        z-index: 100;
+        width: clamp(42px, 8vw, 70px);
+        height: clamp(42px, 8vw, 70px);
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--main-purple),
+          var(--light-purple)
+        );
+        border: 2px solid var(--main-purple);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(142, 107, 150, 0.3);
+        animation: floatPulse 4s ease-in-out infinite alternate;
+        text-decoration: none;
+      }
 
-        .user-badge {
-            background-color: var(--main-purple);
-            color: white;
-            font-size: clamp(0.65rem, 1.5vw, 1rem);
-            padding: clamp(3px, 0.7vw, 6px) clamp(8px, 1.5vw, 12px);
-            border-radius: 10px;
-            font-weight: bold;
-        }
+      .back-button:hover {
+        background: linear-gradient(
+          135deg,
+          var(--light-purple),
+          var(--main-purple)
+        );
+        transform: scale(1.1) translateY(-3px);
+        box-shadow: 0 8px 20px rgba(142, 107, 150, 0.5);
+      }
 
-        .stars {
-            color: gold;
-            font-size: clamp(0.7rem, 1.5vw, 1rem);
-            margin-top: clamp(2px, 0.5vw, 5px);
-        }
-
-        .review-text {
-            background-color: rgba(255,255,255,0.6);
-            padding: clamp(8px, 1.5vw, 12px);
-            border-radius: 8px;
-            font-size: clamp(0.75rem, 1.6vw, 1.1rem);
-            font-style: italic;
-            line-height: 1.5;
-            color: #555;
-            margin: clamp(8px, 1.5vw, 12px) 0;
-        }
-
-        .review-date {
-            font-size: clamp(0.65rem, 1.2vw, 0.85rem);
-            color: #999;
-            text-align: right;
-        }
-
-        .rating-row {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            margin: 12px 0 8px;
-        }
-
-        .star-btn {
-            background: none;
-            border: none;
-            font-size: 2.5rem;
-            cursor: pointer;
-            color: #bbb;
-            transition: transform 0.15s, color 0.15s;
-        }
-
-        .star-btn.active {
-            color: gold;
-            transform: scale(1.1);
-        }
-
-        .feedback-textarea {
-            width: 100%;
-            min-height: 90px;
-            border-radius: 12px;
-            border: 2px solid rgba(142,107,150,0.4);
-            padding: 10px;
-            resize: vertical;
-            font-family: 'Quicksand', sans-serif;
-            margin-bottom: 12px;
-        }
-
-        .name-input {
-            width: 85%;
-            max-width: 320px;
-            margin: 0 auto 12px;
-            height: 34px;
-            border-radius: 12px;
-            border: 2px solid rgba(142,107,150,0.4);
-            padding: 8px 10px;
-            font-family: 'Quicksand', sans-serif;
-            font-size: 1rem;
-            display: block;
-        }
-
-        /* --- 6. DROPDOWN MENU --- */
-        .dropdown-menu {
-            position: absolute;
-            top: 65px;
-            left: 0;
-            background-color: var(--light-purple);
-            width: 200px;
-            border: 2px solid var(--main-purple);
-            border-radius: 0 0 15px 15px;
-            display: flex;
-            flex-direction: column;
-            z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            overflow: hidden;
-            max-height: 0;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px) scale(0.98);
-            transition: max-height 0.35s ease, opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease;
-        }
-
-        .dropdown-menu.active {
-            max-height: 260px;
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) scale(1);
-        }
-
-        .dropdown-item {
-            padding: 12px 20px;
-            color: var(--main-purple);
-            text-decoration: none;
-            border-bottom: 1px solid rgba(142, 107, 150, 0.2);
-            font-weight: 600;
-            transition: background-color 0.2s, transform 0.2s;
-        }
-
-        .dropdown-item:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .dropdown-item:last-child {
-            border-bottom: none;
-        }
-
-        .back-btn {
-            background-color: var(--main-purple);
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            margin: 10px 0;
-            font-weight: 600;
-            font-size: 0.8rem;
-            transition: background-color 0.2s;
-        }
-
-        .back-btn:hover {
-            background-color: #7a5b7f;
-        }
-
-        .order-btn {
-            background-color: var(--main-purple);
-            color: white;
-            border: none;
-            padding: 15px 50px;
-            border-radius: 20px;
-            margin: 20px auto;
-            display: block;
-            font-weight: bold;
-            font-size: 1.1rem;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            transition: transform 0.1s;
-        }
-
-        .order-btn:active {
-            transform: scale(0.95);
-        }
-
-        .back-button {
-            position: fixed;
-            top: clamp(15px, 3vw, 35px);
-            right: clamp(15px, 3vw, 35px);
-            z-index: 100;
-            width: clamp(42px, 8vw, 70px);
-            height: clamp(42px, 8vw, 70px);
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--main-purple), var(--light-purple));
-            border: 2px solid var(--main-purple);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(142, 107, 150, 0.3);
-            animation: floatPulse 4s ease-in-out infinite alternate;
-            text-decoration: none;
-        }
-
-        .back-button:hover {
-            background: linear-gradient(135deg, var(--light-purple), var(--main-purple));
-            transform: scale(1.1) translateY(-3px);
-            box-shadow: 0 8px 20px rgba(142, 107, 150, 0.5);
-        }
-
-        .back-button a {
-            color: white;
-            font-size: clamp(1.3rem, 3.5vw, 2.8rem);
-            font-weight: bold;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-        }
-
+      .back-button a {
+        color: white;
+        font-size: clamp(1.3rem, 3.5vw, 2.8rem);
+        font-weight: bold;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+      }
     </style>
-</head>
-<body>
-
-<!-- Back Button -->
-<div class="back-button">
-    <a href="../../index.html" title="Back to Portfolio">←</a>
-</div>
-
-<div class="mobile-container">
-    
-    <header>
-        <div class="menu-icon" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
-        <div class="logo-area">
-            <img src="images/Group1.png" class="logo-icon" alt="Pudding Icon">
-            <span>PUDDING PARADISE</span>
-        </div>
-        <a href="puddinghome.html#kontak" class="contact-icon" style="text-decoration: none; color: #8E6B96;"><i class="fas fa-envelope"></i></a>
-        
-        <div class="dropdown-menu" id="dropdownMenu">
-            <a href="puddinghome.html" class="dropdown-item">Beranda</a>
-            <a href="menu.html" class="dropdown-item">Menu</a>
-            <a href="review.html" class="dropdown-item">Review</a>
-            <a href="puddinghome.html#kontak" class="dropdown-item">Kontak</a>
-        </div>
-    </header>
-
-    <div class="page-title">
-        <h1>Review Customer</h1>
-        <p>Kepuasan pelanggan adalah prioritas kami!</p>
+  </head>
+  <body>
+    <!-- Back Button -->
+    <div class="back-button">
+      <a href="../index.html" title="Back to Portfolio">←</a>
     </div>
 
-    <section class="section-box">
+    <div class="mobile-container">
+      <header>
+        <div class="menu-icon" onclick="toggleMenu()">
+          <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo-area">
+          <img src="images/Group1.png" class="logo-icon" alt="Pudding Icon" />
+          <span>PUDDING PARADISE</span>
+        </div>
+        <div class="header-controls">
+          <a
+            href="puddinghome.html#kontak"
+            class="contact-icon"
+            style="text-decoration: none; color: #8e6b96"
+            ><i class="fas fa-envelope"></i
+          ></a>
+        </div>
+
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a href="puddinghome.html" class="dropdown-item">Beranda</a>
+          <a href="menu.html" class="dropdown-item">Menu</a>
+          <a href="review.html" class="dropdown-item">Review</a>
+          <a href="puddinghome.html#kontak" class="dropdown-item">Kontak</a>
+        </div>
+      </header>
+
+      <div class="page-title">
+        <h1>Review Customer</h1>
+        <p>Kepuasan pelanggan adalah prioritas kami!</p>
+      </div>
+
+      <section class="section-box">
         <div class="review-toolbar">
-            <div class="section-title-badge">Semua Review</div>
-            <div class="review-filter">
-                <select id="reviewStarFilter" onchange="updateReviewFilter(this.value)">
-                    <option value="0">Tampilkan semua review</option>
-                    <option value="5">★★★★★ (5 bintang)</option>
-                    <option value="4">★★★★ (4 bintang)</option>
-                    <option value="3">★★★ (3 bintang)</option>
-                    <option value="2">★★ (2 bintang)</option>
-                    <option value="1">★ (1 bintang)</option>
-                </select>
-            </div>
+          <div class="section-title-badge">Semua Review</div>
+          <div class="review-filter">
+            <select
+              id="reviewStarFilter"
+              onchange="updateReviewFilter(this.value)"
+            >
+              <option value="0">Tampilkan semua review</option>
+              <option value="5">★★★★★ (5 bintang)</option>
+              <option value="4">★★★★ (4 bintang)</option>
+              <option value="3">★★★ (3 bintang)</option>
+              <option value="2">★★ (2 bintang)</option>
+              <option value="1">★ (1 bintang)</option>
+            </select>
+          </div>
         </div>
 
         <div class="review-list"></div>
 
         <div class="section-box">
-            <div class="section-title-badge">Beri Feedback</div>
-            <p style="color:#555; margin: 10px 0;">Pilih rating bintang dan kirim pesan singkat untuk kami.</p>
-            <div class="rating-row" id="feedbackStars">
-                <button class="star-btn" type="button" onclick="selectFeedbackRating(1)">★</button>
-                <button class="star-btn" type="button" onclick="selectFeedbackRating(2)">★</button>
-                <button class="star-btn" type="button" onclick="selectFeedbackRating(3)">★</button>
-                <button class="star-btn" type="button" onclick="selectFeedbackRating(4)">★</button>
-                <button class="star-btn" type="button" onclick="selectFeedbackRating(5)">★</button>
-            </div>
-            <input type="text" id="feedbackName" class="name-input" placeholder="Masukkan nama Anda...">
-            <textarea id="feedbackText" class="feedback-textarea" placeholder="Tulis feedback Anda di sini..."></textarea>
-            <button class="order-btn" onclick="submitFeedback()">Kirim Feedback</button>
+          <div class="section-title-badge">Beri Feedback</div>
+          <p style="color: #555; margin: 10px 0">
+            Pilih rating bintang dan kirim pesan singkat untuk kami.
+          </p>
+          <div class="rating-row" id="feedbackStars">
+            <button
+              class="star-btn"
+              type="button"
+              onclick="selectFeedbackRating(1)"
+            >
+              ★
+            </button>
+            <button
+              class="star-btn"
+              type="button"
+              onclick="selectFeedbackRating(2)"
+            >
+              ★
+            </button>
+            <button
+              class="star-btn"
+              type="button"
+              onclick="selectFeedbackRating(3)"
+            >
+              ★
+            </button>
+            <button
+              class="star-btn"
+              type="button"
+              onclick="selectFeedbackRating(4)"
+            >
+              ★
+            </button>
+            <button
+              class="star-btn"
+              type="button"
+              onclick="selectFeedbackRating(5)"
+            >
+              ★
+            </button>
+          </div>
+          <input
+            type="text"
+            id="feedbackName"
+            class="name-input"
+            placeholder="Masukkan nama Anda..."
+          />
+          <textarea
+            id="feedbackText"
+            class="feedback-textarea"
+            placeholder="Tulis feedback Anda di sini..."
+          ></textarea>
+          <button class="order-btn" onclick="submitFeedback()">
+            Kirim Feedback
+          </button>
         </div>
 
         <a href="puddinghome.html" class="back-btn">← Kembali ke Beranda</a>
-    </section>
+      </section>
+    </div>
 
-</div>
+    <script>
+      const STORAGE_KEY = "puddingParadiseReviews";
+      let selectedFeedbackRating = 0;
+      let reviews = [];
 
-<script>
-    const STORAGE_KEY = 'puddingParadiseReviews';
-    let selectedFeedbackRating = 0;
-    let reviews = [];
+      const initialReviews = [
+        {
+          name: "Made",
+          avatar: "M",
+          stars: 5,
+          text: "Puddingnya sangat lembut dan teksturnya sempurna. Rasa vanilanya juga pas, tidak terlalu manis. Recommended banget!",
+          date: "2 hari yang lalu",
+        },
+        {
+          name: "Qaiser",
+          avatar: "Q",
+          stars: 5,
+          text: "Puddingnya lezat dan customer servicenya bagus sekali. Pengiriman cepat dan packaging rapi. Udah order 3x dan puas setiap kalinya!",
+          date: "1 minggu yang lalu",
+        },
+        {
+          name: "Rheindaru",
+          avatar: "R",
+          stars: 5,
+          text: "Puddingnya lumer di mulut, bikin nagih! Saya udah order buat teman-teman dan mereka semua suka. Harganya juga sangat terjangkau.",
+          date: "2 minggu yang lalu",
+        },
+        {
+          name: "Aditya",
+          avatar: "A",
+          stars: 5,
+          text: "Pertama kali order pudding dari Pudding Paradise dan wow, ini enak banget! Pilihan rasa strawberry dan coklat nya sama-sama oke. Pasti order lagi!",
+          date: "3 minggu yang lalu",
+        },
+        {
+          name: "Sinta",
+          avatar: "S",
+          stars: 5,
+          text: "Makasih ya Pudding Paradise! Puddingnya fresh dan enak. Cocok jadi cemilan di sore hari. Admin juga ramah dan responsif.",
+          date: "1 bulan yang lalu",
+        },
+      ];
 
-    const initialReviews = [
-        {
-            name: 'Made',
-            avatar: 'M',
-            stars: 5,
-            text: 'Puddingnya sangat lembut dan teksturnya sempurna. Rasa vanilanya juga pas, tidak terlalu manis. Recommended banget!',
-            date: '2 hari yang lalu'
-        },
-        {
-            name: 'Qaiser',
-            avatar: 'Q',
-            stars: 5,
-            text: 'Puddingnya lezat dan customer servicenya bagus sekali. Pengiriman cepat dan packaging rapi. Udah order 3x dan puas setiap kalinya!',
-            date: '1 minggu yang lalu'
-        },
-        {
-            name: 'Rheindaru',
-            avatar: 'R',
-            stars: 5,
-            text: 'Puddingnya lumer di mulut, bikin nagih! Saya udah order buat teman-teman dan mereka semua suka. Harganya juga sangat terjangkau.',
-            date: '2 minggu yang lalu'
-        },
-        {
-            name: 'Aditya',
-            avatar: 'A',
-            stars: 5,
-            text: 'Pertama kali order pudding dari Pudding Paradise dan wow, ini enak banget! Pilihan rasa strawberry dan coklat nya sama-sama oke. Pasti order lagi!',
-            date: '3 minggu yang lalu'
-        },
-        {
-            name: 'Sinta',
-            avatar: 'S',
-            stars: 5,
-            text: 'Makasih ya Pudding Paradise! Puddingnya fresh dan enak. Cocok jadi cemilan di sore hari. Admin juga ramah dan responsif.',
-            date: '1 bulan yang lalu'
+      function toggleMenu() {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdown.classList.toggle("active");
+      }
+
+      document.addEventListener("click", function (event) {
+        const dropdown = document.getElementById("dropdownMenu");
+        const menuIcon = document.querySelector(".menu-icon");
+        if (
+          !dropdown.contains(event.target) &&
+          !menuIcon.contains(event.target)
+        ) {
+          dropdown.classList.remove("active");
         }
-    ];
+      });
 
-    function toggleMenu() {
-        const dropdown = document.getElementById('dropdownMenu');
-        dropdown.classList.toggle('active');
-    }
-
-    document.addEventListener('click', function(event) {
-        const dropdown = document.getElementById('dropdownMenu');
-        const menuIcon = document.querySelector('.menu-icon');
-        if (!dropdown.contains(event.target) && !menuIcon.contains(event.target)) {
-            dropdown.classList.remove('active');
-        }
-    });
-
-    function selectFeedbackRating(value) {
+      function selectFeedbackRating(value) {
         selectedFeedbackRating = value;
-        const stars = document.querySelectorAll('#feedbackStars .star-btn');
+        const stars = document.querySelectorAll("#feedbackStars .star-btn");
         stars.forEach((button, index) => {
-            button.classList.toggle('active', index < value);
+          button.classList.toggle("active", index < value);
         });
-    }
+      }
 
-    let reviewFilter = 0;
+      let reviewFilter = 0;
 
-    function saveReviews() {
+      function saveReviews() {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
-    }
+      }
 
-    function loadReviews() {
+      function loadReviews() {
         const stored = localStorage.getItem(STORAGE_KEY);
         reviews = stored ? JSON.parse(stored) : initialReviews.slice();
         if (!stored) {
-            saveReviews();
+          saveReviews();
         }
         renderReviews();
-    }
+      }
 
-    function updateReviewFilter(value) {
+      function updateReviewFilter(value) {
         reviewFilter = Number(value);
         renderReviews();
-    }
+      }
 
-    function renderReviews() {
-        const reviewList = document.querySelector('.review-list');
-        reviewList.innerHTML = '';
+      function renderReviews() {
+        const reviewList = document.querySelector(".review-list");
+        reviewList.innerHTML = "";
 
-        const filteredReviews = reviewFilter > 0
-            ? reviews.filter(review => review.stars === reviewFilter)
+        const filteredReviews =
+          reviewFilter > 0
+            ? reviews.filter((review) => review.stars === reviewFilter)
             : reviews;
 
         if (filteredReviews.length === 0) {
-            reviewList.innerHTML = '<div class="review-card"><div class="review-text">Belum ada review dengan rating tersebut.</div></div>';
-            return;
+          reviewList.innerHTML =
+            '<div class="review-card"><div class="review-text">Belum ada review dengan rating tersebut.</div></div>';
+          return;
         }
 
-        filteredReviews.forEach(review => {
-            const ratingStars = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
-            const reviewCard = document.createElement('div');
-            reviewCard.className = 'review-card';
-            reviewCard.innerHTML = `
+        filteredReviews.forEach((review) => {
+          const ratingStars =
+            "★".repeat(review.stars) + "☆".repeat(5 - review.stars);
+          const reviewCard = document.createElement("div");
+          reviewCard.className = "review-card";
+          reviewCard.innerHTML = `
                 <div class="review-header">
                     <div class="avatar"><img src="https://placehold.co/50x50/purple/white?text=${review.avatar}" alt="${review.name}"></div>
                     <div class="review-user-info">
@@ -702,42 +842,69 @@
                 <div class="review-text">"${review.text}"</div>
                 <div class="review-date">${review.date}</div>
             `;
-            reviewList.appendChild(reviewCard);
+          reviewList.appendChild(reviewCard);
         });
-    }
+      }
 
-    function submitFeedback() {
+      function submitFeedback() {
         if (selectedFeedbackRating === 0) {
-            alert('Pilih rating bintang terlebih dahulu sebelum mengirim feedback.');
-            return;
+          alert(
+            "Pilih rating bintang terlebih dahulu sebelum mengirim feedback.",
+          );
+          return;
         }
 
-        const name = document.getElementById('feedbackName').value.trim() || 'Pelanggan';
-        const message = document.getElementById('feedbackText').value.trim();
-        const reviewText = message || 'Feedback dari pelanggan baru.';
+        const name =
+          document.getElementById("feedbackName").value.trim() || "Pelanggan";
+        const message = document.getElementById("feedbackText").value.trim();
+        const reviewText = message || "Feedback dari pelanggan baru.";
 
         const newReview = {
-            name,
-            avatar: name.charAt(0).toUpperCase(),
-            stars: selectedFeedbackRating,
-            text: reviewText,
-            date: 'Baru saja'
+          name,
+          avatar: name.charAt(0).toUpperCase(),
+          stars: selectedFeedbackRating,
+          text: reviewText,
+          date: "Baru saja",
         };
 
         reviews.unshift(newReview);
         saveReviews();
         renderReviews();
 
-        document.getElementById('feedbackName').value = '';
-        document.getElementById('feedbackText').value = '';
+        document.getElementById("feedbackName").value = "";
+        document.getElementById("feedbackText").value = "";
         selectedFeedbackRating = 0;
         selectFeedbackRating(0);
 
-        alert('Terima kasih! Feedback Anda telah dikirim.');
-    }
+        alert("Terima kasih! Feedback Anda telah dikirim.");
+      }
 
-    document.addEventListener('DOMContentLoaded', loadReviews);
-</script>
+      document.addEventListener("DOMContentLoaded", loadReviews);
+    </script>
 
-</body>
+    <footer
+      style="
+        background: #fff6ff;
+        border-top: 1px solid #d8b5d8;
+        padding: 22px 18px;
+        text-align: center;
+        color: #4a4a4a;
+        font-size: 0.92rem;
+      "
+    >
+      <p style="margin: 0 0 6px">
+        &copy; 2026 Pudding Paradise. All rights reserved.
+      </p>
+      <p style="margin: 0 0 6px">
+        This site is for educational and portfolio purposes. No infringement is
+        intended.
+      </p>
+      <p style="margin: 0">
+        Built with care for a sweet order experience |
+        <a href="puddinghome.html" style="color: #8e6b96; text-decoration: none"
+          >Back to Home</a
+        >
+      </p>
+    </footer>
+  </body>
 </html>
