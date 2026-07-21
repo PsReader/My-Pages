@@ -4,17 +4,23 @@ This workspace contains several web app and UI projects built with HTML, CSS, Ja
 
 ## Projects
 
-### Origami AR
+### LOTM
 
-- Interactive web experience using webcam hand tracking, Three.js, React, and shader effects.
-- Built with Vite, TypeScript, `@react-three/fiber`, and MediaPipe.
-- Folder: `Origami AR`
+- A fan-wiki with 20+ pages about the novel Lord Of The Mysteries.
+- Built with responsive HTML and CSS.
+- Folder: `LOTM`
 
 ### Pudding Paradise
 
 - Dessert-themed static storefront site with menu, home, and review pages.
 - Built with responsive HTML and CSS.
 - Folder: `Pudding Paradise`
+
+### Origami AR
+
+- Interactive web experience using webcam hand tracking, Three.js, React, and shader effects.
+- Built with Vite, TypeScript, `@react-three/fiber`, and MediaPipe.
+- Folder: `Origami AR`
 
 ### Scratchpad
 
