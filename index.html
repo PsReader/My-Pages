@@ -745,15 +745,21 @@
         backdrop-filter: blur(8px);
       }
 
-      .project-viewport img {
+      .project-viewport img,
+      .project-viewport svg {
         width: 100%;
         height: 100%;
         object-fit: contain;
         display: block;
         transition: transform 600ms var(--ease);
       }
-      .project-card:hover .project-viewport img {
+      .project-card:hover .project-viewport img,
+      .project-card:hover .project-viewport svg {
         transform: scale(1.04);
+      }
+
+      .project-viewport--origami {
+        background: radial-gradient(circle at top, rgba(101, 116, 255, 0.16), transparent 55%), #060815;
       }
 
       /* Card body */
@@ -1345,6 +1351,162 @@
           display: none;
         }
       }
+      /* =================================================================
+         HAND TRACKING CURSOR
+         ================================================================= */
+      .hand-cursor {
+        position: fixed;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(99, 102, 241, 0.85) 0%, rgba(99, 102, 241, 0.2) 60%, transparent 100%);
+        border: 2px solid rgba(129, 140, 248, 0.7);
+        pointer-events: none;
+        z-index: 99999;
+        transform: translate(-50%, -50%);
+        transition: width 120ms ease, height 120ms ease, background 120ms ease, box-shadow 120ms ease;
+        box-shadow: 0 0 16px rgba(99, 102, 241, 0.35), 0 0 40px rgba(99, 102, 241, 0.12);
+        display: none;
+      }
+      .hand-cursor.visible {
+        display: block;
+      }
+      .hand-cursor.pinching {
+        width: 18px;
+        height: 18px;
+        background: radial-gradient(circle, rgba(125, 247, 255, 0.95) 0%, rgba(125, 247, 255, 0.3) 60%, transparent 100%);
+        border-color: rgba(125, 247, 255, 0.85);
+        box-shadow: 0 0 24px rgba(125, 247, 255, 0.6), 0 0 60px rgba(125, 247, 255, 0.2);
+      }
+      .hand-cursor-ring {
+        position: fixed;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: 1px solid rgba(99, 102, 241, 0.18);
+        pointer-events: none;
+        z-index: 99998;
+        transform: translate(-50%, -50%);
+        transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+        display: none;
+      }
+      .hand-cursor-ring.visible {
+        display: block;
+      }
+
+      /* Webcam toggle button */
+      .hand-toggle {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 10000;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        background: rgba(11, 13, 19, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        color: var(--text-secondary);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 220ms var(--ease);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+      }
+      .hand-toggle:hover {
+        border-color: var(--accent);
+        color: var(--accent-hover);
+        transform: scale(1.08);
+        box-shadow: 0 4px 32px rgba(99, 102, 241, 0.2);
+      }
+      .hand-toggle.active {
+        border-color: var(--accent);
+        background: rgba(99, 102, 241, 0.15);
+        color: var(--accent-hover);
+      }
+      .hand-toggle svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      /* Hand status pill */
+      .hand-status {
+        position: fixed;
+        bottom: 80px;
+        right: 24px;
+        z-index: 10000;
+        padding: 8px 16px;
+        border-radius: 999px;
+        background: rgba(11, 13, 19, 0.88);
+        border: 1px solid var(--border);
+        backdrop-filter: blur(12px);
+        font-size: 0.6875rem;
+        font-weight: 600;
+        color: var(--text-tertiary);
+        letter-spacing: 0.06em;
+        display: none;
+        align-items: center;
+        gap: 8px;
+        transition: all 250ms var(--ease);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      }
+      .hand-status.visible {
+        display: inline-flex;
+      }
+      .hand-status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--text-tertiary);
+      }
+      .hand-status-dot.tracking {
+        background: #7df7ff;
+        box-shadow: 0 0 8px rgba(125, 247, 255, 0.5);
+        animation: pulseDotPortfolio 1.4s infinite;
+      }
+      @keyframes pulseDotPortfolio {
+        0% { box-shadow: 0 0 0 0 rgba(125, 247, 255, 0.45); }
+        70% { box-shadow: 0 0 0 6px rgba(125, 247, 255, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(125, 247, 255, 0); }
+      }
+
+      /* Scroll indicator arrows for hand mode */
+      .hand-scroll-indicator {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 99997;
+        color: rgba(99, 102, 241, 0.4);
+        pointer-events: none;
+        display: none;
+        transition: opacity 300ms ease;
+      }
+      .hand-scroll-indicator.up { top: 70px; }
+      .hand-scroll-indicator.down { bottom: 24px; }
+      .hand-scroll-indicator svg {
+        width: 24px;
+        height: 24px;
+        animation: handScrollBounce 1.6s ease-in-out infinite;
+      }
+      .hand-scroll-indicator.up svg {
+        animation-direction: reverse;
+      }
+      @keyframes handScrollBounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(6px); }
+      }
+
+      /* Hidden webcam video for hand tracking */
+      .hand-webcam {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
     </style>
   </head>
   <body>
@@ -1665,6 +1827,88 @@
                 class="btn btn--ghost"
               >
                 Preview Soon
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                  />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+              </a>
+              <a
+                href="https://github.com/PsReader"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn--ghost"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                  />
+                </svg>
+                Source Code
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Origami AR -->
+        <article class="project-card reveal stagger-3" id="project-origami">
+          <div class="project-chrome" aria-hidden="true">
+            <span class="dot dot--close"></span>
+            <span class="dot dot--min"></span>
+            <span class="dot dot--max"></span>
+            <div class="chrome-address">
+              <span class="chrome-url">Origami AR / Live Prototype</span>
+            </div>
+          </div>
+          <div class="project-viewport project-viewport--origami">
+            <div class="project-badge" aria-hidden="true">
+              <span>New</span>
+            </div>
+            <svg viewBox="0 0 640 360" role="img" aria-label="Origami AR preview">
+              <rect width="640" height="360" rx="32" fill="#050816" />
+              <rect x="40" y="42" width="560" height="276" rx="24" fill="#0d1328" stroke="#23314e" stroke-width="2" />
+              <circle cx="220" cy="170" r="88" fill="url(#origamiGlow)" opacity="0.9" />
+              <path d="M316 132c24-34 74-45 110-20 34 23 42 70 20 106-18 29-46 51-89 53-34 1-63-14-80-42-14-22-16-48-4-71 7-12 18-20 43-26Z" fill="#1f2d4f" stroke="#76e7ff" stroke-width="2" />
+              <path d="M228 148c27 12 44 36 46 70" stroke="#7df7ff" stroke-width="3" stroke-linecap="round" />
+              <path d="M305 106c12 14 18 31 17 48" stroke="#8d8cff" stroke-width="3" stroke-linecap="round" />
+              <path d="M412 118c18 21 28 48 28 78" stroke="#8d8cff" stroke-width="3" stroke-linecap="round" />
+              <circle cx="373" cy="144" r="8" fill="#7df7ff" />
+              <circle cx="301" cy="108" r="7" fill="#7df7ff" />
+              <circle cx="446" cy="200" r="10" fill="#7df7ff" />
+              <defs>
+                <linearGradient id="origamiGlow" x1="135" y1="100" x2="303" y2="250" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#7df7ff" />
+                  <stop offset="100%" stop-color="#6366f1" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="project-body">
+            <h3 class="project-name">Origami AR</h3>
+            <p class="project-tech">React · Vite · Three.js · MediaPipe</p>
+            <p class="project-summary">
+              A browser-based hand-tracking experiment where shader-driven
+              materials react to finger landmarks in real time. Built as an
+              immersive, dark-glass interface for live artistic interaction.
+            </p>
+            <div class="project-cta">
+              <a
+                href="Origami%20AR/dist/index.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn--primary"
+              >
+                View Live Demo
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -2180,6 +2424,220 @@
           }
         });
       }
+    </script>
+
+    <!-- Hand cursor elements -->
+    <div class="hand-cursor" id="handCursor"></div>
+    <div class="hand-cursor-ring" id="handCursorRing"></div>
+    <button class="hand-toggle" id="handToggle" aria-label="Toggle hand tracking" title="Control with hand gestures">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 11V6a2 2 0 0 0-4 0v1"/>
+        <path d="M14 10V4a2 2 0 0 0-4 0v2"/>
+        <path d="M10 10.5V6a2 2 0 0 0-4 0v8"/>
+        <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>
+      </svg>
+    </button>
+    <div class="hand-status" id="handStatus">
+      <span class="hand-status-dot" id="handStatusDot"></span>
+      <span id="handStatusText">Initializing…</span>
+    </div>
+    <video class="hand-webcam" id="handWebcam" autoplay playsinline muted></video>
+
+    <script type="module">
+      // ===================================================================
+      // HAND TRACKING ON PORTFOLIO — MediaPipe HandLandmarker
+      // ===================================================================
+      const handToggle = document.getElementById('handToggle');
+      const handCursor = document.getElementById('handCursor');
+      const handCursorRing = document.getElementById('handCursorRing');
+      const handStatus = document.getElementById('handStatus');
+      const handStatusDot = document.getElementById('handStatusDot');
+      const handStatusText = document.getElementById('handStatusText');
+      const handWebcam = document.getElementById('handWebcam');
+
+      let handActive = false;
+      let handLandmarker = null;
+      let handRaf = null;
+      let prevPalmY = null;
+      let pinchState = false;
+      let smoothX = 0.5, smoothY = 0.5;
+      let lastClickTime = 0;
+      let hoveredEl = null;
+
+      async function initHandTracking() {
+        handStatus.classList.add('visible');
+        handStatusText.textContent = 'Loading MediaPipe…';
+
+        try {
+          const { FilesetResolver, HandLandmarker } = await import(
+            'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/+esm'
+          );
+
+          const vision = await FilesetResolver.forVisionTasks(
+            'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm'
+          );
+
+          handStatusText.textContent = 'Loading hand model…';
+
+          handLandmarker = await HandLandmarker.createFromOptions(vision, {
+            baseOptions: {
+              modelAssetPath:
+                'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task',
+              delegate: 'CPU',
+            },
+            runningMode: 'VIDEO',
+            numHands: 1,
+            minHandDetectionConfidence: 0.5,
+            minHandPresenceConfidence: 0.5,
+            minTrackingConfidence: 0.5,
+          });
+
+          // Start webcam
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: { width: 640, height: 480, facingMode: 'user' },
+          });
+          handWebcam.srcObject = stream;
+          await handWebcam.play();
+
+          handStatusText.textContent = 'Hand tracking active';
+          handStatusDot.classList.add('tracking');
+          handCursor.classList.add('visible');
+          handCursorRing.classList.add('visible');
+
+          startHandLoop();
+        } catch (err) {
+          handStatusText.textContent = 'Error: ' + (err.message || 'Failed');
+          console.error('Hand tracking init error:', err);
+        }
+      }
+
+      function stopHandTracking() {
+        if (handRaf) cancelAnimationFrame(handRaf);
+        handRaf = null;
+        if (handWebcam.srcObject) {
+          handWebcam.srcObject.getTracks().forEach(t => t.stop());
+          handWebcam.srcObject = null;
+        }
+        if (handLandmarker) {
+          handLandmarker.close();
+          handLandmarker = null;
+        }
+        handCursor.classList.remove('visible', 'pinching');
+        handCursorRing.classList.remove('visible');
+        handStatus.classList.remove('visible');
+        handStatusDot.classList.remove('tracking');
+        prevPalmY = null;
+        if (hoveredEl) {
+          hoveredEl.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
+          hoveredEl = null;
+        }
+      }
+
+      function startHandLoop() {
+        const detect = () => {
+          if (!handLandmarker || !handWebcam.videoWidth) {
+            handRaf = requestAnimationFrame(detect);
+            return;
+          }
+
+          const result = handLandmarker.detectForVideo(handWebcam, performance.now());
+          const hands = result.landmarks || [];
+
+          if (hands.length > 0) {
+            const lm = hands[0];
+            // Index tip = landmark 8
+            const indexTip = lm[8];
+            // Thumb tip = landmark 4
+            const thumbTip = lm[4];
+            // Wrist = landmark 0, Middle MCP = 9 (for palm center)
+            const wrist = lm[0];
+            const midMcp = lm[9];
+
+            // Smooth cursor position (mirror X since webcam is mirrored)
+            const rawX = 1 - indexTip.x;
+            const rawY = indexTip.y;
+            smoothX += (rawX - smoothX) * 0.35;
+            smoothY += (rawY - smoothY) * 0.35;
+
+            const screenX = smoothX * window.innerWidth;
+            const screenY = smoothY * window.innerHeight;
+
+            handCursor.style.left = screenX + 'px';
+            handCursor.style.top = screenY + 'px';
+            handCursorRing.style.left = screenX + 'px';
+            handCursorRing.style.top = screenY + 'px';
+
+            handStatusText.textContent = 'Hand detected — tracking';
+
+            // === Hover effect ===
+            const elUnder = document.elementFromPoint(screenX, screenY);
+            const interactive = elUnder?.closest('a, button, .project-card, .stack-item');
+            if (interactive !== hoveredEl) {
+              if (hoveredEl) hoveredEl.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
+              hoveredEl = interactive || null;
+              if (hoveredEl) hoveredEl.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+            }
+
+            // === Pinch detection (thumb tip to index tip) ===
+            const pinchDist = Math.sqrt(
+              (thumbTip.x - indexTip.x) ** 2 +
+              (thumbTip.y - indexTip.y) ** 2
+            );
+            const isPinching = pinchDist < 0.06;
+
+            if (isPinching && !pinchState) {
+              pinchState = true;
+              handCursor.classList.add('pinching');
+
+              // Trigger click with debounce
+              const now = Date.now();
+              if (now - lastClickTime > 600) {
+                lastClickTime = now;
+                if (elUnder) {
+                  // Find the nearest clickable element
+                  const clickTarget = elUnder.closest('a, button') || elUnder;
+                  clickTarget.click();
+                }
+              }
+            } else if (!isPinching && pinchState) {
+              pinchState = false;
+              handCursor.classList.remove('pinching');
+            }
+
+            // === Scroll via palm vertical movement ===
+            const palmY = (wrist.y + midMcp.y) / 2;
+            if (prevPalmY !== null) {
+              const deltaY = palmY - prevPalmY;
+              // Only scroll if significant vertical movement
+              if (Math.abs(deltaY) > 0.004) {
+                window.scrollBy({
+                  top: deltaY * 2200,
+                  behavior: 'auto',
+                });
+              }
+            }
+            prevPalmY = palmY;
+
+          } else {
+            handStatusText.textContent = 'No hand — show your hand';
+            prevPalmY = null;
+          }
+
+          handRaf = requestAnimationFrame(detect);
+        };
+
+        handRaf = requestAnimationFrame(detect);
+      }
+
+      handToggle?.addEventListener('click', () => {
+        handActive = !handActive;
+        handToggle.classList.toggle('active', handActive);
+        if (handActive) {
+          initHandTracking();
+        } else {
+          stopHandTracking();
+        }
+      });
     </script>
   </body>
 </html>
