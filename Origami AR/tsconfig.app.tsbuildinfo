@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/components/ambientbackground.tsx","./src/components/routingpanel.tsx","./src/hooks/usehands.ts","./src/hooks/usewebcam.ts","./src/scene/handscene.tsx","./src/shaders/buildshadermaterial.ts","./src/shaders/shaderregistry.ts"],"version":"5.9.3"}
