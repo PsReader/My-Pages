@@ -1,0 +1,44 @@
+<svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&amp;display=swap');
+    .wordmark { font-family: 'Space Grotesk', 'Century Gothic', 'Trebuchet MS', sans-serif; }
+  </style>
+
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="42%" r="75%">
+      <stop offset="0%" stop-color="#202A52"/>
+      <stop offset="100%" stop-color="#0B0E1C"/>
+    </radialGradient>
+  </defs>
+
+  <!-- ===== Background ===== -->
+  <rect x="0" y="0" width="400" height="320" fill="url(#bgGrad)"/>
+
+  <!-- ===== AR viewfinder corner brackets ===== -->
+  <g stroke="#2DD4BF" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 55 42 L 55 15 L 82 15"/>
+    <path d="M 318 15 L 345 15 L 345 42"/>
+    <path d="M 345 215 L 345 242 L 318 242"/>
+    <path d="M 82 242 L 55 242 L 55 215"/>
+  </g>
+
+  <!-- ===== Origami crane: filled facets, tail (dark indigo) sweeping to beak (bright teal) ===== -->
+  <g stroke="#5EEAD4" stroke-width="2" stroke-linejoin="round" stroke-opacity="0.9">
+    <polygon points="70,190 135,60 155,100" fill="#232C55"/>
+    <polygon points="160,185 105,185 70,190 155,100" fill="#253F72"/>
+    <polygon points="200,35 155,100 160,185 210,195" fill="#1C6178"/>
+    <polygon points="200,35 250,105 260,160 210,195" fill="#14847C"/>
+    <polygon points="250,105 285,55 260,160" fill="#16A897"/>
+    <polygon points="285,55 335,100 295,90 260,160" fill="#2DD4BF"/>
+  </g>
+  <!-- outer edge, kept crisp against the dark background -->
+  <path d="M 70 190 L 135 60 L 155 100 L 200 35 L 250 105 L 285 55 L 335 100 L 295 90 L 260 160 L 210 195 L 105 185 Z"
+        fill="none" stroke="#5EEAD4" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- ===== Wordmark ===== -->
+  <text class="wordmark" x="200" y="288" text-anchor="middle" font-size="34" font-weight="700" letter-spacing="2">
+    <tspan fill="#F5F7FA">ORIGAMI </tspan><tspan fill="#2DD4BF">AR</tspan>
+  </text>
+
+</svg>
