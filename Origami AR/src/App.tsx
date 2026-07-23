@@ -20,9 +20,12 @@ const jointOptions = [
 /* Palm = average of wrist(0) + finger MCP joints (5,9,13,17) */
 const palmJoints = [0, 5, 9, 13, 17];
 
-function computePalmCenter(handLandmarks: Array<{ x: number; y: number; z?: number }>) {
+function computePalmCenter(
+  handLandmarks: Array<{ x: number; y: number; z?: number }>,
+) {
   if (!handLandmarks || handLandmarks.length < 21) return null;
-  let sx = 0, sy = 0;
+  let sx = 0,
+    sy = 0;
   for (const idx of palmJoints) {
     const lm = handLandmarks[idx];
     if (!lm) return null;
@@ -33,7 +36,9 @@ function computePalmCenter(handLandmarks: Array<{ x: number; y: number; z?: numb
   return { x: sx / palmJoints.length, y: sy / palmJoints.length };
 }
 
-function computePinchDistance(handLandmarks: Array<{ x: number; y: number; z?: number }>) {
+function computePinchDistance(
+  handLandmarks: Array<{ x: number; y: number; z?: number }>,
+) {
   if (!handLandmarks || handLandmarks.length < 21) return 1;
   const thumb = handLandmarks[4];
   const index = handLandmarks[8];
