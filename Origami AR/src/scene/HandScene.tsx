@@ -84,9 +84,8 @@ export function HandScene({
 
     activeHands.forEach((handLandmarks, handIndex) => {
       const handGroup = handGroupRefs.current[handIndex];
-      const offsetX = handIndex === 0 ? -0.38 : 0.38;
       if (handGroup) {
-        handGroup.position.lerp(new THREE.Vector3(offsetX, 0, 0), 0.24);
+        handGroup.position.lerp(new THREE.Vector3(0, 0, 0), 0.24);
       }
 
       const positionsForHand: Array<THREE.Vector3> = [];
@@ -102,14 +101,14 @@ export function HandScene({
         const fallbackTarget =
           prev?.clone() ??
           new THREE.Vector3(
-            offsetX,
+            0,
             10, // offscreen above viewport
             -2,
           );
 
         const target = landmark
           ? new THREE.Vector3(
-              (0.5 - landmark.x) * worldScaleX + offsetX,
+              (landmark.x - 0.5) * worldScaleX,
               (0.5 - landmark.y) * worldScaleY,
               (landmark.z ?? 0) * 0.35,
             )
