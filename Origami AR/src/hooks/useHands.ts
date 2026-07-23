@@ -88,8 +88,16 @@ export function useHands(videoRef: RefObject<HTMLVideoElement>) {
 
     const normalizeHandedness = (value: string | undefined) => {
       const normalized = value?.toLowerCase() ?? "";
-      if (normalized.startsWith("l")) return "Left";
-      if (normalized.startsWith("r")) return "Right";
+      const rawLabel = normalized.startsWith("l")
+        ? "Left"
+        : normalized.startsWith("r")
+          ? "Right"
+          : "unknown";
+      // For a front-facing camera, MediaPipe reports the hand relative to the
+      // camera image. To keep the app aligned with the user's perspective,
+      // swap left/right labels here.
+      if (rawLabel === "Left") return "Right";
+      if (rawLabel === "Right") return "Left";
       return "unknown";
     };
 
@@ -120,8 +128,8 @@ export function useHands(videoRef: RefObject<HTMLVideoElement>) {
       const xBias = hand.landmarks[0]?.x ?? 0.5;
       const sidePenalty =
         slotIndex === 0
-          ? Math.max(0, xBias - 0.5) * 0.2
-          : Math.max(0, 0.5 - xBias) * 0.2;
+          ? Math.max(0, 0.5 - xBias) * 0.2
+          : Math.max(0, xBias - 0.5) * 0.2;
       return handednessPenalty + prevPenalty + sidePenalty;
     };
 
@@ -140,9 +148,11 @@ export function useHands(videoRef: RefObject<HTMLVideoElement>) {
       const slotLabel = (index: number, hand: { handedness: string }) =>
         hand.handedness !== "unknown"
           ? (hand.handedness as HandednessLabel)
-          : index === 0
-            ? "Left"
-            : "Right";
+          : previousLabels[index] !== "unknown"
+            ? previousLabels[index]
+            : index === 0
+              ? "Left"
+              : "Right";
 
       if (rawHands.length === 1) {
         const hand = rawHands[0];
@@ -161,7 +171,7 @@ export function useHands(videoRef: RefObject<HTMLVideoElement>) {
             : Infinity;
           slotIndex = leftDist <= rightDist ? 0 : 1;
           if (!previousHands[0]?.length && !previousHands[1]?.length) {
-            slotIndex = (hand.landmarks[0]?.x ?? 0.5) < 0.5 ? 0 : 1;
+            slotIndex = (hand.landmarks[0]?.x ?? 0.5) < 0.5 ? 1 : 0;
           }
         }
 
@@ -256,7 +266,8 @@ export function useHands(videoRef: RefObject<HTMLVideoElement>) {
           lostFrameCountRef.current[handIndex] += 1;
           // Decay: progressively shrink landmarks toward center-offscreen
           // so the hand visually fades out instead of sticking as a ghost
-          const decay = 1 - lostFrameCountRef.current[handIndex] / maxLostFrames;
+          const decay =
+            1 - lostFrameCountRef.current[handIndex] / maxLostFrames;
           nextLandmarks[handIndex] = prevHand.map((lm) => ({
             x: 0.5 + (lm.x - 0.5) * decay,
             y: 0.5 + (lm.y - 0.5) * decay,
