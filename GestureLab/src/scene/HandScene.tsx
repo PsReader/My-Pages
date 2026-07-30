@@ -70,7 +70,7 @@ export function HandScene({
     ...Array(maxHands - landmarks.length).fill([]),
   ];
 
-  useFrame(({ clock, size, camera }) => {
+  useFrame(({ clock, size }) => {
     const group = groupRef.current;
     if (!group) return;
 
