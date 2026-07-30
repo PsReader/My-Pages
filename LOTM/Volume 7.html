@@ -1,0 +1,345 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Merriweather:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideInDown {
+        from {
+          transform: translateY(-20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideInUp {
+        from {
+          transform: translateY(15px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      body {
+        background:
+          linear-gradient(
+            135deg,
+            rgba(20, 10, 25, 0.95),
+            rgba(40, 20, 50, 0.95)
+          ),
+          url("images/crimson moon.webp");
+        background-attachment: fixed;
+        color: #d4af9f;
+        font-family: "Libre Baskerville", "Merriweather", Georgia, serif;
+      }
+
+      h1 {
+        color: #e8c8b8;
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+        margin: 30px 0 20px;
+        animation: slideInDown 0.6s ease-out;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+      }
+
+      h2 {
+        color: #d4af9f;
+        font-size: 2rem;
+        font-weight: 600;
+        margin: 30px 0 15px;
+        padding: 15px;
+        background-color: rgba(212, 175, 159, 0.1);
+        border-left: 3px solid rgba(212, 175, 159, 0.5);
+        border-radius: 4px;
+        animation: slideInUp 0.4s ease-out;
+        transition: all 0.3s ease;
+      }
+
+      h2:hover {
+        background-color: rgba(212, 175, 159, 0.15);
+        border-left-color: rgba(212, 175, 159, 0.8);
+        transform: translateX(5px);
+      }
+
+      p {
+        color: #d4af9f;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin: 15px 0;
+        opacity: 0.95;
+      }
+
+      hr {
+        border: none;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(212, 175, 159, 0.5),
+          transparent
+        );
+        margin: 20px auto;
+      }
+
+      div {
+        animation: fadeIn 0.5s ease-out;
+      }
+
+      /* ===== BACK BUTTON ===== */
+      .back-button {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: rgba(212, 175, 159, 0.15);
+        border: 2px solid rgba(212, 175, 159, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
+        animation: slideInDown 0.6s ease-out;
+      }
+
+      .back-button:hover {
+        background-color: rgba(212, 175, 159, 0.25);
+        border-color: rgba(212, 175, 159, 0.8);
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(212, 175, 159, 0.3);
+      }
+
+      .back-button a {
+        color: #d4af9f;
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        transition: color 0.3s ease;
+      }
+
+      .back-button:hover a {
+        color: #e8c8b8;
+      }
+
+      .topnav {
+        overflow: hidden;
+        background: rgba(212, 175, 159, 0.1);
+        border: 1px solid rgba(212, 175, 159, 0.3);
+        border-radius: 6px;
+        animation: slideInDown 0.6s ease-out;
+        margin: 20px 0;
+      }
+
+      .topnav a {
+        float: left;
+        display: block;
+        color: #d4af9f;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        font-size: 0.95rem;
+      }
+
+      .topnav a:hover {
+        background-color: rgba(212, 175, 159, 0.2);
+        border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+        color: #e8c8b8;
+      }
+
+      .topnav a.active-page {
+        background-color: rgba(212, 175, 159, 0.2);
+        border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+        color: #e8c8b8;
+      }
+
+      .button {
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      .button1 {
+        background-color: rgba(212, 175, 159, 0.15);
+        color: #d4af9f;
+        border: 1px solid rgba(212, 175, 159, 0.4);
+        padding: 10px 20px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      .button1:hover {
+        background-color: rgba(212, 175, 159, 0.25);
+        color: #e8c8b8;
+        border-color: rgba(212, 175, 159, 0.8);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(212, 175, 159, 0.2);
+      }
+
+      @media (max-width: 480px) {
+        .back-button {
+          width: 45px;
+          height: 45px;
+          top: 15px;
+          right: 15px;
+        }
+
+        .back-button a {
+          font-size: 1.5rem;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        h2 {
+          font-size: 1.3rem;
+        }
+
+        p {
+          font-size: 1rem;
+        }
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Merriweather", "Libre Baskerville", Georgia, serif;
+      }
+    </style>
+    <link rel="stylesheet" href="css/dynamic-styles.css" />
+  </head>
+  <body align="center" background="images/crimson moon.webp">
+    <div class="topnav">
+      <a href="LOTMhome.html">Home</a>
+      <a href="Mc_Profile.html">MC</a>
+      <a href="Novel.html">Novel</a>
+      <a href="Author.html">Author</a>
+      <a href="Songs.html">Songs</a>
+    </div>
+
+    <button id="scrollToTop">↑</button>
+
+    <h1 style="color: #ffc300; font-size: 60px">
+      <b>Volume 7: The Hanged Man</b>
+    </h1>
+    <hr />
+    <a href="Novel.html"><button class="button button1">Back</button></a>
+    <div style="max-width: 1000px; margin: 0 auto; padding: 0 20px">
+      <h2>Quote</h2>
+      <p align="left">
+        <i>The Hanged Man is sacrifice and perspective.</i> — Cuttlefish That
+        Loves Diving
+      </p>
+
+      <h2>Overview</h2>
+      <p align="left">
+        <b>The Hanged Man</b> is the seventh volume of the Lord of Mysteries
+        series.
+      </p>
+
+      <h2>Title Meaning</h2>
+      <p align="left">
+        The Hanged Man represents sacrifice, perspective, and reversal of fate
+        as characters confront their destinies.
+      </p>
+
+      <h2>Synopsis</h2>
+
+      <h3>The Final Trials</h3>
+      <p align="left">
+        Klein faces unprecedented challenges as the stakes reach their highest
+        point. The world trembles as forces far beyond mortal comprehension
+        begin to awaken from their ancient slumber.
+      </p>
+
+      <h3>Secrets of the World</h3>
+      <p align="left">
+        The mystery of the world deepens as ancient secrets long buried and
+        forgotten powers resurface. Klein must confront truths that challenge
+        his very existence and understanding of reality.
+      </p>
+
+      <h3>Reversal of Fate</h3>
+      <p align="left">
+        Faced with seemingly impossible odds, Klein must overturn the destiny
+        that has been written for him. His will and cunning are tested to their
+        absolute limits as he fights against the very fabric of fate itself.
+      </p>
+    </div>
+
+    <hr />
+    <a href="Novel.html"><button class="button button1">Back</button></a>
+    <a href="LOTMhome.html"><button class="button button1">Home</button></a>
+    <hr />
+
+    <!-- Professional Footer with Disclaimer -->
+    <footer
+      style="
+        background-color: rgba(212, 175, 159, 0.1);
+        border-top: 1px solid rgba(212, 175, 159, 0.3);
+        margin-top: 40px;
+        padding: 30px 20px;
+        text-align: center;
+        animation: slideInUp 0.5s ease-out;
+      "
+    >
+      <p style="margin: 10px 0; font-size: 0.95rem; color: #d4af9f">
+        &copy; 2026 PsReader's LOTM Fan Project. All rights reserved.
+      </p>
+      <p style="margin: 10px 0; font-size: 0.9rem; color: #c49a7f">
+        <strong>Disclaimer:</strong> This is an unofficial fan project created
+        for educational and entertainment purposes.
+        <i>"Lord of the Mysteries"</i> and all associated intellectual property
+        are the original works of
+        <strong>Cuttlefish That Loves Diving</strong> and published by
+        <strong>Qidian</strong>. No copyright infringement is intended.
+      </p>
+      <p style="margin: 10px 0; font-size: 0.85rem; color: #a87968">
+        Built with passion by an aspiring web developer |
+        <a
+          href="LOTMhome.html"
+          style="color: #d4af9f; text-decoration: none; transition: color 0.3s"
+          >Back to Home</a
+        >
+      </p>
+    </footer>
+  </body>
+</html>
+<script src="js/script.js"></script>

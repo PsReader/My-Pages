@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="100%" height="100%">
+  <defs>
+    <!-- Deep Midnight Gradient for Pages -->
+    <linearGradient id="pageBgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#241931" />
+      <stop offset="100%" stop-color="#111625" />
+    </linearGradient>
+
+    <!-- Glowing Blue/Indigo Sweep Gradient -->
+    <linearGradient id="sweepGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#703eff" />
+      <stop offset="50%" stop-color="#49d9ff" />
+      <stop offset="100%" stop-color="#9bf2ff" />
+    </linearGradient>
+
+    <!-- Star Glow Gradient -->
+    <linearGradient id="starGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3ab0ff" />
+      <stop offset="100%" stop-color="#eefdff" />
+    </linearGradient>
+
+    <!-- Front Sheet Neon Border Gradient -->
+    <linearGradient id="neonBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff" />
+      <stop offset="100%" stop-color="#7000ff" />
+    </linearGradient>
+
+    <!-- Premium Soft Shadow Filter -->
+    <filter id="smoothShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#000000" flood-opacity="0.65" />
+    </filter>
+
+    <!-- Outer Ambient Glow Filter for Main Spark -->
+    <filter id="ambientGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur1" />
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur1" />
+        <feMergeNode in="blur2" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Group with shadow applied to the entire composition -->
+  <g filter="url(#smoothShadow)">
+
+    <!-- ==================== BACKGROUND SHEET ==================== -->
+    <rect x="75" y="55" width="160" height="225" rx="32" 
+          fill="url(#pageBgGradient)" 
+          stroke="rgba(255, 255, 255, 0.08)" 
+          stroke-width="1.5" />
+
+    <!-- ==================== FOREGROUND SHEET ==================== -->
+    <rect x="40" y="80" width="160" height="225" rx="32" 
+          fill="url(#pageBgGradient)" 
+          stroke="url(#neonBorder)" 
+          stroke-width="2.5" />
+
+    <!-- Rule lines inside the writing pad -->
+    <line x1="80" y1="145" x2="160" y2="145" stroke="#16314f" stroke-width="6" stroke-linecap="round" />
+    <line x1="80" y1="185" x2="160" y2="185" stroke="#16314f" stroke-width="6" stroke-linecap="round" />
+    <line x1="80" y1="225" x2="160" y2="225" stroke="#16314f" stroke-width="6" stroke-linecap="round" />
+
+    <!-- ==================== DYNAMIC SWEEP LINE ==================== -->
+    <path d="M 12 265 C 45 305, 125 305, 160 250 C 185 210, 178 140, 182 85" 
+          fill="none" 
+          stroke="url(#sweepGradient)" 
+          stroke-width="6" 
+          stroke-linecap="round" />
+
+    <!-- ==================== SPARKS / STARS ==================== -->
+    
+    <!-- Small Spark (Sitting on the Sweep Line) -->
+    <!-- Centered at x="145", y="115" -->
+    <g transform="translate(145, 115) scale(0.65)">
+      <path d="M 0 -30 Q 0 0 30 0 Q 0 0 0 30 Q 0 0 -30 0 Q 0 0 0 -30 Z" 
+            fill="#49d9ff" 
+            filter="url(#ambientGlow)" />
+    </g>
+
+    <!-- Large Spark (Top Right Inspiration Burst) -->
+    <!-- Centered at x="215", y="75" -->
+    <g transform="translate(215, 75) scale(1.15)">
+      <!-- Outer soft light aura -->
+      <circle cx="0" cy="0" r="28" fill="#49d9ff" opacity="0.3" filter="url(#ambientGlow)" />
+      <!-- Star shape -->
+      <path d="M 0 -35 Q 0 0 35 0 Q 0 0 0 35 Q 0 0 -35 0 Q 0 0 0 -35 Z" 
+            fill="url(#starGradient)" 
+            filter="url(#ambientGlow)" />
+    </g>
+
+  </g>
+</svg>
