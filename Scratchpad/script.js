@@ -161,6 +161,43 @@ function renderThemeMenu() {
 function applyTheme(themeName) {
   activeTheme = themeName;
   document.body.setAttribute("data-theme", themeName);
+  // Use the preferred pine SVG for the forest theme (pine1 only).
+  // Generate a randomized SVG pattern so trees don't line up in a grid.
+  if (themeName === "forest-quiet") {
+    try {
+      // Place multiple copies of the pine image at random positions
+      // Density scales with viewport area to feel like a forest
+      const area = window.innerWidth * window.innerHeight;
+      // Denser forest: smaller divisor => more trees. Scaled to viewport area.
+      const rawCount = Math.round(area / 12000);
+      const count = Math.max(60, Math.min(400, rawCount));
+
+      const urls = new Array(count).fill('url("images/pine1.svg")').join(", ");
+      // positions as percentages, biased so more trees appear toward center and edges
+      const positions = new Array(count)
+        .fill(0)
+        .map(() => {
+          const px = Math.round(Math.pow(Math.random(), 0.9) * 100); // slight bias
+          const py = Math.round(Math.pow(Math.random(), 0.95) * 100);
+          return `${Math.max(2, Math.min(98, px))}% ${Math.max(2, Math.min(98, py))}%`;
+        })
+        .join(", ");
+      // sizes smaller when denser
+      const sizes = new Array(count)
+        .fill(0)
+        .map(() => `${Math.round(40 + Math.random() * 70)}px`)
+        .join(", ");
+
+      document.body.style.setProperty("--forest-svg", urls);
+      document.body.style.setProperty("--forest-positions", positions);
+      document.body.style.setProperty("--forest-sizes", sizes);
+      document.body.style.setProperty("--forest-repeat", "no-repeat");
+    } catch (e) {
+      document.body.style.removeProperty("--forest-svg");
+    }
+  } else {
+    document.body.style.removeProperty("--forest-svg");
+  }
   if (themeValue) {
     const selectedTheme = themes.find((theme) => theme.value === themeName);
     themeValue.textContent = selectedTheme ? selectedTheme.label : themeName;
@@ -186,6 +223,34 @@ function loadNotes() {
     console.error("Unable to load notes", error);
     return [];
   }
+}
+
+// Build a small SVG sprite containing several copies of the pine SVG
+// placed at randomized positions. Returned value is a CSS `url(...)`
+function generateForestPattern({
+  width = 800,
+  height = 500,
+  count = 10,
+  treeWidth = 100,
+  treeHeight = 120,
+  src = "images/pine1.svg",
+} = {}) {
+  const nodes = [];
+  for (let i = 0; i < count; i++) {
+    const x = Math.round(Math.random() * (width - treeWidth));
+    const y = Math.round(Math.random() * (height - treeHeight));
+    const scaleJitter = 0.85 + Math.random() * 0.4; // vary sizes a bit
+    const w = Math.round(treeWidth * scaleJitter);
+    const h = Math.round(treeHeight * scaleJitter);
+    const opacity = 0.55 + Math.random() * 0.35;
+    nodes.push(
+      `<image href="${src}" x="${x}" y="${y}" width="${w}" height="${h}" opacity="${opacity}" />`,
+    );
+  }
+
+  const svg = `<?xml version="1.0" encoding="utf-8"?><svg xmlns='http://www.w3.org/2000/svg' width='${width}' height='${height}' viewBox='0 0 ${width} ${height}'>${nodes.join("\n")}</svg>`;
+  const data = `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+  return `url("${data}")`;
 }
 
 function saveNotes() {
