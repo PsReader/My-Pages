@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" width="200" height="240">
+  <!-- Trunk -->
+  <rect x="40" y="90" width="20" height="30" fill="#5D4037" rx="2" />
+  <rect x="50" y="90" width="10" height="30" fill="#4E342E" />
+  
+  <!-- Bottom Layer -->
+  <polygon points="10,95 50,45 90,95" fill="#2E7D32" />
+  <polygon points="50,95 50,45 90,95" fill="#1B5E20" />
+  
+  <!-- Middle Layer -->
+  <polygon points="20,70 50,25 80,70" fill="#388E3C" />
+  <polygon points="50,70 50,25 80,70" fill="#2E7D32" />
+  
+  <!-- Top Layer -->
+  <polygon points="30,45 50,5 70,45" fill="#4CAF50" />
+  <polygon points="50,45 50,5 70,45" fill="#388E3C" />
+</svg>
