@@ -43,20 +43,6 @@ A compact personal workspace for notes and ideas, complete with theme options an
 - `index.html` — a demo hub landing page for showcasing the projects
 - `portfolio.html` — a more personal portfolio-style presentation
 
-## How to Explore
-
-Most of the static projects can be opened directly in a browser. If you want to run the React-based experience, use the GestureLab folder and start it locally with:
-
-```bash
-npm install
-npm run dev
-```
-
-## Quick Notes
-
-- `Pudding Paradise` and `Scratchpad` are best viewed by opening their HTML files in a browser.
-- `GestureLab` requires Node.js and a local Vite setup.
-
 ## License
 
 This workspace and its projects are available under the MIT License unless otherwise noted in individual project folders.
