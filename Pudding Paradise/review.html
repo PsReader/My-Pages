@@ -186,50 +186,6 @@
         gap: 16px;
       }
 
-      .back-button {
-        width: clamp(38px, 6vw, 54px);
-        height: clamp(38px, 6vw, 54px);
-        border-radius: 50%;
-        background: linear-gradient(
-          135deg,
-          var(--main-purple),
-          var(--light-purple)
-        );
-        border: 2px solid var(--main-purple);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 15px rgba(142, 107, 150, 0.3);
-        animation: floatPulse 4s ease-in-out infinite alternate;
-        text-decoration: none;
-      }
-
-      .back-button:hover {
-        background: linear-gradient(
-          135deg,
-          var(--light-purple),
-          var(--main-purple)
-        );
-        transform: scale(1.1) translateY(-3px);
-        box-shadow: 0 8px 20px rgba(142, 107, 150, 0.5);
-      }
-
-      .back-button,
-      .back-button a {
-        color: white;
-        font-size: clamp(1.2rem, 3vw, 2.4rem);
-        font-weight: bold;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-        line-height: 1;
-      }
-
       /* --- 3. TITLE SECTION --- */
       .page-title {
         padding: clamp(15px, 4vw, 50px) clamp(15px, 5vw, 70px);
@@ -799,8 +755,18 @@
 
       function loadReviews() {
         const stored = localStorage.getItem(STORAGE_KEY);
-        reviews = stored ? JSON.parse(stored) : initialReviews.slice();
-        if (!stored) {
+        if (stored) {
+          try {
+            reviews = JSON.parse(stored);
+            if (!Array.isArray(reviews)) {
+              reviews = initialReviews.slice();
+            }
+          } catch (e) {
+            reviews = initialReviews.slice();
+            saveReviews();
+          }
+        } else {
+          reviews = initialReviews.slice();
           saveReviews();
         }
         renderReviews();
@@ -829,19 +795,53 @@
         filteredReviews.forEach((review) => {
           const ratingStars =
             "★".repeat(review.stars) + "☆".repeat(5 - review.stars);
+          const safeAvatar = String(review.avatar || "P").replace(
+            /[^a-zA-Z0-9]/g,
+            "",
+          );
+          const avatarUrl = `https://placehold.co/50x50/purple/white?text=${encodeURIComponent(safeAvatar)}`;
+
           const reviewCard = document.createElement("div");
           reviewCard.className = "review-card";
-          reviewCard.innerHTML = `
-                <div class="review-header">
-                    <div class="avatar"><img src="https://placehold.co/50x50/purple/white?text=${review.avatar}" alt="${review.name}"></div>
-                    <div class="review-user-info">
-                        <div class="user-badge">${review.name}</div>
-                        <div class="stars">${ratingStars}</div>
-                    </div>
-                </div>
-                <div class="review-text">"${review.text}"</div>
-                <div class="review-date">${review.date}</div>
-            `;
+
+          const reviewHeader = document.createElement("div");
+          reviewHeader.className = "review-header";
+
+          const avatar = document.createElement("div");
+          avatar.className = "avatar";
+          const avatarImg = document.createElement("img");
+          avatarImg.src = avatarUrl;
+          avatarImg.alt = "Avatar";
+          avatar.appendChild(avatarImg);
+
+          const reviewUserInfo = document.createElement("div");
+          reviewUserInfo.className = "review-user-info";
+
+          const userBadge = document.createElement("div");
+          userBadge.className = "user-badge";
+          userBadge.textContent = review.name;
+
+          const stars = document.createElement("div");
+          stars.className = "stars";
+          stars.textContent = ratingStars;
+
+          reviewUserInfo.appendChild(userBadge);
+          reviewUserInfo.appendChild(stars);
+
+          reviewHeader.appendChild(avatar);
+          reviewHeader.appendChild(reviewUserInfo);
+
+          const reviewText = document.createElement("div");
+          reviewText.className = "review-text";
+          reviewText.textContent = `"${review.text}"`;
+
+          const reviewDate = document.createElement("div");
+          reviewDate.className = "review-date";
+          reviewDate.textContent = review.date;
+
+          reviewCard.appendChild(reviewHeader);
+          reviewCard.appendChild(reviewText);
+          reviewCard.appendChild(reviewDate);
           reviewList.appendChild(reviewCard);
         });
       }

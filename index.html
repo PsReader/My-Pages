@@ -7,7 +7,7 @@
       name="description"
       content="PsReader — Vocational school student specializing in responsive web layouts, semantic HTML, CSS, and vanilla JavaScript. Browse live projects and source code."
     />
-    <title>PsReader — Frontend Web Development Portfolio</title>
+    <title>PsReader — Live Demos Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,6 +15,30 @@
       rel="stylesheet"
     />
     <style>
+
+      .hero-subtitle {
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent-hover);
+        margin-bottom: 12px;
+        min-height: 1.4em;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      .hero-subtitle::after {
+        content: "|";
+        margin-left: 6px;
+        opacity: 0.8;
+        animation: blinkCaret 1s step-end infinite;
+      }
+
+      @keyframes blinkCaret {
+        0%, 100% { opacity: 0; }
+        50% { opacity: 1; }
+      }
       /* =================================================================
          RESET
          ================================================================= */
@@ -40,13 +64,11 @@
         /* Borders */
         --border: #21263a;
         --border-hover: #2f3652;
-        --border-active: #3d4563;
 
         /* Single accent — deep indigo */
-        --accent: #6366f1;
-        --accent-hover: #818cf8;
-        --accent-muted: rgba(99, 102, 241, 0.12);
-        --accent-glow: rgba(99, 102, 241, 0.08);
+        --accent: #881798;
+        --accent-hover: #b348c2;
+        --accent-muted: rgba(136, 23, 152, 0.12);
 
         /* Typography scale */
         --text-primary: #e8eaf0;
@@ -100,7 +122,7 @@
         height: 100%;
         background-image: radial-gradient(
           circle,
-          rgba(99, 102, 241, 0.09) 1px,
+          rgba(136, 23, 152, 0.09) 1px,
           transparent 1px
         );
         background-size: 32px 32px;
@@ -142,7 +164,7 @@
         max-width: var(--max-w);
         margin: 0 auto;
         padding: 0 24px;
-        height: 56px;
+        height: 72px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -159,8 +181,8 @@
       }
 
       .wordmark-avatar {
-        width: 28px;
-        height: 28px;
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
         object-fit: cover;
         border: 1.5px solid var(--border-hover);
@@ -173,21 +195,70 @@
         border-color: var(--accent);
         transform: scale(1.08);
       }
+      .wordmark-text {
+        color: var(--text-primary);
+      }
+      .wordmark-text:hover {
+        color: var(--accent-hover);
+      }
+
+      .wordmark-avatar-link {
+        display: inline-flex;
+        line-height: 0;
+        border-radius: 50%;
+      }
 
       .header-nav {
         display: flex;
-        align-items: center;
-        gap: 24px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        position: fixed;
+        top: 0;
+        right: -280px;
+        width: 260px;
+        height: 100vh;
+        height: 100dvh;
+        background: var(--bg-raised);
+        border-left: 1px solid var(--border);
+        padding: 104px 24px 32px;
+        z-index: 100;
+        transition: right 320ms var(--ease);
+      }
+      .header-nav.open {
+        right: 0;
       }
 
       .header-nav a {
-        font-size: 0.8125rem;
+        font-size: 0.9375rem;
         font-weight: 500;
         color: var(--text-tertiary);
-        transition: color 150ms var(--ease);
+        padding: 10px 12px;
+        width: 100%;
+        border-radius: var(--radius);
+        transition:
+          background 150ms var(--ease),
+          color 150ms var(--ease);
+        position: relative;
       }
       .header-nav a:hover {
+        background: var(--accent-muted);
         color: var(--text-primary);
+      }
+      .header-nav a.active {
+        color: var(--text-primary);
+      }
+      .header-nav a.active::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        right: 0;
+        height: 1.5px;
+        background: var(--accent);
+        border-radius: 2px;
+        transform: scaleX(1);
+        transform-origin: left;
       }
 
       .nav-gh {
@@ -201,6 +272,9 @@
         font-size: 0.8125rem;
         font-weight: 500;
         transition: all 180ms var(--ease);
+        margin-top: 16px;
+        width: 100%;
+        justify-content: center;
       }
       .nav-gh:hover {
         color: var(--text-primary);
@@ -223,10 +297,20 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 140px 24px 100px;
+        align-items: flex-start;
+        text-align: left;
+        padding: 120px 24px 80px;
         max-width: var(--max-w);
         margin: 0 auto;
         overflow: hidden;
+      }
+
+      @media (max-width: 900px) {
+        .hero {
+          align-items: center;
+          text-align: center;
+          padding: 120px 20px 80px;
+        }
       }
 
       /* Ambient glow behind hero content */
@@ -239,7 +323,7 @@
         height: 500px;
         background: radial-gradient(
           circle,
-          rgba(99, 102, 241, 0.06) 0%,
+          rgba(136, 23, 152, 0.06) 0%,
           transparent 70%
         );
         pointer-events: none;
@@ -256,11 +340,20 @@
         height: 400px;
         background: radial-gradient(
           circle,
-          rgba(139, 92, 246, 0.05) 0%,
+          rgba(136, 23, 152, 0.05) 0%,
           transparent 70%
         );
         pointer-events: none;
         z-index: 0;
+      }
+
+      .hero-spotlight {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(600px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(136, 23, 152, 0.08), transparent 50%);
+        pointer-events: none;
+        z-index: 0;
+        transition: background 300ms var(--ease);
       }
 
       .hero > * {
@@ -294,7 +387,7 @@
         line-height: 1.12;
         letter-spacing: -0.035em;
         margin-bottom: 24px;
-        max-width: 620px;
+        max-width: 60ch;
         /* Animated gradient text */
         background: linear-gradient(
           135deg,
@@ -323,9 +416,24 @@
         font-size: 1.0625rem;
         line-height: 1.75;
         color: var(--text-secondary);
-        max-width: 520px;
-        margin-bottom: 40px;
+        max-width: 52ch;
+        margin-bottom: 28px;
       }
+
+      /* Constrain hero content to the site grid */
+      .hero-content {
+        width: 100%;
+        max-width: 560px;
+        align-self: flex-start;
+        padding-left: 24px; /* matches header inner padding */
+        box-sizing: border-box;
+      }
+
+      @media (max-width: 900px) {
+        .hero-content { padding-left: 0; max-width: 92%; }
+      }
+
+      /* Helper visuals removed */
 
       .hero-cta {
         display: flex;
@@ -352,59 +460,6 @@
 
       body.scrolled .hero-scroll-fade {
         opacity: 0;
-      }
-
-      /* Scroll cue — animated line + label */
-      .scroll-cue {
-        position: absolute;
-        bottom: 40px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        color: var(--text-tertiary);
-        font-size: 0.625rem;
-        font-weight: 600;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: color 200ms var(--ease);
-        z-index: 3;
-      }
-      .scroll-cue:hover {
-        color: var(--text-secondary);
-      }
-
-      .scroll-cue-line {
-        width: 1px;
-        height: 36px;
-        position: relative;
-        overflow: hidden;
-        background: var(--border);
-      }
-      .scroll-cue-line::after {
-        content: "";
-        position: absolute;
-        top: -100%;
-        left: 0;
-        width: 1px;
-        height: 100%;
-        background: var(--accent);
-        animation: scrollPulse 2.4s var(--ease) infinite;
-      }
-
-      @keyframes scrollPulse {
-        0% {
-          top: -100%;
-        }
-        50% {
-          top: 100%;
-        }
-        100% {
-          top: 100%;
-        }
       }
 
       /* =================================================================
@@ -510,38 +565,32 @@
       }
 
       .project-list {
-        display: flex;
-        gap: 24px;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
-        scrollbar-width: none;
-        padding-bottom: 12px;
-        scroll-snap-stop: always;
-      }
-      .project-list::-webkit-scrollbar {
-        display: none;
-      }
-      
-      .project-list.animating {
-        scroll-behavior: auto;
+        overflow: hidden;
+        padding-inline: 12px;
       }
 
-      .project-card {
-        scroll-snap-align: start;
-        flex: 0 0 calc(100% - 24px);
-        min-width: 0;
+      .carousel-track {
+        display: flex;
+        gap: 24px;
+        padding-block-end: 16px;
       }
 
       @media (min-width: 768px) {
         .project-card {
           flex: 0 0 calc(50% - 12px);
+          max-width: none;
         }
       }
 
       @media (min-width: 1200px) {
         .project-card {
-          flex: 0 0 calc(33.333% - 16px);
+          flex: 0 0 calc(42% - 16px);
+        }
+      }
+
+      @media (min-width: 1600px) {
+        .project-card {
+          flex: 0 0 calc(38% - 16px);
         }
       }
 
@@ -611,10 +660,18 @@
       }
 
       .project-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border);
+        flex: 0 0 min(calc(100% - 24px), 460px);
+        max-width: min(100%, 460px);
+        min-width: 0;
+        transform-style: preserve-3d;
+        perspective: 1200px;
+        background: rgba(15, 18, 30, 0.78);
+        border: 1px solid rgba(255, 255, 255, 0.06);
         border-radius: var(--radius-xl);
         overflow: hidden;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
         transition:
           border-color 250ms var(--ease),
           box-shadow 350ms var(--ease),
@@ -624,6 +681,16 @@
 
       /* Accent glow on hover — top edge */
       .project-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        border-radius: inherit;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04), inset 0 24px 60px rgba(255,255,255,0.02);
+        opacity: 0.85;
+      }
+
+      .project-card::after {
         content: "";
         position: absolute;
         top: 0;
@@ -641,15 +708,33 @@
         z-index: 5;
       }
 
-      .project-card:hover {
-        border-color: var(--border-hover);
-        box-shadow:
-          0 12px 48px rgba(0, 0, 0, 0.4),
-          0 0 0 1px var(--border-hover),
-          0 0 60px rgba(99, 102, 241, 0.06);
-        transform: translateY(-5px);
+      .project-card-glow {
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        background: conic-gradient(from var(--glow-angle, 0deg), transparent 30%, var(--accent) 50%, transparent 70%);
+        opacity: 0;
+        z-index: 3;
+        pointer-events: none;
+        transition: opacity 400ms var(--ease);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        padding: 1px;
       }
-      .project-card:hover::before {
+      .project-card:hover .project-card-glow {
+        opacity: 1;
+      }
+
+      .project-card:hover {
+        border-color: rgba(255, 255, 255, 0.16);
+        box-shadow:
+          0 24px 70px rgba(0, 0, 0, 0.42),
+          0 0 0 1px rgba(255, 255, 255, 0.08),
+          0 0 72px rgba(136, 23, 152, 0.14);
+        transform: translateY(-12px) rotateY(1.2deg);
+      }
+      .project-card:hover::after {
         opacity: 1;
       }
 
@@ -849,8 +934,17 @@
       .btn--primary:hover {
         background: var(--accent-hover);
         color: #fff;
-        box-shadow: 0 4px 24px rgba(99, 102, 241, 0.25);
+        box-shadow: 0 4px 24px rgba(136, 23, 152, 0.25);
         transform: translateY(-2px);
+      }
+
+      .btn-ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.25);
+        pointer-events: none;
+        transform: translate(-50%, -50%) scale(0);
+        z-index: 0;
       }
 
       .btn--ghost {
@@ -1013,10 +1107,6 @@
           opacity 650ms var(--ease),
           transform 650ms var(--ease);
       }
-      .reveal.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
 
       .stagger-1 {
         transition-delay: 0.06s;
@@ -1053,11 +1143,11 @@
          MOBILE HAMBURGER MENU
          ================================================================= */
       .mobile-menu-toggle {
-        display: none;
+        display: inline-flex;
         background: none;
         border: 1px solid var(--border);
         border-radius: var(--radius);
-        padding: 6px 10px;
+        padding: 8px 12px;
         cursor: pointer;
         color: var(--text-secondary);
         transition: all 180ms var(--ease);
@@ -1069,8 +1159,8 @@
         background: var(--bg-card);
       }
       .mobile-menu-toggle svg {
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         display: block;
       }
 
@@ -1217,51 +1307,6 @@
           font-size: 0.8125rem;
         }
 
-        /* Mobile hamburger nav */
-        .mobile-menu-toggle {
-          display: flex;
-          align-items: center;
-        }
-
-        .header-nav {
-          position: fixed;
-          top: 0;
-          right: -280px;
-          width: 260px;
-          height: 100vh;
-          height: 100dvh;
-          background: var(--bg-raised);
-          border-left: 1px solid var(--border);
-          flex-direction: column;
-          align-items: flex-start;
-          padding: 80px 24px 32px;
-          gap: 8px;
-          z-index: 100;
-          transition: right 320ms var(--ease);
-        }
-        .header-nav.open {
-          right: 0;
-        }
-
-        .header-nav a {
-          font-size: 0.9375rem;
-          padding: 10px 12px;
-          width: 100%;
-          border-radius: var(--radius);
-          transition:
-            background 150ms var(--ease),
-            color 150ms var(--ease);
-        }
-        .header-nav a:hover {
-          background: var(--accent-muted);
-        }
-
-        .nav-gh {
-          margin-top: 16px;
-          width: 100%;
-          justify-content: center;
-        }
-
         .footer-inner {
           flex-direction: column;
           text-align: center;
@@ -1270,10 +1315,6 @@
 
         .footer-nav {
           justify-content: center;
-        }
-
-        .scroll-cue {
-          bottom: 24px;
         }
 
         .stack-grid {
@@ -1346,188 +1387,87 @@
         .project-body {
           padding: 14px 16px 18px;
         }
-
-        .scroll-cue {
-          display: none;
-        }
       }
       /* =================================================================
-         HAND TRACKING CURSOR
+         GHOST CURSOR — React Bits style trailing glow
          ================================================================= */
-      .hand-cursor {
+      .ghost-cursor {
         position: fixed;
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(99, 102, 241, 0.85) 0%, rgba(99, 102, 241, 0.2) 60%, transparent 100%);
-        border: 2px solid rgba(129, 140, 248, 0.7);
+        inset: 0;
+        z-index: 0;
         pointer-events: none;
-        z-index: 99999;
-        transform: translate(-50%, -50%);
-        transition: width 120ms ease, height 120ms ease, background 120ms ease, box-shadow 120ms ease;
-        box-shadow: 0 0 16px rgba(99, 102, 241, 0.35), 0 0 40px rgba(99, 102, 241, 0.12);
-        display: none;
       }
-      .hand-cursor.visible {
+
+      .page-shell {
+        position: relative;
+        z-index: 1;
+      }
+      .ghost-cursor > canvas {
         display: block;
-      }
-      .hand-cursor.pinching {
-        width: 18px;
-        height: 18px;
-        background: radial-gradient(circle, rgba(125, 247, 255, 0.95) 0%, rgba(125, 247, 255, 0.3) 60%, transparent 100%);
-        border-color: rgba(125, 247, 255, 0.85);
-        box-shadow: 0 0 24px rgba(125, 247, 255, 0.6), 0 0 60px rgba(125, 247, 255, 0.2);
-      }
-      .hand-cursor-ring {
-        position: fixed;
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        border: 1px solid rgba(99, 102, 241, 0.18);
-        pointer-events: none;
-        z-index: 99998;
-        transform: translate(-50%, -50%);
-        transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
-        display: none;
-      }
-      .hand-cursor-ring.visible {
-        display: block;
+        width: 100%;
+        height: 100%;
+        background: transparent;
       }
 
-      /* Webcam toggle button */
-      .hand-toggle {
-        position: fixed;
-        bottom: 24px;
-        right: 24px;
-        z-index: 10000;
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        border: 1px solid var(--border);
-        background: rgba(11, 13, 19, 0.85);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        color: var(--text-secondary);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 220ms var(--ease);
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+      /* =================================================================
+         ACCESSIBILITY
+         ================================================================= */
+      :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+        border-radius: 4px;
       }
-      .hand-toggle:hover {
-        border-color: var(--accent);
-        color: var(--accent-hover);
-        transform: scale(1.08);
-        box-shadow: 0 4px 32px rgba(99, 102, 241, 0.2);
-      }
-      .hand-toggle.active {
-        border-color: var(--accent);
-        background: rgba(99, 102, 241, 0.15);
-        color: var(--accent-hover);
-      }
-      .hand-toggle svg {
-        width: 22px;
-        height: 22px;
-      }
-
-      /* Hand status pill */
-      .hand-status {
-        position: fixed;
-        bottom: 80px;
-        right: 24px;
-        z-index: 10000;
-        padding: 8px 16px;
-        border-radius: 999px;
-        background: rgba(11, 13, 19, 0.88);
-        border: 1px solid var(--border);
-        backdrop-filter: blur(12px);
-        font-size: 0.6875rem;
-        font-weight: 600;
-        color: var(--text-tertiary);
-        letter-spacing: 0.06em;
-        display: none;
-        align-items: center;
-        gap: 8px;
-        transition: all 250ms var(--ease);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-      }
-      .hand-status.visible {
-        display: inline-flex;
-      }
-      .hand-status-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--text-tertiary);
-      }
-      .hand-status-dot.tracking {
-        background: #7df7ff;
-        box-shadow: 0 0 8px rgba(125, 247, 255, 0.5);
-        animation: pulseDotPortfolio 1.4s infinite;
-      }
-      @keyframes pulseDotPortfolio {
-        0% { box-shadow: 0 0 0 0 rgba(125, 247, 255, 0.45); }
-        70% { box-shadow: 0 0 0 6px rgba(125, 247, 255, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(125, 247, 255, 0); }
-      }
-
-      /* Scroll indicator arrows for hand mode */
-      .hand-scroll-indicator {
-        position: fixed;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 99997;
-        color: rgba(99, 102, 241, 0.4);
-        pointer-events: none;
-        display: none;
-        transition: opacity 300ms ease;
-      }
-      .hand-scroll-indicator.up { top: 70px; }
-      .hand-scroll-indicator.down { bottom: 24px; }
-      .hand-scroll-indicator svg {
-        width: 24px;
-        height: 24px;
-        animation: handScrollBounce 1.6s ease-in-out infinite;
-      }
-      .hand-scroll-indicator.up svg {
-        animation-direction: reverse;
-      }
-      @keyframes handScrollBounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(6px); }
-      }
-
-      /* Hidden webcam video for hand tracking */
-      .hand-webcam {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        opacity: 0;
-        pointer-events: none;
-        overflow: hidden;
+      @media (prefers-reduced-motion: reduce) {
+        .reveal,
+        .hero-animate,
+        .hero-scroll-fade,
+        .trust-item,
+        .stack-item,
+        .carousel-track {
+          opacity: 1 !important;
+          transform: none !important;
+          animation: none !important;
+          transition: none !important;
+        }
       }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
   </head>
   <body>
+    <!-- Ghost cursor overlay (React Bits style) -->
+    <div id="ghostCursor" class="ghost-cursor" data-color="#b348c2" aria-hidden="true"></div>
+    <div class="page-shell">
+
     <!-- ============================================================
          HEADER
          ============================================================ -->
     <header class="site-header">
       <div class="header-inner">
-        <span class="wordmark">
-          <img
-            src="https://github.com/PsReader.png?size=56"
-            alt="PsReader avatar"
-            class="wordmark-avatar"
-            width="28"
-            height="28"
-          />
-          PsReader
-        </span>
+        <div class="wordmark">
+          <a
+            href="https://github.com/PsReader"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="PsReader on GitHub"
+            class="wordmark-avatar-link"
+          >
+            <img
+              src="https://github.com/PsReader.png?size=56"
+              alt="PsReader avatar"
+              class="wordmark-avatar"
+              width="28"
+              height="28"
+            />
+          </a>
+          <a href="index.html" class="wordmark-text" aria-label="PsReader — home">
+            PsReader
+          </a>
+        </div>
         <button
           class="mobile-menu-toggle"
-          aria-label="Open menu"
+          aria-label="Toggle menu"
           aria-expanded="false"
         >
           <svg
@@ -1548,7 +1488,7 @@
           <a href="#work">Work</a>
           <a href="#about">About</a>
           <a
-            href="portofolio.html"
+            href="portfolio.html"
             class="btn btn--ghost"
             aria-label="View my portfolio"
           >
@@ -1568,6 +1508,20 @@
             </svg>
             GitHub
           </a>
+          <a
+            href="https://www.linkedin.com/in/pedrosa-simanjuntak-20a6b2420"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="nav-gh"
+            aria-label="LinkedIn profile"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"
+              />
+            </svg>
+            LinkedIn
+          </a>
         </nav>
         <div class="mobile-menu-overlay" aria-hidden="true"></div>
       </div>
@@ -1577,49 +1531,52 @@
          HERO
          ============================================================ -->
     <section class="hero" aria-label="Introduction">
-      <span class="hero-eyebrow hero-animate">Live Demos Hub</span>
-      <h1 class="hero-animate hero-d1">
-        Explore Interactive<br />Web Experiences
-      </h1>
-      <p class="hero-desc hero-animate hero-d2">
-        Discover a collection of live, fully functional web projects. Each demo
-        is built with HTML, CSS, and JavaScript, showcasing responsive design,
-        interactivity, and modern web development practices.
-      </p>
-      <div class="hero-cta hero-animate hero-d3">
-        <a href="#work" class="btn btn--primary" id="cta-view-demos">
-          View Live Demos
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
+      <div class="hero-content">
+        <span class="hero-eyebrow hero-animate">Live Demos Hub</span>
+        <h1 class="hero-animate hero-d1">
+          Explore Interactive<br />Web Experiences
+        </h1>
+        <p class="hero-subtitle hero-animate hero-d2" aria-live="polite"></p>
+        <p class="hero-desc hero-animate hero-d3">
+          Discover a collection of live, fully functional web projects. Built
+          with semantic HTML, CSS, and JavaScript — plus a React-powered
+          experiment — showcasing responsive design, interactivity, and modern
+          web development practices.
+        </p>
+        <div class="hero-cta hero-animate hero-d4">
+          <a href="#work" class="btn btn--primary">
+            View Live Demos
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+          <a
+            href="https://github.com/PsReader"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn--ghost"
           >
-            <line x1="5" y1="12" x2="19" y2="12" />
-            <polyline points="12 5 19 12 12 19" />
-          </svg>
-        </a>
-        <a
-          href="https://github.com/PsReader"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn btn--ghost"
-          id="cta-github-source"
-        >
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path
-              d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-            />
-          </svg>
-          Explore GitHub Source
-        </a>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+              />
+            </svg>
+            Explore GitHub Source
+          </a>
+        </div>
       </div>
-
       <!-- Gradient fade — curiosity pull -->
       <div class="hero-scroll-fade" aria-hidden="true"></div>
+      <div class="hero-spotlight" aria-hidden="true"></div>
     </section>
 
     <!-- ============================================================
@@ -1628,7 +1585,7 @@
     <div class="trust-bar" aria-label="Developer overview">
       <div class="trust-inner">
         <div class="trust-item reveal stagger-1">
-          <div class="trust-value" data-count="2">0</div>
+          <div class="trust-value" data-count="4">0</div>
           <div class="trust-label">Live Projects</div>
         </div>
         <div class="trust-item reveal stagger-2">
@@ -1657,74 +1614,52 @@
 
       <div class="carousel-container">
         <div class="project-list" id="carousel">
-          <!-- LOTM -->
-          <article class="project-card reveal" id="project-lotm">
-          <div class="project-chrome" aria-hidden="true">
-            <span class="dot dot--close"></span>
-            <span class="dot dot--min"></span>
-            <span class="dot dot--max"></span>
-            <div class="chrome-address">
-              <span class="chrome-url"
-                >psreader.github.io/My-Projects/LOTM/</span
-              >
-            </div>
-          </div>
-          <div class="project-viewport">
-            <img
-              src="LOTM/images/Fool_2.webp"
-              alt="Lord of the Mysteries companion site — The Fool character illustration"
-              loading="lazy"
-            />
-          </div>
-          <div class="project-body">
-            <h3 class="project-name">
-              Lord of the Mysteries Fan Wiki
-            </h3>
-            <p class="project-tech">HTML · CSS · JavaScript</p>
-            <p class="project-summary">
-              A multi-page Fan Wiki for the novel
-              <em>Lord of the Mysteries</em>. Covers pathway systems, character
-              profiles, volume summaries, and a gallery — connected through
-              consistent navigation and a shared stylesheet across 20+ pages.
-            </p>
-            <div class="project-cta">
-              <a href="LOTM/LOTMhome.html" class="btn btn--primary">
-                View Live Demo
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                  />
-                  <polyline points="15 3 21 3 21 9" />
-                  <line x1="10" y1="14" x2="21" y2="3" />
-                </svg>
-              </a>
-              <a
-                href="https://github.com/PsReader"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn btn--ghost"
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path
-                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                  />
-                </svg>
-                Source Code
-              </a>
-            </div>
-          </div>
-        </article>
+          <div class="carousel-track">
+            <!-- LOTM -->
+            <article class="project-card reveal stagger-1" id="project-lotm">
+              <div class="project-card-glow" aria-hidden="true"></div>
+              <div class="project-chrome" aria-hidden="true">
+                <span class="dot dot--close"></span>
+                <span class="dot dot--min"></span>
+                <span class="dot dot--max"></span>
+                <div class="chrome-address">
+                  <span class="chrome-url">psreader.github.io/My-Projects/LOTM/</span>
+                </div>
+              </div>
+              <div class="project-viewport">
+                <img src="LOTM/images/Fool_2.webp" alt="Lord of the Mysteries companion site — The Fool character illustration" loading="lazy" />
+              </div>
+              <div class="project-body">
+                <h3 class="project-name">Lord of the Mysteries Fan Wiki</h3>
+                <p class="project-tech">HTML · CSS · JavaScript</p>
+                <p class="project-summary">
+                  A multi-page Fan Wiki for the novel
+                  <em>Lord of the Mysteries</em>. Covers pathway systems, character
+                  profiles, volume summaries, and a gallery — connected through
+                  consistent navigation and a shared stylesheet across 20+ pages.
+                </p>
+                <div class="project-cta">
+                  <a href="LOTM/LOTMhome.html" class="btn btn--primary">
+                    View Live Demo
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                  </a>
+                  <a href="https://github.com/PsReader" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                    Source Code
+                  </a>
+                </div>
+              </div>
+            </article>
 
         <!-- Pudding Paradise -->
-        <article class="project-card reveal stagger-1" id="project-pudding">
+        <article class="project-card reveal stagger-2" id="project-pudding">
+          <div class="project-card-glow" aria-hidden="true"></div>
           <div class="project-chrome" aria-hidden="true">
             <span class="dot dot--close"></span>
             <span class="dot dot--min"></span>
@@ -1790,78 +1725,9 @@
           </div>
         </article>
 
-        <!-- The Akashic -->
-        <article class="project-card reveal stagger-2" id="project-akashic">
-          <div class="project-chrome" aria-hidden="true">
-            <span class="dot dot--close"></span>
-            <span class="dot dot--min"></span>
-            <span class="dot dot--max"></span>
-            <div class="chrome-address">
-              <span class="chrome-url">theakashic.app</span>
-            </div>
-          </div>
-          <div class="project-viewport">
-            <div class="project-badge" aria-hidden="true">
-              <span>Coming Soon</span>
-            </div>
-            <img
-              src="TheAkashic/assets/logo.svg"
-              alt="The Akashic — Codex Aperture portal logo"
-              loading="lazy"
-            />
-          </div>
-          <div class="project-body">
-            <h3 class="project-name">The Akashic</h3>
-            <p class="project-tech">React · Vite · Tailwind CSS · Supabase</p>
-            <p class="project-summary">
-              A modern web application built with React and Vite, featuring a
-              responsive design with Tailwind CSS and integrated Supabase
-              backend. Showcasing advanced component architecture and state
-              management patterns.
-            </p>
-            <div class="project-cta">
-              <a
-                href="TheAkashic/AkashicHome.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn btn--ghost"
-              >
-                Preview Soon
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                  />
-                  <polyline points="15 3 21 3 21 9" />
-                  <line x1="10" y1="14" x2="21" y2="3" />
-                </svg>
-              </a>
-              <a
-                href="https://github.com/PsReader"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn btn--ghost"
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path
-                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                  />
-                </svg>
-                Source Code
-              </a>
-            </div>
-          </div>
-        </article>
-
         <!-- GestureLab -->
         <article class="project-card reveal stagger-3" id="project-gesturelab">
+          <div class="project-card-glow" aria-hidden="true"></div>
           <div class="project-chrome" aria-hidden="true">
             <span class="dot dot--close"></span>
             <span class="dot dot--min"></span>
@@ -1927,7 +1793,8 @@
         </article>
 
         <!-- Scratchpad -->
-        <article class="project-card reveal stagger-3" id="project-scratchpad">
+        <article class="project-card reveal stagger-4" id="project-scratchpad">
+          <div class="project-card-glow" aria-hidden="true"></div>
           <div class="project-chrome" aria-hidden="true">
             <span class="dot dot--close"></span>
             <span class="dot dot--min"></span>
@@ -1945,7 +1812,7 @@
           </div>
           <div class="project-body">
             <h3 class="project-name">Scratchpad</h3>
-            <p class="project-tech">HTML · CSS · JavaScript · Local Projects</p>
+            <p class="project-tech">HTML · CSS · JavaScript</p>
             <p class="project-summary">
               A compact personal workspace for notes, experiments, and small web
               projects. It brings together a set of standalone pages with a
@@ -1991,6 +1858,7 @@
             </div>
           </div>
         </article>
+        </div>
       </div>
 
       <!-- Carousel Navigation -->
@@ -2008,6 +1876,7 @@
       <!-- Carousel Indicators -->
       <div class="carousel-indicators" id="carousel-indicators"></div>
     </div>
+    </section>
 
     <!-- ============================================================
          TECH STACK — showcasing technologies used
@@ -2020,9 +1889,10 @@
       <div class="about-body">
         <p class="reveal stagger-2">
           Each demo is built with clean, semantic HTML, responsive CSS layout
-          systems (flexbox and grid), and vanilla JavaScript for rich
-          interactivity. No frameworks — just pure web fundamentals optimized
-          for performance and accessibility.
+          systems (flexbox and grid), and JavaScript for rich interactivity.
+          Most projects stay close to the web platform, with a React-powered
+          experiment showing how these fundamentals carry into a modern build
+          toolchain.
         </p>
       </div>
 
@@ -2151,6 +2021,18 @@
               <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
             </svg>
           </a>
+          <a
+            href="https://www.linkedin.com/in/pedrosa-simanjuntak-20a6b2420"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="LinkedIn"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"
+              />
+            </svg>
+          </a>
         </nav>
       </div>
     </footer>
@@ -2159,34 +2041,163 @@
          SCRIPTS
          ============================================================ -->
     <script>
-      // Intersection Observer — reveal on scroll
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add("visible");
-              io.unobserve(e.target);
+      gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+      // ===== Hero GSAP entrance timeline =====
+      const heroTl = gsap.timeline({ defaults: { ease: "power3.out", duration: 0.7 } });
+      heroTl
+        .from(".hero-eyebrow", { y: 30, opacity: 0 })
+        .from(".hero h1", { y: 40, opacity: 0 }, "-=0.4")
+        .from(".hero-subtitle", { y: 24, opacity: 0 }, "-=0.35")
+        .from(".hero-desc", { y: 30, opacity: 0 }, "-=0.35")
+        .from(".hero-cta > *", { y: 20, opacity: 0, stagger: 0.1 }, "-=0.3");
+
+      // ===== Hero scroll fade =====
+      ScrollTrigger.create({
+        trigger: ".hero",
+        start: "top top",
+        end: "bottom top",
+        onUpdate: (self) => {
+          document.body.classList.toggle("scrolled", self.progress > 0.08);
+        },
+      });
+
+      // ===== Hero parallax exit =====
+      gsap.to(".hero > .hero-eyebrow, .hero h1, .hero-desc, .hero-cta", {
+        y: -80,
+        opacity: 0,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".hero",
+          start: "center center",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+
+      // ===== Section reveals with ScrollTrigger =====
+      gsap.utils.toArray(".reveal").forEach((el) => {
+        const delay = parseFloat(el.dataset.stagger) || 0;
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top 88%",
+          onEnter: () => {
+            gsap.to(el, {
+              y: 0,
+              opacity: 1,
+              duration: 0.7,
+              delay,
+              ease: "power3.out",
+              overwrite: "auto",
+            });
+            ScrollTrigger.refresh();
+          },
+          once: true,
+        });
+      });
+
+      // ===== Section heading underline animation =====
+      gsap.utils.toArray(".section-heading").forEach((el) => {
+        const line = el.querySelector("::after") || el;
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top 88%",
+          onEnter: () => {
+            gsap.fromTo(
+              el,
+              { "--underline-w": "0px" },
+              { "--underline-w": "48px", duration: 0.8, ease: "power3.out", overwrite: "auto" },
+            );
+          },
+          once: true,
+        });
+        el.style.setProperty("--underline-w", "0px");
+      });
+
+      // ===== Active nav tracking =====
+      const navLinks = document.querySelectorAll(".header-nav a");
+      const sections = document.querySelectorAll("section[id], .trust-bar");
+      if (navLinks.length && sections.length) {
+        const navIo = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                const id = e.target.id || (e.target.classList.contains("trust-bar") ? "trust" : "");
+                navLinks.forEach((a) => {
+                  const href = a.getAttribute("href")?.replace("#", "");
+                  a.classList.toggle("active", href === id);
+                });
+              }
+            });
+          },
+          { threshold: 0.2, rootMargin: "-80px 0px 0px 0px" },
+        );
+        sections.forEach((s) => navIo.observe(s));
+      }
+
+      // ===== Smooth nav scroll =====
+      navLinks.forEach((a) => {
+        const href = a.getAttribute("href");
+        if (href?.startsWith("#")) {
+          a.addEventListener("click", (e) => {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+              gsap.to(window, { scrollTo: { y: target, offsetY: 60 }, duration: 0.8, ease: "power3.inOut" });
             }
           });
-        },
-        { threshold: 0.12, rootMargin: "0px 0px -50px 0px" },
-      );
-      document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+        }
+      });
 
-      // Fade out hero gradient after first meaningful scroll
-      let scrolled = false;
-      window.addEventListener(
-        "scroll",
-        () => {
-          if (!scrolled && window.scrollY > 100) {
-            scrolled = true;
-            document.body.classList.add("scrolled");
+      // ===== Hero spotlight cursor follower =====
+      const spotlight = document.querySelector(".hero-spotlight");
+      if (spotlight) {
+        document.querySelector(".hero")?.addEventListener("pointermove", (e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width) * 100;
+          const y = ((e.clientY - rect.top) / rect.height) * 100;
+          spotlight.style.setProperty("--spot-x", x + "%");
+          spotlight.style.setProperty("--spot-y", y + "%");
+        });
+      }
+
+      // ===== Hero subtitle typewriter animation =====
+      const heroSubtitle = document.querySelector('.hero-subtitle');
+      const subtitlePhrases = [
+        'Interactive demos',
+        'Modern responsive layouts',
+        'Gesture-enabled experiences',
+      ];
+      let phraseIndex = 0;
+      let charIndex = 0;
+      let typing = true;
+
+      const typeNext = () => {
+        if (!heroSubtitle) return;
+        const text = subtitlePhrases[phraseIndex];
+        if (typing) {
+          heroSubtitle.textContent = text.slice(0, charIndex + 1);
+          charIndex += 1;
+          if (charIndex >= text.length) {
+            typing = false;
+            setTimeout(typeNext, 1200);
+            return;
           }
-        },
-        { passive: true },
-      );
+        } else {
+          heroSubtitle.textContent = text.slice(0, charIndex - 1);
+          charIndex -= 1;
+          if (charIndex <= 0) {
+            typing = true;
+            phraseIndex = (phraseIndex + 1) % subtitlePhrases.length;
+            setTimeout(typeNext, 300);
+            return;
+          }
+        }
+        setTimeout(typeNext, typing ? 65 : 35);
+      };
+      setTimeout(typeNext, 500);
 
-      // Mobile hamburger menu
+      // ===== Mobile hamburger menu (GSAP-enhanced) =====
       const menuToggle = document.querySelector(".mobile-menu-toggle");
       const headerNav = document.querySelector(".header-nav");
       const menuOverlay = document.querySelector(".mobile-menu-overlay");
@@ -2196,432 +2207,216 @@
         menuOverlay.classList.add("active");
         menuToggle.setAttribute("aria-expanded", "true");
         document.body.style.overflow = "hidden";
+        gsap.fromTo(headerNav, { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4, ease: "power3.out", overwrite: "auto" });
       }
 
       function closeMobileMenu() {
-        headerNav.classList.remove("open");
-        menuOverlay.classList.remove("active");
-        menuToggle.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
+        gsap.to(headerNav, {
+          x: 40,
+          opacity: 0,
+          duration: 0.3,
+          ease: "power2.in",
+          overwrite: "auto",
+          onComplete: () => {
+            headerNav.classList.remove("open");
+            menuOverlay.classList.remove("active");
+            menuToggle.setAttribute("aria-expanded", "false");
+            document.body.style.overflow = "";
+          },
+        });
       }
 
       menuToggle?.addEventListener("click", () => {
-        const isOpen = headerNav.classList.contains("open");
-        isOpen ? closeMobileMenu() : openMobileMenu();
+        headerNav.classList.contains("open") ? closeMobileMenu() : openMobileMenu();
       });
 
       menuOverlay?.addEventListener("click", closeMobileMenu);
 
-      // Close menu when a nav link is clicked
       headerNav?.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", () => {
-          if (headerNav.classList.contains("open")) {
-            closeMobileMenu();
-          }
+          if (headerNav.classList.contains("open")) closeMobileMenu();
         });
       });
 
-      // ===== Animated number counters =====
-      const counterObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const el = entry.target;
-              const target = parseInt(el.dataset.count);
-              const suffix = el.dataset.suffix || "";
-              if (isNaN(target)) return;
-
-              let current = 0;
-              const duration = 1200;
-              const step = target / (duration / 16);
-              const counter = () => {
-                current += step;
-                if (current >= target) {
-                  el.textContent = target + suffix;
-                  return;
-                }
-                el.textContent = Math.floor(current) + suffix;
-                requestAnimationFrame(counter);
-              };
-              counter();
-              counterObserver.unobserve(el);
-            }
-          });
-        },
-        { threshold: 0.5 },
-      );
-
+      // ===== GSAP animated counters =====
       document.querySelectorAll(".trust-value[data-count]").forEach((el) => {
-        counterObserver.observe(el);
+        const target = parseInt(el.dataset.count);
+        const suffix = el.dataset.suffix || "";
+        if (isNaN(target)) return;
+        const obj = { val: 0 };
+        ScrollTrigger.create({
+          trigger: el.closest(".trust-bar"),
+          start: "top 85%",
+          onEnter: () => {
+            gsap.to(obj, {
+              val: target,
+              duration: 1.2,
+              ease: "power2.out",
+              overwrite: "auto",
+              onUpdate: () => { el.textContent = Math.floor(obj.val) + suffix; },
+              onComplete: () => { el.textContent = target + suffix; },
+            });
+          },
+          once: true,
+        });
       });
 
-      // ===== Carousel functionality =====
+      // ===== Button ripple effect =====
+      document.querySelectorAll(".btn--primary").forEach((btn) => {
+        btn.addEventListener("click", function (e) {
+          const rect = this.getBoundingClientRect();
+          const ripple = document.createElement("span");
+          ripple.className = "btn-ripple";
+          const size = Math.max(rect.width, rect.height) * 1.2;
+          ripple.style.width = ripple.style.height = size + "px";
+          ripple.style.left = e.clientX - rect.left + "px";
+          ripple.style.top = e.clientY - rect.top + "px";
+          this.appendChild(ripple);
+          gsap.to(ripple, { scale: 2.5, opacity: 0, duration: 0.6, ease: "power2.out", onComplete: () => ripple.remove() });
+        });
+      });
+
+      // ===== Card hover GSAP glow rotation =====
+      document.querySelectorAll(".project-card").forEach((card) => {
+        const glow = card.querySelector(".project-card-glow");
+        if (!glow) return;
+        let glowTween;
+        card.addEventListener("mouseenter", () => {
+          glowTween = gsap.to(glow, {
+            "--glow-angle": 360,
+            duration: 2.5,
+            repeat: -1,
+            ease: "none",
+            overwrite: "auto",
+          });
+        });
+        card.addEventListener("mouseleave", () => {
+          glowTween?.kill();
+          gsap.set(glow, { "--glow-angle": 0 });
+        });
+      });
+
+      // ===== Infinite carousel — node-shifting with GSAP =====
       const carousel = document.getElementById("carousel");
-      const indicatorsContainer = document.getElementById("carousel-indicators");
+      const track = carousel?.querySelector(".carousel-track");
+      const indicatorsEl = document.getElementById("carousel-indicators");
       const prevBtn = document.querySelector(".carousel-nav-prev");
       const nextBtn = document.querySelector(".carousel-nav-next");
-      const originalCards = Array.from(document.querySelectorAll(".project-card"));
 
-      if (carousel && indicatorsContainer && originalCards.length > 0) {
-        const cardCount = originalCards.length;
-        const firstClone = originalCards[0].cloneNode(true);
-        const lastClone = originalCards[cardCount - 1].cloneNode(true);
-
-        [firstClone, lastClone].forEach((clone) => {
-          clone.classList.add("is-clone");
-          clone.setAttribute("aria-hidden", "true");
-          clone.querySelectorAll("a, button").forEach((control) => {
-            control.setAttribute("tabindex", "-1");
-          });
-        });
-
-        carousel.prepend(lastClone);
-        carousel.append(firstClone);
-
-        const cards = Array.from(carousel.querySelectorAll(".project-card"));
-        let currentIndex = 1;
-        let autoRotateTimer;
+      if (carousel && track && indicatorsEl && typeof gsap !== "undefined") {
+        const cards = Array.from(track.children);
+        const N = cards.length;
+        let logicalIdx = 0;
         let isAnimating = false;
-        let wrapTimer;
-        const transitionDuration = 260;
+        let autoTimer;
 
-        function getRealIndex(index) {
-          return ((index - 1) % cardCount + cardCount) % cardCount;
-        }
+        const gap = () => parseFloat(getComputedStyle(track).gap) || 0;
+        const cardWidth = () => cards[0].offsetWidth + gap();
 
-        function updateIndicators() {
-          const indicators = document.querySelectorAll(".carousel-indicator");
-          const realIndex = getRealIndex(currentIndex);
-          indicators.forEach((indicator, index) => {
-            indicator.classList.toggle("active", index === realIndex);
+        const updateDots = () => {
+          indicatorsEl.querySelectorAll(".carousel-indicator").forEach((dot, i) => {
+            dot.classList.toggle("active", i === logicalIdx);
           });
-        }
-
-        function scrollToCard(index, behavior = "smooth") {
-          const card = cards[index];
-          if (!card) return;
-
-          clearTimeout(wrapTimer);
-          currentIndex = index;
-          const targetLeft = card.offsetLeft - carousel.offsetLeft;
-
-          const finalizePosition = () => {
-            if (index === 0) {
-              currentIndex = cardCount;
-              carousel.scrollTo({
-                left: cards[currentIndex].offsetLeft - carousel.offsetLeft,
-                behavior: "auto",
-              });
-            } else if (index === cards.length - 1) {
-              currentIndex = 1;
-              carousel.scrollTo({
-                left: cards[currentIndex].offsetLeft - carousel.offsetLeft,
-                behavior: "auto",
-              });
-            }
-
-            updateIndicators();
-            isAnimating = false;
-          };
-
-          if (behavior === "smooth") {
-            isAnimating = true;
-            carousel.classList.add("animating");
-            carousel.scrollTo({ left: targetLeft, behavior: "smooth" });
-            wrapTimer = window.setTimeout(finalizePosition, transitionDuration);
-          } else {
-            carousel.classList.remove("animating");
-            carousel.scrollTo({ left: targetLeft, behavior: "auto" });
-            finalizePosition();
-          }
-        }
-
-        originalCards.forEach((_, index) => {
-          const indicator = document.createElement("button");
-          indicator.classList.add("carousel-indicator");
-          if (index === 0) indicator.classList.add("active");
-          indicator.setAttribute("aria-label", `Go to project ${index + 1}`);
-          indicator.addEventListener("click", () =>
-            scrollToCard(index + 1, "smooth"),
-          );
-          indicatorsContainer.appendChild(indicator);
-        });
-
-        updateIndicators();
-
-        carousel.addEventListener(
-          "scroll",
-          () => {
-            if (isAnimating) return;
-
-            const carouselCenter = carousel.scrollLeft + carousel.clientWidth / 2;
-            let closestIndex = 1;
-            let minDistance = Infinity;
-
-            cards.forEach((card, index) => {
-              const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-              const distance = Math.abs(cardCenter - carouselCenter);
-
-              if (distance < minDistance) {
-                minDistance = distance;
-                closestIndex = index;
-              }
-            });
-
-            if (closestIndex !== currentIndex) {
-              currentIndex = closestIndex;
-              updateIndicators();
-            }
-          },
-          { passive: true },
-        );
-
-        prevBtn?.addEventListener("click", () => {
-          const prevIndex = currentIndex > 0 ? currentIndex - 1 : cards.length - 1;
-          scrollToCard(prevIndex, "smooth");
-        });
-
-        nextBtn?.addEventListener("click", () => {
-          const nextIndex = currentIndex < cards.length - 1 ? currentIndex + 1 : 0;
-          scrollToCard(nextIndex, "smooth");
-        });
-
-        const startAutoRotate = () => {
-          clearInterval(autoRotateTimer);
-          autoRotateTimer = setInterval(() => {
-            const nextIndex = currentIndex < cards.length - 1 ? currentIndex + 1 : 0;
-            scrollToCard(nextIndex, "smooth");
-          }, 6000);
         };
 
-        window.requestAnimationFrame(() => {
-          scrollToCard(1, "auto");
+        const goNext = () => {
+          if (isAnimating) return;
+          isAnimating = true;
+          const w = cardWidth();
+
+          gsap.to(track, {
+            x: -w,
+            duration: 0.6,
+            ease: "power3.inOut",
+            onComplete: () => {
+              track.appendChild(track.children[0]);
+              gsap.set(track, { x: 0 });
+              logicalIdx = (logicalIdx + 1) % N;
+              isAnimating = false;
+              updateDots();
+            },
+          });
+        };
+
+        const goPrev = () => {
+          if (isAnimating) return;
+          isAnimating = true;
+          const w = cardWidth();
+
+          track.prepend(track.lastElementChild);
+          gsap.set(track, { x: -w });
+
+          gsap.to(track, {
+            x: 0,
+            duration: 0.6,
+            ease: "power3.inOut",
+            onComplete: () => {
+              logicalIdx = (logicalIdx - 1 + N) % N;
+              isAnimating = false;
+              updateDots();
+            },
+          });
+        };
+
+        const startAuto = () => {
+          clearInterval(autoTimer);
+          autoTimer = setInterval(goNext, 6000);
+        };
+
+        const pauseAuto = () => clearInterval(autoTimer);
+
+        // Dots
+        cards.forEach((_, i) => {
+          const dot = document.createElement("button");
+          dot.className = "carousel-indicator";
+          if (i === 0) dot.classList.add("active");
+          dot.setAttribute("aria-label", `Go to project ${i + 1}`);
+          dot.addEventListener("click", () => {
+            if (isAnimating) return;
+            const delta = (i - logicalIdx + N) % N;
+            const steps = Math.min(delta, N - delta);
+            if (steps === 0) return;
+            const dir = delta <= N / 2 ? 1 : -1;
+            const fn = dir === 1 ? goNext : goPrev;
+            for (let s = 0; s < steps; s++) fn();
+          });
+          indicatorsEl.appendChild(dot);
         });
 
-        startAutoRotate();
+        prevBtn?.addEventListener("click", goPrev);
+        nextBtn?.addEventListener("click", goNext);
+
+        gsap.set(track, { x: 0 });
+        startAuto();
 
         document.addEventListener("visibilitychange", () => {
-          if (document.hidden) {
-            clearInterval(autoRotateTimer);
-          } else {
-            startAutoRotate();
-          }
+          clearInterval(autoTimer);
+          if (!document.hidden) startAuto();
+        });
+
+        carousel.addEventListener("mouseenter", pauseAuto);
+        carousel.addEventListener("mouseleave", startAuto);
+
+        let rt;
+        window.addEventListener("resize", () => {
+          clearTimeout(rt);
+          rt = setTimeout(() => {
+            if (isAnimating) return;
+            gsap.set(track, { x: 0 });
+          }, 150);
         });
       }
     </script>
 
-    <!-- Hand cursor elements -->
-    <div class="hand-cursor" id="handCursor"></div>
-    <div class="hand-cursor-ring" id="handCursorRing"></div>
-    <button class="hand-toggle" id="handToggle" aria-label="Toggle hand tracking" title="Control with hand gestures">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 11V6a2 2 0 0 0-4 0v1"/>
-        <path d="M14 10V4a2 2 0 0 0-4 0v2"/>
-        <path d="M10 10.5V6a2 2 0 0 0-4 0v8"/>
-        <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>
-      </svg>
-    </button>
-    <div class="hand-status" id="handStatus">
-      <span class="hand-status-dot" id="handStatusDot"></span>
-      <span id="handStatusText">Initializing…</span>
-    </div>
-    <video class="hand-webcam" id="handWebcam" autoplay playsinline muted></video>
-
-    <script type="module">
-      // ===================================================================
-      // HAND TRACKING ON PORTFOLIO — MediaPipe HandLandmarker
-      // ===================================================================
-      const handToggle = document.getElementById('handToggle');
-      const handCursor = document.getElementById('handCursor');
-      const handCursorRing = document.getElementById('handCursorRing');
-      const handStatus = document.getElementById('handStatus');
-      const handStatusDot = document.getElementById('handStatusDot');
-      const handStatusText = document.getElementById('handStatusText');
-      const handWebcam = document.getElementById('handWebcam');
-
-      let handActive = false;
-      let handLandmarker = null;
-      let handRaf = null;
-      let prevPalmY = null;
-      let pinchState = false;
-      let smoothX = 0.5, smoothY = 0.5;
-      let lastClickTime = 0;
-      let hoveredEl = null;
-
-      async function initHandTracking() {
-        handStatus.classList.add('visible');
-        handStatusText.textContent = 'Loading MediaPipe…';
-
-        try {
-          const { FilesetResolver, HandLandmarker } = await import(
-            'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/+esm'
-          );
-
-          const vision = await FilesetResolver.forVisionTasks(
-            'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm'
-          );
-
-          handStatusText.textContent = 'Loading hand model…';
-
-          handLandmarker = await HandLandmarker.createFromOptions(vision, {
-            baseOptions: {
-              modelAssetPath:
-                'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task',
-              delegate: 'CPU',
-            },
-            runningMode: 'VIDEO',
-            numHands: 1,
-            minHandDetectionConfidence: 0.5,
-            minHandPresenceConfidence: 0.5,
-            minTrackingConfidence: 0.5,
-          });
-
-          // Start webcam
-          const stream = await navigator.mediaDevices.getUserMedia({
-            video: { width: 640, height: 480, facingMode: 'user' },
-          });
-          handWebcam.srcObject = stream;
-          await handWebcam.play();
-
-          handStatusText.textContent = 'Hand tracking active';
-          handStatusDot.classList.add('tracking');
-          handCursor.classList.add('visible');
-          handCursorRing.classList.add('visible');
-
-          startHandLoop();
-        } catch (err) {
-          handStatusText.textContent = 'Error: ' + (err.message || 'Failed');
-          console.error('Hand tracking init error:', err);
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
         }
       }
-
-      function stopHandTracking() {
-        if (handRaf) cancelAnimationFrame(handRaf);
-        handRaf = null;
-        if (handWebcam.srcObject) {
-          handWebcam.srcObject.getTracks().forEach(t => t.stop());
-          handWebcam.srcObject = null;
-        }
-        if (handLandmarker) {
-          handLandmarker.close();
-          handLandmarker = null;
-        }
-        handCursor.classList.remove('visible', 'pinching');
-        handCursorRing.classList.remove('visible');
-        handStatus.classList.remove('visible');
-        handStatusDot.classList.remove('tracking');
-        prevPalmY = null;
-        if (hoveredEl) {
-          hoveredEl.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
-          hoveredEl = null;
-        }
-      }
-
-      function startHandLoop() {
-        const detect = () => {
-          if (!handLandmarker || !handWebcam.videoWidth) {
-            handRaf = requestAnimationFrame(detect);
-            return;
-          }
-
-          const result = handLandmarker.detectForVideo(handWebcam, performance.now());
-          const hands = result.landmarks || [];
-
-          if (hands.length > 0) {
-            const lm = hands[0];
-            // Index tip = landmark 8
-            const indexTip = lm[8];
-            // Thumb tip = landmark 4
-            const thumbTip = lm[4];
-            // Wrist = landmark 0, Middle MCP = 9 (for palm center)
-            const wrist = lm[0];
-            const midMcp = lm[9];
-
-            // Smooth cursor position (mirror X since webcam is mirrored)
-            const rawX = 1 - indexTip.x;
-            const rawY = indexTip.y;
-            smoothX += (rawX - smoothX) * 0.35;
-            smoothY += (rawY - smoothY) * 0.35;
-
-            const screenX = smoothX * window.innerWidth;
-            const screenY = smoothY * window.innerHeight;
-
-            handCursor.style.left = screenX + 'px';
-            handCursor.style.top = screenY + 'px';
-            handCursorRing.style.left = screenX + 'px';
-            handCursorRing.style.top = screenY + 'px';
-
-            handStatusText.textContent = 'Hand detected — tracking';
-
-            // === Hover effect ===
-            const elUnder = document.elementFromPoint(screenX, screenY);
-            const interactive = elUnder?.closest('a, button, .project-card, .stack-item');
-            if (interactive !== hoveredEl) {
-              if (hoveredEl) hoveredEl.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
-              hoveredEl = interactive || null;
-              if (hoveredEl) hoveredEl.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
-            }
-
-            // === Pinch detection (thumb tip to index tip) ===
-            const pinchDist = Math.sqrt(
-              (thumbTip.x - indexTip.x) ** 2 +
-              (thumbTip.y - indexTip.y) ** 2
-            );
-            const isPinching = pinchDist < 0.06;
-
-            if (isPinching && !pinchState) {
-              pinchState = true;
-              handCursor.classList.add('pinching');
-
-              // Trigger click with debounce
-              const now = Date.now();
-              if (now - lastClickTime > 600) {
-                lastClickTime = now;
-                if (elUnder) {
-                  // Find the nearest clickable element
-                  const clickTarget = elUnder.closest('a, button') || elUnder;
-                  clickTarget.click();
-                }
-              }
-            } else if (!isPinching && pinchState) {
-              pinchState = false;
-              handCursor.classList.remove('pinching');
-            }
-
-            // === Scroll via palm vertical movement ===
-            const palmY = (wrist.y + midMcp.y) / 2;
-            if (prevPalmY !== null) {
-              const deltaY = palmY - prevPalmY;
-              // Only scroll if significant vertical movement
-              if (Math.abs(deltaY) > 0.004) {
-                window.scrollBy({
-                  top: deltaY * 2200,
-                  behavior: 'auto',
-                });
-              }
-            }
-            prevPalmY = palmY;
-
-          } else {
-            handStatusText.textContent = 'No hand — show your hand';
-            prevPalmY = null;
-          }
-
-          handRaf = requestAnimationFrame(detect);
-        };
-
-        handRaf = requestAnimationFrame(detect);
-      }
-
-      handToggle?.addEventListener('click', () => {
-        handActive = !handActive;
-        handToggle.classList.toggle('active', handActive);
-        if (handActive) {
-          initHandTracking();
-        } else {
-          stopHandTracking();
-        }
-      });
     </script>
+    <script type="module" src="ghost-cursor.js"></script>
+    </div>
   </body>
 </html>

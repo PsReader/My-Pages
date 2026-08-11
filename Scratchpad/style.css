@@ -1,6 +1,6 @@
 :root {
   color-scheme: dark;
-  font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+  font-family: "Space Grotesk", "Segoe UI", Roboto, sans-serif;
   --bg: #07111f;
   --surface: #101b2d;
   --surface-2: #16253a;
@@ -11,9 +11,9 @@
   --accent-rgb: 110, 197, 255;
   --border: rgba(255, 255, 255, 0.12);
   --shadow: 0 20px 45px rgba(2, 8, 23, 0.35);
-  --font-body: "Inter", "Segoe UI", Roboto, sans-serif;
-  --font-editor: "Inter", "Segoe UI", Roboto, sans-serif;
-  --font-heading: "Inter", "Segoe UI", Roboto, sans-serif;
+  --font-body: "Space Grotesk", "Segoe UI", Roboto, sans-serif;
+  --font-editor: "Space Grotesk", "Segoe UI", Roboto, sans-serif;
+  --font-heading: "Space Grotesk", "Segoe UI", Roboto, sans-serif;
   --heading-tracking: 0em;
   --heading-transform: none;
   --heading-weight: 700;
@@ -86,8 +86,8 @@ body[data-theme="midnight-studio"] {
   --accent-rgb: 79, 220, 255;
   --border: rgba(79, 220, 255, 0.18);
   --shadow: 0 26px 70px rgba(0, 0, 0, 0.34);
-  --font-body: "Inter", "Segoe UI", Roboto, sans-serif;
-  --font-editor: "Inter", "Segoe UI", Roboto, sans-serif;
+  --font-body: "Space Grotesk", "Segoe UI", Roboto, sans-serif;
+  --font-editor: "Space Grotesk", "Segoe UI", Roboto, sans-serif;
   --texture:
     radial-gradient(
       circle at 18% 12%,
@@ -178,7 +178,7 @@ body[data-theme="forest-quiet"] {
     ),
     linear-gradient(180deg, rgba(82, 107, 68, 0.08), transparent 42%),
     linear-gradient(90deg, rgba(104, 124, 92, 0.06), transparent 78%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 120'%3E%3Cg fill='rgba(82,107,68,0.16)'%3E%3Cpath d='M18 120 L26 84 L14 84 Z M10 84 L38 84 L24 52 Z M20 52 L46 52 L30 24 Z M28 24 L34 24 L34 14 L22 14 L22 24 Z'/%3E%3Cpath d='M98 120 L106 82 L94 82 Z M90 82 L118 82 L104 48 Z M100 48 L126 48 L110 18 Z M108 18 L114 18 L114 10 L102 10 L102 18 Z'/%3E%3Cpath d='M178 120 L186 88 L174 88 Z M170 88 L198 88 L184 56 Z M184 56 L210 56 L194 28 Z M192 28 L198 28 L198 16 L186 16 L186 28 Z'/%3E%3Cpath d='M258 120 L266 86 L254 86 Z M250 86 L278 86 L264 48 Z M262 48 L288 48 L272 22 Z M270 22 L276 22 L276 12 L264 12 L264 22 Z'/%3E%3C/g%3E%3C/svg%3E");
+    var(--forest-svg, url("images/pine1.svg"));
   --header-accent: linear-gradient(
     90deg,
     transparent,
@@ -198,10 +198,36 @@ body[data-theme="forest-quiet"] {
   --panel-border: rgba(82, 107, 68, 0.18);
   --button-glow: rgba(82, 107, 68, 0.12);
   --card-surface: #d9cdb3;
+  --forest-svg-size: 140px;
+  --forest-svg-opacity: 0.12;
 }
 
 body[data-theme="forest-quiet"]::before {
-  background: var(--forest-overlay), var(--texture);
+  background: var(--texture);
+  z-index: -2;
+}
+
+/* Separate forest SVG layer so we can control size/opacity independently */
+body[data-theme="forest-quiet"]::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--forest-svg);
+  background-repeat: var(--forest-repeat, no-repeat);
+  background-size: var(--forest-sizes, var(--forest-svg-size));
+  background-position: var(--forest-positions, center top);
+  opacity: var(--forest-svg-opacity);
+  filter: blur(0.6px) saturate(0.9) brightness(0.98);
+  z-index: -1;
+}
+
+/* Hide or reduce on small screens to avoid overwhelming content */
+@media (max-width: 900px) {
+  body[data-theme="forest-quiet"]::after {
+    opacity: 0.06;
+    background-size: 90px;
+  }
 }
 
 body[data-theme="ink-paper"] {
@@ -326,9 +352,9 @@ body[data-theme="minimal-zen"] {
   --accent-rgb: 119, 147, 114;
   --border: rgba(34, 38, 33, 0.1);
   --shadow: 0 16px 40px rgba(80, 89, 78, 0.06);
-  --font-body: "Inter", "Segoe UI", sans-serif;
-  --font-editor: "Inter", "Segoe UI", sans-serif;
-  --font-heading: "Inter", "Segoe UI", sans-serif;
+  --font-body: "Space Grotesk", "Segoe UI", sans-serif;
+  --font-editor: "Space Grotesk", "Segoe UI", sans-serif;
+  --font-heading: "Space Grotesk", "Segoe UI", sans-serif;
   --heading-tracking: 0.12em;
   --heading-transform: uppercase;
   --heading-weight: 700;

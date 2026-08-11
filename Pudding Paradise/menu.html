@@ -186,50 +186,6 @@
         gap: 16px;
       }
 
-      .back-button {
-        width: clamp(38px, 6vw, 54px);
-        height: clamp(38px, 6vw, 54px);
-        border-radius: 50%;
-        background: linear-gradient(
-          135deg,
-          var(--main-purple),
-          var(--light-purple)
-        );
-        border: 2px solid var(--main-purple);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 15px rgba(142, 107, 150, 0.3);
-        animation: floatPulse 4s ease-in-out infinite alternate;
-        text-decoration: none;
-      }
-
-      .back-button:hover {
-        background: linear-gradient(
-          135deg,
-          var(--light-purple),
-          var(--main-purple)
-        );
-        transform: scale(1.1) translateY(-3px);
-        box-shadow: 0 8px 20px rgba(142, 107, 150, 0.5);
-      }
-
-      .back-button,
-      .back-button a {
-        color: white;
-        font-size: clamp(1.2rem, 3vw, 2.4rem);
-        font-weight: bold;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-        line-height: 1;
-      }
-
       /* --- 3. TITLE SECTION --- */
       .page-title {
         padding: clamp(15px, 4vw, 50px) clamp(15px, 5vw, 70px);
@@ -553,6 +509,25 @@
         justify-content: center;
         width: 100%;
         height: 100%;
+      }
+
+      .back-btn {
+        background-color: var(--main-purple);
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        margin: 10px 0;
+        font-weight: 600;
+        font-size: 0.8rem;
+        transition: background-color 0.2s;
+      }
+
+      .back-btn:hover {
+        background-color: #7a5b7f;
       }
     </style>
   </head>

@@ -24,8 +24,6 @@ export function PalmMenu({ palmCenter, handAngle, pinchDistance, menuItems, isVi
   const prevPinchRef = useRef(pinchDistance)
   const itemRefs = useRef<(HTMLDivElement | null)[]>([])
 
-  if (!palmCenter || !isVisible) return null
-
   const totalItems = menuItems.length
   const angleStep = (2 * Math.PI) / totalItems
 
@@ -72,6 +70,8 @@ export function PalmMenu({ palmCenter, handAngle, pinchDistance, menuItems, isVi
       }
     })
   }, [isVisible])
+
+  if (!palmCenter || !isVisible) return null
 
   const screenX = palmCenter.x * window.innerWidth
   const screenY = palmCenter.y * window.innerHeight

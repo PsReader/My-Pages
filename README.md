@@ -29,17 +29,10 @@ This workspace contains several web app and UI projects built with HTML, CSS, Ja
 - Built with HTML, CSS, and JavaScript.
 - Folder: `Scratchpad`
 
-### TheAkashic
-
-- Story collection and progress tracker web app.
-- Contains an existing `README.md` in the project folder.
-- Folder: `TheAkashic`
-
 ## Root Files
 
-- `index.html` — likely a portfolio or landing page.
-- `portofolio.html` — likely a personal portfolio page.
-- `style.css` — shared styles for the root pages.
+- `index.html` — portfolio or landing page.
+- `portfolio.html` — personal portfolio page.
 
 ## Usage
 
@@ -49,7 +42,6 @@ Open a project folder and read its `README.md` for specific setup instructions. 
 
 - If you want to run `GestureLab`, navigate to `GestureLab` and use `npm install` followed by `npm run dev`.
 - `Pudding Paradise` and `Scratchpad` can be viewed by opening their HTML files in a browser.
-- `TheAkashic` already contains its own project-level documentation.
 
 ## License
 
