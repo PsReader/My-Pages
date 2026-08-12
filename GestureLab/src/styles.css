@@ -330,46 +330,6 @@ select:focus {
   background: rgba(125, 247, 255, 0.16);
   color: #e4fbff;
 }
-.palm-menu-container {
-  position: absolute;
-  pointer-events: none;
-  z-index: 60;
-}
-
-.palm-menu-item {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 16px;
-  border-radius: 999px;
-  background: rgba(10, 20, 38, 0.92);
-  border: 1px solid rgba(142, 255, 255, 0.15);
-  color: #cde4ff;
-  font-size: 0.82rem;
-  backdrop-filter: blur(12px);
-  white-space: nowrap;
-  pointer-events: none;
-  transition:
-    border-color 0.12s,
-    box-shadow 0.12s,
-    color 0.12s;
-  transform-origin: center center;
-}
-
-.palm-menu-item.highlighted {
-  border-color: rgba(125, 247, 255, 0.7);
-  box-shadow: 0 0 24px rgba(125, 247, 255, 0.25);
-  color: #ffffff;
-}
-
-.palm-menu-icon {
-  font-size: 1.1rem;
-}
-
-.palm-menu-label {
-  letter-spacing: 0.03em;
-}
 
 .hidden-video {
   position: absolute;
@@ -696,6 +656,30 @@ select:focus {
   color: #b4d4ff;
   opacity: 0.8;
 }
+.drawer-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #cde4ff;
+  background: rgba(20, 40, 70, 0.6);
+  border: 1px solid rgba(142, 255, 255, 0.18);
+  text-decoration: none;
+  transition:
+    border-color 0.15s,
+    background 0.15s,
+    color 0.15s;
+}
+.drawer-back:hover {
+  border-color: rgba(125, 247, 255, 0.6);
+  background: rgba(125, 247, 255, 0.12);
+  color: #ffffff;
+}
 .drawer-status {
   display: flex;
   align-items: center;
@@ -810,6 +794,24 @@ select:focus {
   background: rgba(10, 20, 38, 0.85);
   border: 1px solid rgba(142, 255, 255, 0.15);
   color: #cde4ff;
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.portal-badge {
+  position: fixed;
+  bottom: 50px;
+  right: 16px;
+  z-index: 10002;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  background: rgba(10, 20, 38, 0.85);
+  border: 1px solid rgba(142, 255, 255, 0.15);
+  color: #9ef4ff;
   backdrop-filter: blur(8px);
   white-space: nowrap;
   pointer-events: none;

@@ -40,24 +40,12 @@ All gesture values persist when you leave the mode and return to Auto.
 |--------|-----|
 | **Select a mode** | Hold up 1–4 fingers on one hand |
 | **Manipulate** | Use the other hand (pinch, move, rotate) |
-| **Open palm menu** | Keep thumb & index apart for ½ second |
-| **Select menu item** | Rotate hand to highlight, then pinch closed |
 | **Toggle navbar** | Fold your ring finger |
 | **Drag sphere** | Click and drag on the halo ring |
 
-### Palm Menu
-
-- **Center** — Open the Center Controls panel (position, scale, rotation, color sliders)
-- **Tweak** — Open the Shader Sandbox (per-shader parameter sliders)
-- **Joint** — Cycle the active landmark joint
-- **Capture** — Download a screenshot
-- **Reset** — Reset sandbox parameters
-
 ### Navbar
 
-- Toggle between Left/Right hand
-- Select which finger landmark routes to a shader
-- Choose from 8 shader presets
+- Shows live tracking status and the active joint · shader combo
 - Capture screenshot or record a GIF (20 frames)
 
 ## Shaders

@@ -24,14 +24,14 @@ const steps: Step[] = [
   },
   {
     id: "joint",
-    title: "Select a Finger",
-    body: "Each finger controls a different light channel. Use the Landmark dropdown to choose which finger the shader effect routes through.",
-    highlight: "Landmark",
+    title: "Fingers & Effects",
+    body: "Each finger routes its own light channel — index finger is Chromatic Aberration, pinky is Topographic Matrix. Raise one finger to pick a mode.",
+    highlight: "Joint",
   },
   {
     id: "shader",
-    title: "Play with Shaders",
-    body: "Choose from 8 visual effects in the Shader preset dropdown. Click 🎛 Shader Sandbox to tweak parameters like speed, density, and glow.",
+    title: "Watch the Shaders",
+    body: "Every finger wears one of 8 visual effects — raise fingers to cycle modes and watch the sphere react.",
     highlight: "Shader",
   },
 ]

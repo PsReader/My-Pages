@@ -1,10 +1,12 @@
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
+import type { RefObject } from "react";
 import * as THREE from "three";
 import type { HandLandmark } from "../hooks/useHands";
 import { buildShaderMaterial } from "../shaders/buildShaderMaterial";
 import { CentralSphere } from "../components/CentralSphere"
-import type { CentralParams } from "../components/CentralSphere"
+import { Retrolens } from "../components/Retrolens"
+import type { CentralParams } from "../components/centralParams"
 
 const jointIndices = Array.from({ length: 21 }, (_, index) => index);
 const skeletonPairs = [
@@ -36,8 +38,10 @@ interface HandSceneProps {
   shaderMap: Record<number, Record<number, string>>;
   palmCenter: { x: number; y: number } | null;
   handAngle: number;
-  sandboxValues?: Record<string, Record<string, number>>;
   lowPerf?: boolean;
+  interactiveId: string;
+  videoRef: RefObject<HTMLVideoElement | null>;
+  onFilterChange: (name: string) => void;
   centralParams: CentralParams;
   onCentralParamsChange: (update: Partial<CentralParams>) => void;
   centralMode: number;
@@ -49,8 +53,10 @@ export function HandScene({
   shaderMap,
   palmCenter,
   handAngle,
-  sandboxValues,
   lowPerf,
+  interactiveId,
+  videoRef,
+  onFilterChange,
   centralParams,
   onCentralParamsChange,
   centralMode,
@@ -143,13 +149,6 @@ export function HandScene({
             velocity * 0.08,
             velocity * 0.08,
           );
-          if (sandboxValues && sandboxValues[shaderId]) {
-            for (const [key, val] of Object.entries(sandboxValues[shaderId])) {
-              if (material.uniforms[key]) {
-                material.uniforms[key].value = val;
-              }
-            }
-          }
           mesh.material = material;
         }
       });
@@ -185,15 +184,26 @@ export function HandScene({
 
   return (
     <group ref={groupRef}>
-      <CentralSphere
-        landmarks={landmarks}
-        palmCenter={palmCenter}
-        handAngle={handAngle}
-        params={centralParams}
-        onParamsChange={onCentralParamsChange}
-        mode={centralMode}
-        modeHandIndex={modeHandIndex}
-      />
+      {interactiveId === "retrolens" && (
+        <Retrolens
+          landmarks={landmarks}
+          videoRef={videoRef}
+          lowPerf={lowPerf}
+          onFilterChange={onFilterChange}
+        />
+      )}
+      {interactiveId === "sphere-halo" && (
+        <CentralSphere
+          landmarks={landmarks}
+          palmCenter={palmCenter}
+          handAngle={handAngle}
+          params={centralParams}
+          onParamsChange={onCentralParamsChange}
+          mode={centralMode}
+          modeHandIndex={modeHandIndex}
+          lowPerf={lowPerf}
+        />
+      )}
       {Array.from({ length: maxHands }).map((_, handIndex) => {
         const handLandmarks = activeHands[handIndex] ?? [];
         return (

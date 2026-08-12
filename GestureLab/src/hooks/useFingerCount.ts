@@ -1,7 +1,7 @@
 import { useMemo } from "react"
 import type { HandLandmark } from "./useHands"
 
-function isExtended(hand: HandLandmark[], tip: number, pip: number, ratio = 1.1): boolean {
+export function isExtended(hand: HandLandmark[], tip: number, pip: number, ratio = 1.1): boolean {
   const wrist = hand[0]
   const t = hand[tip]
   const p = hand[pip]
@@ -41,7 +41,11 @@ export function useRingFingerFolded(hands: HandLandmark[][]): boolean {
   return useMemo(() => {
     for (const hand of hands) {
       if (hand.length < 21) continue
-      if (!isExtended(hand, 16, 15)) return true
+      const ringFolded = !isExtended(hand, 16, 15)
+      const indexUp = isExtended(hand, 8, 7)
+      const middleUp = isExtended(hand, 12, 11)
+      const pinkyUp = isExtended(hand, 20, 19)
+      if (ringFolded && indexUp && middleUp && pinkyUp) return true
     }
     return false
   }, [hands])

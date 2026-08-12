@@ -1,21 +1,21 @@
-import { Canvas, useThree } from "@react-three/fiber";
-import { Html, OrbitControls } from "@react-three/drei";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useCapture } from "./hooks/useCapture";
-import { useSwipeGesture } from "./hooks/useSwipeGesture";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { AmbientBackground } from "./components/AmbientBackground";
 import { isLowPerfDevice } from "./lib/utils";
 import { OnboardingOverlay } from "./components/OnboardingOverlay";
-import { PalmMenu, type MenuItem } from "./components/PalmMenu";
 import { RoutingPanel } from "./components/RoutingPanel";
-import { SandboxPanel } from "./components/SandboxPanel";
 import { useHands } from "./hooks/useHands";
 import { useWebcam } from "./hooks/useWebcam";
 import { HandScene } from "./scene/HandScene";
 import { shaderRegistry } from "./shaders/shaderRegistry";
 import { useFingerCount, useRingFingerFolded } from "./hooks/useFingerCount";
+import { captureStore } from "./captureStore";
+import { CaptureBridge } from "./components/CaptureBridge";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 
-import { defaultCentralParams, MODE_INFO, type CentralParams } from "./components/CentralSphere";
+import { defaultCentralParams, MODE_INFO, type CentralParams } from "./components/centralParams";
+import { INTERACTIVES, type InteractiveDefinition } from "./components/interactives";
 
 const jointOptions = [
   { value: 4, label: "Thumb Tip" },
@@ -54,21 +54,7 @@ function computeHandAngle(
   return Math.atan2(midMcp.y - wrist.y, midMcp.x - wrist.x)
 }
 
-function computePinchDistance(
-  handLandmarks: Array<{ x: number; y: number; z?: number }>,
-) {
-  if (!handLandmarks || handLandmarks.length < 21) return 1;
-  const thumb = handLandmarks[4];
-  const index = handLandmarks[8];
-  if (!thumb || !index) return 1;
-  return Math.sqrt((thumb.x - index.x) ** 2 + (thumb.y - index.y) ** 2);
-}
-
 type RoutingPanelBaseProps = {
-  jointOptions: { value: number; label: string }[];
-  selectedJoint: number;
-  shaderOptions: { value: string; label: string }[];
-  shaderMap: Record<number, Record<number, string>>;
   activeJointLabel: string;
   activeShaderLabel: string;
   activeShaderDescription: string;
@@ -76,32 +62,31 @@ type RoutingPanelBaseProps = {
   isTracking: boolean;
   hasDetectedHand: boolean;
   error: string | null;
-  handLabels: string[];
-  activeHand: 0 | 1;
-  onActiveHandChange: (hand: 0 | 1) => void;
-  onSelectJoint: (value: number) => void;
-  onSelectShader: (value: string) => void;
   onNavToggle: () => void;
+  interactives: InteractiveDefinition[];
+  activeInteractive: string;
+  onInteractiveChange: (id: string) => void;
 }
 
 function RoutingPanelWithCapture(props: RoutingPanelBaseProps) {
-  const { gl } = useThree()
-  const { takeScreenshot, startGifCapture, isCapturingGif } = useCapture(gl)
+  const capture = useSyncExternalStore(
+    captureStore.subscribe,
+    captureStore.getSnapshot,
+  );
   return (
     <RoutingPanel
       {...props}
-      onScreenshot={takeScreenshot}
-      onGifCapture={startGifCapture}
-      isCapturingGif={isCapturingGif}
+      onScreenshot={capture.takeScreenshot}
+      onGifCapture={capture.startGifCapture}
+      isCapturingGif={capture.isCapturingGif}
     />
-  )
+  );
 }
-
 function App() {
   const { videoRef, isReady, error } = useWebcam();
   const { landmarks, handedness, isTracking } = useHands(videoRef);
-  const [selectedJoint, setSelectedJoint] = useState(8);
-  const [activeHand, setActiveHand] = useState<0 | 1>(0);
+  const selectedJoint = 8;
+  const activeHand = 0;
 
   const initialShaderMap = {
     4: "plasma-bridge",
@@ -111,7 +96,7 @@ function App() {
     20: "topographic-matrix",
   }
 
-  const [shaderMap, setShaderMap] = useState<Record<number, Record<number, string>>>({
+  const [shaderMap] = useState<Record<number, Record<number, string>>>({
     0: { ...initialShaderMap },
     1: { ...initialShaderMap },
   });
@@ -125,42 +110,21 @@ function App() {
 
   const isLowPerf = useMemo(() => isLowPerfDevice(), []);
 
-  const [palmMenuOpen, setPalmMenuOpen] = useState(false);
-  const palmMenuTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const palmMenuCooldownRef = useRef(0);
-  const [sandboxOpen, setSandboxOpen] = useState(false);
-  const [sandboxValues, setSandboxValues] = useState<Record<string, Record<string, number>>>({});
   const [centralParams, setCentralParams] = useState<CentralParams>(defaultCentralParams)
+
+  const [interactiveId, setInteractiveId] = useState<string>(
+    () => localStorage.getItem("gesturelab-interactive") ?? "sphere-halo",
+  )
+  const handleInteractiveChange = useCallback((id: string) => {
+    setInteractiveId(id)
+    localStorage.setItem("gesturelab-interactive", id)
+  }, [])
+
+  const [portalFilter, setPortalFilter] = useState("MONO")
 
   const [navOpen, setNavOpen] = useState(true)
   const prevRingRef = useRef(false)
   const ringCooldownRef = useRef(0)
-
-  const activeShaderId = shaderMap[activeHand]?.[selectedJoint] ?? shaderMap[0]?.[selectedJoint] ?? "thermal-vision";
-
-  const handleSandboxChange = useCallback((key: string, val: number) => {
-    setSandboxValues(prev => ({
-      ...prev,
-      [activeShaderId]: { ...(prev[activeShaderId] || {}), [key]: val },
-    }))
-  }, [activeShaderId])
-
-  const handleSandboxReset = useCallback(() => {
-    setSandboxValues(prev => {
-      const next = { ...prev }
-      delete next[activeShaderId]
-      return next
-    })
-  }, [activeShaderId])
-
-  const handlePalmMenuSelect = useCallback((item: MenuItem) => {
-    item.action()
-  }, [])
-
-  const handlePalmMenuClose = useCallback(() => {
-    setPalmMenuOpen(false)
-    palmMenuCooldownRef.current = Date.now()
-  }, [])
 
   const shaderOptions = useMemo(
     () =>
@@ -176,7 +140,6 @@ function App() {
   // Compute palm data from the first detected hand
   const firstHand = landmarks.find((hand) => hand.length > 0);
   const palmCenter = firstHand ? computePalmCenter(firstHand) : null;
-  const pinchDistance = firstHand ? computePinchDistance(firstHand) : 1;
   const handAngle = firstHand ? computeHandAngle(firstHand) : 0;
 
   const fCount0 = useFingerCount(landmarks[0] || [])
@@ -190,14 +153,6 @@ function App() {
     ? (modeHandIndex === 0 ? fCount0 : fCount1)
     : 0
   const ringFolded = useRingFingerFolded(landmarks)
-
-  const navRef = useSwipeGesture(
-    landmarks,
-    [fCount0, fCount1],
-    activeMode,
-    navOpen,
-    () => setNavOpen(p => !p),
-  )
 
   const handleCentralChange = useCallback((update: Partial<CentralParams>) => {
     setCentralParams(prev => ({ ...prev, ...update }))
@@ -216,52 +171,6 @@ function App() {
     Object.entries(shaderRegistry).find(
       ([value]) => value === currentShaderId,
     )?.[1]?.description ?? "A luminous membrane that responds to motion.";
-
-  const Svg = ({ d }: { d: string }) => (
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d={d} />
-    </svg>
-  )
-
-  const palmMenuItems: MenuItem[] = useMemo(() => [
-    { id: "sandbox", label: "Tweak", icon: <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"><path d="M4 3h8M4 8h8M4 13h8" /><circle cx="4" cy="3" r="1.5" fill="currentColor" /><circle cx="12" cy="8" r="1.5" fill="currentColor" /><circle cx="7" cy="13" r="1.5" fill="currentColor" /></svg>, action: () => setSandboxOpen((p) => !p) },
-    { id: "next-joint", label: "Joint", icon: <svg width="14" height="14" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="currentColor" /></svg>, action: () => setSelectedJoint((p) => p >= 20 ? 4 : p + 4) },
-    { id: "capture", label: "Capture", icon: <Svg d="M14.5 13.5a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h2l1-2h4l1 2h3a1 1 0 0 1 1 1v7.5zM8 9.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />, action: () => {
-      const canvas = document.querySelector("canvas")
-      if (canvas) {
-        const link = document.createElement("a")
-        link.download = `gesturelab-${Date.now()}.png`
-        link.href = canvas.toDataURL("image/png")
-        link.click()
-      }
-    }},
-    { id: "reset", label: "Reset", icon: <Svg d="M4 6A6 6 0 1 1 2 9M2 2v5h5" />, action: () => handleSandboxReset() },
-  ], [handleSandboxReset])
-
-  // Gesture detection for palm menu
-  useEffect(() => {
-    if (!hasDetectedHand) {
-      setPalmMenuOpen(false)
-      return
-    }
-
-    if (palmMenuOpen) return
-
-    if (pinchDistance > 0.15) {
-      if (Date.now() - palmMenuCooldownRef.current < 1000) return
-      if (!palmMenuTimerRef.current) {
-        palmMenuTimerRef.current = setTimeout(() => {
-          setPalmMenuOpen(true)
-          palmMenuTimerRef.current = null
-        }, 500)
-      }
-    } else {
-      if (palmMenuTimerRef.current) {
-        clearTimeout(palmMenuTimerRef.current)
-        palmMenuTimerRef.current = null
-      }
-    }
-  }, [hasDetectedHand, pinchDistance, palmMenuOpen])
 
   // Ring finger → navbar toggle
   useEffect(() => {
@@ -291,80 +200,56 @@ function App() {
               shaderMap={shaderMap}
               palmCenter={palmCenter}
               handAngle={handAngle}
-              sandboxValues={sandboxValues}
               lowPerf={isLowPerf}
+              interactiveId={interactiveId}
+              videoRef={videoRef}
+              onFilterChange={setPortalFilter}
               centralParams={centralParams}
               onCentralParamsChange={handleCentralChange}
               centralMode={activeMode}
               modeHandIndex={modeHandIndex}
             />
             <OrbitControls enableZoom={false} enablePan={false} />
-            <Html fullscreen>
-              {!onboardingDone && (
-                <OnboardingOverlay
-                  hasDetectedHand={hasDetectedHand}
-                  isReady={isReady}
-                  onDismiss={handleOnboardingDismiss}
-                />
-              )}
-              <div className="hand-debug-overlay">
-                {handedness.map((label, index) => (
-                  <div
-                    key={index}
-                    className={`hand-debug-pill hand-debug-${label.toLowerCase()}`}
-                  >
-                    {`Hand ${index + 1}: ${label}`}
-                  </div>
-                ))}
-              </div>
-              <PalmMenu
-                palmCenter={palmCenter}
-                handAngle={handAngle}
-                pinchDistance={pinchDistance}
-                menuItems={palmMenuItems}
-                isVisible={palmMenuOpen}
-                onSelect={handlePalmMenuSelect}
-                onClose={handlePalmMenuClose}
-              />
-              <div className={`nav-grip ${navOpen ? "hidden" : ""}`} onClick={() => setNavOpen(true)} />
-              <nav ref={navRef} className={`nav-overlay ${!navOpen ? "nav-closed" : ""}`}>
-                <RoutingPanelWithCapture
-                  jointOptions={jointOptions}
-                  selectedJoint={selectedJoint}
-                  shaderOptions={shaderOptions}
-                  shaderMap={shaderMap}
-                  activeJointLabel={activeJointLabel}
-                  activeShaderLabel={activeShaderLabel}
-                  activeShaderDescription={activeShaderDescription}
-                  isReady={isReady}
-                  isTracking={isTracking}
-                  hasDetectedHand={hasDetectedHand}
-                  error={error}
-                  handLabels={handedness}
-                  activeHand={activeHand}
-                  onActiveHandChange={setActiveHand}
-                  onSelectJoint={setSelectedJoint}
-                  onSelectShader={(value) =>
-                    setShaderMap((prev) => ({
-                      ...prev,
-                      [activeHand]: { ...prev[activeHand], [selectedJoint]: value },
-                    }))
-                  }
-                  onNavToggle={() => setNavOpen(p => !p)}
-                />
-              </nav>
-            </Html>
+            <CaptureBridge />
           </Canvas>
         </div>
 
-        <SandboxPanel
-          shaderId={activeShaderId}
-          values={sandboxValues[activeShaderId] ?? {}}
-          onChange={handleSandboxChange}
-          onReset={handleSandboxReset}
-          open={sandboxOpen}
-          onOpenChange={setSandboxOpen}
-        />
+        <ErrorBoundary>
+          {!onboardingDone && (
+          <OnboardingOverlay
+            hasDetectedHand={hasDetectedHand}
+            isReady={isReady}
+            onDismiss={handleOnboardingDismiss}
+          />
+        )}
+        <div className="hand-debug-overlay">
+          {handedness.map((label, index) => (
+            <div
+              key={index}
+              className={`hand-debug-pill hand-debug-${label.toLowerCase()}`}
+            >
+              {`Hand ${index + 1}: ${label}`}
+            </div>
+          ))}
+        </div>
+        <div className={`nav-grip ${navOpen ? "hidden" : ""}`} onClick={() => setNavOpen(true)} />
+        <nav className={`nav-overlay ${!navOpen ? "nav-closed" : ""}`}>
+          <RoutingPanelWithCapture
+            activeJointLabel={activeJointLabel}
+            activeShaderLabel={activeShaderLabel}
+            activeShaderDescription={activeShaderDescription}
+            isReady={isReady}
+            isTracking={isTracking}
+            hasDetectedHand={hasDetectedHand}
+            error={error}
+            onNavToggle={() => setNavOpen(p => !p)}
+            interactives={INTERACTIVES}
+            activeInteractive={interactiveId}
+            onInteractiveChange={handleInteractiveChange}
+          />
+        </nav>
+        </ErrorBoundary>
+
         <video
           ref={videoRef}
           autoPlay
@@ -375,6 +260,9 @@ function App() {
         <div className="mode-badge">
           {MODE_INFO[activeMode].icon} {MODE_INFO[activeMode].label}
         </div>
+        {interactiveId === "retrolens" && (
+          <div className="portal-badge">RETROLENS &middot; {portalFilter}</div>
+        )}
       </div>
   );
 }

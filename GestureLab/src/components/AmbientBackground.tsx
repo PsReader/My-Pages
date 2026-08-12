@@ -80,34 +80,34 @@ export function AmbientBackground({
           float lineThickness = 0.02 + 0.01 * sin(u_time * 0.5);
           float lineX = 1.0 - smoothstep(lineThickness, lineThickness + 0.015, abs(cellUv.y));
           float lineY = 1.0 - smoothstep(lineThickness, lineThickness + 0.015, abs(cellUv.x));
-          float web = max(lineX, lineY) * 0.25;
+          float web = max(lineX, lineY) * 0.05;
 
           // -- Combine dot + web --
-          float pattern = max(dot * 0.6, web);
+          float pattern = max(dot * 0.12, web);
 
-          // -- Color palette: deep indigo base with cyan web --
-          vec3 baseDark = vec3(0.01, 0.015, 0.04);
+          // -- Color palette: near-black base with faint cyan web --
+          vec3 baseDark = vec3(0.004, 0.006, 0.02);
           vec3 webColor = vec3(0.12, 0.42, 0.72);
           vec3 glowColor = vec3(0.25, 0.85, 1.0);
 
           // Subtle noise for texture
-          float n = noise(warped * 6.0 + u_time * 0.2) * 0.08;
+          float n = noise(warped * 6.0 + u_time * 0.2) * 0.03;
 
           // Base color with web pattern
-          vec3 col = baseDark + webColor * pattern * 0.35 + n;
+          vec3 col = baseDark + webColor * pattern * 0.06 + n;
 
           // -- Hand proximity glow --
-          float handGlow = u_strength * 0.6 * exp(-handDist * handDist * 3.0);
+          float handGlow = u_strength * 0.2 * exp(-handDist * handDist * 3.0);
           col += glowColor * handGlow;
 
           // -- Ripple rings emanating from hand --
           float ripple = sin(handDist * 24.0 - u_time * 4.0) * 0.5 + 0.5;
           ripple *= exp(-handDist * 2.2) * u_strength;
-          col += glowColor * ripple * 0.25;
+          col += glowColor * ripple * 0.06;
 
           // Subtle ambient wave for life when no hand present
           float ambientWave = sin(uv.x * 6.0 + u_time * 0.4) * cos(uv.y * 5.0 - u_time * 0.3);
-          col += vec3(0.02, 0.04, 0.08) * ambientWave * 0.5 * (1.0 - u_strength * 0.6);
+          col += vec3(0.01, 0.02, 0.05) * ambientWave * 0.15 * (1.0 - u_strength * 0.6);
 
           // Vignette
           float vignette = 1.0 - dot(uv, uv) * 0.3;

@@ -3,7 +3,6 @@ import react from "@vitejs/plugin-react";
 import { fileURLToPath } from "url";
 
 const src = fileURLToPath(new URL("src", import.meta.url));
-console.log("[vite] src alias:", src);
 
 export default defineConfig({
   plugins: [react()],

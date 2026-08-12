@@ -36,6 +36,7 @@ export function useHands(
   const landmarkerRef = useRef<HandLandmarker | null>(null);
   const workerRef = useRef<Worker | null>(null);
   const rafRef = useRef<number | null>(null);
+  const lastVideoTimeRef = useRef(-1);
   const prevLandmarksRef = useRef<HandLandmark[][]>([[], []]);
   const prevHandednessRef = useRef<HandednessLabel[]>(["unknown", "unknown"]);
   const lostFrameCountRef = useRef<[number, number]>([0, 0]);
@@ -231,6 +232,7 @@ export function useHands(
       if (!cancelled) {
         worker?.terminate();
         workerRef.current = null;
+        console.warn("[useHands] worker path failed; falling back to main thread");
         setUseWorker(false);
       }
     }
@@ -294,8 +296,12 @@ export function useHands(
           return;
         }
 
-        const w = video.videoWidth;
-        const h = video.videoHeight;
+        // Skip inference if the video frame hasn't advanced
+        if (video.currentTime === lastVideoTimeRef.current) {
+          rafRef.current = requestAnimationFrame(step);
+          return;
+        }
+        lastVideoTimeRef.current = video.currentTime;
 
         // Skip if too many pending frames (backpressure)
         if (pendingFramesRef.current < 3) {
@@ -303,7 +309,7 @@ export function useHands(
             const bitmap = await createImageBitmap(video);
             pendingFramesRef.current++;
             workerInstance.postMessage(
-              { type: "detect", image: bitmap, timestamp: performance.now(), width: w, height: h },
+              { type: "detect", image: bitmap, timestamp: performance.now() },
               [bitmap],
             );
           } catch {
@@ -346,7 +352,7 @@ export function useHands(
           baseOptions: {
             modelAssetPath:
               "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
-            delegate: "CPU",
+            delegate: "GPU",
           },
           runningMode: "VIDEO",
           numHands: 2,
@@ -398,6 +404,12 @@ export function useHands(
         rafRef.current = requestAnimationFrame(step);
         return;
       }
+
+      if (video.currentTime === lastVideoTimeRef.current) {
+        rafRef.current = requestAnimationFrame(step);
+        return;
+      }
+      lastVideoTimeRef.current = video.currentTime;
 
       const result = landmarker.detectForVideo(video, performance.now());
       const rawHands = Array.from(result.landmarks ?? []).map(

@@ -69,38 +69,3 @@ export const shaderDefaults: Record<string, Record<string, number>> = {
   "neon-scattering":       { u_glow: 2.0, u_scatter: 6.0 },
   "topographic-matrix":    { u_density: 10.0, u_speed: 1.0, u_contrast: 0.5 },
 };
-
-export const shaderParamMeta: Record<string, { key: string; label: string; min: number; max: number; step: number }[]> = {
-  "chromatic-aberration": [
-    { key: "u_speed", label: "Wave Speed", min: 0.5, max: 15, step: 0.1 },
-    { key: "u_amount", label: "Wave Amount", min: 0.001, max: 0.15, step: 0.001 },
-    { key: "u_intensity", label: "Intensity", min: 0.01, max: 0.3, step: 0.01 },
-  ],
-  "entropy-erosion": [
-    { key: "u_speed", label: "Noise Speed X", min: 0.2, max: 8, step: 0.1 },
-    { key: "u_speed2", label: "Noise Speed Y", min: 0.2, max: 8, step: 0.1 },
-    { key: "u_mix", label: "Mix", min: 0, max: 1, step: 0.01 },
-  ],
-  "gravitational-lensing": [
-    { key: "u_warp", label: "Warp", min: 0.01, max: 0.8, step: 0.01 },
-    { key: "u_speed", label: "Radius Speed", min: 1, max: 30, step: 0.5 },
-  ],
-  "plasma-bridge": [
-    { key: "u_speed", label: "Band Speed", min: 0.5, max: 20, step: 0.1 },
-    { key: "u_density", label: "Band Density", min: 2, max: 40, step: 0.5 },
-  ],
-  "scanline-pulse": [
-    { key: "u_density", label: "Scan Density", min: 20, max: 400, step: 1 },
-    { key: "u_speed", label: "Scan Speed", min: 0.5, max: 30, step: 0.1 },
-    { key: "u_brightness", label: "Brightness", min: 0.1, max: 2, step: 0.1 },
-  ],
-  "neon-scattering": [
-    { key: "u_glow", label: "Glow", min: 0.5, max: 8, step: 0.1 },
-    { key: "u_scatter", label: "Scatter", min: 0.5, max: 20, step: 0.1 },
-  ],
-  "topographic-matrix": [
-    { key: "u_density", label: "Density", min: 2, max: 30, step: 0.5 },
-    { key: "u_speed", label: "Speed", min: 0.1, max: 5, step: 0.1 },
-    { key: "u_contrast", label: "Contrast", min: 0, max: 1, step: 0.01 },
-  ],
-};

@@ -1,8 +1,6 @@
 import { FilesetResolver, HandLandmarker } from "@mediapipe/tasks-vision"
 
 let landmarker: HandLandmarker | null = null
-let canvas: OffscreenCanvas | null = null
-let ctx: OffscreenCanvasRenderingContext2D | null = null
 
 self.onmessage = async (e: MessageEvent) => {
   const msg = e.data
@@ -26,6 +24,7 @@ self.onmessage = async (e: MessageEvent) => {
       })
       self.postMessage({ type: "ready" })
     } catch (err) {
+      console.warn("[worker] handTracker init failed:", err)
       self.postMessage({
         type: "error",
         message: err instanceof Error ? err.message : "Worker initialization failed",
@@ -36,37 +35,25 @@ self.onmessage = async (e: MessageEvent) => {
 
   if (msg.type === "detect" && landmarker) {
     try {
-      const { image, timestamp, width, height } = msg as {
+      const { image, timestamp } = msg as {
         image: ImageBitmap
         timestamp: number
-        width: number
-        height: number
       }
 
-      // Create or resize OffscreenCanvas to match frame dimensions
-      if (!canvas || canvas.width !== width || canvas.height !== height) {
-        canvas = new OffscreenCanvas(width, height)
-        ctx = canvas.getContext("2d")
-      }
+      const result = landmarker.detectForVideo(image, timestamp)
+      const hands = Array.from(result.landmarks ?? []).map((hand, i) => ({
+        landmarks: hand.map((lm) => ({
+          x: lm.x,
+          y: lm.y,
+          z: lm.z,
+        })),
+        handedness:
+          result.handedness?.[i]?.[0]?.categoryName ??
+          result.handednesses?.[i]?.[0]?.categoryName ??
+          "unknown",
+      }))
 
-      if (ctx) {
-        ctx.drawImage(image, 0, 0)
-        const result = landmarker.detectForVideo(canvas, timestamp)
-
-        const hands = Array.from(result.landmarks ?? []).map((hand, i) => ({
-          landmarks: hand.map((lm) => ({
-            x: lm.x,
-            y: lm.y,
-            z: lm.z,
-          })),
-          handedness:
-            result.handedness?.[i]?.[0]?.categoryName ??
-            result.handednesses?.[i]?.[0]?.categoryName ??
-            "unknown",
-        }))
-
-        self.postMessage({ type: "result", hands, timestamp })
-      }
+      self.postMessage({ type: "result", hands, timestamp })
     } catch {
       // Silently skip failed frames
     }

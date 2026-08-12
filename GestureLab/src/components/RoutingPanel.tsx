@@ -1,18 +1,6 @@
-interface ShaderOption {
-  value: string;
-  label: string;
-}
-
-interface JointOption {
-  value: number;
-  label: string;
-}
+import type { InteractiveDefinition } from "./interactives";
 
 interface RoutingPanelProps {
-  jointOptions: JointOption[];
-  selectedJoint: number;
-  shaderOptions: ShaderOption[];
-  shaderMap: Record<number, Record<number, string>>;
   activeJointLabel: string;
   activeShaderLabel: string;
   activeShaderDescription: string;
@@ -20,22 +8,16 @@ interface RoutingPanelProps {
   isTracking: boolean;
   hasDetectedHand: boolean;
   error: string | null;
-  handLabels: string[];
-  activeHand: 0 | 1;
-  onActiveHandChange: (hand: 0 | 1) => void;
-  onSelectJoint: (value: number) => void;
-  onSelectShader: (value: string) => void;
   onScreenshot?: () => void;
   onGifCapture?: () => void;
   isCapturingGif?: boolean;
   onNavToggle: () => void;
+  interactives: InteractiveDefinition[];
+  activeInteractive: string;
+  onInteractiveChange: (id: string) => void;
 }
 
 export function RoutingPanel({
-  jointOptions,
-  selectedJoint,
-  shaderOptions,
-  shaderMap,
   activeJointLabel,
   activeShaderLabel,
   activeShaderDescription,
@@ -43,17 +25,14 @@ export function RoutingPanel({
   isTracking,
   hasDetectedHand,
   error,
-  handLabels,
-  activeHand,
-  onActiveHandChange,
-  onSelectJoint,
-  onSelectShader,
   onScreenshot,
   onGifCapture,
   isCapturingGif,
   onNavToggle,
+  interactives,
+  activeInteractive,
+  onInteractiveChange,
 }: RoutingPanelProps) {
-  const currentShader = shaderMap[activeHand]?.[selectedJoint] ?? shaderMap[0]?.[selectedJoint] ?? "thermal-vision";
   const statusText =
     isReady && isTracking
       ? hasDetectedHand
@@ -67,45 +46,29 @@ export function RoutingPanel({
         <p className="drawer-title">GestureLab</p>
         <p className="drawer-subtitle">Route light through the hand</p>
         <p className="drawer-tag">{activeShaderLabel} &middot; {activeJointLabel}</p>
+        <a
+          href="../index.html"
+          className="drawer-back"
+          title="Back to Demo Hub"
+          aria-label="Back to Demo Hub"
+        >
+          <span aria-hidden="true">←</span> Back
+        </a>
       </div>
 
       <div className="drawer-section">
         <div className="drawer-row">
-          <span className="drawer-label">Hand</span>
-          <div className="drawer-hand-toggle">
-            <button
-              className={`drawer-hand-btn ${activeHand === 0 ? "active" : ""}`}
-              onClick={() => onActiveHandChange(0)}
-            >
-              {handLabels[0] || "Left"}
-            </button>
-            <button
-              className={`drawer-hand-btn ${activeHand === 1 ? "active" : ""}`}
-              onClick={() => onActiveHandChange(1)}
-            >
-              {handLabels[1] || "Right"}
-            </button>
-          </div>
-        </div>
-        <div className="drawer-row">
-          <span className="drawer-label">Joint</span>
+          <span className="drawer-label">Interactive</span>
           <select
-            value={selectedJoint}
-            onChange={(e) => onSelectJoint(Number(e.target.value))}
             className="drawer-select"
+            value={activeInteractive}
+            onChange={(e) => onInteractiveChange(e.target.value)}
+            aria-label="Select interactive"
           >
-            {jointOptions.map((o) => (
-              <option key={o.value} value={o.value}>{o.label}</option>
-            ))}
-          </select>
-          <span className="drawer-label" style={{ marginLeft: 8 }}>Shader</span>
-          <select
-            value={currentShader}
-            onChange={(e) => onSelectShader(e.target.value)}
-            className="drawer-select"
-          >
-            {shaderOptions.map((o) => (
-              <option key={o.value} value={o.value}>{o.label}</option>
+            {interactives.map((interactive) => (
+              <option key={interactive.id} value={interactive.id}>
+                {interactive.label}
+              </option>
             ))}
           </select>
         </div>

@@ -1,73 +1,8 @@
 import { useFrame, type ThreeEvent } from "@react-three/fiber";
-import { useMemo, useRef, type ReactNode } from "react";
+import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import type { HandLandmark } from "../hooks/useHands";
-
-export interface CentralParams {
-  posX: number;
-  posY: number;
-  posZ: number;
-  autoPosition: boolean;
-  sphereScale: number;
-  haloRadius: number;
-  autoScale: boolean;
-  spinSpeed: number;
-  autoRotation: boolean;
-  glowOpacity: number;
-  hue: number;
-  autoColor: boolean;
-}
-
-export const defaultCentralParams: CentralParams = {
-  posX: 0,
-  posY: 0,
-  posZ: 0,
-  autoPosition: true,
-  sphereScale: 1,
-  haloRadius: 1.15,
-  autoScale: true,
-  spinSpeed: 0.3,
-  autoRotation: true,
-  glowOpacity: 0.18,
-  hue: 0.5,
-  autoColor: true,
-};
-
-const Svg = ({ d, viewBox = "0 0 16 16" }: { d: string; viewBox?: string }) => (
-  <svg
-    width="14"
-    height="14"
-    viewBox={viewBox}
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d={d} />
-  </svg>
-);
-
-export const MODE_INFO: Record<number, { label: string; icon: ReactNode }> = {
-  0: { label: "Auto", icon: <Svg d="M4 2l10 6-10 6V2z" /> },
-  1: {
-    label: "Move",
-    icon: <Svg d="M8 2v12M2 8h12M5 5l3-3 3 3M5 11l3 3 3-3" />,
-  },
-  2: { label: "Scale", icon: <Svg d="M2 14L14 2M6 14h8V6" /> },
-  3: {
-    label: "Color",
-    icon: (
-      <svg width="14" height="14" viewBox="0 0 16 16">
-        <circle cx="8" cy="8" r="7" fill="currentColor" />
-      </svg>
-    ),
-  },
-  4: {
-    label: "Rotate",
-    icon: <Svg d="M14 8A6 6 0 1 1 8 2c1.9 0 3.6.9 4.7 2.3M14 2v4h-4" />,
-  },
-};
+import type { CentralParams } from "./centralParams";
 
 interface Props {
   landmarks: HandLandmark[][];
@@ -77,6 +12,7 @@ interface Props {
   onParamsChange: (update: Partial<CentralParams>) => void;
   mode: number;
   modeHandIndex: number;
+  lowPerf?: boolean;
 }
 
 function avgPalm(hand: HandLandmark[]) {
@@ -132,18 +68,26 @@ export function CentralSphere({
   onParamsChange,
   mode,
   modeHandIndex,
+  lowPerf,
 }: Props) {
   const groupRef = useRef<THREE.Group>(null);
   const haloRef = useRef<THREE.Mesh>(null);
-  const pulseRef = useRef<THREE.Points>(null);
+  const sphereRef = useRef<THREE.Points>(null);
 
-  const particlePositions = useMemo(
-    () => new Float32Array(generateShellPoints(3000, 0.88)),
-    [],
-  );
+  const sphereGeometry = useMemo(() => {
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute(
+      "position",
+      new THREE.Float32BufferAttribute(
+        generateShellPoints(lowPerf ? 1200 : 1800, 0.88),
+        3,
+      ),
+    );
+    return geo;
+  }, [lowPerf]);
 
   const particleSprite = useMemo(() => {
-    const size = 128;
+    const size = 256;
     const canvas = document.createElement("canvas");
     canvas.width = size;
     canvas.height = size;
@@ -157,16 +101,22 @@ export function CentralSphere({
       size / 2,
       size / 2,
     );
-    gradient.addColorStop(0, "rgba(255, 255, 255, 0.95)");
-    gradient.addColorStop(0.2, "rgba(173, 231, 255, 0.85)");
-    gradient.addColorStop(0.4, "rgba(90, 206, 255, 0.4)");
-    gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+    gradient.addColorStop(0, "rgba(255, 255, 255, 1)");
+    gradient.addColorStop(0.42, "rgba(240, 248, 255, 0.95)");
+    gradient.addColorStop(0.45, "rgba(0, 0, 0, 0)");
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, size, size);
-    const texture = new THREE.Texture(canvas);
-    texture.needsUpdate = true;
-    return texture;
+    return new THREE.CanvasTexture(canvas);
   }, []);
+
+  /* ---- HUD tech layers ---- */
+  const hudRef = useRef<THREE.Group>(null);
+  const shellRef = useRef<THREE.Mesh>(null);
+
+  const shellGeometry = useMemo(
+    () => new THREE.IcosahedronGeometry(1.22, lowPerf ? 0 : 1),
+    [lowPerf],
+  );
 
   /* ---- Drag (mouse) ---- */
   const draggingRef = useRef(false);
@@ -182,7 +132,6 @@ export function CentralSphere({
 
   /* ---- Persistent gesture values ---- */
   const gScale = useRef(1);
-  const hasCustomScale = useRef(false);
   const gHue = useRef(0.5);
   const gRot = useRef(0);
   const hasCustomRot = useRef(false);
@@ -210,8 +159,8 @@ export function CentralSphere({
 
   useFrame(({ clock, size, camera, pointer }) => {
     const halo = haloRef.current;
-    const pulse = pulseRef.current;
-    if (!halo || !pulse) return;
+    const sphere = sphereRef.current;
+    if (!halo || !sphere) return;
 
     const p = pRef.current;
     const curMode = mRef.current;
@@ -337,17 +286,11 @@ export function CentralSphere({
 
     /* ===== Scale (mode 2: pinch delta → scale, persistent) ===== */
     if (curMode === 2 && hasOther && hasManip) {
-      hasCustomScale.current = true;
       gScale.current = Math.max(0.1, gScale.current + dPinch * 12);
       sScale.current = gScale.current;
       onParamsChange({ sphereScale: gScale.current, autoScale: false });
-    } else if (curMode !== 2) {
-      if (curMode === 0 && p.autoScale && !hasCustomScale.current) {
-        const autoScale = (0.9 + intensity * 0.28) * (0.5 + 0.5 * prox);
-        sScale.current += (autoScale - sScale.current) * 0.1;
-      } else {
-        sScale.current = gScale.current;
-      }
+    } else {
+      sScale.current = gScale.current;
     }
 
     /* ===== Color (mode 3: index finger X → hue, persistent) ===== */
@@ -402,7 +345,7 @@ export function CentralSphere({
       halo.rotation.x = Math.PI / 2;
       halo.rotation.y = sRotY.current;
       halo.rotation.z = 0;
-      pulse.rotation.y = sRotY.current;
+      sphere.rotation.y = sRotY.current;
     } else {
       halo.rotation.x = Math.PI / 2 + sPos.current.y * 0.4;
       halo.rotation.z = clock.elapsedTime * p.spinSpeed + sPos.current.x * 0.3;
@@ -413,14 +356,26 @@ export function CentralSphere({
     hm.opacity = sOp.current;
     hm.color.setHSL(sHue.current, sSat.current, 0.5);
 
-    pulse.position.copy(sPos.current);
-    pulse.position.z = -0.03;
-    pulse.scale.setScalar(sScale.current);
+    sphere.position.copy(sPos.current);
+    sphere.position.z = -0.03;
+    sphere.scale.setScalar(sScale.current);
 
-    const pm = pulse.material as THREE.PointsMaterial;
-    pm.opacity = 0.22 + intensity * 0.12 + prox * 0.18;
-    pm.color.setHSL(sHue.current + 0.02, sSat.current + 0.08, 0.65);
-    pm.size = 8 + Math.min(intensity * 10, 7);
+    const sm = sphere.material as THREE.PointsMaterial;
+    sm.opacity = 0.4 + intensity * 0.15 + prox * 0.2;
+    sm.color.setHSL(sHue.current + 0.02, sSat.current + 0.08, 0.65);
+    sm.size = 0.06 + intensity * 0.03;
+
+    /* ---- HUD tech layers ---- */
+    const hud = hudRef.current;
+    if (hud) {
+      hud.position.copy(sPos.current);
+      hud.scale.setScalar(sScale.current);
+    }
+    const shell = shellRef.current;
+    if (shell) {
+      shell.rotation.x = Math.PI / 4 + clock.elapsedTime * 0.08;
+      shell.rotation.y = clock.elapsedTime * 0.15;
+    }
 
     /* ---- Camera sway ---- */
     camera.position.x = Math.sin(clock.elapsedTime * 0.2) * 0.08;
@@ -454,25 +409,39 @@ export function CentralSphere({
         <torusGeometry args={[1.15, 0.01, 16, 80]} />
         <meshBasicMaterial color="#00ffff" transparent opacity={0.18} />
       </mesh>
-      <points ref={pulseRef} position={[0, 0, -0.03]}>
-        <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            array={particlePositions}
-            itemSize={3}
-          />
-        </bufferGeometry>
+      <points
+        ref={sphereRef}
+        geometry={sphereGeometry}
+        position={[0, 0, -0.03]}
+        frustumCulled={false}
+        renderOrder={2}
+      >
         <pointsMaterial
-          size={12}
+          size={0.065}
           sizeAttenuation={true}
           transparent={true}
           opacity={0.45}
+          alphaTest={0.25}
           map={particleSprite ?? undefined}
           color={new THREE.Color("#7de5ff")}
           depthWrite={false}
+          depthTest={false}
           blending={THREE.AdditiveBlending}
         />
       </points>
+      <group ref={hudRef}>
+        <mesh ref={shellRef} geometry={shellGeometry} renderOrder={1}>
+          <meshBasicMaterial
+            color="#37c8ff"
+            wireframe
+            transparent
+            opacity={0.12}
+            depthWrite={false}
+            depthTest={false}
+            blending={THREE.AdditiveBlending}
+          />
+        </mesh>
+      </group>
     </group>
   );
 }
