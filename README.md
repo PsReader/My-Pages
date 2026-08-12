@@ -1,48 +1,89 @@
 # My Projects
 
-Welcome to my web playground — a growing collection of interactive experiments, themed showcases, and front-end explorations built with HTML, CSS, JavaScript, and React.
+A portfolio workspace of creative web experiments, themed mini-projects, and interactive front-end builds.
 
-This workspace is a mix of polished concept sites, small web apps, and creative UI experiments. Each project lives in its own folder and reflects a different side of my learning and design style.
+This collection brings together different directions in my web development practice: immersive motion experiences, storytelling-driven pages, playful storefront designs, and lightweight utility apps. Each project is stored in its own folder and reflects a different style of interface design and front-end problem solving.
 
-## Featured Projects
+---
+
+## Project overview
 
 ### GestureLab
 
-A futuristic, interactive experience powered by webcam hand tracking, Three.js, React, and shader-driven visuals. It leans into motion, immersion, and experimental web design.
+A webcam-powered interaction sandbox built with React, TypeScript, Three.js, and MediaPipe hand tracking.
 
-- Built with Vite, TypeScript, `@react-three/fiber`, and MediaPipe
-- Focus: real-time interaction and visual storytelling
-- Folder: `GestureLab`
+- interactive hand gesture controls
+- 3D scene rendering with React Three Fiber
+- shader-based visual effects and live motion feedback
+- real-time camera-driven experimentation
+- folder: `GestureLab`
 
-### Lord of the Mysteries
+### LOTM
 
-A multi-page fan grimoire built around the world of _Lord of the Mysteries_, with lore, character profiles, pathway guides, volumes, and more.
+A fan-made lore archive and storytelling website for _Lord of the Mysteries_.
 
-- Built with HTML, CSS, and vanilla JavaScript
-- Focus: structure, navigation, and content-rich storytelling
-- Folder: `LOTM`
+- multi-page content structure
+- dark fantasy aesthetic
+- lore, pathways, character references, and chapters
+- static HTML/CSS/JavaScript implementation
+- folder: `LOTM`
 
 ### Pudding Paradise
 
-A dessert-themed storefront experience with a playful layout, menu browsing, and review sections.
+A dessert-themed storefront and landing page concept with a soft, pastel personality.
 
-- Built with responsive HTML and CSS
-- Focus: visual identity and polished static web design
-- Folder: `Pudding Paradise`
+- responsive static website
+- menu, home, and review pages
+- brand-driven visual design
+- folder: `Pudding Paradise`
 
 ### Scratchpad
 
-A compact personal workspace for notes and ideas, complete with theme options and local persistence.
+A simple note-taking dashboard focused on organization and local persistence.
 
-- Built with HTML, CSS, and JavaScript
-- Focus: usability, organization, and lightweight interactivity
-- Folder: `Scratchpad`
+- browser-based note management
+- theme switching
+- searchable and categorized notes
+- localStorage-based saving
+- folder: `Scratchpad`
 
-## Root Files
+---
 
-- `index.html` — a demo hub landing page for showcasing the projects
-- `portfolio.html` — a more personal portfolio-style presentation
+## Root files
+
+- `index.html` — main landing or portfolio entry page
+- `portfolio.html` — polished personal portfolio page
+- `ghost-cursor.js` — custom cursor effect script used in the portfolio
+
+---
+
+## How to use this workspace
+
+- For static HTML projects, open the relevant page directly in a browser.
+- For `GestureLab`, install dependencies and run the Vite app locally:
+
+```bash
+cd GestureLab
+npm install
+npm run dev
+```
+
+- For the static project folders, open the `.html` file directly or serve them through a local browser preview.
+
+---
+
+## Notes
+
+This workspace is a combination of learning projects, creative prototypes, and personal experiments. It reflects a growing range of skills across:
+
+- responsive front-end design
+- interactive UI and motion
+- storytelling-driven content pages
+- JavaScript behavior and browser APIs
+- React and 3D web experiences
+
+---
 
 ## License
 
-This workspace and its projects are available under the MIT License unless otherwise noted in individual project folders.
+This workspace is available under the MIT License unless otherwise noted in an individual project folder.
