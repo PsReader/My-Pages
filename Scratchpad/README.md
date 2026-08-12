@@ -1,51 +1,60 @@
 # Scratchpad
 
-A browser-based note-taking dashboard with theme switching, persistent storage, and sectioned notes.
+A lightweight personal note-taking app with themed UI, persistent local storage, and structured note categories.
 
 ## Overview
 
-Scratchpad is a lightweight web app for capturing quick thoughts, ideas, and journal-style entries. Notes are stored locally in the browser using `localStorage`, making it easy to use without a backend.
+Scratchpad is a browser-based journaling and notes dashboard designed for quick daily capture. It lets users create, organize, search, pin, and manage notes without needing any backend or database.
 
-## Key Features
+## Features
 
-- Add notes with title, section, tags, and content
-- Choose a note section: Quick Notes, Ideas, or Journal
-- Pin notes to keep them at the top
-- Search notes by title, content, tags, or section
-- Undo and redo note changes
-- Clear all notes
-- Theme picker with multiple visual styles
-- Responsive layout optimized for desktop and mobile
+- create notes with title, section, tags, and content
+- organize notes by category: Quick Notes, Ideas, or Journal
+- pin important notes to the top
+- search by title, content, tags, or section
+- undo and redo note actions
+- clear all notes when needed
+- switch between multiple visual themes
+- responsive layout for desktop and mobile use
 
-## Built With
+## Tech stack
 
-- HTML
-- CSS
+- HTML5
+- CSS3
 - JavaScript
+- Browser `localStorage`
 
-## Project Structure
+## Project structure
 
-```
+```text
 Scratchpad/
-├── images/              # Optional image assets
-├── ScratchpadHome.html  # Main note-taking app page
-├── script.js            # App behavior and state management
-├── style.css            # Styling and theme rules
-└── README.md
+├── images/
+├── ScratchpadHome.html
+├── script.js
+├── style.css
+├── README.md
+└── ...
 ```
 
-## Usage
+## How to run
 
-1. Open `ScratchpadHome.html` in a browser.
-2. Add notes using the form.
-3. Notes are saved automatically in your browser.
+Open the app directly in a browser:
+
+```bash
+cd "Scratchpad"
+start ScratchpadHome.html
+```
+
+Or simply double-click `ScratchpadHome.html`.
 
 ## Notes
 
-- The app supports multiple themes and stores the selected theme in `localStorage`.
-- Data only persists on the current device and browser.
-- No additional tools or server setup are required.
+- notes are saved locally in the browser using `localStorage`
+- data persists only on the current browser/device
+- no server setup or dependencies are required
 
-## License
+## Author
 
-This project is available under the MIT License.
+Created by **PsReader**.
+
+**[Return to the main portfolio](../index.html)**
