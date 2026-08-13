@@ -46,11 +46,14 @@ export function useHands(
 
   const normalizeHandedness = (value: string | undefined) => {
     const normalized = value?.toLowerCase() ?? "";
-    return normalized.startsWith("l")
+    const rawLabel = normalized.startsWith("l")
       ? "Left"
       : normalized.startsWith("r")
         ? "Right"
         : "unknown";
+    if (rawLabel === "Left") return "Right";
+    if (rawLabel === "Right") return "Left";
+    return "unknown";
   };
 
   const getWrist = (hand: HandLandmark[]) =>
@@ -80,8 +83,8 @@ export function useHands(
     const xBias = hand.landmarks[0]?.x ?? 0.5;
     const sidePenalty =
       slotIndex === 0
-        ? Math.max(0, xBias - 0.5) * 0.2
-        : Math.max(0, 0.5 - xBias) * 0.2;
+        ? Math.max(0, 0.5 - xBias) * 0.2
+        : Math.max(0, xBias - 0.5) * 0.2;
     const temporalPenalty =
       pastAssignmentsRef.current[slotIndex] === handIndex ? 0 : 0.15;
     return handednessPenalty + prevPenalty + sidePenalty + temporalPenalty;
@@ -125,7 +128,7 @@ export function useHands(
           : Infinity;
         slotIndex = leftDist <= rightDist ? 0 : 1;
         if (!previousHands[0]?.length && !previousHands[1]?.length) {
-          slotIndex = (hand.landmarks[0]?.x ?? 0.5) < 0.5 ? 0 : 1;
+          slotIndex = (hand.landmarks[0]?.x ?? 0.5) < 0.5 ? 1 : 0;
         }
       }
 
@@ -163,28 +166,17 @@ export function useHands(
   const processRawHands = (
     rawHands: Array<{ landmarks: HandLandmark[]; handedness: string }>,
   ) => {
-    // Normalize handedness and mirror X once, so every consumer sees
-    // user-perspective coordinates (selfie view): the left hand renders on
-    // the left and is labeled "Left", regardless of worker vs main thread.
-    const processed = rawHands.map((hand) => ({
-      handedness: normalizeHandedness(hand.handedness),
-      landmarks: hand.landmarks.map((landmark) => ({
-        x: 1 - landmark.x,
-        y: landmark.y,
-        z: landmark.z,
-      })),
-    }));
     const {
       slots: [leftHand, rightHand],
       labels: nextLabels,
     } = assignHandSlots(
-      processed,
+      rawHands,
       prevLandmarksRef.current,
       prevHandednessRef.current,
     );
-    // Track which processed index went to which slot for temporal consistency
-    if (processed.length >= 1) pastAssignmentsRef.current[0] = leftHand ? 0 : null;
-    if (processed.length >= 2) pastAssignmentsRef.current[1] = rightHand ? 1 : null;
+    // Track which rawHands index went to which slot for temporal consistency
+    if (rawHands.length >= 1) pastAssignmentsRef.current[0] = leftHand ? 0 : null;
+    if (rawHands.length >= 2) pastAssignmentsRef.current[1] = rightHand ? 1 : null;
     const nextLandmarks: HandLandmark[][] = [[], []];
 
     [leftHand, rightHand].forEach((handLandmarks, handIndex) => {
@@ -418,10 +410,10 @@ export function useHands(
       const result = landmarker.detectForVideo(video, performance.now());
       const rawHands = Array.from(result.landmarks ?? []).map(
         (handLandmarks, handIndex) => ({
-          handedness:
+          handedness: normalizeHandedness(
             result.handedness?.[handIndex]?.[0]?.categoryName ||
-            result.handednesses?.[handIndex]?.[0]?.categoryName ||
-            "unknown",
+              result.handednesses?.[handIndex]?.[0]?.categoryName,
+          ),
           landmarks: handLandmarks.map((landmark) => ({
             x: landmark.x,
             y: landmark.y,

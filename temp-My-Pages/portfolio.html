@@ -1,0 +1,2650 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="PsReader — Frontend Developer Portfolio. Specialized in responsive web design, semantic HTML, CSS, and vanilla JavaScript."
+    />
+    <title>PsReader — Frontend Developer Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* =================================================================
+         RESET
+         ================================================================= */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* =================================================================
+         DESIGN TOKENS
+         ================================================================= */
+      :root {
+        --bg-base: #0b0d13;
+        --bg-raised: #10121a;
+        --bg-card: #161923;
+        --bg-card-hover: #1c1f2e;
+        --bg-surface: #1a1d2b;
+
+        --border: #21263a;
+        --border-hover: #2f3652;
+        --border-muted: #1c2131;
+
+        --accent: #881798;
+        --accent-hover: #b348c2;
+        --accent-muted: rgba(136, 23, 152, 0.12);
+
+        --text-primary: #e8eaf0;
+        --text-secondary: #8b95ad;
+        --text-tertiary: #505872;
+
+        --radius-sm: 6px;
+        --radius: 8px;
+        --radius-lg: 12px;
+        --radius-xl: 16px;
+
+        --max-w: 960px;
+
+        --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      /* =================================================================
+         BASE
+         ================================================================= */
+      html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background: var(--bg-base);
+        color: var(--text-secondary);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(
+          circle,
+          rgba(136, 23, 152, 0.08) 1px,
+          transparent 1px
+        );
+        background-size: 32px 32px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+        transition: color 150ms var(--ease);
+      }
+      a:hover {
+        color: var(--accent-hover);
+      }
+
+      ::selection {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      /* =================================================================
+         HEADER
+         ================================================================= */
+      .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: rgba(11, 13, 19, 0.75);
+        backdrop-filter: blur(20px) saturate(1.8);
+        -webkit-backdrop-filter: blur(20px) saturate(1.8);
+        border-bottom: 1px solid var(--border);
+        transition: background 300ms var(--ease);
+      }
+
+      .header-inner {
+        max-width: var(--max-w);
+        margin: 0 auto;
+        padding: 0 24px;
+        height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .wordmark {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.9375rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        letter-spacing: -0.03em;
+      }
+
+      .wordmark-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1.5px solid var(--border-hover);
+        transition:
+          border-color 200ms var(--ease),
+          transform 300ms var(--ease-spring);
+        flex-shrink: 0;
+      }
+      .wordmark:hover .wordmark-avatar {
+        border-color: var(--accent);
+        transform: scale(1.08);
+      }
+      .wordmark-text {
+        color: var(--text-primary);
+      }
+      .wordmark-text:hover {
+        color: var(--accent-hover);
+      }
+
+      .wordmark-avatar-link {
+        display: inline-flex;
+        line-height: 0;
+        border-radius: 50%;
+      }
+
+      .header-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        position: fixed;
+        top: 0;
+        right: -280px;
+        width: 260px;
+        height: 100vh;
+        height: 100dvh;
+        background: var(--bg-raised);
+        border-left: 1px solid var(--border);
+        padding: 104px 24px 32px;
+        z-index: 100;
+        transition: right 320ms var(--ease);
+      }
+      .header-nav.open {
+        right: 0;
+      }
+
+      .header-nav a {
+        font-size: 0.9375rem;
+        font-weight: 500;
+        color: var(--text-tertiary);
+        padding: 10px 12px;
+        width: 100%;
+        border-radius: var(--radius);
+        transition:
+          background 150ms var(--ease),
+          color 150ms var(--ease);
+      }
+      .header-nav a:hover {
+        background: var(--bg-card);
+        color: var(--text-primary);
+      }
+
+      .nav-gh {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--text-secondary);
+        padding: 6px 14px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        font-size: 0.8125rem;
+        font-weight: 500;
+        transition: all 180ms var(--ease);
+        margin-top: 16px;
+        width: 100%;
+        justify-content: center;
+      }
+      .nav-gh:hover {
+        color: var(--text-primary);
+        border-color: var(--border-hover);
+        background: var(--bg-card);
+      }
+      .nav-gh svg {
+        width: 15px;
+        height: 15px;
+        flex-shrink: 0;
+      }
+
+      /* =================================================================
+         HERO
+         ================================================================= */
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        text-align: left;
+        padding: 140px 24px 100px;
+        max-width: var(--max-w);
+        margin: 0 auto;
+        overflow: hidden;
+      }
+
+      @media (max-width: 900px) {
+        .hero {
+          align-items: center;
+          text-align: center;
+        }
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 30%;
+        left: -20%;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(
+          circle,
+          rgba(136, 23, 152, 0.15) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        top: 10%;
+        right: -15%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          circle,
+          rgba(136, 23, 152, 0.1) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .hero > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 24px;
+      }
+
+      .hero-eyebrow::before {
+        content: "";
+        width: 24px;
+        height: 1px;
+        background: var(--accent);
+        opacity: 0.5;
+      }
+
+      /* Ambient orb — soft breathing glow behind hero content */
+      .hero-orb {
+        position: absolute;
+        top: 14%;
+        right: 8%;
+        width: 340px;
+        height: 340px;
+        background: radial-gradient(
+          circle,
+          rgba(136, 23, 152, 0.16) 0%,
+          rgba(136, 23, 152, 0.05) 40%,
+          transparent 70%
+        );
+        filter: blur(2px);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 0;
+        animation: orbPulse 7s ease-in-out infinite;
+      }
+
+      @keyframes orbPulse {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+          opacity: 0.7;
+        }
+        50% {
+          transform: translate(-24px, 20px) scale(1.12);
+          opacity: 1;
+        }
+      }
+
+      /* Freelance availability badge */
+      .hero-badge.hero-animate {
+        display: flex;
+        width: fit-content;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 14px;
+        margin-bottom: 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(136, 23, 152, 0.35);
+        background: rgba(136, 23, 152, 0.1);
+        color: var(--accent-hover);
+        font-size: 0.8125rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        opacity: 1;
+        animation: badgeFloat 4s ease-in-out infinite;
+      }
+
+      .hero-badge-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #35d07f;
+        box-shadow: 0 0 0 0 rgba(53, 208, 127, 0.5);
+        animation: badgePing 2.2s ease-out infinite;
+      }
+
+      @keyframes badgePing {
+        0% {
+          box-shadow: 0 0 0 0 rgba(53, 208, 127, 0.55);
+        }
+        70% {
+          box-shadow: 0 0 0 8px rgba(53, 208, 127, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(53, 208, 127, 0);
+        }
+      }
+
+      @keyframes badgeFloat {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-4px);
+        }
+      }
+
+      /* Highlighted hero word */
+      .hero-word {
+        font-style: normal;
+        background: linear-gradient(
+          135deg,
+          var(--accent) 0%,
+          var(--accent-hover) 60%,
+          #e38ff0 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+        font-size: 1.06em;
+      }
+
+      /* Animated underline beneath the highlight */
+      .hero-underline.hero-animate {
+        display: block;
+        width: 0;
+        height: 4px;
+        margin: -10px 0 22px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+        opacity: 1;
+        animation: underlineGrow 1.1s var(--ease-premium) 0.55s forwards;
+      }
+
+      @keyframes underlineGrow {
+        to {
+          width: min(240px, 56%);
+        }
+      }
+
+      .hero h1 {
+        font-size: clamp(2.125rem, 5.5vw, 3rem);
+        font-weight: 800;
+        line-height: 1.12;
+        letter-spacing: -0.035em;
+        margin-bottom: 24px;
+        max-width: 60ch;
+        background: linear-gradient(135deg, #e8eaf0 0%, #b348c2 100%);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradientShift 6s ease-in-out infinite;
+      }
+
+      @keyframes gradientShift {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      .hero-desc {
+        font-size: 1.0625rem;
+        line-height: 1.75;
+        color: var(--text-secondary);
+        max-width: 52ch;
+        margin-bottom: 28px;
+      }
+
+      .hero-cta {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      /* Constrain hero content to the site grid */
+      .hero-content {
+        width: 100%;
+        max-width: 560px;
+        align-self: flex-start;
+        padding-left: 24px;
+        box-sizing: border-box;
+      }
+
+      @media (max-width: 900px) {
+        .hero-content {
+          padding-left: 0;
+          max-width: 92%;
+        }
+
+        .hero-badge {
+          margin-left: auto;
+          margin-right: auto;
+        }
+      }
+
+      /* =================================================================
+         STATS SECTION
+         ================================================================= */
+      .stats-bar {
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        background: var(--bg-raised);
+        position: relative;
+      }
+
+      .stats-inner {
+        max-width: var(--max-w);
+        margin: 0 auto;
+        padding: 32px 24px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+
+      .stat-item {
+        text-align: center;
+        padding: 8px 0;
+        transition: transform 300ms var(--ease-spring);
+      }
+      .stat-item:hover {
+        transform: scale(1.05);
+      }
+
+      .stat-value {
+        font-size: 1.375rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        line-height: 1;
+        margin-bottom: 6px;
+        letter-spacing: -0.02em;
+      }
+
+      .stat-label {
+        font-size: 0.6875rem;
+        font-weight: 500;
+        color: var(--text-tertiary);
+        letter-spacing: 0.03em;
+      }
+
+      /* =================================================================
+         SECTIONS
+         ================================================================= */
+      .section {
+        max-width: var(--max-w);
+        margin: 0 auto;
+        padding: 88px 24px;
+      }
+
+      .section-label {
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .section-label::before {
+        content: "";
+        width: 24px;
+        height: 1px;
+        background: var(--accent);
+        opacity: 0.5;
+      }
+
+      .section-heading {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: -0.02em;
+        line-height: 1.25;
+        margin-bottom: 48px;
+        position: relative;
+      }
+
+      .section-heading::after {
+        content: "";
+        display: block;
+        width: 48px;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent), transparent);
+        margin-top: 16px;
+        border-radius: 2px;
+      }
+
+      /* =================================================================
+         ABOUT SECTION
+         ================================================================= */
+      .about-content {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+
+      .about-text p {
+        font-size: 0.9375rem;
+        line-height: 1.8;
+        color: var(--text-secondary);
+        margin-bottom: 20px;
+      }
+
+      .about-text p strong {
+        color: var(--text-primary);
+      }
+
+      .about-highlights {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .highlight-item {
+        display: flex;
+        gap: 12px;
+        padding: 16px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        transition: all 200ms var(--ease);
+      }
+      .highlight-item:hover {
+        border-color: var(--accent);
+        background: var(--bg-card-hover);
+      }
+
+      .highlight-icon {
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--accent-muted);
+        border-radius: var(--radius-sm);
+        color: var(--accent);
+        flex-shrink: 0;
+        font-weight: 700;
+      }
+
+      .highlight-text h4 {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 2px;
+      }
+
+      .highlight-text p {
+        font-size: 0.8125rem;
+        color: var(--text-tertiary);
+        margin: 0;
+      }
+
+      .brand-cards {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+        margin-top: 36px;
+        margin-bottom: 24px;
+      }
+
+      .brand-card {
+        position: relative;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 24px 22px;
+        overflow: hidden;
+        transition:
+          transform 320ms var(--ease-premium),
+          border-color 250ms var(--ease),
+          background 250ms var(--ease),
+          box-shadow 320ms var(--ease);
+      }
+      .brand-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 22px;
+        width: 44px;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+        border-radius: 999px;
+      }
+      .brand-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          140px 140px at 20% 0%,
+          rgba(136, 23, 152, 0.12),
+          transparent 70%
+        );
+        opacity: 0;
+        transition: opacity 320ms var(--ease);
+        pointer-events: none;
+      }
+      .brand-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(136, 23, 152, 0.5);
+        background: var(--bg-card-hover);
+        box-shadow:
+          0 16px 34px rgba(0, 0, 0, 0.35),
+          0 0 0 1px rgba(136, 23, 152, 0.12),
+          0 0 26px rgba(136, 23, 152, 0.14);
+        z-index: 5; /* ensure hovered card stacks above adjacent content */
+        position: relative; /* create stacking context for z-index */
+      }
+      .brand-card:hover::after {
+        opacity: 1;
+      }
+
+      .brand-card-icon {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--accent-muted);
+        border: 1px solid rgba(136, 23, 152, 0.25);
+        border-radius: var(--radius-sm);
+        color: var(--accent-hover);
+        margin-bottom: 16px;
+      }
+      .brand-card-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .brand-card h3 {
+        font-size: 0.9375rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: 0.02em;
+        margin-bottom: 12px;
+      }
+
+      .brand-card ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .brand-card li {
+        display: flex;
+        align-items: flex-start;
+        gap: 9px;
+        font-size: 0.8125rem;
+        line-height: 1.6;
+        color: var(--text-secondary);
+      }
+      .brand-card li::before {
+        content: "";
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--accent-hover);
+        margin-top: 7px;
+        flex-shrink: 0;
+      }
+
+      /* =================================================================
+         SKILLS GRID
+         ================================================================= */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 16px;
+      }
+
+      .skill-item {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        min-height: 124px;
+        padding: 16px;
+        background: linear-gradient(
+          180deg,
+          rgba(22, 25, 35, 0.96),
+          rgba(17, 20, 29, 0.95)
+        );
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        transition:
+          transform 260ms var(--ease-premium),
+          border-color 260ms var(--ease),
+          background 260ms var(--ease),
+          box-shadow 260ms var(--ease);
+        overflow: hidden;
+      }
+      .skill-item::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(179, 72, 194, 0.8),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 260ms var(--ease);
+      }
+      .skill-item:hover {
+        border-color: rgba(136, 23, 152, 0.45);
+        background: linear-gradient(
+          180deg,
+          rgba(30, 33, 46, 0.96),
+          rgba(22, 25, 35, 0.96)
+        );
+        transform: translateY(-5px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+      }
+      .skill-item:hover::before {
+        opacity: 1;
+      }
+
+      .skill-item-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .skill-icon {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent);
+        flex-shrink: 0;
+        background: var(--accent-muted);
+        border: 1px solid rgba(136, 23, 152, 0.28);
+        border-radius: var(--radius-sm);
+        transition: transform 300ms var(--ease-spring);
+      }
+      .skill-item:hover .skill-icon {
+        transform: rotate(-8deg) scale(1.08);
+      }
+      .skill-icon svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .skill-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 8px;
+        border-radius: 999px;
+        border: 1px solid rgba(136, 23, 152, 0.26);
+        background: rgba(136, 23, 152, 0.08);
+        color: var(--accent-hover);
+        font-size: 0.58rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .skill-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .skill-name {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: -0.02em;
+      }
+
+      .skill-copy small {
+        font-size: 0.68rem;
+        line-height: 1.45;
+        color: var(--text-tertiary);
+        letter-spacing: 0.02em;
+      }
+
+      .highlight-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 32px;
+        padding: 10px 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(136, 23, 152, 0.35);
+        background: linear-gradient(
+          90deg,
+          rgba(136, 23, 152, 0.14),
+          rgba(136, 23, 152, 0.04)
+        );
+        color: var(--accent-hover);
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+      }
+      .highlight-pill::before {
+        content: "\2726";
+        font-size: 0.8125rem;
+      }
+
+      /* =================================================================
+         STATEMENT BAND — core philosophy
+         ================================================================= */
+      .statement-band {
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        background:
+          radial-gradient(
+            480px circle at 50% 0%,
+            rgba(136, 23, 152, 0.08),
+            transparent 70%
+          ),
+          var(--bg-raised);
+        padding: 72px 24px;
+        text-align: center;
+      }
+
+      .statement-text {
+        max-width: var(--max-w);
+        margin: 0 auto;
+        font-size: clamp(1.5rem, 4.5vw, 2.5rem);
+        font-weight: 800;
+        line-height: 1.25;
+        letter-spacing: -0.03em;
+        color: var(--text-primary);
+      }
+
+      .statement-accent {
+        font-style: normal;
+        background: linear-gradient(
+          135deg,
+          var(--accent) 0%,
+          var(--accent-hover) 60%,
+          #e38ff0 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .skills-container {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+
+      .skill-group {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .skill-group-title {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--border-muted);
+        margin: 0;
+      }
+
+      .skill-group .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      }
+
+      /* =================================================================
+         CONTACT
+         ================================================================= */
+      .contact-wrap {
+        max-width: 560px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .contact-intro {
+        font-size: 0.9375rem;
+        line-height: 1.8;
+        color: var(--text-secondary);
+        margin-bottom: 32px;
+      }
+
+      .contact-channels {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 32px;
+      }
+
+      .contact-channel {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--accent);
+        text-decoration: none;
+        transition: color 150ms var(--ease);
+      }
+      .contact-channel:hover {
+        color: var(--accent-hover);
+      }
+
+      .contact-actions {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      /* =================================================================
+         BUTTONS
+         ================================================================= */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 10px 20px;
+        border-radius: var(--radius);
+        font-size: 0.8125rem;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 180ms var(--ease);
+        line-height: 1;
+      }
+      .btn svg {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+      }
+
+      .btn--primary {
+        background: var(--accent);
+        color: #fff;
+        position: relative;
+        overflow: hidden;
+        transition:
+          background 400ms var(--ease-premium),
+          transform 400ms var(--ease-premium),
+          box-shadow 400ms var(--ease-premium);
+      }
+
+      .btn--primary::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -75%;
+        width: 50%;
+        height: 200%;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 500ms var(--ease);
+      }
+      .btn--primary:hover::after {
+        left: 130%;
+      }
+
+      .btn--primary:hover {
+        background: var(--accent-hover);
+        color: #fff;
+        box-shadow:
+          0 10px 34px rgba(136, 23, 152, 0.38),
+          0 0 0 1px rgba(227, 143, 240, 0.25);
+        transform: translateY(-3px);
+      }
+
+      .btn--ghost {
+        background: transparent;
+        color: var(--text-secondary);
+        border: 1px solid var(--border);
+      }
+      .btn--ghost:hover {
+        color: var(--text-primary);
+        border-color: var(--border-hover);
+        background: var(--bg-card-hover);
+      }
+
+      /* =================================================================
+         FOOTER
+         ================================================================= */
+      .site-footer {
+        border-top: 1px solid var(--border);
+        padding: 32px 24px;
+        position: relative;
+      }
+
+      .site-footer::before {
+        content: "";
+        position: absolute;
+        top: -1px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(200px, 40%);
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--accent),
+          transparent
+        );
+      }
+
+      .footer-inner {
+        max-width: var(--max-w);
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .footer-copy {
+        font-size: 0.75rem;
+        color: var(--text-tertiary);
+      }
+
+      .footer-nav {
+        display: flex;
+        gap: 24px;
+      }
+      .footer-nav a {
+        font-size: 0.75rem;
+        color: var(--text-tertiary);
+        transition: color 150ms var(--ease);
+      }
+      .footer-nav a:hover {
+        color: var(--text-secondary);
+      }
+
+      /* =================================================================
+         ANIMATIONS
+         ================================================================= */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 700ms var(--ease-premium),
+          transform 700ms var(--ease-premium);
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .stagger-1 {
+        transition-delay: 0.06s;
+      }
+      .stagger-2 {
+        transition-delay: 0.12s;
+      }
+      .stagger-3 {
+        transition-delay: 0.18s;
+      }
+      .stagger-4 {
+        transition-delay: 0.24s;
+      }
+
+      .hero-animate {
+        opacity: 0;
+        animation: fadeUp 0.7s var(--ease) forwards;
+      }
+      .hero-d1 {
+        animation-delay: 0.12s;
+      }
+      .hero-d2 {
+        animation-delay: 0.24s;
+      }
+      .hero-d3 {
+        animation-delay: 0.36s;
+      }
+
+      /* =================================================================
+         ACCESSIBILITY
+         ================================================================= */
+      :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .reveal,
+        .hero-animate,
+        .hero-orb,
+        .hero-badge,
+        .hero-underline,
+        .skill-item,
+        .statement-text,
+        .highlight-pill {
+          opacity: 1 !important;
+          transform: none !important;
+          animation: none !important;
+          transition: none !important;
+        }
+
+        .hero-underline {
+          width: min(240px, 56%);
+        }
+      }
+
+      /* =================================================================
+         MOBILE MENU
+         ================================================================= */
+      .mobile-menu-toggle {
+        display: inline-flex;
+        background: none;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 8px 12px;
+        cursor: pointer;
+        color: var(--text-secondary);
+        transition: all 180ms var(--ease);
+        z-index: 110;
+      }
+      .mobile-menu-toggle:hover {
+        color: var(--text-primary);
+        border-color: var(--border-hover);
+        background: var(--bg-card);
+      }
+      .mobile-menu-toggle svg {
+        width: 24px;
+        height: 24px;
+        display: block;
+      }
+
+      .mobile-menu-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(11, 13, 19, 0.6);
+        z-index: 99;
+      }
+      .mobile-menu-overlay.active {
+        display: block;
+      }
+
+      /* =================================================================
+         RESPONSIVE — Tablet (≤ 900px)
+         ================================================================= */
+      @media (max-width: 900px) {
+        .hero h1 {
+          font-size: clamp(1.75rem, 5vw, 2.5rem);
+        }
+
+        .section {
+          padding: 64px 24px;
+        }
+
+        .about-content {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+      }
+
+      /* =================================================================
+         RESPONSIVE — Mobile (≤ 640px)
+         ================================================================= */
+      @media (max-width: 640px) {
+        .hero {
+          padding: 110px 20px 80px;
+          min-height: 100vh;
+          min-height: 100dvh;
+        }
+
+        .hero h1 {
+          font-size: 1.625rem;
+          max-width: 100%;
+        }
+
+        .hero-desc {
+          font-size: 0.9375rem;
+          max-width: 100%;
+        }
+
+        .hero::before {
+          width: 280px;
+          height: 280px;
+          left: -10%;
+        }
+
+        .hero::after {
+          width: 280px;
+          height: 280px;
+          right: -8%;
+        }
+
+        .stats-inner {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+          padding: 24px 20px;
+        }
+
+        .stat-value {
+          font-size: 1.2rem;
+        }
+
+        .stat-label {
+          font-size: 0.625rem;
+        }
+
+        .section {
+          padding: 56px 20px;
+        }
+
+        .section-heading {
+          font-size: 1.25rem;
+          margin-bottom: 32px;
+        }
+
+        .hero-cta {
+          flex-direction: column;
+        }
+
+        .btn {
+          justify-content: center;
+          padding: 12px 20px;
+          font-size: 0.8125rem;
+        }
+
+        .footer-inner {
+          flex-direction: column;
+          text-align: center;
+          gap: 16px;
+        }
+
+        .footer-nav {
+          justify-content: center;
+        }
+
+        .skills-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+        }
+
+        .skill-item {
+          padding: 12px 14px;
+        }
+
+        .brand-cards {
+          grid-template-columns: 1fr;
+        }
+
+        .about-text p {
+          font-size: 0.875rem;
+        }
+      }
+
+      /* =================================================================
+         RESPONSIVE — Small mobile (≤ 380px)
+         ================================================================= */
+      @media (max-width: 380px) {
+        .hero {
+          padding: 100px 16px 60px;
+        }
+
+        .hero h1 {
+          font-size: 1.375rem;
+        }
+
+        .hero-desc {
+          font-size: 0.875rem;
+          margin-bottom: 28px;
+        }
+
+        .header-inner {
+          padding: 0 16px;
+        }
+
+        .stats-inner {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+          padding: 20px 16px;
+        }
+
+        .section {
+          padding: 48px 16px;
+        }
+
+        .section-heading {
+          font-size: 1.125rem;
+        }
+
+        .skills-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .skill-name {
+          font-size: 0.75rem;
+        }
+
+        .about-highlights {
+          gap: 12px;
+        }
+
+        .highlight-item {
+          padding: 12px;
+        }
+      }
+
+      /* =================================================================
+         GHOST CURSOR — React Bits style trailing glow
+         ================================================================= */
+      .ghost-cursor {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .page-shell {
+        position: relative;
+        z-index: 1;
+      }
+      .ghost-cursor > canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Ghost cursor overlay (React Bits style) -->
+    <div
+      id="ghostCursor"
+      class="ghost-cursor"
+      data-color="#b348c2"
+      aria-hidden="true"
+    ></div>
+    <div class="page-shell">
+      <!-- ============================================================
+         HEADER
+         ============================================================ -->
+      <header class="site-header">
+        <div class="header-inner">
+          <div class="wordmark">
+            <a
+              href="https://github.com/PsReader"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="PsReader on GitHub"
+              class="wordmark-avatar-link"
+            >
+              <img
+                src="https://github.com/PsReader.png?size=56"
+                alt="PsReader avatar"
+                class="wordmark-avatar"
+              />
+            </a>
+            <a
+              href="portfolio.html"
+              class="wordmark-text"
+              aria-label="PsReader — home"
+            >
+              PsReader
+            </a>
+          </div>
+          <button
+            class="mobile-menu-toggle"
+            aria-label="Toggle menu"
+            aria-expanded="false"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+          <nav class="header-nav" aria-label="Main navigation">
+            <a
+              href="https://github.com/PsReader"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="nav-gh"
+              aria-label="GitHub profile"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                />
+              </svg>
+              GitHub
+            </a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+            <a
+              href="index.html"
+              class="btn btn--ghost"
+              aria-label="View live demos"
+            >
+              View Demos
+            </a>
+          </nav>
+          <div class="mobile-menu-overlay" aria-hidden="true"></div>
+        </div>
+      </header>
+
+      <!-- ============================================================
+         HERO
+         ============================================================ -->
+      <section class="hero" aria-label="Introduction">
+        <div class="hero-orb" aria-hidden="true"></div>
+        <div class="hero-content">
+          <span class="hero-eyebrow hero-animate">Frontend Developer</span>
+          <span class="hero-badge hero-animate hero-d1" aria-hidden="true">
+            <span class="hero-badge-dot"></span>
+            Available for freelance work
+          </span>
+          <h1 class="hero-animate hero-d1">
+            Crafting <em class="hero-word">Responsive</em>,<br />Interactive Web
+            Experiences
+          </h1>
+          <span
+            class="hero-underline hero-animate hero-d1"
+            aria-hidden="true"
+          ></span>
+          <p class="hero-desc hero-animate hero-d2">
+            I'm a passionate developer specializing in semantic HTML, modern
+            CSS, and vanilla JavaScript. I build fast, accessible, and
+            user-focused websites from the ground up.
+          </p>
+          <div class="hero-cta hero-animate hero-d3">
+            <a href="#contact" class="btn btn--primary">
+              Let's Work Together
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </a>
+            <a href="index.html" class="btn btn--ghost">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path
+                  d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+              View Live Demos
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         STATS
+         ============================================================ -->
+      <div class="stats-bar" aria-label="Developer stats">
+        <div class="stats-inner">
+          <div class="stat-item reveal stagger-1">
+            <div class="stat-value" data-count="20">0</div>
+            <div class="stat-label">HTML Pages Built</div>
+          </div>
+          <div class="stat-item reveal stagger-2">
+            <div class="stat-value" data-count="3">0</div>
+            <div class="stat-label">Core Languages</div>
+          </div>
+          <div class="stat-item reveal stagger-3">
+            <div class="stat-value">Responsive</div>
+            <div class="stat-label">Design Focus</div>
+          </div>
+          <div class="stat-item reveal stagger-4">
+            <div class="stat-value">Accessible</div>
+            <div class="stat-label">Semantic HTML</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+         ABOUT
+         ============================================================ -->
+      <section class="section" id="about">
+        <p class="section-label reveal">About Me</p>
+        <h2 class="section-heading reveal stagger-1">Who I Am & What I Do</h2>
+
+        <div class="brand-cards reveal stagger-2">
+          <article class="brand-card">
+            <div class="brand-card-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 2 2 7l10 5 10-5-10-5z" />
+                <path d="m2 17 10 5 10-5" />
+                <path d="m2 12 10 5 10-5" />
+              </svg>
+            </div>
+            <h3>What I'm good at</h3>
+            <ul>
+              <li>Responsive interfaces</li>
+              <li>Clean semantic structure</li>
+              <li>Motion with purpose</li>
+            </ul>
+          </article>
+          <article class="brand-card">
+            <div class="brand-card-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path
+                  d="M20.59 13.41 12 22 3.41 13.41a5.5 5.5 0 1 1 7.78-7.78L12 6.42l.81-.79a5.5 5.5 0 0 1 7.78 7.78z"
+                />
+              </svg>
+            </div>
+            <h3>What I bring to a project</h3>
+            <ul>
+              <li>Clear thinking</li>
+              <li>Strong visual polish</li>
+              <li>Focus on user experience</li>
+            </ul>
+          </article>
+          <article class="brand-card">
+            <div class="brand-card-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <polygon
+                  points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"
+                />
+              </svg>
+            </div>
+            <h3>How I approach builds</h3>
+            <ul>
+              <li>Start simple</li>
+              <li>Refine the interaction</li>
+              <li>Make the final result feel effortless</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="about-content">
+          <div class="about-text">
+            <p class="reveal stagger-2">
+              I'm a <strong>vocational school student</strong> focused on
+              front-end web development. I build responsive, accessible websites
+              from scratch using semantic HTML, modern CSS layout systems
+              (flexbox and grid), and vanilla JavaScript for rich interactivity.
+            </p>
+            <p class="reveal stagger-3">
+              My approach prioritizes
+              <strong>clean code, performance, and user experience</strong>. I'm
+              passionate about learning responsive design patterns, mastering
+              version control with Git, and writing maintainable code that
+              scales.
+            </p>
+            <p class="reveal stagger-4">
+              Whether you need a multi-page reference site, a themed landing
+              page, or a custom web application, I'm equipped to bring your
+              ideas to life with modern web technologies.
+            </p>
+          </div>
+
+          <div class="about-highlights reveal stagger-2">
+            <div class="highlight-item">
+              <div class="highlight-icon">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M10 16.5V6.75M10 16.5a2 2 0 0 1-2 2H6.5a2 2 0 0 1-2-2V6.75M10 16.5a2 2 0 0 0 2 2h1.5"
+                  />
+                  <path
+                    d="M8.5 6.75h-4.75a1.25 1.25 0 0 1-1.25-1.25V4.5A1.25 1.25 0 0 1 3.75 3.25h9.5A1.25 1.25 0 0 1 14.5 4.5v2.25"
+                  />
+                  <path d="M18.5 21v-9m0 0 3 3m-3-3-3 3" />
+                </svg>
+              </div>
+              <div class="highlight-text">
+                <h4>Responsive Design</h4>
+                <p>
+                  Mobile-first approach ensuring optimal experience on all
+                  devices
+                </p>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <div class="highlight-icon">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="16" cy="4" r="1" />
+                  <path d="m18 19 1-7-6 1" />
+                  <path d="m5 8 3-3 5.5 3-2.36 3.5" />
+                  <path d="M4.24 14.5a5 5 0 0 0 6.88 6" />
+                  <path d="M13.76 17.5a5 5 0 0 0-6.88-6" />
+                </svg>
+              </div>
+              <div class="highlight-text">
+                <h4>Accessibility First</h4>
+                <p>
+                  Semantic HTML and ARIA practices for inclusive web experiences
+                </p>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <div class="highlight-icon">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" />
+                </svg>
+              </div>
+              <div class="highlight-text">
+                <h4>Performance</h4>
+                <p>
+                  Optimized code and best practices for fast-loading websites
+                </p>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <div class="highlight-icon">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="6" y1="3" x2="6" y2="15" />
+                  <circle cx="18" cy="6" r="3" />
+                  <circle cx="6" cy="18" r="3" />
+                  <path d="M18 9a9 9 0 0 1-9 9" />
+                </svg>
+              </div>
+              <div class="highlight-text">
+                <h4>Version Control</h4>
+                <p>Git expertise for collaborative and organized development</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         SKILLS
+         ============================================================ -->
+      <section class="section" id="skills">
+        <p class="section-label reveal">Technical Skills</p>
+        <h2 class="section-heading reveal stagger-1">
+          Technologies & Tools I Use
+        </h2>
+
+        <div class="skills-container reveal stagger-2">
+          <!-- Programming Group -->
+          <div class="skill-group">
+            <h4 class="skill-group-title">Programming</h4>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="m18 16 4-4-4-4" />
+                      <path d="m6 8-4 4 4 4" />
+                      <path d="m14.5 4-5 16" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Core</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">Java</span>
+                  <small>Logic & systems</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"
+                      />
+                      <path d="M12 9v3M9 12h6" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Embedded</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">Arduino</span>
+                  <small>Hardware + interaction</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Web Development Group -->
+          <div class="skill-group">
+            <h4 class="skill-group-title">Web Development</h4>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <polygon points="12 2 2 7 2 17 12 22 22 17 22 7 12 2" />
+                      <line x1="12" y1="22" x2="12" y2="11" />
+                      <polyline points="2 7 12 11 22 7" />
+                      <polyline points="2 17 12 11 22 17" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">UI</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">HTML5</span>
+                  <small>Structure & semantics</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"
+                      />
+                      <path d="M8 10h8" />
+                      <path d="M8 14h8" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Styling</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">CSS</span>
+                  <small>Responsive systems</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="m18 16 4-4-4-4" />
+                      <path d="m6 8-4 4 4 4" />
+                      <path d="m14.5 4-5 16" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Logic</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">JavaScript</span>
+                  <small>Behavior & interactivity</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M4 7h16M4 12h16M4 17h16" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Design</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">Figma</span>
+                  <small>Wireframes & polish</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="2.4" />
+                      <ellipse cx="12" cy="12" rx="10" ry="4.2" />
+                      <ellipse
+                        cx="12"
+                        cy="12"
+                        rx="10"
+                        ry="4.2"
+                        transform="rotate(60 12 12)"
+                      />
+                      <ellipse
+                        cx="12"
+                        cy="12"
+                        rx="10"
+                        ry="4.2"
+                        transform="rotate(120 12 12)"
+                      />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Modern</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">React</span>
+                  <small>Reusable interfaces</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M21 8v8l-9 5-9-5V8l9-5 9 5z" />
+                      <path d="M3.4 8.2 12 13l8.6-4.8" />
+                      <path d="M12 13v9" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">3D</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">Three.js</span>
+                  <small>Spatial storytelling</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M13 2 3 14h7l-1 8 11-12h-7l1-8z" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Motion</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">GSAP</span>
+                  <small>Animation timing</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Creative Tech Stack Group -->
+          <div class="skill-group">
+            <h4 class="skill-group-title">Creative Tech Stack</h4>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M12 2v20M17 5.5A4.5 4.5 0 0 0 12 4a4.5 4.5 0 0 0-5 1.5A4.5 4.5 0 0 0 12 10a4.5 4.5 0 0 1 5 1.5A4.5 4.5 0 0 1 12 20a4.5 4.5 0 0 1-5-1.5"
+                      />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">App</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">Vite</span>
+                  <small>Fast frontend build</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                      />
+                      <path d="M14 2v6h6" />
+                      <path d="M9 13h6M9 17h6" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Typing</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">TypeScript</span>
+                  <small>Safer app logic</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M12 2a7 7 0 0 0-7 7v7a7 7 0 0 0 14 0V9a7 7 0 0 0-7-7Z"
+                      />
+                      <path d="M12 8v8M8.5 12h7" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Vision</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">MediaPipe</span>
+                  <small>Hand tracking</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M7 8h10l-1 10H8L7 8Z" />
+                      <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Storage</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">localStorage</span>
+                  <small>Persistent notes</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M4 18V6l8-4 8 4v12l-8 4-8-4Z" />
+                      <path d="M12 2v20M4 6l8 4 8-4" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Shader</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">GLSL</span>
+                  <small>Realtime visuals</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect x="3" y="5" width="18" height="14" rx="2" />
+                      <path d="M7 9h10M7 13h7" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Web</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">Web APIs</span>
+                  <small>Camera & browser tools</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M12 2v6l4 2-4 2v6" />
+                      <path d="M4 7h16M4 17h16" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">UI</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">Tailwind</span>
+                  <small>Utility-first styling</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Microsoft Office Group -->
+          <div class="skill-group">
+            <h4 class="skill-group-title">Microsoft Office</h4>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                      />
+                      <path d="M12 7v10M7 10h10M7 17h10" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Docs</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">Word</span>
+                  <small>Structured writing</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                      />
+                      <line x1="3" y1="10" x2="21" y2="10" />
+                      <line x1="3" y1="16" x2="21" y2="16" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Data</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">Excel</span>
+                  <small>Analysis & reporting</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                      <line x1="3" y1="9" x2="21" y2="9" />
+                      <line x1="9" y1="3" x2="9" y2="21" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Present</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">PowerPoint</span>
+                  <small>Visual communication</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Languages Group -->
+          <div class="skill-group">
+            <h4 class="skill-group-title">Languages</h4>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="m5 8 6 6m0-6-6 6" />
+                      <path d="M19 8l-6 6m0-6 6 6" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Native</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">Indonesian</span>
+                  <small>Clear communication</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="m5 8 6 6m0-6-6 6" />
+                      <path d="M19 8l-6 6m0-6 6 6" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Fluent</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">English</span>
+                  <small>Professional writing</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="highlight-pill reveal stagger-4">
+          Interaction-first development — every pixel animated on purpose
+        </p>
+      </section>
+
+      <!-- ============================================================
+         STATEMENT — core philosophy
+         ============================================================ -->
+      <div class="statement-band" aria-label="Core philosophy">
+        <p class="statement-text reveal">
+          I build interfaces that feel
+          <span class="statement-accent">alive</span>.
+        </p>
+      </div>
+
+      <!-- ============================================================
+         CONTACT
+         ============================================================ -->
+      <section class="section" id="contact">
+        <p class="section-label reveal">Get In Touch</p>
+        <h2 class="section-heading reveal stagger-1">
+          Want to Build Something Together?
+        </h2>
+
+        <div class="contact-wrap">
+          <p class="contact-intro reveal stagger-2">
+            Whether you have a project in mind or just want to say hello, feel
+            free to reach out. I'm always excited to collaborate and create
+            amazing web experiences.
+          </p>
+
+          <!-- Contact Details with Icons -->
+          <div class="contact-channels reveal stagger-2">
+            <a
+              href="mailto:simanjuntakpedrosa@gmail.com"
+              class="contact-channel"
+              title="Email me"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+              </svg>
+              <span>Email</span>
+            </a>
+            <a
+              href="https://wa.me/628829029537"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-channel"
+              title="WhatsApp"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"
+                />
+              </svg>
+              <span>WhatsApp</span>
+            </a>
+            <a
+              href="https://instagram.com/p.sreader"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-channel"
+              title="Instagram"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <circle cx="17.5" cy="6.5" r="1.5" />
+              </svg>
+              <span>Instagram</span>
+            </a>
+            <a
+              href="https://github.com/PsReader"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-channel"
+              title="GitHub"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                />
+              </svg>
+              <span>GitHub</span>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/pedrosa-simanjuntak-20a6b2420"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-channel"
+              title="LinkedIn"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"
+                />
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+          </div>
+
+          <div class="contact-actions reveal stagger-3">
+            <a
+              href="https://www.linkedin.com/in/pedrosa-simanjuntak-20a6b2420"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--primary"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"
+                />
+              </svg>
+              Connect on LinkedIn
+            </a>
+            <a href="index.html" class="btn btn--ghost"> View Live Demos </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <span class="footer-copy"
+            >&copy; 2026 PsReader — Frontend Developer</span
+          >
+          <span class="footer-copy"
+            >This site is for educational and portfolio purposes. No
+            infringement is intended.</span
+          >
+          <nav class="footer-nav" aria-label="Footer navigation">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="mailto:simanjuntakpedrosa@gmail.com">Email</a>
+            <a
+              href="https://wa.me/628829029537"
+              target="_blank"
+              rel="noopener noreferrer"
+              >WhatsApp</a
+            >
+            <a
+              href="https://github.com/PsReader"
+              target="_blank"
+              rel="noopener noreferrer"
+              >GitHub</a
+            >
+            <a
+              href="https://www.linkedin.com/in/pedrosa-simanjuntak-20a6b2420"
+              target="_blank"
+              rel="noopener noreferrer"
+              >LinkedIn</a
+            >
+            <a href="index.html">Live Demos</a>
+          </nav>
+        </div>
+      </footer>
+
+      <!-- ============================================================
+         SCRIPTS
+         ============================================================ -->
+      <script>
+        // Intersection Observer — reveal on scroll
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("visible");
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -50px 0px" },
+        );
+        document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+        // Mobile hamburger menu
+        const menuToggle = document.querySelector(".mobile-menu-toggle");
+        const headerNav = document.querySelector(".header-nav");
+        const menuOverlay = document.querySelector(".mobile-menu-overlay");
+
+        function openMobileMenu() {
+          headerNav.classList.add("open");
+          menuOverlay.classList.add("active");
+          menuToggle.setAttribute("aria-expanded", "true");
+          document.body.style.overflow = "hidden";
+        }
+
+        function closeMobileMenu() {
+          headerNav.classList.remove("open");
+          menuOverlay.classList.remove("active");
+          menuToggle.setAttribute("aria-expanded", "false");
+          document.body.style.overflow = "";
+        }
+
+        menuToggle?.addEventListener("click", () => {
+          const isOpen = headerNav.classList.contains("open");
+          isOpen ? closeMobileMenu() : openMobileMenu();
+        });
+
+        menuOverlay?.addEventListener("click", closeMobileMenu);
+
+        // Close menu when a nav link is clicked
+        headerNav?.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            if (headerNav.classList.contains("open")) {
+              closeMobileMenu();
+            }
+          });
+        });
+
+        // ===== Animated number counters =====
+        const counterObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.dataset.count);
+                const suffix = el.dataset.suffix || "";
+                if (isNaN(target)) return;
+
+                let current = 0;
+                const duration = 1200;
+                const step = target / (duration / 16);
+                const counter = () => {
+                  current += step;
+                  if (current >= target) {
+                    el.textContent = target + suffix;
+                    return;
+                  }
+                  el.textContent = Math.floor(current) + suffix;
+                  requestAnimationFrame(counter);
+                };
+                counter();
+                counterObserver.unobserve(el);
+              }
+            });
+          },
+          { threshold: 0.5 },
+        );
+
+        document.querySelectorAll(".stat-value[data-count]").forEach((el) => {
+          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            el.textContent =
+              (parseInt(el.dataset.count) || 0) + (el.dataset.suffix || "");
+            return;
+          }
+          counterObserver.observe(el);
+        });
+      </script>
+    </div>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="ghost-cursor.js"></script>
+  </body>
+</html>

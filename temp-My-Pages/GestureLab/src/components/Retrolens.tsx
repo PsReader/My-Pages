@@ -272,7 +272,7 @@ export function Retrolens({
       px[i * 3] = (c.x - 0.5) * wX;
       px[i * 3 + 1] = (0.5 - c.y) * wY;
       px[i * 3 + 2] = 0;
-      uva[i * 2] = 1 - c.x;
+      uva[i * 2] = c.x;
       uva[i * 2 + 1] = 1 - c.y;
     });
     pos.needsUpdate = true;
