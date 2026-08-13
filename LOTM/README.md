@@ -1,105 +1,133 @@
-# Lord of the Mysteries — Grimoire of the World Beyond
+# Lord of the Mysteries — Fan Grimoire
 
-> *"In the sleeping of the ages, the fog conceals all secrets."*
+> _"In the sleeping of the ages, the fog conceals all secrets."_
 
-An interactive fan grimoire dedicated to the lore, characters, and world-building of the novel **"Lord of the Mysteries"** by Cuttlefish That Loves Diving.
-
----
-
-## 🔮 Sequence Overview
-
-| Sequence | What You'll Find |
-|----------|------------------|
-| **Novel** | Series overview, awards, and recognition |
-| **Characters** | The main cast — their identities, abilities, and roles |
-| **Pathways** | All 22 Beyonder pathways and their sequences |
-| **Church** | The organizations, factions, and hidden forces |
-| **Quotes** | Words that echo beyond the fog |
-| **Gallery** | Visual tributes from the fan community |
-| **Abilities** | A compendium of Beyonder powers |
-| **Songs** | Music born from the mysticism |
-| **Volumes 1–8** | Chapter-by-chapter summaries of the entire journey |
+An interactive fan-made encyclopedia and visual tribute to the world of **Lord of the Mysteries** by **Cuttlefish That Loves Diving**. This project is built as a themed lore archive with multiple pages for characters, pathways, quotes, abilities, gallery content, and chapter summaries.
 
 ---
 
-## 🛠️ Beyonder Artifacts (Tech Stack)
+## Overview
 
-- **HTML5** — The foundation, like the Blasphemy Slate
-- **CSS3** — Styling with the elegance of a Sequence 0
-- **JavaScript (Vanilla)** — Ritualistic interactivity, no external deities
-- **Responsive Design** — Accessible from any corner of the Spirit World
+This website was created as a narrative companion to the novel, designed to feel like a mystical archive from the world beyond. It organizes key lore into a clean, dark-themed browsing experience with navigation for the most important parts of the series.
+
+The project includes:
+
+- lore and story overview pages
+- character and identity references
+- pathway and sequence breakdowns
+- church/faction information
+- quote and song collections
+- gallery and visual references
+- volume-by-volume summaries
 
 ---
 
-## 📁 The Codex (Project Structure)
+## Project sections
 
-```
+| Section             | Purpose                                       |
+| ------------------- | --------------------------------------------- |
+| **LOTMhome.html**   | Main landing page / entry point               |
+| **Novel.html**      | Story overview and narrative framing          |
+| **Mc_Profile.html** | Character spotlight / profile hub             |
+| **Pathways.html**   | Beyonder pathways and sequences               |
+| **Church.html**     | Organizations and hidden factions             |
+| **Author.html**     | Creator and project notes                     |
+| **Abilities.html**  | Power and ability compendium                  |
+| **identities.html** | Character identities and aliases              |
+| **Quotes.html**     | Memorable lines and lore fragments            |
+| **Songs.html**      | Music and mood-based page                     |
+| **Gallery.html**    | Visual tribute and fan-inspired materials     |
+| **Volume 1–8.html** | Individual chapter progressions and summaries |
+
+---
+
+## Tech stack
+
+This project uses a lightweight static web stack:
+
+- **HTML5** — page structure and content
+- **CSS3** — dark aesthetic, layout, transitions, and responsiveness
+- **Vanilla JavaScript** — interactivity, nav behavior, scroll effects, and UI flow
+- **Responsive Design** — works across desktop, tablet, and mobile screens
+
+---
+
+## Project structure
+
+```text
 LOTM/
 ├── css/
 │   └── dynamic-styles.css
 ├── js/
 │   └── script.js
 ├── images/
-├── LOTMhome.html            # The Fool's doorstep
-├── Mc_Profile.html          # The World's card
-├── Novel.html               # The history
-├── Pathways.html            # All 22 paths to godhood
-├── Church.html              # The organizations
-├── Author.html              # The one who wrote fate
-├── Abilities.html           # Beyonder powers database
-├── identities.html          # Masks worn by the characters
-├── Quotes.html              # Words etched into the ether
-├── Songs.html               # Melodies from beyond
-├── Gallery.html             # Visions made manifest
-├── Volume 1-8.html          # The chapters of the apocalypse
-└── README.md                # This grimoire
+├── LOTMhome.html
+├── Mc_Profile.html
+├── Novel.html
+├── Pathways.html
+├── Church.html
+├── Author.html
+├── Abilities.html
+├── identities.html
+├── Quotes.html
+├── Songs.html
+├── Gallery.html
+├── Volume 1.html
+├── Volume 2.html
+├── Volume 3.html
+├── Volume 4.html
+├── Volume 5.html
+├── Volume 6.html
+├── Volume 7.html
+├── Volume 8.html
+├── README.md
+└── ...
 ```
 
 ---
 
-## 🕯️ How to Navigate the Spirit World
+## How to run it
 
-1. **Open the Gateway:**
-   ```bash
-   cd LOTM
-   open LOTMhome.html
-   ```
+1. Open the project folder in your browser.
+2. Launch the main page:
 
-2. **Follow the Path:**
-   - The top navigation bar is your Astral Projection — use it to travel between sections
-   - The "↑" button in the top-right returns you to the main portfolio
-   - The "Scroll to Top" button brings you back from the depths of each page
+```bash
+cd LOTM
+start LOTMhome.html
+```
 
-3. **Any Vessel Will Do:**
-   - The site adapts to desktop, tablet, and mobile — no ritual required
+Or simply open `LOTMhome.html` directly in a browser.
 
 ---
 
-## ✨ Beyonder Characteristics
+## Design notes
 
-- **Sequence 9 – Smooth Animations** — Fade-in and slide effects that whisper rather than shout
-- **Sequence 8 – Dark Theme** — Aesthetic drawn from the fog between worlds
-- **Sequence 7 – Interactive Navigation** — Active states that respond to your presence
-- **Sequence 6 – Accessible Design** — High contrast and clean form, usable by all
+The site is designed to feel like a mystical archive or occult codex:
 
----
-
-## ⚖️ The Covenant (Legal Disclaimer)
-
-**This is an unofficial fan project.** All intellectual property, characters, pathways, and lore related to *"Lord of the Mysteries"* belong to the original author **Cuttlefish That Loves Diving** and are published by **Qidian International**.
-
-This grimoire is compiled for **non-commercial, educational, and entertainment purposes only**. No copyright infringement is intended. All fan content is created as a tribute to the original work.
+- dark visual palette
+- layered, atmospheric styling
+- immersive navigation and scroll behavior
+- structured content blocks for lore browsing
+- emphasis on readability and thematic presentation
 
 ---
 
-## 👑 The Fool's Blessing (Author)
+## Legal disclaimer
 
-Created by **PsReader** — A Sequence 3 aspiring web developer walking the Pathway of Interactive Design and Storytelling.
+This is an unofficial fan project created for appreciation and study of the world of **Lord of the Mysteries**. All characters, lore, and related intellectual property belong to the original author **Cuttlefish That Loves Diving** and the associated publishers.
 
-**[Return to the Real World](../index.html)**
+This project is created for **non-commercial, educational, and fan-oriented purposes only**. No copyright infringement is intended.
 
 ---
 
-*"We are all fools in the eyes of fate — but some of us learn to read the script."*
+## Author
 
-**Last Updated:** May 2026
+Created by **PsReader**.
+
+**[Return to the main portfolio](../index.html)**
+
+---
+
+> _"We are all fools in the eyes of fate — but some of us learn to read the script."_
+
+**Last updated:** August 2026

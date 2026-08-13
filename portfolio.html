@@ -427,11 +427,7 @@
         height: 4px;
         margin: -10px 0 22px;
         border-radius: 999px;
-        background: linear-gradient(
-          90deg,
-          var(--accent),
-          var(--accent-hover)
-        );
+        background: linear-gradient(90deg, var(--accent), var(--accent-hover));
         opacity: 1;
         animation: underlineGrow 1.1s var(--ease-premium) 0.55s forwards;
       }
@@ -667,6 +663,7 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 20px;
         margin-top: 36px;
+        margin-bottom: 24px;
       }
 
       .brand-card {
@@ -706,13 +703,15 @@
         pointer-events: none;
       }
       .brand-card:hover {
-        transform: translateY(-4px);
+        transform: translateY(-6px);
         border-color: rgba(136, 23, 152, 0.5);
         background: var(--bg-card-hover);
         box-shadow:
           0 16px 34px rgba(0, 0, 0, 0.35),
           0 0 0 1px rgba(136, 23, 152, 0.12),
           0 0 26px rgba(136, 23, 152, 0.14);
+        z-index: 5; /* ensure hovered card stacks above adjacent content */
+        position: relative; /* create stacking context for z-index */
       }
       .brand-card:hover::after {
         opacity: 1;
@@ -775,52 +774,120 @@
          ================================================================= */
       .skills-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 16px;
       }
 
       .skill-item {
+        position: relative;
         display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 14px 16px;
-        background: var(--bg-card);
+        flex-direction: column;
+        gap: 12px;
+        min-height: 124px;
+        padding: 16px;
+        background: linear-gradient(
+          180deg,
+          rgba(22, 25, 35, 0.96),
+          rgba(17, 20, 29, 0.95)
+        );
         border: 1px solid var(--border);
         border-radius: var(--radius-lg);
-        transition: all 260ms var(--ease-premium);
+        transition:
+          transform 260ms var(--ease-premium),
+          border-color 260ms var(--ease),
+          background 260ms var(--ease),
+          box-shadow 260ms var(--ease);
+        overflow: hidden;
+      }
+      .skill-item::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(179, 72, 194, 0.8),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 260ms var(--ease);
       }
       .skill-item:hover {
         border-color: rgba(136, 23, 152, 0.45);
-        background: var(--bg-card-hover);
-        transform: translateY(-4px) rotate(-0.6deg);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+        background: linear-gradient(
+          180deg,
+          rgba(30, 33, 46, 0.96),
+          rgba(22, 25, 35, 0.96)
+        );
+        transform: translateY(-5px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+      }
+      .skill-item:hover::before {
+        opacity: 1;
+      }
+
+      .skill-item-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
       }
 
       .skill-icon {
-        width: 28px;
-        height: 28px;
+        width: 32px;
+        height: 32px;
         display: flex;
         align-items: center;
         justify-content: center;
         color: var(--accent);
         flex-shrink: 0;
         background: var(--accent-muted);
+        border: 1px solid rgba(136, 23, 152, 0.28);
         border-radius: var(--radius-sm);
         transition: transform 300ms var(--ease-spring);
       }
       .skill-item:hover .skill-icon {
-        transform: rotate(-8deg) scale(1.1);
+        transform: rotate(-8deg) scale(1.08);
       }
       .skill-icon svg {
         width: 16px;
         height: 16px;
       }
 
+      .skill-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 8px;
+        border-radius: 999px;
+        border: 1px solid rgba(136, 23, 152, 0.26);
+        background: rgba(136, 23, 152, 0.08);
+        color: var(--accent-hover);
+        font-size: 0.58rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .skill-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
       .skill-name {
-        font-size: 0.8125rem;
-        font-weight: 600;
+        font-size: 0.9rem;
+        font-weight: 700;
         color: var(--text-primary);
-        letter-spacing: -0.01em;
+        letter-spacing: -0.02em;
+      }
+
+      .skill-copy small {
+        font-size: 0.68rem;
+        line-height: 1.45;
+        color: var(--text-tertiary);
+        letter-spacing: 0.02em;
       }
 
       .highlight-pill {
@@ -853,7 +920,11 @@
         border-top: 1px solid var(--border);
         border-bottom: 1px solid var(--border);
         background:
-          radial-gradient(480px circle at 50% 0%, rgba(136, 23, 152, 0.08), transparent 70%),
+          radial-gradient(
+            480px circle at 50% 0%,
+            rgba(136, 23, 152, 0.08),
+            transparent 70%
+          ),
           var(--bg-raised);
         padding: 72px 24px;
         text-align: center;
@@ -980,7 +1051,8 @@
         color: #fff;
         position: relative;
         overflow: hidden;
-        transition: background 400ms var(--ease-premium),
+        transition:
+          background 400ms var(--ease-premium),
           transform 400ms var(--ease-premium),
           box-shadow 400ms var(--ease-premium);
       }
@@ -1475,9 +1547,13 @@
             Available for freelance work
           </span>
           <h1 class="hero-animate hero-d1">
-            Crafting <em class="hero-word">Responsive</em>,<br />Interactive Web Experiences
+            Crafting <em class="hero-word">Responsive</em>,<br />Interactive Web
+            Experiences
           </h1>
-          <span class="hero-underline hero-animate hero-d1" aria-hidden="true"></span>
+          <span
+            class="hero-underline hero-animate hero-d1"
+            aria-hidden="true"
+          ></span>
           <p class="hero-desc hero-animate hero-d2">
             I'm a passionate developer specializing in semantic HTML, modern
             CSS, and vanilla JavaScript. I build fast, accessible, and
@@ -1555,7 +1631,15 @@
         <div class="brand-cards reveal stagger-2">
           <article class="brand-card">
             <div class="brand-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
                 <path d="M12 2 2 7l10 5 10-5-10-5z" />
                 <path d="m2 17 10 5 10-5" />
                 <path d="m2 12 10 5 10-5" />
@@ -1570,8 +1654,18 @@
           </article>
           <article class="brand-card">
             <div class="brand-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M20.59 13.41 12 22 3.41 13.41a5.5 5.5 0 1 1 7.78-7.78L12 6.42l.81-.79a5.5 5.5 0 0 1 7.78 7.78z" />
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path
+                  d="M20.59 13.41 12 22 3.41 13.41a5.5 5.5 0 1 1 7.78-7.78L12 6.42l.81-.79a5.5 5.5 0 0 1 7.78 7.78z"
+                />
               </svg>
             </div>
             <h3>What I bring to a project</h3>
@@ -1583,9 +1677,19 @@
           </article>
           <article class="brand-card">
             <div class="brand-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
                 <circle cx="12" cy="12" r="10" />
-                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+                <polygon
+                  points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"
+                />
               </svg>
             </div>
             <h3>How I approach builds</h3>
@@ -1739,36 +1843,48 @@
             <h4 class="skill-group-title">Programming</h4>
             <div class="skills-grid">
               <div class="skill-item">
-                <div class="skill-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path d="m18 16 4-4-4-4" />
-                    <path d="m6 8-4 4 4 4" />
-                    <path d="m14.5 4-5 16" />
-                  </svg>
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="m18 16 4-4-4-4" />
+                      <path d="m6 8-4 4 4 4" />
+                      <path d="m14.5 4-5 16" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Core</span>
                 </div>
-                <span class="skill-name">Java</span>
+                <div class="skill-copy">
+                  <span class="skill-name">Java</span>
+                  <small>Logic & systems</small>
+                </div>
               </div>
 
               <div class="skill-item">
-                <div class="skill-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"
-                    />
-                    <path d="M12 9v3M9 12h6" />
-                  </svg>
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"
+                      />
+                      <path d="M12 9v3M9 12h6" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Embedded</span>
                 </div>
-                <span class="skill-name">Arduino</span>
+                <div class="skill-copy">
+                  <span class="skill-name">Arduino</span>
+                  <small>Hardware + interaction</small>
+                </div>
               </div>
             </div>
           </div>
@@ -1778,121 +1894,334 @@
             <h4 class="skill-group-title">Web Development</h4>
             <div class="skills-grid">
               <div class="skill-item">
-                <div class="skill-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <polygon points="12 2 2 7 2 17 12 22 22 17 22 7 12 2" />
-                    <line x1="12" y1="22" x2="12" y2="11" />
-                    <polyline points="2 7 12 11 22 7" />
-                    <polyline points="2 17 12 11 22 17" />
-                  </svg>
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <polygon points="12 2 2 7 2 17 12 22 22 17 22 7 12 2" />
+                      <line x1="12" y1="22" x2="12" y2="11" />
+                      <polyline points="2 7 12 11 22 7" />
+                      <polyline points="2 17 12 11 22 17" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">UI</span>
                 </div>
-                <span class="skill-name">HTML5</span>
+                <div class="skill-copy">
+                  <span class="skill-name">HTML5</span>
+                  <small>Structure & semantics</small>
+                </div>
               </div>
 
               <div class="skill-item">
-                <div class="skill-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"
-                    />
-                    <path d="M8 10h8" />
-                    <path d="M8 14h8" />
-                  </svg>
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"
+                      />
+                      <path d="M8 10h8" />
+                      <path d="M8 14h8" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Styling</span>
                 </div>
-                <span class="skill-name">CSS</span>
+                <div class="skill-copy">
+                  <span class="skill-name">CSS</span>
+                  <small>Responsive systems</small>
+                </div>
               </div>
 
               <div class="skill-item">
-                <div class="skill-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path d="m18 16 4-4-4-4" />
-                    <path d="m6 8-4 4 4 4" />
-                    <path d="m14.5 4-5 16" />
-                  </svg>
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="m18 16 4-4-4-4" />
+                      <path d="m6 8-4 4 4 4" />
+                      <path d="m14.5 4-5 16" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Logic</span>
                 </div>
-                <span class="skill-name">JavaScript</span>
+                <div class="skill-copy">
+                  <span class="skill-name">JavaScript</span>
+                  <small>Behavior & interactivity</small>
+                </div>
               </div>
 
               <div class="skill-item">
-                <div class="skill-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path d="M4 7h16M4 12h16M4 17h16" />
-                  </svg>
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M4 7h16M4 12h16M4 17h16" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Design</span>
                 </div>
-                <span class="skill-name">Figma</span>
+                <div class="skill-copy">
+                  <span class="skill-name">Figma</span>
+                  <small>Wireframes & polish</small>
+                </div>
               </div>
 
               <div class="skill-item">
-                <div class="skill-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="2.4" />
-                    <ellipse cx="12" cy="12" rx="10" ry="4.2" />
-                    <ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)" />
-                    <ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(120 12 12)" />
-                  </svg>
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="2.4" />
+                      <ellipse cx="12" cy="12" rx="10" ry="4.2" />
+                      <ellipse
+                        cx="12"
+                        cy="12"
+                        rx="10"
+                        ry="4.2"
+                        transform="rotate(60 12 12)"
+                      />
+                      <ellipse
+                        cx="12"
+                        cy="12"
+                        rx="10"
+                        ry="4.2"
+                        transform="rotate(120 12 12)"
+                      />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Modern</span>
                 </div>
-                <span class="skill-name">React</span>
+                <div class="skill-copy">
+                  <span class="skill-name">React</span>
+                  <small>Reusable interfaces</small>
+                </div>
               </div>
 
               <div class="skill-item">
-                <div class="skill-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path d="M21 8v8l-9 5-9-5V8l9-5 9 5z" />
-                    <path d="M3.4 8.2 12 13l8.6-4.8" />
-                    <path d="M12 13v9" />
-                  </svg>
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M21 8v8l-9 5-9-5V8l9-5 9 5z" />
+                      <path d="M3.4 8.2 12 13l8.6-4.8" />
+                      <path d="M12 13v9" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">3D</span>
                 </div>
-                <span class="skill-name">Three.js</span>
+                <div class="skill-copy">
+                  <span class="skill-name">Three.js</span>
+                  <small>Spatial storytelling</small>
+                </div>
               </div>
 
               <div class="skill-item">
-                <div class="skill-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path d="M13 2 3 14h7l-1 8 11-12h-7l1-8z" />
-                  </svg>
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M13 2 3 14h7l-1 8 11-12h-7l1-8z" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Motion</span>
                 </div>
-                <span class="skill-name">GSAP</span>
+                <div class="skill-copy">
+                  <span class="skill-name">GSAP</span>
+                  <small>Animation timing</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Creative Tech Stack Group -->
+          <div class="skill-group">
+            <h4 class="skill-group-title">Creative Tech Stack</h4>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M12 2v20M17 5.5A4.5 4.5 0 0 0 12 4a4.5 4.5 0 0 0-5 1.5A4.5 4.5 0 0 0 12 10a4.5 4.5 0 0 1 5 1.5A4.5 4.5 0 0 1 12 20a4.5 4.5 0 0 1-5-1.5"
+                      />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">App</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">Vite</span>
+                  <small>Fast frontend build</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                      />
+                      <path d="M14 2v6h6" />
+                      <path d="M9 13h6M9 17h6" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Typing</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">TypeScript</span>
+                  <small>Safer app logic</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M12 2a7 7 0 0 0-7 7v7a7 7 0 0 0 14 0V9a7 7 0 0 0-7-7Z"
+                      />
+                      <path d="M12 8v8M8.5 12h7" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Vision</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">MediaPipe</span>
+                  <small>Hand tracking</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M7 8h10l-1 10H8L7 8Z" />
+                      <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Storage</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">localStorage</span>
+                  <small>Persistent notes</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M4 18V6l8-4 8 4v12l-8 4-8-4Z" />
+                      <path d="M12 2v20M4 6l8 4 8-4" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Shader</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">GLSL</span>
+                  <small>Realtime visuals</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect x="3" y="5" width="18" height="14" rx="2" />
+                      <path d="M7 9h10M7 13h7" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Web</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">Web APIs</span>
+                  <small>Camera & browser tools</small>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M12 2v6l4 2-4 2v6" />
+                      <path d="M4 7h16M4 17h16" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">UI</span>
+                </div>
+                <div class="skill-copy">
+                  <span class="skill-name">Tailwind</span>
+                  <small>Utility-first styling</small>
+                </div>
               </div>
             </div>
           </div>
@@ -1902,54 +2231,72 @@
             <h4 class="skill-group-title">Microsoft Office</h4>
             <div class="skills-grid">
               <div class="skill-item">
-                <div class="skill-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-                    />
-                    <path d="M12 7v10M7 10h10M7 17h10" />
-                  </svg>
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                      />
+                      <path d="M12 7v10M7 10h10M7 17h10" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Docs</span>
                 </div>
-                <span class="skill-name">Word</span>
+                <div class="skill-copy">
+                  <span class="skill-name">Word</span>
+                  <small>Structured writing</small>
+                </div>
               </div>
 
               <div class="skill-item">
-                <div class="skill-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-                    />
-                    <line x1="3" y1="10" x2="21" y2="10" />
-                    <line x1="3" y1="16" x2="21" y2="16" />
-                  </svg>
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                      />
+                      <line x1="3" y1="10" x2="21" y2="10" />
+                      <line x1="3" y1="16" x2="21" y2="16" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Data</span>
                 </div>
-                <span class="skill-name">Excel</span>
+                <div class="skill-copy">
+                  <span class="skill-name">Excel</span>
+                  <small>Analysis & reporting</small>
+                </div>
               </div>
 
               <div class="skill-item">
-                <div class="skill-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                    <line x1="3" y1="9" x2="21" y2="9" />
-                    <line x1="9" y1="3" x2="9" y2="21" />
-                  </svg>
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                      <line x1="3" y1="9" x2="21" y2="9" />
+                      <line x1="9" y1="3" x2="9" y2="21" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Present</span>
                 </div>
-                <span class="skill-name">PowerPoint</span>
+                <div class="skill-copy">
+                  <span class="skill-name">PowerPoint</span>
+                  <small>Visual communication</small>
+                </div>
               </div>
             </div>
           </div>
@@ -1959,39 +2306,53 @@
             <h4 class="skill-group-title">Languages</h4>
             <div class="skills-grid">
               <div class="skill-item">
-                <div class="skill-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path d="m5 8 6 6m0-6-6 6" />
-                    <path d="M19 8l-6 6m0-6 6 6" />
-                  </svg>
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="m5 8 6 6m0-6-6 6" />
+                      <path d="M19 8l-6 6m0-6 6 6" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Native</span>
                 </div>
-                <span class="skill-name">Indonesian</span>
+                <div class="skill-copy">
+                  <span class="skill-name">Indonesian</span>
+                  <small>Clear communication</small>
+                </div>
               </div>
 
               <div class="skill-item">
-                <div class="skill-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path d="m5 8 6 6m0-6-6 6" />
-                    <path d="M19 8l-6 6m0-6 6 6" />
-                  </svg>
+                <div class="skill-item-header">
+                  <div class="skill-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="m5 8 6 6m0-6-6 6" />
+                      <path d="M19 8l-6 6m0-6 6 6" />
+                    </svg>
+                  </div>
+                  <span class="skill-badge">Fluent</span>
                 </div>
-                <span class="skill-name">English</span>
+                <div class="skill-copy">
+                  <span class="skill-name">English</span>
+                  <small>Professional writing</small>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <p class="highlight-pill reveal stagger-4">Interaction-first development — every pixel animated on purpose</p>
+        <p class="highlight-pill reveal stagger-4">
+          Interaction-first development — every pixel animated on purpose
+        </p>
       </section>
 
       <!-- ============================================================
@@ -1999,7 +2360,8 @@
          ============================================================ -->
       <div class="statement-band" aria-label="Core philosophy">
         <p class="statement-text reveal">
-          I build interfaces that feel <span class="statement-accent">alive</span>.
+          I build interfaces that feel
+          <span class="statement-accent">alive</span>.
         </p>
       </div>
 
@@ -2048,8 +2410,16 @@
               class="contact-channel"
               title="WhatsApp"
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"
+                />
               </svg>
               <span>WhatsApp</span>
             </a>
