@@ -24,14 +24,14 @@ const steps: Step[] = [
   },
   {
     id: "joint",
-    title: "Fingers & Effects",
-    body: "Each finger routes its own light channel — index finger is Chromatic Aberration, pinky is Topographic Matrix. Raise one finger to pick a mode.",
+    title: "Pick an Interactive",
+    body: "Open the panel at the top to switch between Sphere & Halo, Retrolens, and AirGlow. In Sphere & Halo, raise fingers to drive the sphere — one finger moves it, two scale it, three change color, four rotate it.",
     highlight: "Joint",
   },
   {
     id: "shader",
-    title: "Watch the Shaders",
-    body: "Every finger wears one of 8 visual effects — raise fingers to cycle modes and watch the sphere react.",
+    title: "Gesture Shortcuts",
+    body: "In Retrolens, pinch your index fingertips or fold a pinkie to cycle through 10 video filters. In AirGlow, trace the air with your index fingertip — fold a pinkie to open the color wheel.",
     highlight: "Shader",
   },
 ]

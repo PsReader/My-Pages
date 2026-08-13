@@ -817,3 +817,77 @@ select:focus {
   pointer-events: none;
   user-select: none;
 }
+
+/* ---- AirGlow ---- */
+.airglow-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+.airglow-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  cursor: none;
+}
+
+.airglow-wheel {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.airglow-badge {
+  bottom: 50px;
+}
+
+.airglow-hand-menu {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  z-index: 10002;
+  display: flex;
+  gap: 0;
+  border: 1px solid rgba(104, 230, 255, 0.24);
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(10, 20, 38, 0.85);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  pointer-events: auto;
+}
+
+.airglow-hand-btn {
+  padding: 6px 12px;
+  background: transparent;
+  color: #9cbdef;
+  border: none;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.airglow-hand-btn + .airglow-hand-btn {
+  border-left: 1px solid rgba(104, 230, 255, 0.12);
+}
+
+.airglow-hand-btn.active {
+  background: rgba(104, 230, 255, 0.15);
+  color: #f0f8ff;
+}
+
+.airglow-hand-btn:hover {
+  background: rgba(104, 230, 255, 0.08);
+}

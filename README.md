@@ -40,8 +40,17 @@ A compact personal workspace for notes and ideas, complete with theme options an
 
 ## Root Files
 
-- `index.html` — a demo hub landing page for showcasing the projects
-- `portfolio.html` — a more personal portfolio-style presentation
+- `index.html` — portfolio or landing page.
+- `portfolio.html` — personal portfolio page.
+
+## Usage
+
+Open a project folder and read its `README.md` for specific setup instructions. Most static projects can be opened directly in a browser. The `GestureLab` project uses Vite and requires Node.js to run locally.
+
+## Notes
+
+- If you want to run `GestureLab`, navigate to `GestureLab` and use `npm install` followed by `npm run dev`.
+- `Pudding Paradise` and `Scratchpad` can be viewed by opening their HTML files in a browser.
 
 ## License
 

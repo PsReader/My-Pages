@@ -191,7 +191,7 @@ export function useHands(
           const dy = Math.abs(landmark.y - prev.y);
           const dz = Math.abs((landmark.z ?? 0) - (prev.z ?? 0));
           const motion = dx + dy + dz;
-          const factor = Math.min(0.98, Math.max(0.82, 0.86 + motion * 0.4));
+          const factor = Math.min(0.99, Math.max(0.9, 0.94 + motion * 0.5));
           return {
             x: prev.x + (landmark.x - prev.x) * factor,
             y: prev.y + (landmark.y - prev.y) * factor,
@@ -202,13 +202,9 @@ export function useHands(
         prevHand.length > 0 &&
         lostFrameCountRef.current[handIndex] < maxLostFrames
       ) {
+        // Brief loss: hold the last pose so the hand doesn't flicker out
         lostFrameCountRef.current[handIndex] += 1;
-        const decay = 1 - lostFrameCountRef.current[handIndex] / maxLostFrames;
-        nextLandmarks[handIndex] = prevHand.map((lm) => ({
-          x: 0.5 + (lm.x - 0.5) * decay,
-          y: 0.5 + (lm.y - 0.5) * decay,
-          z: (lm.z ?? 0) * decay,
-        }));
+        nextLandmarks[handIndex] = prevHand;
       } else {
         lostFrameCountRef.current[handIndex] = 0;
         nextLandmarks[handIndex] = [];
@@ -345,7 +341,7 @@ export function useHands(
     async function initialize() {
       try {
         const vision = await FilesetResolver.forVisionTasks(
-          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm",
+          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/wasm",
         );
 
         const landmarker = await HandLandmarker.createFromOptions(vision, {
@@ -356,9 +352,9 @@ export function useHands(
           },
           runningMode: "VIDEO",
           numHands: 2,
-          minHandDetectionConfidence: 0.4,
-          minHandPresenceConfidence: 0.4,
-          minTrackingConfidence: 0.45,
+          minHandDetectionConfidence: 0.3,
+          minHandPresenceConfidence: 0.3,
+          minTrackingConfidence: 0.35,
         });
 
         if (cancelled) {

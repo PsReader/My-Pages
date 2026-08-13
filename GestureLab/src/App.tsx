@@ -16,6 +16,7 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 
 import { defaultCentralParams, MODE_INFO, type CentralParams } from "./components/centralParams";
 import { INTERACTIVES, type InteractiveDefinition } from "./components/interactives";
+import { AirGlow, AIRGLOW_TOOL_INFO, type PenHand } from "./components/AirGlow";
 
 const jointOptions = [
   { value: 4, label: "Thumb Tip" },
@@ -63,6 +64,7 @@ type RoutingPanelBaseProps = {
   hasDetectedHand: boolean;
   error: string | null;
   onNavToggle: () => void;
+  onReset: () => void;
   interactives: InteractiveDefinition[];
   activeInteractive: string;
   onInteractiveChange: (id: string) => void;
@@ -120,11 +122,23 @@ function App() {
     localStorage.setItem("gesturelab-interactive", id)
   }, [])
 
+  const handleReset = useCallback(() => setResetSignal((s) => s + 1), [])
+
   const [portalFilter, setPortalFilter] = useState("MONO")
+
+  const [resetSignal, setResetSignal] = useState(0)
 
   const [navOpen, setNavOpen] = useState(true)
   const prevRingRef = useRef(false)
   const ringCooldownRef = useRef(0)
+
+  const [penHand, setPenHand] = useState<PenHand>(
+    () => (localStorage.getItem("gesturelab-airglow-hand") as PenHand) ?? "auto",
+  )
+  const handlePenHandChange = useCallback((hand: PenHand) => {
+    setPenHand(hand)
+    localStorage.setItem("gesturelab-airglow-hand", hand)
+  }, [])
 
   const shaderOptions = useMemo(
     () =>
@@ -243,6 +257,7 @@ function App() {
             hasDetectedHand={hasDetectedHand}
             error={error}
             onNavToggle={() => setNavOpen(p => !p)}
+            onReset={handleReset}
             interactives={INTERACTIVES}
             activeInteractive={interactiveId}
             onInteractiveChange={handleInteractiveChange}
@@ -257,9 +272,38 @@ function App() {
           muted
           className="hidden-video"
         />
-        <div className="mode-badge">
-          {MODE_INFO[activeMode].icon} {MODE_INFO[activeMode].label}
-        </div>
+        {interactiveId === "sphere-halo" && (
+          <div className="mode-badge">
+            {MODE_INFO[activeMode].icon} {MODE_INFO[activeMode].label}
+          </div>
+        )}
+        {interactiveId === "airglow" && (
+          <div className="airglow-layer">
+            <AirGlow
+              landmarks={landmarks}
+              handedness={handedness}
+              penHand={penHand}
+              mode={activeMode}
+              modeHandIndex={modeHandIndex}
+              resetSignal={resetSignal}
+            />
+            <div className="airglow-hand-menu" role="group" aria-label="Pen hand">
+              {(["left", "auto", "right"] as const).map((hand) => (
+                <button
+                  key={hand}
+                  className={`airglow-hand-btn ${penHand === hand ? "active" : ""}`}
+                  aria-pressed={penHand === hand}
+                  onClick={() => handlePenHandChange(hand)}
+                >
+                  {hand === "auto" ? "Auto" : hand[0].toUpperCase() + hand.slice(1)}
+                </button>
+              ))}
+            </div>
+            <div className="mode-badge airglow-badge">
+              AIRGLOW &middot; {AIRGLOW_TOOL_INFO[activeMode]?.label ?? "Pen"}
+            </div>
+          </div>
+        )}
         {interactiveId === "retrolens" && (
           <div className="portal-badge">RETROLENS &middot; {portalFilter}</div>
         )}

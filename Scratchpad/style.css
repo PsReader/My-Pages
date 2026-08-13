@@ -623,6 +623,40 @@ header {
   justify-content: flex-end;
 }
 
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+  flex: 0 0 auto;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.back-button:hover,
+.back-button:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: scale(1.1);
+  outline: none;
+}
+
+.back-button:active {
+  transform: scale(0.96);
+}
+
 .theme-picker {
   position: relative;
   display: inline-block;
