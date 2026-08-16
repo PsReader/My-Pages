@@ -14,6 +14,10 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23881798'/%3E%3Ctext x='16' y='22.5' font-family='Arial,sans-serif' font-size='17' font-weight='700' text-anchor='middle' fill='white'%3EP%3C/text%3E%3C/svg%3E"
+    />
     <style>
       .hero-subtitle {
         font-size: 0.95rem;
@@ -716,11 +720,15 @@
       .section-heading::after {
         content: "";
         display: block;
-        width: 48px;
+        width: 0;
         height: 2px;
         background: linear-gradient(90deg, var(--accent), transparent);
         margin-top: 16px;
         border-radius: 2px;
+        transition: width 0.9s var(--ease-premium);
+      }
+      .section-heading.is-in-view::after {
+        width: 48px;
       }
 
       /* =================================================================
@@ -1477,6 +1485,10 @@
           opacity 700ms var(--ease-premium),
           transform 700ms var(--ease-premium);
       }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
 
       .stagger-1 {
         transition-delay: 0.06s;
@@ -1489,6 +1501,9 @@
       }
       .stagger-4 {
         transition-delay: 0.24s;
+      }
+      .stagger-5 {
+        transition-delay: 0.3s;
       }
 
       /* Hero elements — CSS animation, no observer needed */
@@ -1797,6 +1812,12 @@
         .hero-underline {
           width: min(240px, 56%);
         }
+
+        .section-heading.is-in-view::after,
+        .section-heading::after {
+          width: 48px;
+          transition: none;
+        }
       }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -1996,7 +2017,7 @@
                   <span class="dot dot--max"></span>
                   <div class="chrome-address">
                     <span class="chrome-url"
-                      >psreader.github.io/My-Projects/LOTM/</span
+                      >psreader.github.io/My-Pages/LOTM/</span
                     >
                   </div>
                 </div>
@@ -2069,7 +2090,7 @@
                   <span class="dot dot--max"></span>
                   <div class="chrome-address">
                     <span class="chrome-url"
-                      >psreader.github.io/My-Projects/Pudding-Paradise/</span
+                      >psreader.github.io/My-Pages/Pudding-Paradise/</span
                     >
                   </div>
                 </div>
@@ -2866,19 +2887,25 @@
          SCRIPTS
          ============================================================ -->
       <script>
-        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+        const hasGsap =
+          typeof gsap !== "undefined" &&
+          typeof ScrollTrigger !== "undefined" &&
+          typeof ScrollToPlugin !== "undefined";
 
-        // ===== Hero GSAP entrance timeline =====
-        const heroTl = gsap.timeline({
-          defaults: { ease: "expo.out", duration: 0.7 },
-        });
-        heroTl
-          .from(".hero-eyebrow", { y: 30, opacity: 0 })
-          .from(".hero-badge", { y: 20, opacity: 0, scale: 0.9 }, "-=0.25")
-          .from(".hero h1", { y: 40, opacity: 0 }, "-=0.35")
-          .from(".hero-subtitle", { y: 24, opacity: 0 }, "-=0.35")
-          .from(".hero-desc", { y: 30, opacity: 0 }, "-=0.35")
-          .from(".hero-cta > *", { y: 20, opacity: 0, stagger: 0.1 }, "-=0.3");
+        if (hasGsap) {
+          gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+          // ===== Hero GSAP entrance timeline =====
+          const heroTl = gsap.timeline({
+            defaults: { ease: "expo.out", duration: 0.7 },
+          });
+          heroTl
+            .from(".hero-eyebrow", { y: 30, opacity: 0 })
+            .from(".hero-badge", { y: 20, opacity: 0, scale: 0.9 }, "-=0.25")
+            .from(".hero h1", { y: 40, opacity: 0 }, "-=0.35")
+            .from(".hero-subtitle", { y: 24, opacity: 0 }, "-=0.35")
+            .from(".hero-desc", { y: 30, opacity: 0 }, "-=0.35")
+            .from(".hero-cta > *", { y: 20, opacity: 0, stagger: 0.1 }, "-=0.3");
 
         // ===== Hero scroll fade =====
         ScrollTrigger.create({
@@ -2927,28 +2954,16 @@
           });
         });
 
-        // ===== Section heading underline animation =====
-        gsap.utils.toArray(".section-heading").forEach((el) => {
-          const line = el.querySelector("::after") || el;
-          ScrollTrigger.create({
-            trigger: el,
-            start: "top 88%",
-            onEnter: () => {
-              gsap.fromTo(
-                el,
-                { "--underline-w": "0px" },
-                {
-                  "--underline-w": "48px",
-                  duration: 0.8,
-                  ease: "power3.out",
-                  overwrite: "auto",
-                },
-              );
-            },
-            once: true,
+          // ===== Section heading underline animation =====
+          gsap.utils.toArray(".section-heading").forEach((el) => {
+            ScrollTrigger.create({
+              trigger: el,
+              start: "top 88%",
+              onEnter: () => el.classList.add("is-in-view"),
+              once: true,
+            });
           });
-          el.style.setProperty("--underline-w", "0px");
-        });
+        }
 
         // ===== Active nav tracking =====
         const navLinks = document.querySelectorAll(".header-nav a");
@@ -2978,6 +2993,7 @@
           const href = a.getAttribute("href");
           if (href?.startsWith("#")) {
             a.addEventListener("click", (e) => {
+              if (!hasGsap) return;
               e.preventDefault();
               const target = document.querySelector(href);
               if (target) {
@@ -3051,33 +3067,40 @@
           menuOverlay.classList.add("active");
           menuToggle.setAttribute("aria-expanded", "true");
           document.body.style.overflow = "hidden";
-          gsap.fromTo(
-            headerNav,
-            { x: 40, opacity: 0 },
-            {
-              x: 0,
-              opacity: 1,
-              duration: 0.4,
-              ease: "power3.out",
-              overwrite: "auto",
-            },
-          );
+          if (hasGsap) {
+            gsap.fromTo(
+              headerNav,
+              { x: 40, opacity: 0 },
+              {
+                x: 0,
+                opacity: 1,
+                duration: 0.4,
+                ease: "power3.out",
+                overwrite: "auto",
+              },
+            );
+          }
         }
 
         function closeMobileMenu() {
-          gsap.to(headerNav, {
-            x: 40,
-            opacity: 0,
-            duration: 0.3,
-            ease: "power2.in",
-            overwrite: "auto",
-            onComplete: () => {
-              headerNav.classList.remove("open");
-              menuOverlay.classList.remove("active");
-              menuToggle.setAttribute("aria-expanded", "false");
-              document.body.style.overflow = "";
-            },
-          });
+          const onDone = () => {
+            headerNav.classList.remove("open");
+            menuOverlay.classList.remove("active");
+            menuToggle.setAttribute("aria-expanded", "false");
+            document.body.style.overflow = "";
+          };
+          if (hasGsap) {
+            gsap.to(headerNav, {
+              x: 40,
+              opacity: 0,
+              duration: 0.3,
+              ease: "power2.in",
+              overwrite: "auto",
+              onComplete: onDone,
+            });
+          } else {
+            onDone();
+          }
         }
 
         menuToggle?.addEventListener("click", () => {
@@ -3095,76 +3118,82 @@
         });
 
         // ===== GSAP animated counters =====
-        document.querySelectorAll(".trust-value[data-count]").forEach((el) => {
-          const target = parseInt(el.dataset.count);
-          const suffix = el.dataset.suffix || "";
-          if (isNaN(target)) return;
-          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-            el.textContent = target + suffix;
-            return;
-          }
-          const obj = { val: 0 };
-          ScrollTrigger.create({
-            trigger: el.closest(".trust-bar"),
-            start: "top 85%",
-            onEnter: () => {
-              gsap.to(obj, {
-                val: target,
-                duration: 1.2,
-                ease: "power2.out",
-                overwrite: "auto",
-                onUpdate: () => {
-                  el.textContent = Math.floor(obj.val) + suffix;
-                },
-                onComplete: () => {
-                  el.textContent = target + suffix;
-                },
-              });
-            },
-            once: true,
+        if (hasGsap) {
+          document.querySelectorAll(".trust-value[data-count]").forEach((el) => {
+            const target = parseInt(el.dataset.count);
+            const suffix = el.dataset.suffix || "";
+            if (isNaN(target)) return;
+            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+              el.textContent = target + suffix;
+              return;
+            }
+            const obj = { val: 0 };
+            ScrollTrigger.create({
+              trigger: el.closest(".trust-bar"),
+              start: "top 85%",
+              onEnter: () => {
+                gsap.to(obj, {
+                  val: target,
+                  duration: 1.2,
+                  ease: "power2.out",
+                  overwrite: "auto",
+                  onUpdate: () => {
+                    el.textContent = Math.floor(obj.val) + suffix;
+                  },
+                  onComplete: () => {
+                    el.textContent = target + suffix;
+                  },
+                });
+              },
+              once: true,
+            });
           });
-        });
+        }
 
         // ===== Button ripple effect =====
-        document.querySelectorAll(".btn--primary").forEach((btn) => {
-          btn.addEventListener("click", function (e) {
-            const rect = this.getBoundingClientRect();
-            const ripple = document.createElement("span");
-            ripple.className = "btn-ripple";
-            const size = Math.max(rect.width, rect.height) * 1.2;
-            ripple.style.width = ripple.style.height = size + "px";
-            ripple.style.left = e.clientX - rect.left + "px";
-            ripple.style.top = e.clientY - rect.top + "px";
-            this.appendChild(ripple);
-            gsap.to(ripple, {
-              scale: 2.5,
-              opacity: 0,
-              duration: 0.6,
-              ease: "power2.out",
-              onComplete: () => ripple.remove(),
+        if (hasGsap) {
+          document.querySelectorAll(".btn--primary").forEach((btn) => {
+            btn.addEventListener("click", function (e) {
+              const rect = this.getBoundingClientRect();
+              const ripple = document.createElement("span");
+              ripple.className = "btn-ripple";
+              const size = Math.max(rect.width, rect.height) * 1.2;
+              ripple.style.width = ripple.style.height = size + "px";
+              ripple.style.left = e.clientX - rect.left + "px";
+              ripple.style.top = e.clientY - rect.top + "px";
+              this.appendChild(ripple);
+              gsap.to(ripple, {
+                scale: 2.5,
+                opacity: 0,
+                duration: 0.6,
+                ease: "power2.out",
+                onComplete: () => ripple.remove(),
+              });
             });
           });
-        });
+        }
 
         // ===== Card hover GSAP glow rotation =====
-        document.querySelectorAll(".project-card").forEach((card) => {
-          const glow = card.querySelector(".project-card-glow");
-          if (!glow) return;
-          let glowTween;
-          card.addEventListener("mouseenter", () => {
-            glowTween = gsap.to(glow, {
-              "--glow-angle": 360,
-              duration: 2.5,
-              repeat: -1,
-              ease: "none",
-              overwrite: "auto",
+        if (hasGsap) {
+          document.querySelectorAll(".project-card").forEach((card) => {
+            const glow = card.querySelector(".project-card-glow");
+            if (!glow) return;
+            let glowTween;
+            card.addEventListener("mouseenter", () => {
+              glowTween = gsap.to(glow, {
+                "--glow-angle": 360,
+                duration: 2.5,
+                repeat: -1,
+                ease: "none",
+                overwrite: "auto",
+              });
+            });
+            card.addEventListener("mouseleave", () => {
+              glowTween?.kill();
+              gsap.set(glow, { "--glow-angle": 0 });
             });
           });
-          card.addEventListener("mouseleave", () => {
-            glowTween?.kill();
-            gsap.set(glow, { "--glow-angle": 0 });
-          });
-        });
+        }
 
         // ===== Infinite carousel — node-shifting with GSAP =====
         const carousel = document.getElementById("carousel");
@@ -3191,44 +3220,48 @@
               });
           };
 
-          const goNext = () => {
-            if (isAnimating) return;
-            isAnimating = true;
-            const w = cardWidth();
+          const goNext = () =>
+            new Promise((resolve) => {
+              if (isAnimating) return resolve();
+              isAnimating = true;
+              const w = cardWidth();
 
-            gsap.to(track, {
-              x: -w,
-              duration: 0.6,
-              ease: "power3.inOut",
-              onComplete: () => {
-                track.appendChild(track.children[0]);
-                gsap.set(track, { x: 0 });
-                logicalIdx = (logicalIdx + 1) % N;
-                isAnimating = false;
-                updateDots();
-              },
+              gsap.to(track, {
+                x: -w,
+                duration: 0.6,
+                ease: "power3.inOut",
+                onComplete: () => {
+                  track.appendChild(track.children[0]);
+                  gsap.set(track, { x: 0 });
+                  logicalIdx = (logicalIdx + 1) % N;
+                  isAnimating = false;
+                  updateDots();
+                  resolve();
+                },
+              });
             });
-          };
 
-          const goPrev = () => {
-            if (isAnimating) return;
-            isAnimating = true;
-            const w = cardWidth();
+          const goPrev = () =>
+            new Promise((resolve) => {
+              if (isAnimating) return resolve();
+              isAnimating = true;
+              const w = cardWidth();
 
-            track.prepend(track.lastElementChild);
-            gsap.set(track, { x: -w });
+              track.prepend(track.lastElementChild);
+              gsap.set(track, { x: -w });
 
-            gsap.to(track, {
-              x: 0,
-              duration: 0.6,
-              ease: "power3.inOut",
-              onComplete: () => {
-                logicalIdx = (logicalIdx - 1 + N) % N;
-                isAnimating = false;
-                updateDots();
-              },
+              gsap.to(track, {
+                x: 0,
+                duration: 0.6,
+                ease: "power3.inOut",
+                onComplete: () => {
+                  logicalIdx = (logicalIdx - 1 + N) % N;
+                  isAnimating = false;
+                  updateDots();
+                  resolve();
+                },
+              });
             });
-          };
 
           const startAuto = () => {
             clearInterval(autoTimer);
@@ -3243,14 +3276,13 @@
             dot.className = "carousel-indicator";
             if (i === 0) dot.classList.add("active");
             dot.setAttribute("aria-label", `Go to project ${i + 1}`);
-            dot.addEventListener("click", () => {
-              if (isAnimating) return;
+            dot.addEventListener("click", async () => {
               const delta = (i - logicalIdx + N) % N;
               const steps = Math.min(delta, N - delta);
-              if (steps === 0) return;
+              if (steps === 0 || isAnimating) return;
               const dir = delta <= N / 2 ? 1 : -1;
               const fn = dir === 1 ? goNext : goPrev;
-              for (let s = 0; s < steps; s++) fn();
+              for (let s = 0; s < steps; s++) await fn();
             });
             indicatorsEl.appendChild(dot);
           });
@@ -3276,6 +3308,31 @@
               if (isAnimating) return;
               gsap.set(track, { x: 0 });
             }, 150);
+          });
+        }
+
+        if (!hasGsap) {
+          // ===== Fallback reveals + counters (GSAP unavailable) =====
+          const fallbackIo = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("visible");
+                  if (entry.target.classList.contains("section-heading")) {
+                    entry.target.classList.add("is-in-view");
+                  }
+                  fallbackIo.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.12, rootMargin: "0px 0px -50px 0px" },
+          );
+          document.querySelectorAll(".reveal").forEach((el) =>
+            fallbackIo.observe(el),
+          );
+          document.querySelectorAll(".trust-value[data-count]").forEach((el) => {
+            el.textContent =
+              (parseInt(el.dataset.count) || 0) + (el.dataset.suffix || "");
           });
         }
       </script>
