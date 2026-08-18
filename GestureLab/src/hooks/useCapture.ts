@@ -17,7 +17,11 @@ export function useCapture(gl: THREE.WebGLRenderer) {
   }, [gl])
 
   const startGifCapture = useCallback(() => {
-    if (capturingRef.current) return
+    if (capturingRef.current) {
+      capturingRef.current = false
+      return
+    }
+
     capturingRef.current = true
     setIsCapturingGif(true)
 
@@ -32,16 +36,52 @@ export function useCapture(gl: THREE.WebGLRenderer) {
         quality: 10,
         width,
         height,
-        workerScript: "/gif.worker.js",
+        workerScript: "./gif.worker.js",
       })
 
-      const totalFrames = 20
+      const totalFrames = 30
       let captured = 0
+      let renderTimeout: ReturnType<typeof setTimeout> | null = null
+
+      const cleanup = () => {
+        if (renderTimeout) clearTimeout(renderTimeout)
+        capturingRef.current = false
+        setIsCapturingGif(false)
+      }
 
       return new Promise<void>((resolve) => {
+        renderTimeout = setTimeout(() => {
+          cleanup()
+          resolve()
+        }, 10000)
+
+        gif.on("finished", (blob: Blob) => {
+          if (renderTimeout) clearTimeout(renderTimeout)
+          const url = URL.createObjectURL(blob)
+          const link = document.createElement("a")
+          link.download = `gesturelab-${Date.now()}.gif`
+          link.href = url
+          document.body.appendChild(link)
+          link.click()
+          document.body.removeChild(link)
+          URL.revokeObjectURL(url)
+          cleanup()
+          resolve()
+        })
+
+        gif.on("error", () => {
+          cleanup()
+          resolve()
+        })
+
         const frame = () => {
           if (!capturingRef.current) {
-            resolve()
+            if (captured > 0) {
+              gif.render()
+            } else {
+              cleanup()
+              resolve()
+            }
             return
           }
           const dataUrl = canvas.toDataURL("image/png")
@@ -57,19 +97,6 @@ export function useCapture(gl: THREE.WebGLRenderer) {
             captured++
             if (captured >= totalFrames) {
               gif.render()
-              gif.on("finished", (blob: Blob) => {
-                const url = URL.createObjectURL(blob)
-                const link = document.createElement("a")
-                link.download = `gesturelab-${Date.now()}.gif`
-                link.href = url
-                document.body.appendChild(link)
-                link.click()
-                document.body.removeChild(link)
-                URL.revokeObjectURL(url)
-                capturingRef.current = false
-                setIsCapturingGif(false)
-                resolve()
-              })
             } else {
               requestAnimationFrame(frame)
             }

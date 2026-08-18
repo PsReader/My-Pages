@@ -98,7 +98,7 @@ export function RoutingPanel({
                 <circle cx="12" cy="13" r="4"/>
               </svg>
             </button>
-            <button className="drawer-action-btn" onClick={onGifCapture} disabled={isCapturingGif} title={isCapturingGif ? "Recording..." : "Record GIF"}>
+            <button className="drawer-action-btn" onClick={onGifCapture} title={isCapturingGif ? "Stop Recording" : "Record GIF"}>
               {isCapturingGif ? (
                 <span className="recording-dot" style={{ width: 6, height: 6 }} />
               ) : (
