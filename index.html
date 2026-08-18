@@ -121,6 +121,37 @@
         overflow-x: hidden;
       }
 
+      /* =================================================================
+         SCROLL PROGRESS BAR
+         ================================================================= */
+      .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-hover), #e38ff0);
+        z-index: 200;
+        transform-origin: left;
+        transform: scaleX(0);
+        pointer-events: none;
+      }
+
+      /* =================================================================
+         NOISE TEXTURE OVERLAY
+         ================================================================= */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        opacity: 0.07;
+        pointer-events: none;
+        z-index: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+        background-size: 200px 200px;
+      }
+
       /* Dot grid pattern overlay */
       body::after {
         content: "";
@@ -236,6 +267,306 @@
       }
       .header-nav.open {
         right: 0;
+      }
+
+      /* =================================================================
+         ANIMATED BACKGROUND ORBS
+         ================================================================= */
+      .bg-orbs {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .bg-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.12;
+        will-change: transform;
+      }
+      .bg-orb--1 {
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, #881798, transparent 70%);
+        top: -10%;
+        left: -5%;
+        animation: orbDrift1 12s ease-in-out infinite;
+      }
+      .bg-orb--2 {
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, #5b2d8e, transparent 70%);
+        bottom: -15%;
+        right: -10%;
+        animation: orbDrift2 10s ease-in-out infinite;
+      }
+      .bg-orb--3 {
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, #b348c2, transparent 70%);
+        top: 40%;
+        right: 20%;
+        animation: orbDrift3 14s ease-in-out infinite;
+      }
+      @keyframes orbDrift1 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(60px, 40px) scale(1.15); }
+      }
+      @keyframes orbDrift2 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(-50px, -30px) scale(1.1); }
+      }
+      @keyframes orbDrift3 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(-30px, 50px) scale(1.2); }
+      }
+
+      /* =================================================================
+         CURSOR SPOTLIGHT
+         ================================================================= */
+      .cursor-spotlight {
+        position: fixed;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(136, 23, 152, 0.06), transparent 60%);
+        pointer-events: none;
+        z-index: 0;
+        transform: translate(-50%, -50%);
+        transition: opacity 300ms var(--ease);
+        opacity: 0;
+      }
+      .cursor-spotlight.active { opacity: 1; }
+
+      /* =================================================================
+         TEXT SHIMMER
+         ================================================================= */
+      .hero h1 {
+        position: relative;
+      }
+      .hero h1::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          110deg,
+          transparent 30%,
+          rgba(179, 72, 194, 0.15) 45%,
+          rgba(227, 143, 240, 0.2) 50%,
+          rgba(179, 72, 194, 0.15) 55%,
+          transparent 70%
+        );
+        background-size: 250% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: textShimmer 4s ease-in-out infinite;
+        pointer-events: none;
+      }
+      @keyframes textShimmer {
+        0% { background-position: 200% center; }
+        100% { background-position: -200% center; }
+      }
+
+      /* =================================================================
+         3D PERSPECTIVE CAROUSEL
+         ================================================================= */
+      .carousel-container {
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 28px;
+        padding-inline: 56px;
+        box-sizing: border-box;
+      }
+
+      .project-list {
+        overflow: hidden;
+        padding-inline: 0;
+      }
+
+      .carousel-track {
+        display: flex;
+        gap: 20px;
+        padding-block-end: 12px;
+      }
+
+      @media (min-width: 768px) {
+        .project-card {
+          flex: 0 0 calc(50% - 12px);
+          max-width: none;
+        }
+      }
+
+      @media (min-width: 1200px) {
+        .project-card {
+          flex: 0 0 calc(42% - 16px);
+        }
+      }
+
+      @media (min-width: 1600px) {
+        .project-card {
+          flex: 0 0 calc(38% - 16px);
+        }
+      }
+
+      .project-card {
+        flex: 0 0 min(calc(100% - 24px), 460px);
+        max-width: min(100%, 460px);
+        min-width: 0;
+        transform-style: preserve-3d;
+        perspective: 1200px;
+        background: rgba(15, 18, 30, 0.78);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
+        transition:
+          border-color 250ms var(--ease),
+          box-shadow 350ms var(--ease),
+          transform 350ms var(--ease);
+        position: relative;
+      }
+
+      /* Carousel navigation buttons */
+      .carousel-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        background: var(--accent);
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        transition: all 200ms var(--ease);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+      .carousel-nav:hover {
+        background: var(--accent-hover);
+        transform: translateY(-50%) scale(1.1);
+      }
+      .carousel-nav:active {
+        transform: translateY(-50%) scale(0.95);
+      }
+      .carousel-nav-prev {
+        left: 8px;
+      }
+
+      .carousel-nav-next {
+        right: 8px;
+      }
+      .carousel-nav svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Carousel indicators */
+      .carousel-indicators {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        padding: 16px 0 0;
+      }
+      .carousel-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--border);
+        border: none;
+        cursor: pointer;
+        transition: all 200ms var(--ease);
+      }
+      .carousel-indicator.active {
+        background: var(--accent);
+        width: 24px;
+        border-radius: 4px;
+      }
+      .carousel-indicator:hover {
+        background: var(--accent-hover);
+      }
+
+      /* Accent glow on hover — top edge */
+      .project-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        border-radius: inherit;
+        box-shadow:
+          inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+          inset 0 24px 60px rgba(255, 255, 255, 0.02);
+        opacity: 0.85;
+        z-index: 4;
+      }
+      .project-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 20%;
+        right: 20%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        opacity: 0;
+        transition: opacity 350ms var(--ease);
+        z-index: 5;
+      }
+      .project-card-glow {
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        background: conic-gradient(
+          from var(--glow-angle, 0deg),
+          transparent 30%,
+          var(--accent) 50%,
+          transparent 70%
+        );
+        opacity: 0;
+        z-index: 3;
+        pointer-events: none;
+        transition: opacity 400ms var(--ease);
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        padding: 1px;
+      }
+      .project-card:hover .project-card-glow {
+        opacity: 1;
+      }
+      .project-card:hover {
+        border-color: rgba(255, 255, 255, 0.16);
+        box-shadow:
+          0 24px 70px rgba(0, 0, 0, 0.42),
+          0 0 0 1px rgba(255, 255, 255, 0.08),
+          0 0 72px rgba(136, 23, 152, 0.14);
+        transform: translateY(-12px) rotateY(1.2deg);
+      }
+      .project-card:hover::after {
+        opacity: 1;
+      }
+
+      /* Featured card — GestureLab */
+      .project-card--featured {
+        border-color: rgba(136, 23, 152, 0.28);
+      }
+      .project-card--featured::after {
+        opacity: 0.65;
+      }
+      .project-card--featured .project-card-glow {
+        opacity: 0.35;
+      }
+      .project-card--featured:hover .project-card-glow {
+        opacity: 1;
       }
 
       .header-nav a {
@@ -595,47 +926,109 @@
       }
 
       /* =================================================================
-         TRUST SIGNALS
+         BENTO TRUST GRID
          ================================================================= */
-      .trust-bar {
-        border-top: 1px solid var(--border);
-        border-bottom: 1px solid var(--border);
-        background: var(--bg-raised);
-        position: relative;
+      .trust-bento-section {
+        padding: 48px 24px 56px;
       }
 
-      .trust-inner {
-        max-width: var(--max-w);
-        margin: 0 auto;
-        padding: 32px 24px;
+      .trust-bento {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 16px;
       }
 
-      .trust-item {
-        text-align: center;
-        padding: 8px 0;
-        transition: transform 300ms var(--ease-spring);
+      .trust-bento-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+        transition:
+          border-color 300ms var(--ease),
+          transform 400ms var(--ease),
+          box-shadow 400ms var(--ease);
+        will-change: transform;
+        transform-style: preserve-3d;
       }
-      .trust-item:hover {
-        transform: scale(1.05);
+      .trust-bento-card:hover {
+        border-color: var(--border-hover);
+        box-shadow: 0 8px 32px rgba(136, 23, 152, 0.1);
+      }
+      .trust-bento-card--wide {
+        grid-column: span 2;
       }
 
-      .trust-value {
-        font-size: 1.375rem;
-        font-weight: 800;
+      .trust-bento-card .bento-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: var(--radius-lg);
+        background: var(--accent-muted);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12px;
+        flex-shrink: 0;
+      }
+      .trust-bento-card .bento-icon svg {
+        width: 18px;
+        height: 18px;
+        color: var(--accent-hover);
+      }
+
+      .bento-card-title {
+        font-size: 0.9375rem;
+        font-weight: 700;
         color: var(--text-primary);
-        line-height: 1;
         margin-bottom: 6px;
         letter-spacing: -0.02em;
       }
 
-      .trust-label {
-        font-size: 0.6875rem;
-        font-weight: 500;
+      .bento-card-desc {
+        font-size: 0.8125rem;
+        line-height: 1.55;
+        color: var(--text-secondary);
+      }
+
+      .bento-card-stat {
+        margin-top: auto;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+      }
+      .bento-card-stat-num {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        line-height: 1;
+      }
+      .bento-card-stat-label {
+        font-size: 0.75rem;
         color: var(--text-tertiary);
-        letter-spacing: 0.03em;
+        font-weight: 500;
+      }
+
+      /* Responsive bento */
+      @media (max-width: 900px) {
+        .trust-bento {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .trust-bento-card--wide {
+          grid-column: span 2;
+        }
+      }
+      @media (max-width: 640px) {
+        .trust-bento {
+          grid-template-columns: 1fr;
+        }
+        .trust-bento-card--wide {
+          grid-column: span 1;
+        }
       }
 
       /* =================================================================
@@ -734,212 +1127,6 @@
       /* =================================================================
          PROJECT CAROUSEL — featured projects showcase
          ================================================================= */
-      .carousel-container {
-        position: relative;
-        overflow: hidden;
-        margin-bottom: 28px;
-        padding-inline: 56px;
-        box-sizing: border-box;
-      }
-
-      .project-list {
-        overflow: hidden;
-        padding-inline: 0;
-      }
-
-      .carousel-track {
-        display: flex;
-        gap: 20px;
-        padding-block-end: 12px;
-      }
-
-      @media (min-width: 768px) {
-        .project-card {
-          flex: 0 0 calc(50% - 12px);
-          max-width: none;
-        }
-      }
-
-      @media (min-width: 1200px) {
-        .project-card {
-          flex: 0 0 calc(42% - 16px);
-        }
-      }
-
-      @media (min-width: 1600px) {
-        .project-card {
-          flex: 0 0 calc(38% - 16px);
-        }
-      }
-
-      /* Carousel navigation buttons */
-      .carousel-nav {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 10;
-        background: var(--accent);
-        border: none;
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        transition: all 200ms var(--ease);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      }
-      .carousel-nav:hover {
-        background: var(--accent-hover);
-        transform: translateY(-50%) scale(1.1);
-      }
-      .carousel-nav:active {
-        transform: translateY(-50%) scale(0.95);
-      }
-
-      .carousel-nav-prev {
-        left: 8px;
-      }
-
-      .carousel-nav-next {
-        right: 8px;
-      }
-
-      .carousel-nav svg {
-        width: 20px;
-        height: 20px;
-      }
-
-      /* Carousel indicators */
-      .carousel-indicators {
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        padding: 16px 0 0;
-      }
-
-      .carousel-indicator {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: var(--border);
-        border: none;
-        cursor: pointer;
-        transition: all 200ms var(--ease);
-      }
-      .carousel-indicator.active {
-        background: var(--accent);
-        width: 24px;
-        border-radius: 4px;
-      }
-      .carousel-indicator:hover {
-        background: var(--accent-hover);
-      }
-
-      .project-card {
-        flex: 0 0 min(calc(100% - 24px), 460px);
-        max-width: min(100%, 460px);
-        min-width: 0;
-        transform-style: preserve-3d;
-        perspective: 1200px;
-        background: rgba(15, 18, 30, 0.78);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        border-radius: var(--radius-xl);
-        overflow: hidden;
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
-        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
-        transition:
-          border-color 250ms var(--ease),
-          box-shadow 350ms var(--ease),
-          transform 350ms var(--ease);
-        position: relative;
-      }
-
-      /* Accent glow on hover — top edge */
-      .project-card::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        border-radius: inherit;
-        box-shadow:
-          inset 0 0 0 1px rgba(255, 255, 255, 0.04),
-          inset 0 24px 60px rgba(255, 255, 255, 0.02);
-        opacity: 0.85;
-      }
-
-      .project-card::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 20%;
-        right: 20%;
-        height: 1px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          var(--accent),
-          transparent
-        );
-        opacity: 0;
-        transition: opacity 350ms var(--ease);
-        z-index: 5;
-      }
-
-      .project-card-glow {
-        position: absolute;
-        inset: -1px;
-        border-radius: inherit;
-        background: conic-gradient(
-          from var(--glow-angle, 0deg),
-          transparent 30%,
-          var(--accent) 50%,
-          transparent 70%
-        );
-        opacity: 0;
-        z-index: 3;
-        pointer-events: none;
-        transition: opacity 400ms var(--ease);
-        -webkit-mask:
-          linear-gradient(#fff 0 0) content-box,
-          linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-        padding: 1px;
-      }
-      .project-card:hover .project-card-glow {
-        opacity: 1;
-      }
-
-      .project-card:hover {
-        border-color: rgba(255, 255, 255, 0.16);
-        box-shadow:
-          0 24px 70px rgba(0, 0, 0, 0.42),
-          0 0 0 1px rgba(255, 255, 255, 0.08),
-          0 0 72px rgba(136, 23, 152, 0.14);
-        transform: translateY(-12px) rotateY(1.2deg);
-      }
-      .project-card:hover::after {
-        opacity: 1;
-      }
-
-      /* Featured card — GestureLab */
-      .project-card--featured {
-        border-color: rgba(136, 23, 152, 0.28);
-      }
-      .project-card--featured::after {
-        opacity: 0.65;
-      }
-      .project-card--featured .project-card-glow {
-        opacity: 0.35;
-      }
-      .project-card--featured:hover .project-card-glow {
-        opacity: 1;
-      }
-
       .project-featured-badge {
         display: inline-flex;
         align-items: center;
@@ -1243,11 +1430,20 @@
       /* =================================================================
          TECH STACK GRID
          ================================================================= */
-      .stack-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 20px;
+      /* =================================================================
+         TECH STACK — horizontal scroll (GSAP ScrollTrigger pinned)
+         ================================================================= */
+      .stack-scroll-wrapper {
+        overflow: hidden;
+        position: relative;
         margin-top: 36px;
+      }
+
+      .stack-grid {
+        display: flex;
+        gap: 20px;
+        width: max-content;
+        padding-right: 60px;
       }
 
       .stack-card {
@@ -1255,8 +1451,11 @@
         background: var(--bg-card);
         border: 1px solid var(--border);
         border-radius: var(--radius-lg);
-        padding: 24px 22px;
+        padding: 28px 24px;
         overflow: hidden;
+        width: 300px;
+        min-width: 300px;
+        flex-shrink: 0;
         transition:
           transform 320ms var(--ease-premium),
           border-color 250ms var(--ease),
@@ -1572,14 +1771,6 @@
           height: 36px;
         }
 
-        .carousel-nav-prev {
-          left: 12px;
-        }
-
-        .carousel-nav-next {
-          right: 12px;
-        }
-
         .hero h1 {
           font-size: clamp(1.75rem, 5vw, 2.5rem);
         }
@@ -1621,20 +1812,6 @@
           right: -8%;
         }
 
-        .trust-inner {
-          grid-template-columns: repeat(2, 1fr);
-          gap: 16px;
-          padding: 24px 20px;
-        }
-
-        .trust-value {
-          font-size: 1.2rem;
-        }
-
-        .trust-label {
-          font-size: 0.625rem;
-        }
-
         .section {
           padding: 56px 20px;
         }
@@ -1647,14 +1824,6 @@
         .carousel-nav {
           width: 32px;
           height: 32px;
-        }
-
-        .carousel-nav-prev {
-          left: 8px;
-        }
-
-        .carousel-nav-next {
-          right: 8px;
         }
 
         .carousel-nav svg {
@@ -1701,7 +1870,7 @@
         }
 
         .stack-grid {
-          grid-template-columns: 1fr;
+          flex-direction: column;
         }
 
         .about-body p {
@@ -1740,12 +1909,6 @@
           height: 16px;
         }
 
-        .trust-inner {
-          grid-template-columns: repeat(2, 1fr);
-          gap: 12px;
-          padding: 20px 16px;
-        }
-
         .section {
           padding: 48px 16px;
         }
@@ -1755,7 +1918,7 @@
         }
 
         .stack-grid {
-          grid-template-columns: 1fr;
+          flex-direction: column;
         }
 
         .project-body {
@@ -1795,14 +1958,18 @@
         .reveal,
         .hero-animate,
         .hero-scroll-fade,
-        .trust-item,
         .chip,
         .carousel-track,
         .hero-orb,
         .hero-badge,
         .hero-underline,
         .statement-text,
-        .highlight-pill {
+        .highlight-pill,
+        .bg-orb,
+        .hero h1::after,
+        .scroll-progress,
+        .project-card,
+        .trust-bento-card {
           opacity: 1 !important;
           transform: none !important;
           animation: none !important;
@@ -1811,6 +1978,10 @@
 
         .hero-underline {
           width: min(240px, 56%);
+        }
+
+        .scroll-progress {
+          transform: scaleX(0) !important;
         }
 
         .section-heading.is-in-view::after,
@@ -1825,6 +1996,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
   </head>
   <body>
+    <!-- Scroll progress bar -->
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+    <!-- Background animated orbs -->
+    <div class="bg-orbs" aria-hidden="true">
+      <div class="bg-orb bg-orb--1"></div>
+      <div class="bg-orb bg-orb--2"></div>
+      <div class="bg-orb bg-orb--3"></div>
+    </div>
+    <!-- Cursor spotlight -->
+    <div class="cursor-spotlight" id="cursorSpotlight" aria-hidden="true"></div>
     <!-- Ghost cursor overlay (React Bits style) -->
     <div
       id="ghostCursor"
@@ -1931,10 +2112,10 @@
           ></span>
           <p class="hero-subtitle hero-animate hero-d2" aria-live="polite"></p>
           <p class="hero-desc hero-animate hero-d3">
-            Discover a collection of live, fully functional web projects. Built
-            with semantic HTML, CSS, and JavaScript — plus a React-powered
-            experiment — showcasing responsive design, interactivity, and modern
-            web development practices.
+            A collection of live, functional web projects — built with semantic
+            HTML, CSS, and JavaScript — plus a React-powered experiment
+            showcasing responsive design, interactivity, and modern web
+            development.
           </p>
           <div class="hero-cta hero-animate hero-d4">
             <a href="#work" class="btn btn--primary">
@@ -1973,28 +2154,65 @@
       </section>
 
       <!-- ============================================================
-         TRUST SIGNALS
+         BENTO TRUST GRID
          ============================================================ -->
-      <div class="trust-bar" aria-label="Developer overview">
-        <div class="trust-inner">
-          <div class="trust-item reveal stagger-1">
-            <div class="trust-value" data-count="4">0</div>
-            <div class="trust-label">Live Projects</div>
-          </div>
-          <div class="trust-item reveal stagger-2">
-            <div class="trust-value" data-count="20" data-suffix="+">0</div>
-            <div class="trust-label">HTML Pages Shipped</div>
-          </div>
-          <div class="trust-item reveal stagger-3">
-            <div class="trust-value" data-count="3">0</div>
-            <div class="trust-label">Core Languages</div>
-          </div>
-          <div class="trust-item reveal stagger-4">
-            <div class="trust-value">Git</div>
-            <div class="trust-label">Version Control</div>
-          </div>
+      <section class="section trust-bento-section" aria-label="Developer overview">
+        <div class="trust-bento reveal">
+          <article class="trust-bento-card trust-bento-card--wide">
+            <div class="bento-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+            </div>
+            <h3 class="bento-card-title">Live Projects</h3>
+            <p class="bento-card-desc">Fully functional demos showcasing responsive layouts, interactive components, and modern web techniques.</p>
+            <div class="bento-card-stat">
+              <span class="bento-card-stat-num" data-count="4">0</span>
+              <span class="bento-card-stat-label">Projects Shipped</span>
+            </div>
+          </article>
+
+          <article class="trust-bento-card">
+            <div class="bento-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" />
+              </svg>
+            </div>
+            <h3 class="bento-card-title">20+ HTML Pages</h3>
+            <p class="bento-card-desc">Semantic, accessible markup across every project.</p>
+          </article>
+
+          <article class="trust-bento-card">
+            <div class="bento-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" />
+              </svg>
+            </div>
+            <h3 class="bento-card-title">3 Core Languages</h3>
+            <p class="bento-card-desc">HTML, CSS, and JavaScript — the foundation of every build.</p>
+          </article>
+
+          <article class="trust-bento-card">
+            <div class="bento-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="2.4" /><ellipse cx="12" cy="12" rx="10" ry="4.2" /><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)" /><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(120 12 12)" />
+              </svg>
+            </div>
+            <h3 class="bento-card-title">React Powered</h3>
+            <p class="bento-card-desc">GestureLab built with React, Vite, Three.js &amp; MediaPipe.</p>
+          </article>
+
+          <article class="trust-bento-card">
+            <div class="bento-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <h3 class="bento-card-title">Git Version Control</h3>
+            <p class="bento-card-desc">Organized, collaborative development with clean history.</p>
+          </article>
         </div>
-      </div>
+      </section>
 
       <!-- ============================================================
          CTA
@@ -2372,8 +2590,9 @@
           </p>
         </div>
 
-        <!-- Tech Stack cards -->
-        <div class="stack-grid reveal stagger-4">
+        <!-- Tech Stack cards — horizontal scroll -->
+        <div class="stack-scroll-wrapper reveal stagger-4">
+          <div class="stack-grid">
           <article class="stack-card">
             <div class="stack-card-icon">
               <svg
@@ -2623,6 +2842,7 @@
               I keep projects organized, collaborative, and production-minded.
             </p>
           </article>
+        </div>
         </div>
 
         <p class="highlight-pill reveal stagger-5">
@@ -2967,7 +3187,7 @@
 
         // ===== Active nav tracking =====
         const navLinks = document.querySelectorAll(".header-nav a");
-        const sections = document.querySelectorAll("section[id], .trust-bar");
+        const sections = document.querySelectorAll("section[id], .trust-bento-section");
         if (navLinks.length && sections.length) {
           const navIo = new IntersectionObserver(
             (entries) => {
@@ -2975,7 +3195,7 @@
                 if (e.isIntersecting) {
                   const id =
                     e.target.id ||
-                    (e.target.classList.contains("trust-bar") ? "trust" : "");
+                    (e.target.classList.contains("trust-bento-section") ? "trust" : "");
                   navLinks.forEach((a) => {
                     const href = a.getAttribute("href")?.replace("#", "");
                     a.classList.toggle("active", href === id);
@@ -3117,9 +3337,9 @@
           });
         });
 
-        // ===== GSAP animated counters =====
+        // ===== GSAP animated counters (bento trust) =====
         if (hasGsap) {
-          document.querySelectorAll(".trust-value[data-count]").forEach((el) => {
+          document.querySelectorAll(".bento-card-stat-num[data-count]").forEach((el) => {
             const target = parseInt(el.dataset.count);
             const suffix = el.dataset.suffix || "";
             if (isNaN(target)) return;
@@ -3129,7 +3349,7 @@
             }
             const obj = { val: 0 };
             ScrollTrigger.create({
-              trigger: el.closest(".trust-bar"),
+              trigger: el.closest(".trust-bento"),
               start: "top 85%",
               onEnter: () => {
                 gsap.to(obj, {
@@ -3311,6 +3531,72 @@
           });
         }
 
+        // ===== GSAP ScrollTrigger — horizontal tech stack scroll =====
+        if (hasGsap && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          const wrapper = document.querySelector(".stack-scroll-wrapper");
+          const grid = wrapper?.querySelector(".stack-grid");
+          if (wrapper && grid) {
+            const totalScroll = grid.scrollWidth - wrapper.offsetWidth;
+            if (totalScroll > 0) {
+              gsap.to(grid, {
+                x: -totalScroll,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: wrapper,
+                  start: "top 20%",
+                  end: () => "+=" + totalScroll,
+                  pin: true,
+                  scrub: 1,
+                  invalidateOnRefresh: true,
+                },
+              });
+            }
+          }
+        }
+
+        // ===== Scroll progress bar =====
+        const scrollProgress = document.getElementById("scrollProgress");
+        if (scrollProgress && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          window.addEventListener("scroll", () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
+            scrollProgress.style.transform = `scaleX(${progress})`;
+          }, { passive: true });
+        }
+
+        // ===== 3D tilt on trust bento cards =====
+        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          document.querySelectorAll(".trust-bento-card").forEach((card) => {
+            card.addEventListener("mousemove", (e) => {
+              const rect = card.getBoundingClientRect();
+              const x = e.clientX - rect.left;
+              const y = e.clientY - rect.top;
+              const centerX = rect.width / 2;
+              const centerY = rect.height / 2;
+              const rotateX = ((y - centerY) / centerY) * -5;
+              const rotateY = ((x - centerX) / centerX) * 5;
+              card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.015)`;
+            });
+            card.addEventListener("mouseleave", () => {
+              card.style.transform = "";
+            });
+          });
+        }
+
+        // ===== Cursor spotlight =====
+        const cursorSpotlight = document.getElementById("cursorSpotlight");
+        if (cursorSpotlight && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          document.addEventListener("mousemove", (e) => {
+            cursorSpotlight.style.left = e.clientX + "px";
+            cursorSpotlight.style.top = e.clientY + "px";
+            cursorSpotlight.classList.add("active");
+          });
+          document.addEventListener("mouseleave", () => {
+            cursorSpotlight.classList.remove("active");
+          });
+        }
+
         if (!hasGsap) {
           // ===== Fallback reveals + counters (GSAP unavailable) =====
           const fallbackIo = new IntersectionObserver(
@@ -3330,7 +3616,7 @@
           document.querySelectorAll(".reveal").forEach((el) =>
             fallbackIo.observe(el),
           );
-          document.querySelectorAll(".trust-value[data-count]").forEach((el) => {
+          document.querySelectorAll(".bento-card-stat-num[data-count]").forEach((el) => {
             el.textContent =
               (parseInt(el.dataset.count) || 0) + (el.dataset.suffix || "");
           });
