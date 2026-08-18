@@ -201,7 +201,7 @@ function App() {
   return (
       <div className="app-shell">
         <div className="canvas-shell">
-          <Canvas camera={{ position: [0, 0, 3.5], fov: 50 }} style={{ zIndex: 0 }}>
+          <Canvas camera={{ position: [0, 0, 3.5], fov: 50 }} gl={{ preserveDrawingBuffer: true }} style={{ zIndex: 0 }}>
             <ambientLight intensity={0.8} />
             <directionalLight position={[2, 2, 4]} intensity={1.2} />
             <AmbientBackground
