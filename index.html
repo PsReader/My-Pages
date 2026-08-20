@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -82,6 +82,7 @@
         --accent: #881798;
         --accent-hover: #b348c2;
         --accent-muted: rgba(136, 23, 152, 0.12);
+        --accent-light: #e38ff0;
 
         /* Typography scale */
         --text-primary: #e8eaf0;
@@ -142,7 +143,7 @@
         left: 0;
         width: 100%;
         height: 3px;
-        background: linear-gradient(90deg, var(--accent), var(--accent-hover), #e38ff0);
+        background: linear-gradient(90deg, var(--accent), var(--accent-hover), var(--accent-light));
         z-index: 200;
         transform-origin: left;
         transform: scaleX(0);
@@ -174,7 +175,7 @@
         height: 100%;
         background-image: radial-gradient(
           circle,
-          rgba(136, 23, 152, 0.09) 1px,
+          color-mix(in srgb, var(--accent) 9%, transparent) 1px,
           transparent 1px
         );
         background-size: 32px 32px;
@@ -301,7 +302,7 @@
       .bg-orb--1 {
         width: 600px;
         height: 600px;
-        background: radial-gradient(circle, #881798, transparent 70%);
+        background: radial-gradient(circle, var(--accent), transparent 70%);
         top: -10%;
         left: -5%;
         animation: orbDrift1 12s ease-in-out infinite;
@@ -317,7 +318,7 @@
       .bg-orb--3 {
         width: 400px;
         height: 400px;
-        background: radial-gradient(circle, #b348c2, transparent 70%);
+        background: radial-gradient(circle, var(--accent-hover), transparent 70%);
         top: 40%;
         right: 20%;
         animation: orbDrift3 14s ease-in-out infinite;
@@ -336,6 +337,264 @@
       }
 
       /* =================================================================
+         THEME SWITCHER
+         ================================================================= */
+      .theme-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition: all 200ms var(--ease);
+        flex-shrink: 0;
+      }
+      .theme-toggle:hover {
+        color: var(--text-primary);
+        border-color: var(--border-hover);
+        background: var(--bg-card);
+      }
+      .theme-toggle.active {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .theme-toggle svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .color-picker {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        margin-left: 8px;
+      }
+      .color-dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        cursor: pointer;
+        transition: all 200ms var(--ease);
+        padding: 0;
+      }
+      .color-dot:hover { transform: scale(1.2); }
+      .color-dot.active {
+        border-color: var(--text-primary);
+        box-shadow: 0 0 8px rgba(255,255,255,0.2);
+      }
+
+      [data-theme="ocean"] { --accent: #0077b6; --accent-hover: #00b4d8; --accent-muted: rgba(0,119,182,0.12); --accent-light: #90cdf4; }
+      [data-theme="emerald"] { --accent: #059669; --accent-hover: #34d399; --accent-muted: rgba(5,150,105,0.12); --accent-light: #6ee7b7; }
+      [data-theme="sunset"] { --accent: #ea580c; --accent-hover: #fb923c; --accent-muted: rgba(234,88,12,0.12); --accent-light: #fdba74; }
+      [data-theme="lavender"] { --accent: #7c3aed; --accent-hover: #a78bfa; --accent-muted: rgba(124,58,237,0.12); --accent-light: #c4b5fd; }
+      [data-theme="default"] { --accent: #881798; --accent-hover: #b348c2; --accent-muted: rgba(136,23,152,0.12); --accent-light: #e38ff0; }
+
+      /* Light mode — active when html.dark is removed */
+      html:not(.dark) {
+        --bg-primary: #f8f9fa;
+        --bg-base: #f8f9fa;
+        --bg-raised: #ffffff;
+        --bg-surface: #f0f1f3;
+        --bg-card: #ffffff;
+        --bg-card-hover: #f0f1f3;
+        --bg-inset: #f0f1f3;
+        --bg-frosted: rgba(255, 255, 255, 0.72);
+        --text-primary: #1a1a2e;
+        --text-secondary: #4a4a6a;
+        --text-tertiary: #7a7a9a;
+        --border: #e2e4e8;
+        --border-hover: #c2c4c8;
+      }
+      html:not(.dark) .ghost-cursor { opacity: 0.6; }
+      html:not(.dark) .cursor-spotlight { display: none; }
+      html:not(.dark) .preloader { background: #f8f9fa; }
+      html:not(.dark) .site-header {
+        background: rgba(248, 249, 250, 0.85);
+        border-bottom-color: #e2e4e8;
+      }
+      html:not(.dark) .project-card {
+        background: rgba(255, 255, 255, 0.85);
+        border: 1px solid #e2e4e8;
+      }
+      html:not(.dark) .project-card:hover {
+        border-color: #c2c4c8;
+        box-shadow: 0 24px 70px rgba(0,0,0,0.1);
+      }
+      html:not(.dark) .project-card::before {
+        background: inset 0 0 0 1px rgba(0,0,0,0.04), inset 0 24px 60px rgba(0,0,0,0.02);
+      }
+      html:not(.dark) .project-chrome {
+        background: #f0f1f3;
+        border-bottom-color: #e2e4e8;
+      }
+      html:not(.dark) .project-badge span {
+        background: rgba(248, 249, 250, 0.88);
+        border: 1px solid #e2e4e8;
+        box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+      }
+      html:not(.dark) .carousel-nav {
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      }
+      html:not(.dark) .chip:hover {
+        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      }
+      html:not(.dark) .stack-card:hover {
+        box-shadow: 0 16px 34px rgba(0,0,0,0.1);
+      }
+      html:not(.dark) .mobile-menu-overlay {
+        background: rgba(248, 249, 250, 0.6);
+      }
+      html:not(.dark) .dot--close,
+      html:not(.dark) .dot--min,
+      html:not(.dark) .dot--max {
+        background: #d1d5db;
+      }
+
+      /* =================================================================
+         PRELOADER
+         ================================================================= */
+      .preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-primary);
+        transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+        clip-path: circle(100% at 50% 50%);
+        pointer-events: all;
+      }
+      .preloader.done {
+        clip-path: circle(0% at 50% 50%);
+        pointer-events: none;
+      }
+      .preloader-logo {
+        width: 64px;
+        height: 64px;
+        animation: preloaderPulse 1s ease-in-out infinite alternate;
+      }
+      @keyframes preloaderPulse {
+        from { transform: scale(1); opacity: 0.7; }
+        to { transform: scale(1.1); opacity: 1; }
+      }
+
+      /* =================================================================
+         CUSTOM CURSOR — accent-colored, context-morphing
+         ================================================================= */
+      @media (hover: hover) and (pointer: fine) {
+        * { cursor: none !important; }
+      }
+      .cursor-dot, .cursor-ring {
+        position: fixed;
+        top: 0; left: 0;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 10000;
+        will-change: transform;
+      }
+      .cursor-dot {
+        width: 8px; height: 8px;
+        background: var(--accent);
+        transform: translate(-50%, -50%);
+        transition: width 300ms cubic-bezier(.34,1.56,.64,1),
+                    height 300ms cubic-bezier(.34,1.56,.64,1),
+                    border-radius 300ms cubic-bezier(.34,1.56,.64,1),
+                    background 300ms;
+      }
+      .cursor-ring {
+        width: 40px; height: 40px;
+        border: 1.5px solid var(--accent);
+        opacity: 0.5;
+        transform: translate(-50%, -50%);
+        transition: width 350ms cubic-bezier(.34,1.56,.64,1),
+                    height 350ms cubic-bezier(.34,1.56,.64,1),
+                    border-color 300ms,
+                    border-width 300ms,
+                    opacity 300ms;
+      }
+      .cursor-dot.hover-link {
+        width: 48px; height: 48px;
+        background: var(--accent);
+        opacity: 0.2;
+      }
+      .cursor-ring.hover-link {
+        width: 48px; height: 48px;
+        border-color: var(--accent);
+        border-width: 2px;
+        opacity: 0.8;
+      }
+      .cursor-dot.hover-card {
+        width: 64px; height: 64px;
+        background: var(--accent);
+        opacity: 0.1;
+      }
+      .cursor-ring.hover-card {
+        width: 64px; height: 64px;
+        border-color: var(--accent);
+        border-width: 1px;
+        opacity: 0.6;
+      }
+      .cursor-dot.hover-text {
+        width: 3px; height: 22px;
+        border-radius: 1.5px;
+        background: var(--accent);
+      }
+      .cursor-ring.hover-text {
+        width: 3px; height: 22px;
+        border: none;
+        opacity: 0;
+      }
+      .cursor-dot.hover-canvas {
+        width: 0; height: 0;
+        background: transparent;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 14px solid var(--accent);
+        border-radius: 0;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        opacity: 0.9;
+      }
+      .cursor-ring.hover-canvas {
+        width: 36px; height: 36px;
+        border: 1px solid var(--accent);
+        border-style: dashed;
+        opacity: 0.5;
+      }
+      .cursor-orbiter {
+        position: fixed;
+        top: 0; left: 0;
+        width: 4px; height: 4px;
+        border-radius: 50%;
+        background: var(--accent);
+        pointer-events: none;
+        z-index: 10000;
+        will-change: transform;
+        opacity: 0.7;
+        transform: translate(-50%, -50%);
+      }
+      .cursor-splatter {
+        position: fixed;
+        top: 0; left: 0;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 10000;
+        will-change: transform, opacity;
+        transform: translate(-50%, -50%);
+      }
+      .cursor-ring.distorted {
+        filter: url(#cursorDistort);
+      }
+      @media (hover: none), (pointer: coarse) {
+        .cursor-dot, .cursor-ring, .cursor-orbiter, .cursor-splatter { display: none; }
+      }
+
+      /* =================================================================
          CURSOR SPOTLIGHT
          ================================================================= */
       .cursor-spotlight {
@@ -343,7 +602,7 @@
         width: 600px;
         height: 600px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(136, 23, 152, 0.06), transparent 60%);
+        background: radial-gradient(circle, color-mix(in srgb, var(--accent) 6%, transparent), transparent 60%);
         pointer-events: none;
         z-index: 0;
         transform: translate(-50%, -50%);
@@ -560,7 +819,7 @@
         box-shadow:
           0 24px 70px rgba(0, 0, 0, 0.42),
           0 0 0 1px rgba(255, 255, 255, 0.08),
-          0 0 72px rgba(136, 23, 152, 0.14);
+          0 0 72px color-mix(in srgb, var(--accent) 14%, transparent);
         transform: translateY(-12px) rotateY(1.2deg);
       }
       .project-card:hover::after {
@@ -569,7 +828,7 @@
 
       /* Featured card — GestureLab */
       .project-card--featured {
-        border-color: rgba(136, 23, 152, 0.28);
+        border-color: color-mix(in srgb, var(--accent) 28%, transparent);
       }
       .project-card--featured::after {
         opacity: 0.65;
@@ -675,7 +934,7 @@
         height: 500px;
         background: radial-gradient(
           circle,
-          rgba(136, 23, 152, 0.06) 0%,
+          color-mix(in srgb, var(--accent) 6%, transparent) 0%,
           transparent 70%
         );
         pointer-events: none;
@@ -692,7 +951,7 @@
         height: 400px;
         background: radial-gradient(
           circle,
-          rgba(136, 23, 152, 0.05) 0%,
+          color-mix(in srgb, var(--accent) 5%, transparent) 0%,
           transparent 70%
         );
         pointer-events: none;
@@ -704,7 +963,7 @@
         inset: 0;
         background: radial-gradient(
           600px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-          rgba(136, 23, 152, 0.08),
+          color-mix(in srgb, var(--accent) 8%, transparent),
           transparent 50%
         );
         pointer-events: none;
@@ -746,8 +1005,8 @@
         height: 340px;
         background: radial-gradient(
           circle,
-          rgba(136, 23, 152, 0.16) 0%,
-          rgba(136, 23, 152, 0.05) 40%,
+          color-mix(in srgb, var(--accent) 16%, transparent) 0%,
+          color-mix(in srgb, var(--accent) 5%, transparent) 40%,
           transparent 70%
         );
         filter: blur(2px);
@@ -778,8 +1037,8 @@
         padding: 7px 14px;
         margin-bottom: 18px;
         border-radius: 999px;
-        border: 1px solid rgba(136, 23, 152, 0.35);
-        background: rgba(136, 23, 152, 0.1);
+        border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+        background: color-mix(in srgb, var(--accent) 10%, transparent);
         color: var(--accent-hover);
         font-size: 0.8125rem;
         font-weight: 600;
@@ -826,7 +1085,7 @@
           135deg,
           var(--accent) 0%,
           var(--accent-hover) 60%,
-          #e38ff0 100%
+          var(--accent-light) 100%
         );
         -webkit-background-clip: text;
         background-clip: text;
@@ -968,7 +1227,7 @@
       }
       .trust-bento-card:hover {
         border-color: var(--border-hover);
-        box-shadow: 0 8px 32px rgba(136, 23, 152, 0.1);
+        box-shadow: 0 8px 32px color-mix(in srgb, var(--accent) 10%, transparent);
       }
       .trust-bento-card--wide {
         grid-column: span 2;
@@ -1052,7 +1311,7 @@
         background:
           radial-gradient(
             480px circle at 50% 0%,
-            rgba(136, 23, 152, 0.08),
+            color-mix(in srgb, var(--accent) 8%, transparent),
             transparent 70%
           ),
           var(--bg-raised);
@@ -1076,7 +1335,7 @@
           135deg,
           var(--accent) 0%,
           var(--accent-hover) 60%,
-          #e38ff0 100%
+          var(--accent-light) 100%
         );
         -webkit-background-clip: text;
         background-clip: text;
@@ -1150,8 +1409,8 @@
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--accent-hover);
-        background: rgba(136, 23, 152, 0.12);
-        border: 1px solid rgba(136, 23, 152, 0.4);
+        background: color-mix(in srgb, var(--accent) 12%, transparent);
+        border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
         border-radius: 999px;
         white-space: nowrap;
       }
@@ -1371,7 +1630,7 @@
         background: var(--accent-hover);
         color: #fff;
         box-shadow:
-          0 10px 34px rgba(136, 23, 152, 0.38),
+          0 10px 34px color-mix(in srgb, var(--accent) 38%, transparent),
           0 0 0 1px rgba(227, 143, 240, 0.25);
         transform: translateY(-3px);
       }
@@ -1490,7 +1749,7 @@
         inset: 0;
         background: radial-gradient(
           140px 140px at 20% 0%,
-          rgba(136, 23, 152, 0.12),
+          color-mix(in srgb, var(--accent) 12%, transparent),
           transparent 70%
         );
         opacity: 0;
@@ -1499,12 +1758,12 @@
       }
       .stack-card:hover {
         transform: translateY(-4px);
-        border-color: rgba(136, 23, 152, 0.5);
+        border-color: color-mix(in srgb, var(--accent) 50%, transparent);
         background: var(--bg-card-hover);
         box-shadow:
           0 16px 34px rgba(0, 0, 0, 0.35),
-          0 0 0 1px rgba(136, 23, 152, 0.12),
-          0 0 26px rgba(136, 23, 152, 0.14);
+          0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent),
+          0 0 26px color-mix(in srgb, var(--accent) 14%, transparent);
       }
       .stack-card:hover::after {
         opacity: 1;
@@ -1517,7 +1776,7 @@
         align-items: center;
         justify-content: center;
         background: var(--accent-muted);
-        border: 1px solid rgba(136, 23, 152, 0.25);
+        border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
         border-radius: var(--radius-sm);
         color: var(--accent-hover);
         margin-bottom: 16px;
@@ -1570,7 +1829,7 @@
           box-shadow 300ms var(--ease);
       }
       .chip:hover {
-        border-color: rgba(136, 23, 152, 0.45);
+        border-color: color-mix(in srgb, var(--accent) 45%, transparent);
         background: var(--bg-card-hover);
         transform: translateY(-2px);
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
@@ -1589,11 +1848,11 @@
         margin-top: 28px;
         padding: 10px 18px;
         border-radius: 999px;
-        border: 1px solid rgba(136, 23, 152, 0.35);
+        border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
         background: linear-gradient(
           90deg,
-          rgba(136, 23, 152, 0.14),
-          rgba(136, 23, 152, 0.04)
+          color-mix(in srgb, var(--accent) 14%, transparent),
+          color-mix(in srgb, var(--accent) 4%, transparent)
         );
         color: var(--accent-hover);
         font-size: 0.875rem;
@@ -2026,6 +2285,30 @@
       data-color="#b348c2"
       aria-hidden="true"
     ></div>
+
+    <!-- SVG filter for cursor distortion -->
+    <svg class="cursor-svg-defs" aria-hidden="true" style="position:absolute;width:0;height:0">
+      <defs>
+        <filter id="cursorDistort">
+          <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="2" result="turbulence" seed="2"/>
+          <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="0" xChannelSelector="R" yChannelSelector="G" class="distort-map"/>
+        </filter>
+      </defs>
+    </svg>
+
+    <!-- Custom cursor layers -->
+    <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+    <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+    <div class="preloader" id="preloader">
+      <svg class="preloader-logo" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="38" stroke="var(--accent)" stroke-width="3" opacity="0.3"/>
+        <path d="M50 12 A38 38 0 0 1 88 50" stroke="var(--accent)" stroke-width="3" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="1s" repeatCount="indefinite"/>
+        </path>
+        <text x="50" y="56" text-anchor="middle" fill="var(--text-primary)" font-family="var(--font-display)" font-size="18" font-weight="700">PS</text>
+      </svg>
+    </div>
     <div class="page-shell">
       <!-- ============================================================
          HEADER
@@ -2100,6 +2383,20 @@
             >
               Portfolio
             </a>
+            <div class="color-picker" aria-label="Accent color">
+              <button class="color-dot active" data-accent="default" style="background:#881798" aria-label="Purple"></button>
+              <button class="color-dot" data-accent="ocean" style="background:#0077b6" aria-label="Ocean"></button>
+              <button class="color-dot" data-accent="emerald" style="background:#059669" aria-label="Emerald"></button>
+              <button class="color-dot" data-accent="sunset" style="background:#ea580c" aria-label="Sunset"></button>
+              <button class="color-dot" data-accent="lavender" style="background:#7c3aed" aria-label="Lavender"></button>
+            </div>
+            <button class="theme-toggle" id="soundToggle" aria-label="Enable sounds" style="position:relative">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+            </button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+              <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+              <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
           </nav>
           <div class="mobile-menu-overlay" aria-hidden="true"></div>
         </div>
@@ -2610,259 +2907,9 @@
           </p>
         </div>
 
-        <!-- Tech Stack cards — horizontal scroll -->
+        <!-- Tech Stack constellation (Three.js) -->
         <div class="stack-scroll-wrapper reveal stagger-4">
-          <div class="stack-grid">
-          <article class="stack-card">
-            <div class="stack-card-icon">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <line x1="3" y1="9" x2="21" y2="9" />
-                <line x1="9" y1="21" x2="9" y2="9" />
-              </svg>
-            </div>
-            <h3>UI &amp; Layout</h3>
-            <div class="tech-chips stack-tags">
-              <span class="chip">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <polyline points="16 18 22 12 16 6" />
-                  <polyline points="8 6 2 12 8 18" />
-                </svg>
-                HTML5
-              </span>
-              <span class="chip">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"
-                  />
-                  <path d="M8 10h8" />
-                  <path d="M8 14h8" />
-                </svg>
-                CSS3
-              </span>
-              <span class="chip">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <rect x="2" y="3" width="20" height="14" rx="2" />
-                  <line x1="8" y1="21" x2="16" y2="21" />
-                  <line x1="12" y1="17" x2="12" y2="21" />
-                </svg>
-                Responsive Design
-              </span>
-            </div>
-            <p class="stack-card-desc">
-              I build clean, scalable interfaces that feel structured and easy
-              to navigate.
-            </p>
-          </article>
-
-          <article class="stack-card">
-            <div class="stack-card-icon">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-              </svg>
-            </div>
-            <h3>Motion &amp; Interaction</h3>
-            <div class="tech-chips stack-tags">
-              <span class="chip">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="m18 16 4-4-4-4" />
-                  <path d="m6 8-4 4 4 4" />
-                  <path d="m14.5 4-5 16" />
-                </svg>
-                JavaScript
-              </span>
-              <span class="chip">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M13 2 3 14h7l-1 8 11-12h-7l1-8z" />
-                </svg>
-                GSAP
-              </span>
-              <span class="chip">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <circle cx="12" cy="12" r="2.4" />
-                  <ellipse cx="12" cy="12" rx="10" ry="4.2" />
-                  <ellipse
-                    cx="12"
-                    cy="12"
-                    rx="10"
-                    ry="4.2"
-                    transform="rotate(60 12 12)"
-                  />
-                  <ellipse
-                    cx="12"
-                    cy="12"
-                    rx="10"
-                    ry="4.2"
-                    transform="rotate(120 12 12)"
-                  />
-                </svg>
-                React
-              </span>
-              <span class="chip">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M21 8v8l-9 5-9-5V8l9-5 9 5z" />
-                  <path d="M3.4 8.2 12 13l8.6-4.8" />
-                  <path d="M12 13v9" />
-                </svg>
-                Three.js
-              </span>
-            </div>
-            <p class="stack-card-desc">
-              I add motion and feedback to make experiences feel alive and
-              intentional.
-            </p>
-          </article>
-
-          <article class="stack-card">
-            <div class="stack-card-icon">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path
-                  d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
-                />
-              </svg>
-            </div>
-            <h3>Tools &amp; Workflow</h3>
-            <div class="tech-chips stack-tags">
-              <span class="chip">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <line x1="6" y1="3" x2="6" y2="15" />
-                  <circle cx="18" cy="6" r="3" />
-                  <circle cx="6" cy="18" r="3" />
-                  <path d="M18 9a9 9 0 0 1-9 9" />
-                </svg>
-                Git
-              </span>
-              <span class="chip">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M9 3h5a3 3 0 0 1 0 6H9z" />
-                  <circle cx="9" cy="12" r="3" />
-                  <path d="M9 15h5a3 3 0 1 1-3 3V3" />
-                </svg>
-                Figma
-              </span>
-              <span class="chip">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"
-                  />
-                  <path
-                    d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"
-                  />
-                  <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
-                  <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
-                </svg>
-                Vite
-              </span>
-            </div>
-            <p class="stack-card-desc">
-              I keep projects organized, collaborative, and production-minded.
-            </p>
-          </article>
-        </div>
+          <canvas id="skillsCanvas" style="width:100%;height:400px;display:block;border-radius:16px;"></canvas>
         </div>
 
         <p class="highlight-pill reveal stagger-5">
@@ -3131,6 +3178,38 @@
           typeof gsap !== "undefined" &&
           typeof ScrollTrigger !== "undefined" &&
           typeof ScrollToPlugin !== "undefined";
+
+        // ===== Theme Switcher =====
+        const themeToggle = document.getElementById("themeToggle");
+        const iconSun = themeToggle?.querySelector(".icon-sun");
+        const iconMoon = themeToggle?.querySelector(".icon-moon");
+        const savedTheme = localStorage.getItem("ps-theme");
+        if (savedTheme === "light") {
+          document.documentElement.classList.remove("dark");
+          if (iconSun) iconSun.style.display = "none";
+          if (iconMoon) iconMoon.style.display = "";
+        }
+        themeToggle?.addEventListener("click", () => {
+          const isDark = document.documentElement.classList.toggle("dark");
+          localStorage.setItem("ps-theme", isDark ? "dark" : "light");
+          if (iconSun) iconSun.style.display = isDark ? "" : "none";
+          if (iconMoon) iconMoon.style.display = isDark ? "none" : "";
+        });
+
+        // ===== Color Picker =====
+        const savedAccent = localStorage.getItem("ps-accent") || "default";
+        document.documentElement.setAttribute("data-theme", savedAccent);
+        document.querySelectorAll(".color-dot").forEach((dot) => {
+          if (dot.dataset.accent === savedAccent) dot.classList.add("active");
+          else dot.classList.remove("active");
+          dot.addEventListener("click", () => {
+            const accent = dot.dataset.accent;
+            document.documentElement.setAttribute("data-theme", accent);
+            localStorage.setItem("ps-accent", accent);
+            document.querySelectorAll(".color-dot").forEach((d) => d.classList.remove("active"));
+            dot.classList.add("active");
+          });
+        });
 
         if (hasGsap) {
           gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -3659,6 +3738,324 @@
           lenis.raf(time * 1000);
         });
         gsap.ticker.lagSmoothing(0);
+
+        // ===== Easter Eggs =====
+        // 1. Logo click 5x → secret message
+        let logoClicks = 0;
+        const wordmark = document.querySelector(".wordmark-text");
+        wordmark?.addEventListener("click", (e) => {
+          e.preventDefault();
+          logoClicks++;
+          if (logoClicks >= 5) {
+            logoClicks = 0;
+            const msg = document.createElement("div");
+            msg.textContent = "You found the secret. You're awesome.";
+            msg.style.cssText = "position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:12px 24px;border-radius:8px;font-size:0.875rem;z-index:9999;font-family:var(--font-display);box-shadow:0 8px 32px rgba(0,0,0,0.4);";
+            document.body.appendChild(msg);
+            setTimeout(() => msg.remove(), 3000);
+          }
+        });
+
+        // 2. Konami code → confetti
+        const konamiCode = [38,38,40,40,37,39,37,39,66,65];
+        let konamiIndex = 0;
+        document.addEventListener("keydown", (e) => {
+          if (e.keyCode === konamiCode[konamiIndex]) {
+            konamiIndex++;
+            if (konamiIndex === konamiCode.length) {
+              konamiIndex = 0;
+              for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement("div");
+                const colors = ["#881798","#b348c2","#e8eaf0","#0077b6","#059669","#ea580c"];
+                confetti.style.cssText = `position:fixed;width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:${Math.random()>0.5?"50%":"2px"};top:-10px;left:${Math.random()*100}vw;z-index:9999;pointer-events:none;`;
+                document.body.appendChild(confetti);
+                gsap.to(confetti, {
+                  y: window.innerHeight + 20,
+                  x: (Math.random()-0.5)*200,
+                  rotation: Math.random()*720,
+                  duration: 1.5+Math.random()*1.5,
+                  ease: "power1.in",
+                  onComplete: () => confetti.remove(),
+                });
+              }
+            }
+          } else {
+            konamiIndex = 0;
+          }
+        });
+
+        // 3. Triple-click section heading → hidden section
+        document.querySelectorAll(".section-heading").forEach((heading) => {
+          let clicks = 0;
+          heading.addEventListener("click", () => {
+            clicks++;
+            if (clicks >= 3) {
+              clicks = 0;
+              if (document.getElementById("secretSection")) return;
+              const sec = document.createElement("section");
+              sec.id = "secretSection";
+              sec.className = "section";
+              sec.innerHTML = '<p class="section-label">You unlocked a secret</p><h2 class="section-heading">The Matrix Has You</h2><p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.8;">You triple-clicked a heading. That takes dedication. This section doesn\'t exist in the navigation — you found it through pure curiosity. That\'s exactly the kind of energy I bring to building things.</p>';
+              sec.style.cssText = "text-align:center;border-top:1px solid var(--border);";
+              document.querySelector("footer")?.before(sec);
+              gsap.fromTo(sec, {opacity:0,y:30},{opacity:1,y:0,duration:0.6,ease:"power3.out"});
+            }
+          });
+        });
+
+        // ===== Preloader =====
+        window.addEventListener("load", () => {
+          const preloader = document.getElementById("preloader");
+          if (preloader) {
+            setTimeout(() => {
+              preloader.classList.add("done");
+              setTimeout(() => preloader.remove(), 900);
+            }, 400);
+          }
+        });
+
+        // ===== Sound Design =====
+        let soundEnabled = false;
+        let audioCtx = null;
+
+        function getAudioCtx() {
+          if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          return audioCtx;
+        }
+
+        function playTone(freq, dur, type, vol) {
+          if (!soundEnabled) return;
+          try {
+            const ctx = getAudioCtx();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = type || "sine";
+            osc.frequency.setValueAtTime(freq, ctx.currentTime);
+            gain.gain.setValueAtTime(vol || 0.05, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + dur);
+          } catch(e) {}
+        }
+
+        const sfx = {
+          hover: () => playTone(1200, 0.08, "sine", 0.03),
+          click: () => playTone(800, 0.1, "triangle", 0.04),
+          transition: () => {
+            playTone(600, 0.15, "sine", 0.03);
+            setTimeout(() => playTone(900, 0.12, "sine", 0.03), 80);
+          },
+          success: () => {
+            playTone(523, 0.12, "sine", 0.04);
+            setTimeout(() => playTone(659, 0.12, "sine", 0.04), 100);
+            setTimeout(() => playTone(784, 0.15, "sine", 0.04), 200);
+          },
+        };
+
+        const soundToggle = document.getElementById("soundToggle");
+        if (soundToggle) {
+          soundToggle.addEventListener("click", () => {
+            soundEnabled = !soundEnabled;
+            soundToggle.classList.toggle("active", soundEnabled);
+            soundToggle.setAttribute("aria-label", soundEnabled ? "Mute sounds" : "Enable sounds");
+            if (soundEnabled) sfx.click();
+          });
+        }
+
+        document.querySelectorAll("a, button, .project-card").forEach((el) => {
+          el.addEventListener("mouseenter", () => sfx.hover());
+        });
+        document.querySelectorAll("a, button").forEach((el) => {
+          el.addEventListener("click", () => sfx.click());
+        });
+
+        // ===== Custom Cursor — accent-colored, morphing, orbiters, splatter =====
+        const cursorDot = document.getElementById("cursorDot");
+        const cursorRing = document.getElementById("cursorRing");
+        const distortMap = document.querySelector(".distort-map");
+
+        if (cursorDot && cursorRing && window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
+          let cx = -100, cy = -100;
+          let rx = -100, ry = -100;
+          let isTouch = false;
+          let moving = false;
+          let moveTimer = null;
+          const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+          const accentMap = {
+            default: getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#881798",
+            ocean: "#0077b6", emerald: "#059669", sunset: "#ea580c", lavender: "#7c3aed",
+          };
+          function syncAccentColor() {
+            const theme = document.documentElement.getAttribute("data-theme") || "default";
+            const color = accentMap[theme] || accentMap.default;
+            document.documentElement.style.setProperty("--cursor-accent", color);
+            const gcEl = document.getElementById("ghostCursor");
+            if (gcEl && gcEl.__ghostCursorInstance) {
+              gcEl.__ghostCursorInstance.setColor(color);
+            } else {
+              requestAnimationFrame(() => {
+                const el = document.getElementById("ghostCursor");
+                if (el && el.__ghostCursorInstance) el.__ghostCursorInstance.setColor(color);
+              });
+            }
+          }
+          syncAccentColor();
+          setTimeout(syncAccentColor, 500);
+          document.querySelectorAll(".color-dot").forEach((dot) => {
+            dot.addEventListener("click", syncAccentColor);
+          });
+
+          const ORBIT_COUNT = 4;
+          const orbiters = [];
+          for (let i = 0; i < ORBIT_COUNT; i++) {
+            const el = document.createElement("div");
+            el.className = "cursor-orbiter";
+            document.body.appendChild(el);
+            orbiters.push({
+              el,
+              angle: (Math.PI * 2 * i) / ORBIT_COUNT,
+              radius: 28,
+              speed: 0,
+              targetSpeed: 0.04,
+            });
+          }
+
+          document.addEventListener("mousemove", (e) => {
+            if (isTouch) return;
+            cx = e.clientX;
+            cy = e.clientY;
+            moving = true;
+            orbiters.forEach((o) => { o.targetSpeed = 0.04 + Math.random() * 0.01; });
+            clearTimeout(moveTimer);
+            moveTimer = setTimeout(() => {
+              moving = false;
+              orbiters.forEach((o) => { o.targetSpeed = 0; });
+            }, 300);
+          });
+
+          document.addEventListener("touchstart", () => {
+            isTouch = true;
+            cursorDot.style.display = "none";
+            cursorRing.style.display = "none";
+            orbiters.forEach((o) => { o.el.style.display = "none"; });
+          }, { once: true });
+
+          document.addEventListener("click", (e) => {
+            if (isTouch) return;
+            const theme = document.documentElement.getAttribute("data-theme") || "default";
+            const color = accentMap[theme] || accentMap.default;
+            const count = 8 + Math.floor(Math.random() * 5);
+            for (let i = 0; i < count; i++) {
+              const p = document.createElement("div");
+              p.className = "cursor-splatter";
+              const size = 3 + Math.random() * 5;
+              const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
+              const dist = 30 + Math.random() * 50;
+              p.style.cssText =
+                `width:${size}px;height:${size}px;background:${color};left:${e.clientX}px;top:${e.clientY}px;opacity:0.9;`;
+              document.body.appendChild(p);
+              const tx = Math.cos(angle) * dist;
+              const ty = Math.sin(angle) * dist;
+              p.animate([
+                { transform: "translate(-50%,-50%) scale(1)", opacity: 0.9 },
+                { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0)`, opacity: 0 },
+              ], { duration: 400 + Math.random() * 300, easing: "cubic-bezier(.34,1.56,.64,1)", fill: "forwards" })
+              .onfinish = () => p.remove();
+            }
+            orbiters.forEach((o) => { o.targetSpeed = 0.12; });
+            setTimeout(() => {
+              orbiters.forEach((o) => { o.targetSpeed = moving ? 0.04 : 0; });
+            }, 400);
+          });
+
+          function clearMorph() {
+            ["hover-link","hover-card","hover-text","hover-canvas"].forEach((c) => {
+              cursorDot.classList.remove(c);
+              cursorRing.classList.remove(c);
+            });
+          }
+          function addMorph(cls) {
+            clearMorph();
+            cursorDot.classList.add(cls);
+            cursorRing.classList.add(cls);
+          }
+
+          document.querySelectorAll("a, button, .btn, .wordmark").forEach((el) => {
+            el.addEventListener("mouseenter", () => addMorph("hover-link"));
+            el.addEventListener("mouseleave", clearMorph);
+          });
+          document.querySelectorAll(".bento-card, .project-card, .brand-card").forEach((el) => {
+            el.addEventListener("mouseenter", () => addMorph("hover-card"));
+            el.addEventListener("mouseleave", clearMorph);
+          });
+          document.querySelectorAll("h1, h2, h3, p, .section-heading, .about-body").forEach((el) => {
+            el.addEventListener("mouseenter", () => addMorph("hover-text"));
+            el.addEventListener("mouseleave", clearMorph);
+          });
+          const skillsCanvas = document.getElementById("skillsCanvas");
+          if (skillsCanvas) {
+            skillsCanvas.addEventListener("mouseenter", () => addMorph("hover-canvas"));
+            skillsCanvas.addEventListener("mouseleave", clearMorph);
+          }
+
+          document.querySelectorAll("a, button, .btn").forEach((el) => {
+            el.addEventListener("mouseenter", () => {
+              cursorRing.classList.add("distorted");
+              if (distortMap) {
+                distortMap.setAttribute("scale", "12");
+                let frame = 0;
+                const turb = document.querySelector("#cursorDistort feTurbulence");
+                const anim = () => {
+                  if (!cursorRing.classList.contains("distorted")) return;
+                  frame++;
+                  if (turb) turb.setAttribute("seed", Math.floor(frame / 3) % 10);
+                  requestAnimationFrame(anim);
+                };
+                anim();
+              }
+            });
+            el.addEventListener("mouseleave", () => {
+              cursorRing.classList.remove("distorted");
+              if (distortMap) distortMap.setAttribute("scale", "0");
+            });
+          });
+
+          document.querySelectorAll(".btn, .nav-cta-glow, .project-card").forEach((el) => {
+            el.addEventListener("mousemove", (e) => {
+              const rect = el.getBoundingClientRect();
+              const x = e.clientX - rect.left - rect.width / 2;
+              const y = e.clientY - rect.top - rect.height / 2;
+              el.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+              el.style.transition = "transform 200ms cubic-bezier(.34,1.56,.64,1)";
+            });
+            el.addEventListener("mouseleave", () => {
+              el.style.transform = "";
+              el.style.transition = "transform 400ms cubic-bezier(.34,1.56,.64,1)";
+            });
+          });
+
+          function animateCursor() {
+            cursorDot.style.left = cx + "px";
+            cursorDot.style.top = cy + "px";
+            rx += (cx - rx) * (isReduced ? 1 : 0.12);
+            ry += (cy - ry) * (isReduced ? 1 : 0.12);
+            cursorRing.style.left = rx + "px";
+            cursorRing.style.top = ry + "px";
+            orbiters.forEach((o) => {
+              o.speed += (o.targetSpeed - o.speed) * 0.08;
+              o.angle += o.speed;
+              const ox = rx + Math.cos(o.angle) * o.radius;
+              const oy = ry + Math.sin(o.angle) * o.radius;
+              o.el.style.left = ox + "px";
+              o.el.style.top = oy + "px";
+            });
+            requestAnimationFrame(animateCursor);
+          }
+          animateCursor();
+        }
       </script>
 
       <script type="importmap">
@@ -3667,6 +4064,339 @@
             "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
             "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
           }
+        }
+      </script>
+      <script type="module">
+        import * as THREE from "three";
+
+        const canvas = document.getElementById("skillsCanvas");
+        if (canvas) {
+          const skills = [
+            { name: "HTML5", color: 0xe44d26 },
+            { name: "CSS3", color: 0x264de4 },
+            { name: "JavaScript", color: 0xf7df1e },
+            { name: "TypeScript", color: 0x3178c6 },
+            { name: "React", color: 0x61dafb },
+            { name: "Three.js", color: 0xffffff },
+            { name: "GSAP", color: 0x88ce02 },
+            { name: "Tailwind", color: 0x38bdf8 },
+            { name: "Git", color: 0xf05032 },
+            { name: "Figma", color: 0xa259ff },
+            { name: "GLSL", color: 0x5586a4 },
+            { name: "Node.js", color: 0x68a063 },
+          ];
+
+          const scene = new THREE.Scene();
+          const camera = new THREE.PerspectiveCamera(
+            60, canvas.clientWidth / canvas.clientHeight, 0.1, 100
+          );
+          camera.position.z = 12;
+
+          const renderer = new THREE.WebGLRenderer({
+            canvas, alpha: true, antialias: true,
+          });
+          renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+          // ── Create nodes ──
+          const nodes = [];
+          const rings = [];
+          const nodeGroup = new THREE.Group();
+          scene.add(nodeGroup);
+
+          const phi = (1 + Math.sqrt(5)) / 2;
+          skills.forEach((skill, i) => {
+            const y = 1 - (i / (skills.length - 1)) * 2;
+            const r = Math.sqrt(1 - y * y);
+            const theta = (2 * Math.PI * i) / phi;
+
+            const mesh = new THREE.Mesh(
+              new THREE.SphereGeometry(0.12, 16, 16),
+              new THREE.MeshBasicMaterial({ color: skill.color })
+            );
+            mesh.position.set(
+              Math.cos(theta) * r * 4,
+              y * 4,
+              Math.sin(theta) * r * 4
+            );
+            mesh.userData = {
+              name: skill.name,
+              basePos: mesh.position.clone(),
+              currentPos: mesh.position.clone(),
+              repulsion: new THREE.Vector3(),
+            };
+            nodeGroup.add(mesh);
+            nodes.push(mesh);
+
+            const ring = new THREE.Mesh(
+              new THREE.RingGeometry(0.16, 0.22, 32),
+              new THREE.MeshBasicMaterial({
+                color: skill.color, transparent: true, opacity: 0.2, side: THREE.DoubleSide,
+              })
+            );
+            ring.position.copy(mesh.position);
+            ring.lookAt(camera.position);
+            nodeGroup.add(ring);
+            rings.push(ring);
+          });
+
+          // ── Lines (individual materials for per-line glow) ──
+          const lineGroup = new THREE.Group();
+          scene.add(lineGroup);
+          const lineObjects = [];
+
+          for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+              if (nodes[i].position.distanceTo(nodes[j].position) < 4.5) {
+                const mat = new THREE.LineBasicMaterial({
+                  color: 0x881798, transparent: true, opacity: 0.15,
+                });
+                const positions = new Float32Array(6);
+                const geo = new THREE.BufferGeometry();
+                geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+                const line = new THREE.Line(geo, mat);
+                lineGroup.add(line);
+                lineObjects.push({ line, geo, i, j, baseOpacity: 0.15 });
+              }
+            }
+          }
+
+          // ── State ──
+          let mouseX = 0, mouseY = 0;
+          let mouseOnCanvas = false;
+          let expandFactor = 1;
+          let expandTarget = 1;
+          let hoveredIdx = -1;
+          let targetRotX = 0, targetRotY = 0;
+          let currentRotX = 0, currentRotY = 0;
+          const baseRotationSpeed = 0.003;
+          const mouseSensitivity = 0.4;
+          const repulsionRadius = 120; // px in screen space
+          const repulsionStrength = 0.6;
+
+          // ── Click expand pulse ring ──
+          const pulseRing = new THREE.Mesh(
+            new THREE.RingGeometry(0.1, 0.3, 64),
+            new THREE.MeshBasicMaterial({
+              color: 0x881798, transparent: true, opacity: 0, side: THREE.DoubleSide,
+            })
+          );
+          pulseRing.lookAt(camera.position);
+          scene.add(pulseRing);
+          let pulseActive = false;
+          let pulseProgress = 0;
+
+          function triggerPulse() {
+            pulseActive = true;
+            pulseProgress = 0;
+            pulseRing.material.opacity = 0.7;
+            pulseRing.scale.set(1, 1, 1);
+            expandTarget = 1.5;
+            setTimeout(() => { expandTarget = 1; }, 300);
+          }
+
+          // ── Mouse events ──
+          canvas.addEventListener("mousemove", (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+            mouseY = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+            mouseOnCanvas = true;
+          });
+          canvas.addEventListener("mouseleave", () => {
+            mouseOnCanvas = false;
+            hoveredIdx = -1;
+          });
+          canvas.addEventListener("click", triggerPulse);
+
+          // ── Labels ──
+          const labelContainer = canvas.parentElement;
+          const labels = nodes.map((node) => {
+            const el = document.createElement("div");
+            el.textContent = node.userData.name;
+            el.style.cssText =
+              "position:absolute;font-size:11px;font-family:var(--font-body);" +
+              "color:var(--text-secondary);pointer-events:none;white-space:nowrap;" +
+              "transition:opacity 200ms, font-weight 150ms, color 150ms;" +
+              "text-shadow:0 1px 4px rgba(0,0,0,0.5);";
+            labelContainer.appendChild(el);
+            return el;
+          });
+
+          function screenPos(pos3d) {
+            const v = pos3d.clone().project(camera);
+            return {
+              x: (v.x * 0.5 + 0.5) * canvas.clientWidth,
+              y: (-v.y * 0.5 + 0.5) * canvas.clientHeight,
+              behind: v.z > 1,
+            };
+          }
+
+          function updateLabels() {
+            nodes.forEach((node, i) => {
+              const sp = screenPos(node.position);
+              labels[i].style.left = sp.x + "px";
+              labels[i].style.top = sp.y + "px";
+              labels[i].style.transform = "translate(-50%, 14px)";
+              labels[i].style.opacity = sp.behind ? "0" : "1";
+              if (i === hoveredIdx && !sp.behind) {
+                labels[i].style.fontWeight = "700";
+                labels[i].style.color = "var(--accent-hover)";
+              } else {
+                labels[i].style.fontWeight = "";
+                labels[i].style.color = "";
+              }
+            });
+          }
+
+          // ── Animate ──
+          function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotation — lerp toward mouse instead of additive drift
+            if (mouseOnCanvas) {
+              targetRotY = mouseX * mouseSensitivity;
+              targetRotX = mouseY * mouseSensitivity * 0.5;
+            } else {
+              targetRotY += baseRotationSpeed * 0.016;
+              targetRotX *= 0.98;
+            }
+            currentRotX += (targetRotX - currentRotX) * 0.04;
+            currentRotY += (targetRotY - currentRotY) * 0.04;
+            nodeGroup.rotation.x = currentRotX;
+            nodeGroup.rotation.y = currentRotY;
+            lineGroup.rotation.x = currentRotX;
+            lineGroup.rotation.y = currentRotY;
+
+            // Expand spring
+            expandFactor += (expandTarget - expandFactor) * 0.06;
+
+            // Hover detection — find nearest node in screen space
+            let minDist = Infinity;
+            let nearestIdx = -1;
+            if (mouseOnCanvas) {
+              const mx = ((mouseX + 1) / 2) * canvas.clientWidth;
+              const my = ((-mouseY + 1) / 2) * canvas.clientHeight;
+              nodes.forEach((node, i) => {
+                const sp = screenPos(node.position);
+                if (sp.behind) return;
+                const dx = sp.x - mx;
+                const dy = sp.y - my;
+                const d = Math.sqrt(dx * dx + dy * dy);
+                if (d < minDist) { minDist = d; nearestIdx = i; }
+              });
+              hoveredIdx = minDist < 80 ? nearestIdx : -1;
+            }
+
+            // Per-node: repulsion + expansion + hover
+            nodes.forEach((node, i) => {
+              const ud = node.userData;
+
+              // Expansion — push away from center
+              const dir = ud.basePos.clone().normalize();
+              const expandedPos = ud.basePos.clone().multiplyScalar(expandFactor);
+
+              // Repulsion from mouse
+              if (mouseOnCanvas && i !== hoveredIdx) {
+                const sp = screenPos(ud.currentPos);
+                const mx = ((mouseX + 1) / 2) * canvas.clientWidth;
+                const my = ((-mouseY + 1) / 2) * canvas.clientHeight;
+                const dx = sp.x - mx;
+                const dy = sp.y - my;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < repulsionRadius && dist > 1) {
+                  const force = (1 - dist / repulsionRadius) * repulsionStrength;
+                  // Push outward from center (direction = basePos normalized)
+                  ud.repulsion.add(dir.clone().multiplyScalar(force));
+                }
+              }
+
+              // Clamp repulsion
+              const repLen = ud.repulsion.length();
+              if (repLen > 1.2) ud.repulsion.multiplyScalar(1.2 / repLen);
+
+              // Lerp repulsion toward zero
+              ud.repulsion.multiplyScalar(0.9);
+
+              // Target position = expanded + repulsion
+              const target = expandedPos.add(ud.repulsion);
+
+              // Spring toward target
+              ud.currentPos.lerp(target, 0.08);
+              node.position.copy(ud.currentPos);
+
+              // Update ring
+              rings[i].position.copy(ud.currentPos);
+              rings[i].lookAt(camera.position);
+
+              // Hover scale
+              const isHovered = i === hoveredIdx;
+              const targetScale = isHovered ? 2.0 : 1.0;
+              const s = node.scale.x + (targetScale - node.scale.x) * 0.12;
+              node.scale.set(s, s, s);
+
+              // Ring opacity
+              rings[i].material.opacity += ((isHovered ? 0.6 : 0.2) - rings[i].material.opacity) * 0.12;
+            });
+
+            // Update line vertex positions to follow nodes
+            lineObjects.forEach(({ geo, i, j }) => {
+              const pos = geo.attributes.position.array;
+              pos[0] = nodes[i].position.x;
+              pos[1] = nodes[i].position.y;
+              pos[2] = nodes[i].position.z;
+              pos[3] = nodes[j].position.x;
+              pos[4] = nodes[j].position.y;
+              pos[5] = nodes[j].position.z;
+              geo.attributes.position.needsUpdate = true;
+            });
+
+            // Line glow — boost opacity for lines near cursor
+            if (mouseOnCanvas) {
+              const mx = ((mouseX + 1) / 2) * canvas.clientWidth;
+              const my = ((-mouseY + 1) / 2) * canvas.clientHeight;
+              lineObjects.forEach(({ line, i, j, baseOpacity }) => {
+                const sA = screenPos(nodes[i].position);
+                const sB = screenPos(nodes[j].position);
+                if (sA.behind || sB.behind) { line.material.opacity = baseOpacity; return; }
+                const midX = (sA.x + sB.x) / 2;
+                const midY = (sA.y + sB.y) / 2;
+                const d = Math.sqrt((midX - mx) ** 2 + (midY - my) ** 2);
+                const glow = d < 150 ? (1 - d / 150) * 0.35 : 0;
+                line.material.opacity += (baseOpacity + glow - line.material.opacity) * 0.1;
+              });
+            } else {
+              lineObjects.forEach(({ line, baseOpacity }) => {
+                line.material.opacity += (baseOpacity - line.material.opacity) * 0.05;
+              });
+            }
+
+            // Pulse ring animation
+            if (pulseActive) {
+              pulseProgress += 0.025;
+              if (pulseProgress >= 1) {
+                pulseActive = false;
+                pulseRing.material.opacity = 0;
+              } else {
+                const ease = 1 - Math.pow(1 - pulseProgress, 3);
+                pulseRing.scale.set(4 + ease * 8, 4 + ease * 8, 1);
+                pulseRing.material.opacity = 0.7 * (1 - pulseProgress);
+              }
+            }
+
+            updateLabels();
+            renderer.render(scene, camera);
+          }
+
+          animate();
+
+          // Resize
+          window.addEventListener("resize", () => {
+            const w = canvas.clientWidth;
+            const h = canvas.clientHeight;
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+            renderer.setSize(w, h);
+          });
         }
       </script>
       <script type="module" src="ghost-cursor.js"></script>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -52,6 +52,7 @@
         --accent: #881798;
         --accent-hover: #b348c2;
         --accent-muted: rgba(136, 23, 152, 0.12);
+        --accent-light: #e38ff0;
 
         --text-primary: #e8eaf0;
         --text-secondary: #8b95ad;
@@ -106,7 +107,7 @@
         left: 0;
         width: 100%;
         height: 3px;
-        background: linear-gradient(90deg, var(--accent), var(--accent-hover), #e38ff0);
+        background: linear-gradient(90deg, var(--accent), var(--accent-hover), var(--accent-light));
         z-index: 200;
         transform-origin: left;
         transform: scaleX(0);
@@ -148,7 +149,7 @@
       .bg-orb--1 {
         width: 600px;
         height: 600px;
-        background: radial-gradient(circle, #881798, transparent 70%);
+        background: radial-gradient(circle, var(--accent), transparent 70%);
         top: -10%;
         left: -5%;
         animation: orbDrift1 12s ease-in-out infinite;
@@ -164,7 +165,7 @@
       .bg-orb--3 {
         width: 400px;
         height: 400px;
-        background: radial-gradient(circle, #b348c2, transparent 70%);
+        background: radial-gradient(circle, var(--accent-hover), transparent 70%);
         top: 40%;
         right: 20%;
         animation: orbDrift3 14s ease-in-out infinite;
@@ -195,9 +196,9 @@
         background: linear-gradient(
           110deg,
           transparent 30%,
-          rgba(179, 72, 194, 0.15) 45%,
-          rgba(227, 143, 240, 0.2) 50%,
-          rgba(179, 72, 194, 0.15) 55%,
+          color-mix(in srgb, var(--accent-hover) 15%, transparent) 45%,
+          color-mix(in srgb, var(--accent-light) 20%, transparent) 50%,
+          color-mix(in srgb, var(--accent-hover) 15%, transparent) 55%,
           transparent 70%
         );
         background-size: 250% 100%;
@@ -240,8 +241,8 @@
       .bento-card:hover {
         border-color: var(--border-hover);
         box-shadow:
-          0 8px 32px rgba(136, 23, 152, 0.15),
-          0 0 60px rgba(136, 23, 152, 0.08);
+          0 8px 32px color-mix(in srgb, var(--accent) 15%, transparent),
+          0 0 60px color-mix(in srgb, var(--accent) 8%, transparent);
       }
       .bento-card--wide { grid-column: span 2; }
       .bento-card--full { grid-column: span 3; }
@@ -334,14 +335,14 @@
         padding: 6px 12px;
         border-radius: 999px;
         background: var(--accent-muted);
-        border: 1px solid rgba(136, 23, 152, 0.2);
+        border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
         font-size: 0.75rem;
         font-weight: 600;
         color: var(--accent-hover);
         transition: all 200ms var(--ease);
       }
       .bento-skill-chip:hover {
-        background: rgba(136, 23, 152, 0.2);
+        background: color-mix(in srgb, var(--accent) 20%, transparent);
         transform: translateY(-1px);
       }
 
@@ -390,7 +391,7 @@
         padding: 8px 16px;
         border-radius: var(--radius);
         background: var(--accent-muted);
-        border: 1px solid rgba(136, 23, 152, 0.25);
+        border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
         font-size: 0.875rem;
         font-weight: 600;
         color: var(--accent-hover);
@@ -441,7 +442,266 @@
         transition: transform 200ms var(--ease-spring), box-shadow 300ms var(--ease);
       }
       .magnetic-btn:hover {
-        box-shadow: 0 0 20px rgba(136, 23, 152, 0.3);
+        box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 30%, transparent);
+      }
+
+      /* =================================================================
+         THEME SWITCHER
+         ================================================================= */
+      .theme-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition: all 200ms var(--ease);
+        flex-shrink: 0;
+      }
+      .theme-toggle:hover {
+        color: var(--text-primary);
+        border-color: var(--border-hover);
+        background: var(--bg-card);
+      }
+      .theme-toggle.active {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .theme-toggle svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .color-picker {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        margin-left: 8px;
+      }
+      .color-dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        cursor: pointer;
+        transition: all 200ms var(--ease);
+        padding: 0;
+      }
+      .color-dot:hover {
+        transform: scale(1.2);
+      }
+      .color-dot.active {
+        border-color: var(--text-primary);
+        box-shadow: 0 0 8px rgba(255,255,255,0.2);
+      }
+
+      /* Theme: Ocean */
+      [data-theme="ocean"] {
+        --accent: #0077b6;
+        --accent-hover: #00b4d8;
+        --accent-muted: rgba(0, 119, 182, 0.12);
+        --accent-light: #90cdf4;
+      }
+      /* Theme: Emerald */
+      [data-theme="emerald"] {
+        --accent: #059669;
+        --accent-hover: #34d399;
+        --accent-muted: rgba(5, 150, 105, 0.12);
+        --accent-light: #6ee7b7;
+      }
+      /* Theme: Sunset */
+      [data-theme="sunset"] {
+        --accent: #ea580c;
+        --accent-hover: #fb923c;
+        --accent-muted: rgba(234, 88, 12, 0.12);
+        --accent-light: #fdba74;
+      }
+      /* Theme: Lavender */
+      [data-theme="lavender"] {
+        --accent: #7c3aed;
+        --accent-hover: #a78bfa;
+        --accent-muted: rgba(124, 58, 237, 0.12);
+        --accent-light: #c4b5fd;
+      }
+      /* Theme: Default (Purple) */
+      [data-theme="default"] {
+        --accent: #881798;
+        --accent-hover: #b348c2;
+        --accent-muted: rgba(136, 23, 152, 0.12);
+      }
+
+      /* =================================================================
+         INTERACTIVE TERMINAL
+         ================================================================= */
+      .terminal-fab {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+        color: var(--accent-hover);
+        cursor: pointer;
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 200ms var(--ease);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      }
+      .terminal-fab:hover {
+        background: var(--accent);
+        color: #fff;
+        transform: scale(1.05);
+      }
+      .terminal-fab svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .terminal-widget {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        width: 420px;
+        max-width: calc(100vw - 48px);
+        height: 320px;
+        background: #0d1117;
+        border: 1px solid #30363d;
+        border-radius: 12px;
+        z-index: 300;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+        font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+        transform: translateY(calc(100% + 40px));
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 240ms ease;
+      }
+      .terminal-widget.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .terminal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 14px;
+        background: #161b22;
+        border-bottom: 1px solid #30363d;
+      }
+      .terminal-title {
+        font-size: 0.75rem;
+        color: #8b949e;
+      }
+      .terminal-minimize {
+        background: none;
+        border: none;
+        color: #8b949e;
+        cursor: pointer;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        transition: all 150ms;
+      }
+      .terminal-minimize:hover {
+        background: #30363d;
+        color: #e6edf3;
+      }
+      .terminal-minimize svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .terminal-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 12px 14px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .terminal-output {
+        flex: 1;
+        overflow-y: auto;
+        margin-bottom: 8px;
+      }
+      .terminal-output::-webkit-scrollbar {
+        width: 4px;
+      }
+      .terminal-output::-webkit-scrollbar-thumb {
+        background: #30363d;
+        border-radius: 4px;
+      }
+
+      .terminal-line {
+        font-size: 0.8125rem;
+        line-height: 1.6;
+        color: #c9d1d9;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+      .terminal-line .cmd {
+        color: #79c0ff;
+        font-weight: 600;
+      }
+      .terminal-line .accent {
+        color: var(--accent-hover);
+      }
+      .terminal-line .success {
+        color: #3fb950;
+      }
+      .terminal-line .error {
+        color: #f85149;
+      }
+
+      .terminal-input-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .terminal-prompt {
+        color: #3fb950;
+        font-size: 0.8125rem;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .terminal-input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #e6edf3;
+        font-family: inherit;
+        font-size: 0.8125rem;
+        caret-color: #3fb950;
+      }
+
+      @media (max-width: 480px) {
+        .terminal-widget {
+          bottom: 0;
+          right: 0;
+          width: 100vw;
+          max-width: 100vw;
+          height: 60vh;
+          border-radius: 12px 12px 0 0;
+        }
+        .terminal-fab {
+          bottom: 16px;
+          right: 16px;
+        }
       }
 
       /* =================================================================
@@ -452,7 +712,7 @@
         width: 600px;
         height: 600px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(136, 23, 152, 0.06), transparent 60%);
+        background: radial-gradient(circle, color-mix(in srgb, var(--accent) 6%, transparent), transparent 60%);
         pointer-events: none;
         z-index: 0;
         transform: translate(-50%, -50%);
@@ -470,7 +730,7 @@
         height: 100%;
         background-image: radial-gradient(
           circle,
-          rgba(136, 23, 152, 0.08) 1px,
+          color-mix(in srgb, var(--accent) 8%, transparent) 1px,
           transparent 1px
         );
         background-size: 32px 32px;
@@ -653,7 +913,7 @@
         height: 500px;
         background: radial-gradient(
           circle,
-          rgba(136, 23, 152, 0.15) 0%,
+          color-mix(in srgb, var(--accent) 15%, transparent) 0%,
           transparent 70%
         );
         pointer-events: none;
@@ -669,7 +929,7 @@
         height: 400px;
         background: radial-gradient(
           circle,
-          rgba(136, 23, 152, 0.1) 0%,
+          color-mix(in srgb, var(--accent) 10%, transparent) 0%,
           transparent 70%
         );
         pointer-events: none;
@@ -710,8 +970,8 @@
         height: 340px;
         background: radial-gradient(
           circle,
-          rgba(136, 23, 152, 0.16) 0%,
-          rgba(136, 23, 152, 0.05) 40%,
+          color-mix(in srgb, var(--accent) 16%, transparent) 0%,
+          color-mix(in srgb, var(--accent) 5%, transparent) 40%,
           transparent 70%
         );
         filter: blur(2px);
@@ -742,8 +1002,8 @@
         padding: 7px 14px;
         margin-bottom: 18px;
         border-radius: 999px;
-        border: 1px solid rgba(136, 23, 152, 0.35);
-        background: rgba(136, 23, 152, 0.1);
+        border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+        background: color-mix(in srgb, var(--accent) 10%, transparent);
         color: var(--accent-hover);
         font-size: 0.8125rem;
         font-weight: 600;
@@ -790,7 +1050,7 @@
           135deg,
           var(--accent) 0%,
           var(--accent-hover) 60%,
-          #e38ff0 100%
+          var(--accent-light) 100%
         );
         -webkit-background-clip: text;
         background-clip: text;
@@ -824,7 +1084,7 @@
         letter-spacing: -0.035em;
         margin-bottom: 24px;
         max-width: 60ch;
-        background: linear-gradient(135deg, #e8eaf0 0%, #b348c2 100%);
+        background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-hover) 100%);
         background-size: 200% 200%;
         -webkit-background-clip: text;
         background-clip: text;
@@ -1074,7 +1334,7 @@
         inset: 0;
         background: radial-gradient(
           140px 140px at 20% 0%,
-          rgba(136, 23, 152, 0.12),
+          color-mix(in srgb, var(--accent) 12%, transparent),
           transparent 70%
         );
         opacity: 0;
@@ -1083,12 +1343,12 @@
       }
       .brand-card:hover {
         transform: translateY(-6px);
-        border-color: rgba(136, 23, 152, 0.5);
+        border-color: color-mix(in srgb, var(--accent) 50%, transparent);
         background: var(--bg-card-hover);
         box-shadow:
           0 16px 34px rgba(0, 0, 0, 0.35),
-          0 0 0 1px rgba(136, 23, 152, 0.12),
-          0 0 26px rgba(136, 23, 152, 0.14);
+          0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent),
+          0 0 26px color-mix(in srgb, var(--accent) 14%, transparent);
         z-index: 5; /* ensure hovered card stacks above adjacent content */
         position: relative; /* create stacking context for z-index */
       }
@@ -1103,7 +1363,7 @@
         align-items: center;
         justify-content: center;
         background: var(--accent-muted);
-        border: 1px solid rgba(136, 23, 152, 0.25);
+        border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
         border-radius: var(--radius-sm);
         color: var(--accent-hover);
         margin-bottom: 16px;
@@ -1193,7 +1453,7 @@
         transition: opacity 260ms var(--ease);
       }
       .skill-item:hover {
-        border-color: rgba(136, 23, 152, 0.45);
+        border-color: color-mix(in srgb, var(--accent) 45%, transparent);
         background: linear-gradient(
           180deg,
           rgba(30, 33, 46, 0.96),
@@ -1222,7 +1482,7 @@
         color: var(--accent);
         flex-shrink: 0;
         background: var(--accent-muted);
-        border: 1px solid rgba(136, 23, 152, 0.28);
+        border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
         border-radius: var(--radius-sm);
         transition: transform 300ms var(--ease-spring);
       }
@@ -1240,8 +1500,8 @@
         justify-content: center;
         padding: 4px 8px;
         border-radius: 999px;
-        border: 1px solid rgba(136, 23, 152, 0.26);
-        background: rgba(136, 23, 152, 0.08);
+        border: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
+        background: color-mix(in srgb, var(--accent) 8%, transparent);
         color: var(--accent-hover);
         font-size: 0.58rem;
         font-weight: 700;
@@ -1276,11 +1536,11 @@
         margin-top: 32px;
         padding: 10px 18px;
         border-radius: 999px;
-        border: 1px solid rgba(136, 23, 152, 0.35);
+        border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
         background: linear-gradient(
           90deg,
-          rgba(136, 23, 152, 0.14),
-          rgba(136, 23, 152, 0.04)
+          color-mix(in srgb, var(--accent) 14%, transparent),
+          color-mix(in srgb, var(--accent) 4%, transparent)
         );
         color: var(--accent-hover);
         font-size: 0.875rem;
@@ -1301,7 +1561,7 @@
         background:
           radial-gradient(
             480px circle at 50% 0%,
-            rgba(136, 23, 152, 0.08),
+            color-mix(in srgb, var(--accent) 8%, transparent),
             transparent 70%
           ),
           var(--bg-raised);
@@ -1325,7 +1585,7 @@
           135deg,
           var(--accent) 0%,
           var(--accent-hover) 60%,
-          #e38ff0 100%
+          var(--accent-light) 100%
         );
         -webkit-background-clip: text;
         background-clip: text;
@@ -1459,7 +1719,7 @@
         background: var(--accent-hover);
         color: #fff;
         box-shadow:
-          0 10px 34px rgba(136, 23, 152, 0.38),
+          0 10px 34px color-mix(in srgb, var(--accent) 38%, transparent),
           0 0 0 1px rgba(227, 143, 240, 0.25);
         transform: translateY(-3px);
       }
@@ -1622,6 +1882,227 @@
         .scroll-progress {
           transform: scaleX(0) !important;
         }
+      }
+
+      /* =================================================================
+         DARK MODE (default is dark; html.dark keeps dark, no toggle needed)
+         Light mode is triggered by removing dark — but since dark IS the
+         default, the toggle just adds/removes the 'dark' class for future use.
+         ================================================================= */
+
+      /* Light mode — active when html.dark is removed */
+      html:not(.dark) {
+        --bg-primary: #f8f9fa;
+        --bg-base: #f8f9fa;
+        --bg-raised: #ffffff;
+        --bg-surface: #f0f1f3;
+        --bg-card: #ffffff;
+        --bg-card-hover: #f0f1f3;
+        --bg-inset: #f0f1f3;
+        --bg-frosted: rgba(255, 255, 255, 0.72);
+        --text-primary: #1a1a2e;
+        --text-secondary: #4a4a6a;
+        --text-tertiary: #7a7a9a;
+        --border: #e2e4e8;
+        --border-hover: #c2c4c8;
+        --border-muted: #e2e4e8;
+      }
+      html:not(.dark) .ghost-cursor { opacity: 0.6; }
+      html:not(.dark) .cursor-spotlight { display: none; }
+      html:not(.dark) .nav-cta-glow { box-shadow: none; }
+      html:not(.dark) .bento-card { border-color: #e2e4e8; }
+      html:not(.dark) .bento-card:hover { border-color: #c2c4c8; }
+      html:not(.dark) .preloader { background: #f8f9fa; }
+      html:not(.dark) .site-header {
+        background: rgba(248, 249, 250, 0.85);
+        border-bottom-color: #e2e4e8;
+      }
+      html:not(.dark) .bento-tech-icon {
+        background: #f0f1f3;
+      }
+      html:not(.dark) .bento-project-thumb {
+        background: #f0f1f3;
+      }
+      html:not(.dark) .skill-item {
+        background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(240,241,243,0.95));
+        border-color: #e2e4e8;
+      }
+      html:not(.dark) .skill-item:hover {
+        background: linear-gradient(180deg, rgba(240,241,243,0.96), rgba(255,255,255,0.96));
+        box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+      }
+      html:not(.dark) .brand-card:hover {
+        box-shadow: 0 16px 34px rgba(0,0,0,0.1);
+      }
+      html:not(.dark) .terminal-fab {
+        box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        border-color: #e2e4e8;
+      }
+      html:not(.dark) .terminal-widget {
+        background: #f8f9fa;
+        border-color: #e2e4e8;
+        box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+      }
+      html:not(.dark) .terminal-header {
+        background: #f0f1f3;
+        border-bottom-color: #e2e4e8;
+      }
+      html:not(.dark) .terminal-title { color: #57606a; }
+      html:not(.dark) .terminal-minimize { color: #57606a; }
+      html:not(.dark) .terminal-minimize:hover { background: #e2e4e8; color: #1f2328; }
+      html:not(.dark) .terminal-line { color: #1f2328; }
+      html:not(.dark) .terminal-line .cmd { color: #0969da; }
+      html:not(.dark) .terminal-line .error { color: #cf222e; }
+      html:not(.dark) .terminal-input { color: #1f2328; }
+      html:not(.dark) .terminal-output::-webkit-scrollbar-thumb { background: #d0d7de; }
+      html:not(.dark) .mobile-menu-overlay {
+        background: rgba(248, 249, 250, 0.6);
+      }
+
+      /* =================================================================
+         PRELOADER
+         ================================================================= */
+      .preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-primary);
+        transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+        clip-path: circle(100% at 50% 50%);
+        pointer-events: all;
+      }
+      .preloader.done {
+        clip-path: circle(0% at 50% 50%);
+        pointer-events: none;
+      }
+      .preloader-logo {
+        width: 64px;
+        height: 64px;
+        animation: preloaderPulse 1s ease-in-out infinite alternate;
+      }
+      @keyframes preloaderPulse {
+        from { transform: scale(1); opacity: 0.7; }
+        to { transform: scale(1.1); opacity: 1; }
+      }
+
+      /* =================================================================
+         CUSTOM CURSOR — accent-colored, context-morphing
+         ================================================================= */
+      @media (hover: hover) and (pointer: fine) {
+        * { cursor: none !important; }
+      }
+      .cursor-dot, .cursor-ring {
+        position: fixed;
+        top: 0; left: 0;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 10000;
+        will-change: transform;
+      }
+      .cursor-dot {
+        width: 8px; height: 8px;
+        background: var(--accent);
+        transform: translate(-50%, -50%);
+        transition: width 300ms cubic-bezier(.34,1.56,.64,1),
+                    height 300ms cubic-bezier(.34,1.56,.64,1),
+                    border-radius 300ms cubic-bezier(.34,1.56,.64,1),
+                    background 300ms;
+      }
+      .cursor-ring {
+        width: 40px; height: 40px;
+        border: 1.5px solid var(--accent);
+        opacity: 0.5;
+        transform: translate(-50%, -50%);
+        transition: width 350ms cubic-bezier(.34,1.56,.64,1),
+                    height 350ms cubic-bezier(.34,1.56,.64,1),
+                    border-color 300ms,
+                    border-width 300ms,
+                    opacity 300ms;
+      }
+      /* Hover: links / buttons */
+      .cursor-dot.hover-link {
+        width: 48px; height: 48px;
+        background: var(--accent);
+        opacity: 0.2;
+      }
+      .cursor-ring.hover-link {
+        width: 48px; height: 48px;
+        border-color: var(--accent);
+        border-width: 2px;
+        opacity: 0.8;
+      }
+      /* Hover: cards */
+      .cursor-dot.hover-card {
+        width: 64px; height: 64px;
+        background: var(--accent);
+        opacity: 0.1;
+      }
+      .cursor-ring.hover-card {
+        width: 64px; height: 64px;
+        border-color: var(--accent);
+        border-width: 1px;
+        opacity: 0.6;
+      }
+      /* Hover: text (thin bar) */
+      .cursor-dot.hover-text {
+        width: 3px; height: 22px;
+        border-radius: 1.5px;
+        background: var(--accent);
+      }
+      .cursor-ring.hover-text {
+        width: 3px; height: 22px;
+        border: none;
+        opacity: 0;
+      }
+      /* Hover: constellation canvas (crosshair) */
+      .cursor-dot.hover-canvas {
+        width: 0; height: 0;
+        background: transparent;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 14px solid var(--accent);
+        border-radius: 0;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        opacity: 0.9;
+      }
+      .cursor-ring.hover-canvas {
+        width: 36px; height: 36px;
+        border: 1px solid var(--accent);
+        border-style: dashed;
+        opacity: 0.5;
+      }
+      /* Orbiting particles */
+      .cursor-orbiter {
+        position: fixed;
+        top: 0; left: 0;
+        width: 4px; height: 4px;
+        border-radius: 50%;
+        background: var(--accent);
+        pointer-events: none;
+        z-index: 10000;
+        will-change: transform;
+        opacity: 0.7;
+        transform: translate(-50%, -50%);
+      }
+      /* Click splatter */
+      .cursor-splatter {
+        position: fixed;
+        top: 0; left: 0;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 10000;
+        will-change: transform, opacity;
+        transform: translate(-50%, -50%);
+      }
+      /* SVG distortion on ring */
+      .cursor-ring.distorted {
+        filter: url(#cursorDistort);
+      }
+      @media (hover: none), (pointer: coarse) {
+        .cursor-dot, .cursor-ring, .cursor-orbiter, .cursor-splatter { display: none; }
       }
 
       /* =================================================================
@@ -1838,6 +2319,30 @@
       data-color="#b348c2"
       aria-hidden="true"
     ></div>
+
+    <!-- SVG filter for cursor distortion -->
+    <svg class="cursor-svg-defs" aria-hidden="true" style="position:absolute;width:0;height:0">
+      <defs>
+        <filter id="cursorDistort">
+          <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="2" result="turbulence" seed="2"/>
+          <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="0" xChannelSelector="R" yChannelSelector="G" class="distort-map"/>
+        </filter>
+      </defs>
+    </svg>
+
+    <!-- Custom cursor layers -->
+    <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+    <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+    <div class="preloader" id="preloader">
+      <svg class="preloader-logo" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="38" stroke="var(--accent)" stroke-width="3" opacity="0.3"/>
+        <path d="M50 12 A38 38 0 0 1 88 50" stroke="var(--accent)" stroke-width="3" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="1s" repeatCount="indefinite"/>
+        </path>
+        <text x="50" y="56" text-anchor="middle" fill="var(--text-primary)" font-family="var(--font-display)" font-size="18" font-weight="700">PS</text>
+      </svg>
+    </div>
     <div class="page-shell">
       <!-- ============================================================
          HEADER
@@ -1907,6 +2412,20 @@
             >
               View Demos
             </a>
+            <div class="color-picker" aria-label="Accent color">
+              <button class="color-dot active" data-accent="default" style="background:#881798" aria-label="Purple"></button>
+              <button class="color-dot" data-accent="ocean" style="background:#0077b6" aria-label="Ocean"></button>
+              <button class="color-dot" data-accent="emerald" style="background:#059669" aria-label="Emerald"></button>
+              <button class="color-dot" data-accent="sunset" style="background:#ea580c" aria-label="Sunset"></button>
+              <button class="color-dot" data-accent="lavender" style="background:#7c3aed" aria-label="Lavender"></button>
+            </div>
+            <button class="theme-toggle" id="soundToggle" aria-label="Enable sounds" style="position:relative">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+            </button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+              <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+              <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
           </nav>
           <div class="mobile-menu-overlay" aria-hidden="true"></div>
         </div>
@@ -2338,6 +2857,31 @@
       </footer>
 
       <!-- ============================================================
+         INTERACTIVE TERMINAL
+         ============================================================ -->
+      <div class="terminal-widget" id="terminalWidget">
+        <div class="terminal-header">
+          <span class="terminal-title">psreader@portfolio ~ /</span>
+          <button class="terminal-minimize" id="terminalMinimize" aria-label="Minimize terminal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+        <div class="terminal-body" id="terminalBody">
+          <div class="terminal-output" id="terminalOutput">
+            <div class="terminal-line">Welcome to PsReader's portfolio terminal.</div>
+            <div class="terminal-line">Type <span class="cmd">help</span> to see available commands.</div>
+          </div>
+          <div class="terminal-input-row">
+            <span class="terminal-prompt">/</span>
+            <input class="terminal-input" id="terminalInput" type="text" autofocus autocomplete="off" spellcheck="false" />
+          </div>
+        </div>
+      </div>
+      <button class="terminal-fab" id="terminalFab" aria-label="Open terminal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+      </button>
+
+      <!-- ============================================================
          SCRIPTS
          ============================================================ -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
@@ -2349,6 +2893,38 @@
         gsap.registerPlugin(ScrollTrigger);
 
         const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        // ===== Theme Switcher =====
+        const themeToggle = document.getElementById("themeToggle");
+        const iconSun = themeToggle?.querySelector(".icon-sun");
+        const iconMoon = themeToggle?.querySelector(".icon-moon");
+        const savedTheme = localStorage.getItem("ps-theme");
+        if (savedTheme === "light") {
+          document.documentElement.classList.remove("dark");
+          if (iconSun) iconSun.style.display = "none";
+          if (iconMoon) iconMoon.style.display = "";
+        }
+        themeToggle?.addEventListener("click", () => {
+          const isDark = document.documentElement.classList.toggle("dark");
+          localStorage.setItem("ps-theme", isDark ? "dark" : "light");
+          if (iconSun) iconSun.style.display = isDark ? "" : "none";
+          if (iconMoon) iconMoon.style.display = isDark ? "none" : "";
+        });
+
+        // ===== Color Picker =====
+        const savedAccent = localStorage.getItem("ps-accent") || "default";
+        document.documentElement.setAttribute("data-theme", savedAccent);
+        document.querySelectorAll(".color-dot").forEach((dot) => {
+          if (dot.dataset.accent === savedAccent) dot.classList.add("active");
+          else dot.classList.remove("active");
+          dot.addEventListener("click", () => {
+            const accent = dot.dataset.accent;
+            document.documentElement.setAttribute("data-theme", accent);
+            localStorage.setItem("ps-accent", accent);
+            document.querySelectorAll(".color-dot").forEach((d) => d.classList.remove("active"));
+            dot.classList.add("active");
+          });
+        });
 
         // ===== GSAP ScrollTrigger reveals =====
         if (!reducedMotion) {
@@ -2570,6 +3146,456 @@
           lenis.raf(time * 1000);
         });
         gsap.ticker.lagSmoothing(0);
+
+        // ===== Easter Eggs =====
+        // 1. Logo click 5x → secret message
+        let logoClicks = 0;
+        const wordmark = document.querySelector(".wordmark-text");
+        wordmark?.addEventListener("click", (e) => {
+          e.preventDefault();
+          logoClicks++;
+          if (logoClicks >= 5) {
+            logoClicks = 0;
+            const msg = document.createElement("div");
+            msg.textContent = "You found the secret. You're awesome.";
+            msg.style.cssText = "position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:12px 24px;border-radius:8px;font-size:0.875rem;z-index:9999;font-family:var(--font-display);box-shadow:0 8px 32px rgba(0,0,0,0.4);";
+            document.body.appendChild(msg);
+            setTimeout(() => msg.remove(), 3000);
+          }
+        });
+
+        // 2. Konami code → confetti
+        const konamiCode = [38,38,40,40,37,39,37,39,66,65];
+        let konamiIndex = 0;
+        document.addEventListener("keydown", (e) => {
+          if (e.keyCode === konamiCode[konamiIndex]) {
+            konamiIndex++;
+            if (konamiIndex === konamiCode.length) {
+              konamiIndex = 0;
+              for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement("div");
+                const colors = ["#881798","#b348c2","#e8eaf0","#0077b6","#059669","#ea580c"];
+                confetti.style.cssText = `position:fixed;width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:${Math.random()>0.5?"50%":"2px"};top:-10px;left:${Math.random()*100}vw;z-index:9999;pointer-events:none;`;
+                document.body.appendChild(confetti);
+                gsap.to(confetti, {
+                  y: window.innerHeight + 20,
+                  x: (Math.random()-0.5)*200,
+                  rotation: Math.random()*720,
+                  duration: 1.5+Math.random()*1.5,
+                  ease: "power1.in",
+                  onComplete: () => confetti.remove(),
+                });
+              }
+            }
+          } else {
+            konamiIndex = 0;
+          }
+        });
+
+        // 3. Triple-click section heading → hidden "cheat code" section
+        document.querySelectorAll(".section-heading").forEach((heading) => {
+          let clicks = 0;
+          heading.addEventListener("click", () => {
+            clicks++;
+            if (clicks >= 3) {
+              clicks = 0;
+              if (document.getElementById("secretSection")) return;
+              const sec = document.createElement("section");
+              sec.id = "secretSection";
+              sec.className = "section";
+              sec.innerHTML = '<p class="section-label">You unlocked a secret</p><h2 class="section-heading">The Matrix Has You</h2><p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.8;">You triple-clicked a heading. That takes dedication. This section doesn\'t exist in the navigation — you found it through pure curiosity. That\'s exactly the kind of energy I bring to building things.</p>';
+              sec.style.cssText = "text-align:center;border-top:1px solid var(--border);";
+              document.querySelector("footer")?.before(sec);
+              gsap.fromTo(sec, {opacity:0,y:30},{opacity:1,y:0,duration:0.6,ease:"power3.out"});
+            }
+          });
+        });
+
+        // ===== Interactive Terminal =====
+        const terminalFab = document.getElementById("terminalFab");
+        const terminalWidget = document.getElementById("terminalWidget");
+        const terminalMinimize = document.getElementById("terminalMinimize");
+        const terminalInput = document.getElementById("terminalInput");
+        const terminalOutput = document.getElementById("terminalOutput");
+        const terminalBody = document.getElementById("terminalBody");
+
+        function addTerminalLine(html, cls) {
+          const line = document.createElement("div");
+          line.className = "terminal-line" + (cls ? " " + cls : "");
+          line.innerHTML = html;
+          terminalOutput.appendChild(line);
+          terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+
+        function addTerminalPrompt(cmd) {
+          addTerminalLine('<span class="accent">/</span> ' + cmd.replace(/</g,"&lt;"));
+        }
+
+        const commands = {
+          help: () => [
+            "Available commands:",
+            '  <span class="cmd">whoami</span>      — About PsReader',
+            '  <span class="cmd">projects</span>    — List projects',
+            '  <span class="cmd">skills</span>      — Tech stack',
+            '  <span class="cmd">contact</span>     — Get in touch',
+            '  <span class="cmd">theme</span>       — Toggle dark/light',
+            '  <span class="cmd">secret</span>      — Try it ;)',
+            '  <span class="cmd">clear</span>       — Clear terminal',
+          ],
+          whoami: () => [
+            '<span class="accent">PsReader</span> — Frontend Developer & Student',
+            "Building things that feel alive.",
+            "Currently studying at SMKN 1 Kota Bekasi.",
+          ],
+          projects: () => [
+            "Projects:",
+            '  <span class="cmd">1.</span> GestureLab — Hand gesture recognition with Three.js + MediaPipe',
+            '  <span class="cmd">2.</span> LOTM — Game of Thrones universe fan site',
+            '  <span class="cmd">3.</span> Pudding Paradise — Pixel-art pastry shop landing page',
+            '  <span class="cmd">4.</span> Scratchpad — Canvas art playground',
+          ],
+          skills: () => [
+            "Skills:",
+            '  <span class="cmd">Frontend:</span> HTML, CSS, JavaScript, TypeScript, React',
+            '  <span class="cmd">3D / WebGL:</span> Three.js, React Three Fiber',
+            '  <span class="cmd">Motion:</span> GSAP, CSS animations',
+            '  <span class="cmd">AI / Vision:</span> MediaPipe hand tracking',
+            '  <span class="cmd">Design:</span> Figma, responsive layouts, CSS art',
+          ],
+          contact: () => [
+            "Contact:",
+            '  Email: <span class="cmd">simanjuntakpedrosa@gmail.com</span>',
+            '  WhatsApp: <span class="cmd">+62 882 9029 537</span>',
+            '  LinkedIn: <span class="cmd">linkedin.com/in/sijidev</span>',
+            '  GitHub: <span class="cmd">github.com/PsReader</span>',
+          ],
+          theme: () => {
+            themeToggle?.click();
+            const isDark = document.documentElement.classList.contains("dark");
+            return [`Switched to <span class="success">${isDark ? "dark" : "light"}</span> mode.`];
+          },
+          secret: () => {
+            for (let i = 0; i < 30; i++) {
+              const c = document.createElement("div");
+              const colors = ["#881798","#b348c2","#e8eaf0","#3fb950","#79c0ff"];
+              c.style.cssText = `position:fixed;width:${4+Math.random()*6}px;height:${4+Math.random()*6}px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:50%;top:-10px;left:${Math.random()*100}vw;z-index:9999;pointer-events:none;`;
+              document.body.appendChild(c);
+              gsap.to(c, {y:window.innerHeight+20,x:(Math.random()-0.5)*200,rotation:Math.random()*720,duration:1.5+Math.random()*1.5,ease:"power1.in",onComplete:()=>c.remove()});
+            }
+            return ['<span class="success">✨ The matrix has been disrupted.</span>'];
+          },
+          clear: () => {
+            terminalOutput.innerHTML = "";
+            return [];
+          },
+        };
+
+        terminalInput?.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            const val = terminalInput.value.trim().toLowerCase();
+            addTerminalPrompt(terminalInput.value);
+            terminalInput.value = "";
+            if (val) {
+              const handler = commands[val];
+              if (handler) {
+                const lines = handler();
+                lines.forEach((l) => addTerminalLine(l));
+              } else {
+                addTerminalLine(`<span class="error">Command not found:</span> ${val.replace(/</g,"&lt;")}`);
+              }
+              addTerminalLine("");
+            }
+          }
+        });
+
+        terminalFab?.addEventListener("click", () => {
+          terminalWidget?.classList.add("open");
+          terminalFab.style.display = "none";
+          terminalInput?.focus();
+        });
+
+        terminalMinimize?.addEventListener("click", () => {
+          terminalWidget?.classList.remove("open");
+          terminalFab.style.display = "";
+        });
+
+        document.addEventListener("click", (e) => {
+          if (terminalWidget?.classList.contains("open") &&
+              !terminalWidget.contains(e.target) &&
+              e.target !== terminalFab) {
+            terminalWidget.classList.remove("open");
+            terminalFab.style.display = "";
+          }
+        });
+
+        // ===== Preloader =====
+        window.addEventListener("load", () => {
+          const preloader = document.getElementById("preloader");
+          if (preloader) {
+            setTimeout(() => {
+              preloader.classList.add("done");
+              setTimeout(() => preloader.remove(), 900);
+            }, 400);
+          }
+        });
+
+        // ===== Sound Design =====
+        let soundEnabled = false;
+        let audioCtx = null;
+
+        function getAudioCtx() {
+          if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          return audioCtx;
+        }
+
+        function playTone(freq, dur, type, vol) {
+          if (!soundEnabled) return;
+          try {
+            const ctx = getAudioCtx();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = type || "sine";
+            osc.frequency.setValueAtTime(freq, ctx.currentTime);
+            gain.gain.setValueAtTime(vol || 0.05, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + dur);
+          } catch(e) {}
+        }
+
+        const sfx = {
+          hover: () => playTone(1200, 0.08, "sine", 0.03),
+          click: () => playTone(800, 0.1, "triangle", 0.04),
+          transition: () => {
+            playTone(600, 0.15, "sine", 0.03);
+            setTimeout(() => playTone(900, 0.12, "sine", 0.03), 80);
+          },
+          success: () => {
+            playTone(523, 0.12, "sine", 0.04);
+            setTimeout(() => playTone(659, 0.12, "sine", 0.04), 100);
+            setTimeout(() => playTone(784, 0.15, "sine", 0.04), 200);
+          },
+        };
+
+        // Sound toggle in nav
+        const soundToggle = document.getElementById("soundToggle");
+        if (soundToggle) {
+          soundToggle.addEventListener("click", () => {
+            soundEnabled = !soundEnabled;
+            soundToggle.classList.toggle("active", soundEnabled);
+            soundToggle.setAttribute("aria-label", soundEnabled ? "Mute sounds" : "Enable sounds");
+            if (soundEnabled) sfx.click();
+          });
+        }
+
+        // Add hover sounds to interactive elements
+        document.querySelectorAll("a, button, .bento-card").forEach((el) => {
+          el.addEventListener("mouseenter", () => sfx.hover());
+        });
+        document.querySelectorAll("a, button").forEach((el) => {
+          el.addEventListener("click", () => sfx.click());
+        });
+
+        // ===== Custom Cursor — accent-colored, morphing, orbiters, splatter =====
+        const cursorDot = document.getElementById("cursorDot");
+        const cursorRing = document.getElementById("cursorRing");
+        const distortMap = document.querySelector(".distort-map");
+
+        if (cursorDot && cursorRing && window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
+          let cx = -100, cy = -100;
+          let rx = -100, ry = -100;
+          let isTouch = false;
+          let moving = false;
+          let moveTimer = null;
+          const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+          // ── Color tracking ──
+          const accentMap = {
+            default: getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#881798",
+            ocean: "#0077b6", emerald: "#059669", sunset: "#ea580c", lavender: "#7c3aed",
+          };
+          function syncAccentColor() {
+            const theme = document.documentElement.getAttribute("data-theme") || "default";
+            const color = accentMap[theme] || accentMap.default;
+            document.documentElement.style.setProperty("--cursor-accent", color);
+            const gcEl = document.getElementById("ghostCursor");
+            if (gcEl && gcEl.__ghostCursorInstance) {
+              gcEl.__ghostCursorInstance.setColor(color);
+            } else {
+              requestAnimationFrame(() => {
+                const el = document.getElementById("ghostCursor");
+                if (el && el.__ghostCursorInstance) el.__ghostCursorInstance.setColor(color);
+              });
+            }
+          }
+          syncAccentColor();
+          setTimeout(syncAccentColor, 500);
+          document.querySelectorAll(".color-dot").forEach((dot) => {
+            dot.addEventListener("click", syncAccentColor);
+          });
+
+          // ── Orbiting particles ──
+          const ORBIT_COUNT = 4;
+          const orbiters = [];
+          for (let i = 0; i < ORBIT_COUNT; i++) {
+            const el = document.createElement("div");
+            el.className = "cursor-orbiter";
+            document.body.appendChild(el);
+            orbiters.push({
+              el,
+              angle: (Math.PI * 2 * i) / ORBIT_COUNT,
+              radius: 28,
+              speed: 0,
+              targetSpeed: 0.04,
+            });
+          }
+
+          // ── Mouse events ──
+          document.addEventListener("mousemove", (e) => {
+            if (isTouch) return;
+            cx = e.clientX;
+            cy = e.clientY;
+            moving = true;
+            orbiters.forEach((o) => { o.targetSpeed = 0.04 + Math.random() * 0.01; });
+            clearTimeout(moveTimer);
+            moveTimer = setTimeout(() => {
+              moving = false;
+              orbiters.forEach((o) => { o.targetSpeed = 0; });
+            }, 300);
+          });
+
+          document.addEventListener("touchstart", () => {
+            isTouch = true;
+            cursorDot.style.display = "none";
+            cursorRing.style.display = "none";
+            orbiters.forEach((o) => { o.el.style.display = "none"; });
+          }, { once: true });
+
+          // ── Click splatter ──
+          document.addEventListener("click", (e) => {
+            if (isTouch) return;
+            const theme = document.documentElement.getAttribute("data-theme") || "default";
+            const color = accentMap[theme] || accentMap.default;
+            const count = 8 + Math.floor(Math.random() * 5);
+            for (let i = 0; i < count; i++) {
+              const p = document.createElement("div");
+              p.className = "cursor-splatter";
+              const size = 3 + Math.random() * 5;
+              const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
+              const dist = 30 + Math.random() * 50;
+              p.style.cssText =
+                `width:${size}px;height:${size}px;background:${color};left:${e.clientX}px;top:${e.clientY}px;opacity:0.9;`;
+              document.body.appendChild(p);
+              const tx = Math.cos(angle) * dist;
+              const ty = Math.sin(angle) * dist;
+              p.animate([
+                { transform: "translate(-50%,-50%) scale(1)", opacity: 0.9 },
+                { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0)`, opacity: 0 },
+              ], { duration: 400 + Math.random() * 300, easing: "cubic-bezier(.34,1.56,.64,1)", fill: "forwards" })
+              .onfinish = () => p.remove();
+            }
+            // Re-accelerate orbiters briefly
+            orbiters.forEach((o) => { o.targetSpeed = 0.12; });
+            setTimeout(() => {
+              orbiters.forEach((o) => { o.targetSpeed = moving ? 0.04 : 0; });
+            }, 400);
+          });
+
+          // ── Context morphs ──
+          function clearMorph() {
+            ["hover-link","hover-card","hover-text","hover-canvas"].forEach((c) => {
+              cursorDot.classList.remove(c);
+              cursorRing.classList.remove(c);
+            });
+          }
+          function addMorph(cls) {
+            clearMorph();
+            cursorDot.classList.add(cls);
+            cursorRing.classList.add(cls);
+          }
+
+          document.querySelectorAll("a, button, .btn, .wordmark").forEach((el) => {
+            el.addEventListener("mouseenter", () => addMorph("hover-link"));
+            el.addEventListener("mouseleave", clearMorph);
+          });
+          document.querySelectorAll(".bento-card, .brand-card, .skill-item").forEach((el) => {
+            el.addEventListener("mouseenter", () => addMorph("hover-card"));
+            el.addEventListener("mouseleave", clearMorph);
+          });
+          document.querySelectorAll("h1, h2, h3, p, .section-heading, .about-body").forEach((el) => {
+            el.addEventListener("mouseenter", () => addMorph("hover-text"));
+            el.addEventListener("mouseleave", clearMorph);
+          });
+          // Crosshair on constellation canvas
+          const skillsCanvas = document.getElementById("skillsCanvas");
+          if (skillsCanvas) {
+            skillsCanvas.addEventListener("mouseenter", () => addMorph("hover-canvas"));
+            skillsCanvas.addEventListener("mouseleave", clearMorph);
+          }
+
+          // ── SVG distortion on link hover ──
+          document.querySelectorAll("a, button, .btn").forEach((el) => {
+            el.addEventListener("mouseenter", () => {
+              cursorRing.classList.add("distorted");
+              if (distortMap) {
+                distortMap.setAttribute("scale", "12");
+                let frame = 0;
+                const turb = document.querySelector("#cursorDistort feTurbulence");
+                const anim = () => {
+                  if (!cursorRing.classList.contains("distorted")) return;
+                  frame++;
+                  if (turb) turb.setAttribute("seed", Math.floor(frame / 3) % 10);
+                  requestAnimationFrame(anim);
+                };
+                anim();
+              }
+            });
+            el.addEventListener("mouseleave", () => {
+              cursorRing.classList.remove("distorted");
+              if (distortMap) distortMap.setAttribute("scale", "0");
+            });
+          });
+
+          // ── Magnetic pull on buttons ──
+          document.querySelectorAll(".btn, .nav-cta-glow, .bento-card").forEach((el) => {
+            el.addEventListener("mousemove", (e) => {
+              const rect = el.getBoundingClientRect();
+              const x = e.clientX - rect.left - rect.width / 2;
+              const y = e.clientY - rect.top - rect.height / 2;
+              el.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+              el.style.transition = "transform 200ms cubic-bezier(.34,1.56,.64,1)";
+            });
+            el.addEventListener("mouseleave", () => {
+              el.style.transform = "";
+              el.style.transition = "transform 400ms cubic-bezier(.34,1.56,.64,1)";
+            });
+          });
+
+          // ── Animate loop ──
+          function animateCursor() {
+            cursorDot.style.left = cx + "px";
+            cursorDot.style.top = cy + "px";
+            rx += (cx - rx) * (isReduced ? 1 : 0.12);
+            ry += (cy - ry) * (isReduced ? 1 : 0.12);
+            cursorRing.style.left = rx + "px";
+            cursorRing.style.top = ry + "px";
+
+            // Orbiters
+            orbiters.forEach((o) => {
+              o.speed += (o.targetSpeed - o.speed) * 0.08;
+              o.angle += o.speed;
+              const ox = rx + Math.cos(o.angle) * o.radius;
+              const oy = ry + Math.sin(o.angle) * o.radius;
+              o.el.style.left = ox + "px";
+              o.el.style.top = oy + "px";
+            });
+
+            requestAnimationFrame(animateCursor);
+          }
+          animateCursor();
+        }
       </script>
     </div>
     <script type="importmap">
