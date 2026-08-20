@@ -1,0 +1,51 @@
+<svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GestureLab — open palm with AR tracking reticle">
+  <title>GestureLab</title>
+
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#202A52"/>
+      <stop offset="100%" stop-color="#0B0E1C"/>
+    </radialGradient>
+    <radialGradient id="glowGrad" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#2DD4BF" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#2DD4BF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="handGrad" gradientUnits="userSpaceOnUse" x1="110" y1="60" x2="272" y2="250">
+      <stop offset="0%" stop-color="#2DD4BF"/>
+      <stop offset="100%" stop-color="#6EB0FF"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ===== Background ===== -->
+  <rect x="0" y="0" width="400" height="320" fill="url(#bgGrad)"/>
+  <rect x="0" y="0" width="400" height="320" fill="url(#glowGrad)"/>
+
+  <!-- ===== AR viewfinder corner brackets ===== -->
+  <g stroke="#2DD4BF" stroke-opacity="0.35" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 124 70 L 124 100 L 154 100"/>
+    <path d="M 246 100 L 276 100 L 276 70"/>
+    <path d="M 276 250 L 276 220 L 246 220"/>
+    <path d="M 154 220 L 124 220 L 124 250"/>
+  </g>
+
+  <!-- ===== Mark: open palm + AR tracking reticle, centered ===== -->
+  <g id="mark" transform="translate(8.75, 5)">
+    <rect x="128" y="150" width="144" height="100" rx="20" fill="url(#handGrad)"/>
+    <rect x="244" y="74" width="24" height="104" rx="12" fill="url(#handGrad)"/>
+    <rect x="212" y="60" width="24" height="118" rx="12" fill="url(#handGrad)"/>
+    <rect x="180" y="68" width="24" height="110" rx="12" fill="url(#handGrad)"/>
+    <rect x="148" y="78" width="24" height="100" rx="12" fill="url(#handGrad)"/>
+    <rect x="124" y="82" width="26" height="98" rx="13" transform="rotate(-8 138 180)" fill="url(#handGrad)"/>
+
+    <g fill="none" stroke-linecap="round">
+      <circle cx="200" cy="200" r="34" stroke="#FFFFFF" stroke-opacity="0.8" stroke-width="3"/>
+      <circle cx="200" cy="200" r="22" stroke="#5EEAD4" stroke-opacity="0.95" stroke-width="2.5"/>
+      <line x1="200" y1="156" x2="200" y2="166" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="3"/>
+      <line x1="200" y1="234" x2="200" y2="244" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="3"/>
+      <line x1="156" y1="200" x2="166" y2="200" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="3"/>
+      <line x1="234" y1="200" x2="244" y2="200" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="3"/>
+    </g>
+    <circle cx="200" cy="200" r="4" fill="#5EEAD4"/>
+  </g>
+
+</svg>
