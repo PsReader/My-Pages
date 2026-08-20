@@ -19,6 +19,10 @@
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23881798'/%3E%3Ctext x='16' y='22.5' font-family='Arial,sans-serif' font-size='17' font-weight='700' text-anchor='middle' fill='white'%3EP%3C/text%3E%3C/svg%3E"
     />
+    <!-- Clash Display font -->
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/clash-display" />
+    <!-- Lenis smooth scroll -->
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.26/dist/lenis.css" />
     <style>
       .hero-subtitle {
         font-size: 0.95rem;
@@ -93,6 +97,9 @@
         /* Widths */
         --max-w: 960px;
 
+        /* Display font */
+        --font-display: 'Clash Display', sans-serif;
+
         /* Motion */
         --ease: cubic-bezier(0.4, 0, 0.2, 1);
         --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -103,7 +110,7 @@
          BASE
          ================================================================= */
       html {
-        scroll-behavior: smooth;
+        scroll-behavior: auto;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
@@ -120,6 +127,10 @@
         color: var(--text-secondary);
         line-height: 1.6;
         overflow-x: hidden;
+      }
+
+      h1, h2, h3, .hero h1, .section-heading, .project-name {
+        font-family: var(--font-display);
       }
 
       /* =================================================================
@@ -1995,6 +2006,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"></script>
   </head>
   <body>
     <!-- Scroll progress bar -->
@@ -2251,11 +2263,12 @@
                   <h3 class="project-name">Lord of the Mysteries Fan Wiki</h3>
                   <p class="project-tech">HTML · CSS · JavaScript</p>
                   <p class="project-summary">
-                    A multi-page Fan Wiki for the novel
-                    <em>Lord of the Mysteries</em>. Covers pathway systems,
-                    character profiles, volume summaries, and a gallery —
-                    connected through consistent navigation and a shared
-                    stylesheet across 20+ pages.
+                    <strong>The problem:</strong> No comprehensive fan wiki existed
+                    for this novel. <strong>What I built:</strong> A 20+ page site
+                    with pathway systems, character profiles, volume summaries, and
+                    gallery — all sharing one stylesheet and navigation.
+                    <strong>Result:</strong> A fully navigable, responsive wiki
+                    that scales across every device.
                   </p>
                   <div class="project-cta">
                     <a href="LOTM/LOTMhome.html" class="btn btn--primary">
@@ -2324,10 +2337,12 @@
                   <h3 class="project-name">Pudding Paradise</h3>
                   <p class="project-tech">HTML · CSS · JavaScript</p>
                   <p class="project-summary">
-                    A themed restaurant landing page with a menu browser, image
-                    gallery, and customer reviews section. Built with consistent
-                    visual identity, responsive grid layouts, and interactive
-                    form elements.
+                    <strong>The problem:</strong> Needed a fun, themed restaurant
+                    site that feels alive. <strong>What I built:</strong> A landing
+                    page with menu browser, image gallery, customer reviews, and
+                    interactive forms — all with consistent branding.
+                    <strong>Result:</strong> A playful, responsive site that
+                    showcases grid layouts and visual identity.
                   </p>
                   <div class="project-cta">
                     <a
@@ -2400,10 +2415,12 @@
                     React · Vite · Three.js · MediaPipe
                   </p>
                   <p class="project-summary">
-                    A browser-based hand-tracking experiment where shader-driven
-                    materials react to finger landmarks in real time. Built as
-                    an immersive, dark-glass interface for live artistic
-                    interaction.
+                    <strong>The problem:</strong> Wanted to explore real-time hand
+                    tracking in the browser. <strong>What I built:</strong> A
+                    React app with Three.js shaders that react to finger
+                    landmarks via MediaPipe — dark-glass UI, bloom effects,
+                    GIF recording. <strong>Result:</strong> An immersive
+                    AR-style experience running at 60fps in the browser.
                   </p>
                   <div class="project-cta">
                     <a
@@ -2475,9 +2492,11 @@
                   <h3 class="project-name">Scratchpad</h3>
                   <p class="project-tech">HTML · CSS · JavaScript</p>
                   <p class="project-summary">
-                    A compact personal workspace for notes, experiments, and
-                    small web projects. It brings together a set of standalone
-                    pages with a clean layout and quick access to ongoing ideas.
+                    <strong>The problem:</strong> Needed a place to dump ideas and
+                    experiments. <strong>What I built:</strong> A compact personal
+                    workspace with notes, standalone pages, and quick access to
+                    ongoing projects. <strong>Result:</strong> A clean, organized
+                    hub for rapid prototyping and idea exploration.
                   </p>
                   <div class="project-cta">
                     <a
@@ -3622,6 +3641,24 @@
               (parseInt(el.dataset.count) || 0) + (el.dataset.suffix || "");
           });
         }
+
+        // ===== Lenis smooth scroll =====
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+        });
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        lenis.on("scroll", ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+          lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
       </script>
 
       <script type="importmap">

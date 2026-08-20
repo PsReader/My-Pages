@@ -19,6 +19,10 @@
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23881798'/%3E%3Ctext x='16' y='22.5' font-family='Arial,sans-serif' font-size='17' font-weight='700' text-anchor='middle' fill='white'%3EP%3C/text%3E%3C/svg%3E"
     />
+    <!-- Clash Display font -->
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/clash-display" />
+    <!-- Lenis smooth scroll -->
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.26/dist/lenis.css" />
     <style>
       /* =================================================================
          RESET
@@ -60,6 +64,8 @@
 
         --max-w: 960px;
 
+        --font-display: 'Clash Display', sans-serif;
+
         --ease: cubic-bezier(0.4, 0, 0.2, 1);
         --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
         --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
@@ -69,7 +75,7 @@
          BASE
          ================================================================= */
       html {
-        scroll-behavior: smooth;
+        scroll-behavior: auto;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
@@ -85,6 +91,10 @@
         color: var(--text-secondary);
         line-height: 1.6;
         overflow-x: hidden;
+      }
+
+      h1, h2, h3, .hero h1, .section-heading, .brand-card h3 {
+        font-family: var(--font-display);
       }
 
       /* =================================================================
@@ -229,7 +239,9 @@
       }
       .bento-card:hover {
         border-color: var(--border-hover);
-        box-shadow: 0 8px 32px rgba(136, 23, 152, 0.1);
+        box-shadow:
+          0 8px 32px rgba(136, 23, 152, 0.15),
+          0 0 60px rgba(136, 23, 152, 0.08);
       }
       .bento-card--wide { grid-column: span 2; }
       .bento-card--full { grid-column: span 3; }
@@ -426,7 +438,10 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        transition: transform 200ms var(--ease-spring);
+        transition: transform 200ms var(--ease-spring), box-shadow 300ms var(--ease);
+      }
+      .magnetic-btn:hover {
+        box-shadow: 0 0 20px rgba(136, 23, 152, 0.3);
       }
 
       /* =================================================================
@@ -1562,6 +1577,11 @@
       .hero-d2 {
         animation-delay: 0.24s;
       }
+
+      .char {
+        display: inline-block;
+        perspective: 400px;
+      }
       .hero-d3 {
         animation-delay: 0.36s;
       }
@@ -1898,23 +1918,22 @@
       <section class="hero" aria-label="Introduction">
         <div class="hero-orb" aria-hidden="true"></div>
         <div class="hero-content">
-          <span class="hero-eyebrow hero-animate">Frontend Developer</span>
+          <span class="hero-eyebrow hero-animate">Frontend Developer & Student</span>
           <span class="hero-badge hero-animate hero-d1" aria-hidden="true">
             <span class="hero-badge-dot"></span>
-            Available for freelance work
+            Currently building cool stuff
           </span>
           <h1 class="hero-animate hero-d1">
-            Creative <em class="hero-word">Frontend</em> Developer<br />Building
-            Immersive Web Experiences
+            I Build Websites<br />That Feel <em class="hero-word">Alive</em>
           </h1>
           <span
             class="hero-underline hero-animate hero-d1"
             aria-hidden="true"
           ></span>
           <p class="hero-desc hero-animate hero-d2">
-            I build fast, accessible, and visually rich web experiences using
-            semantic HTML, modern CSS, vanilla JavaScript — and increasingly,
-            Three.js, GSAP, and WebGL shaders.
+            Frontend dev in vocational school. I turn ideas into fast,
+            accessible web experiences using HTML, CSS, JS — and lately,
+            Three.js and WebGL shaders.
           </p>
           <div class="hero-cta hero-animate hero-d3">
             <a href="#contact" class="btn btn--primary">
@@ -1980,12 +1999,13 @@
               height="56"
             />
             <div class="bento-avatar-name">PsReader</div>
-            <div class="bento-avatar-role">Frontend Developer</div>
+            <div class="bento-avatar-role">Frontend Developer & Student</div>
             <p>
-              Vocational school student focused on front-end web development. I
-              build responsive, accessible websites from scratch using semantic
-              HTML, modern CSS layout systems, and vanilla JavaScript — with
-              growing expertise in React, Three.js, and WebGL.
+              Hey, I'm a vocational school student who fell in love with frontend
+              development. I love how a few lines of HTML and CSS can turn an idea
+              into something people actually enjoy using. Right now I'm focused on
+              vanilla JS, but I'm getting into React and Three.js — there's
+              something magical about making things move on screen.
             </p>
           </article>
 
@@ -2320,20 +2340,109 @@
       <!-- ============================================================
          SCRIPTS
          ============================================================ -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollToPlugin.min.js"></script>
+      <script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"></script>
       <script>
-        // Intersection Observer — reveal on scroll
-        const io = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((e) => {
-              if (e.isIntersecting) {
-                e.target.classList.add("visible");
-                io.unobserve(e.target);
+        // ===== Register GSAP plugins =====
+        gsap.registerPlugin(ScrollTrigger);
+
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        // ===== GSAP ScrollTrigger reveals =====
+        if (!reducedMotion) {
+          // Fade-up reveal for all .reveal elements
+          gsap.utils.toArray(".reveal").forEach((el, i) => {
+            gsap.fromTo(el,
+              { opacity: 0, y: 40 },
+              {
+                opacity: 1, y: 0, duration: 0.8,
+                ease: "power3.out",
+                scrollTrigger: {
+                  trigger: el,
+                  start: "top 88%",
+                  toggleActions: "play none none none",
+                },
               }
+            );
+          });
+
+          // Staggered bento card reveal
+          gsap.utils.toArray(".bento-card").forEach((card, i) => {
+            gsap.fromTo(card,
+              { opacity: 0, y: 50, scale: 0.97 },
+              {
+                opacity: 1, y: 0, scale: 1, duration: 0.7,
+                delay: i * 0.08,
+                ease: "power3.out",
+                scrollTrigger: {
+                  trigger: card,
+                  start: "top 90%",
+                  toggleActions: "play none none none",
+                },
+              }
+            );
+          });
+
+          // Section heading underline grow
+          gsap.utils.toArray(".section-heading").forEach((heading) => {
+            gsap.fromTo(heading,
+              { "--underline-width": "0px" },
+              {
+                "--underline-width": "48px",
+                duration: 0.6,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: heading,
+                  start: "top 85%",
+                  toggleActions: "play none none none",
+                },
+              }
+            );
+          });
+
+          // Hero text reveal — character by character
+          const heroH1 = document.querySelector(".hero h1");
+          if (heroH1) {
+            const text = heroH1.innerHTML;
+            // Split text into spans while preserving HTML tags
+            const wrapped = text.replace(/([^<>\s])/g, '<span class="char">$1</span>');
+            heroH1.innerHTML = wrapped;
+            heroH1.style.opacity = "1";
+
+            gsap.fromTo(".hero h1 .char",
+              { opacity: 0, y: 20, rotateX: -40 },
+              {
+                opacity: 1, y: 0, rotateX: 0,
+                duration: 0.5, stagger: 0.02,
+                ease: "back.out(1.7)",
+                delay: 0.3,
+              }
+            );
+          }
+
+          // Scroll progress bar via GSAP
+          const scrollProgress = document.getElementById("scrollProgress");
+          if (scrollProgress) {
+            gsap.to(scrollProgress, {
+              scaleX: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: document.body,
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 0.3,
+              },
             });
-          },
-          { threshold: 0.12, rootMargin: "0px 0px -50px 0px" },
-        );
-        document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+          }
+        } else {
+          // Fallback: show everything immediately
+          document.querySelectorAll(".reveal").forEach(el => el.classList.add("visible"));
+          document.querySelectorAll(".bento-stat-num[data-count]").forEach(el => {
+            el.textContent = (parseInt(el.dataset.count) || 0) + (el.dataset.suffix || "");
+          });
+        }
 
         // Mobile hamburger menu
         const menuToggle = document.querySelector(".mobile-menu-toggle");
@@ -2361,7 +2470,6 @@
 
         menuOverlay?.addEventListener("click", closeMobileMenu);
 
-        // Close menu when a nav link is clicked
         headerNav?.querySelectorAll("a").forEach((link) => {
           link.addEventListener("click", () => {
             if (headerNav.classList.contains("open")) {
@@ -2370,20 +2478,9 @@
           });
         });
 
-        // ===== Scroll progress bar =====
-        const scrollProgress = document.getElementById("scrollProgress");
-        if (scrollProgress && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-          window.addEventListener("scroll", () => {
-            const scrollTop = document.documentElement.scrollTop;
-            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
-            scrollProgress.style.transform = `scaleX(${progress})`;
-          }, { passive: true });
-        }
-
         // ===== Cursor spotlight =====
         const spotlight = document.getElementById("cursorSpotlight");
-        if (spotlight && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        if (spotlight && !reducedMotion) {
           document.addEventListener("mousemove", (e) => {
             spotlight.style.left = e.clientX + "px";
             spotlight.style.top = e.clientY + "px";
@@ -2395,7 +2492,7 @@
         }
 
         // ===== 3D tilt on bento cards =====
-        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        if (!reducedMotion) {
           document.querySelectorAll(".bento-card").forEach((card) => {
             card.addEventListener("mousemove", (e) => {
               const rect = card.getBoundingClientRect();
@@ -2414,7 +2511,7 @@
         }
 
         // ===== Magnetic buttons =====
-        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        if (!reducedMotion) {
           document.querySelectorAll(".magnetic-btn").forEach((btn) => {
             btn.addEventListener("mousemove", (e) => {
               const rect = btn.getBoundingClientRect();
@@ -2429,43 +2526,50 @@
         }
 
         // ===== Animated number counters =====
-        const counterObserver = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                const el = entry.target;
+        if (!reducedMotion) {
+          document.querySelectorAll(".bento-stat-num[data-count]").forEach((el) => {
+            ScrollTrigger.create({
+              trigger: el,
+              start: "top 80%",
+              once: true,
+              onEnter: () => {
                 const target = parseInt(el.dataset.count);
                 const suffix = el.dataset.suffix || "";
                 if (isNaN(target)) return;
-
-                let current = 0;
-                const duration = 1200;
-                const step = target / (duration / 16);
-                const counter = () => {
-                  current += step;
-                  if (current >= target) {
-                    el.textContent = target + suffix;
-                    return;
-                  }
-                  el.textContent = Math.floor(current) + suffix;
-                  requestAnimationFrame(counter);
-                };
-                counter();
-                counterObserver.unobserve(el);
-              }
+                gsap.to({ val: 0 }, {
+                  val: target,
+                  duration: 1.2,
+                  ease: "power2.out",
+                  onUpdate: function() {
+                    el.textContent = Math.floor(this.targets()[0].val) + suffix;
+                  },
+                });
+              },
             });
-          },
-          { threshold: 0.5 },
-        );
+          });
+        } else {
+          document.querySelectorAll(".bento-stat-num[data-count]").forEach(el => {
+            el.textContent = (parseInt(el.dataset.count) || 0) + (el.dataset.suffix || "");
+          });
+        }
 
-        document.querySelectorAll(".bento-stat-num[data-count]").forEach((el) => {
-          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-            el.textContent =
-              (parseInt(el.dataset.count) || 0) + (el.dataset.suffix || "");
-            return;
-          }
-          counterObserver.observe(el);
+        // ===== Lenis smooth scroll =====
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
         });
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        lenis.on("scroll", ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+          lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
       </script>
     </div>
     <script type="importmap">
