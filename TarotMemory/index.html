@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#d8c9aa">
+  <title>Memory of the Tarot Club — The Arcana Memory Rite</title>
+  <meta name="description" content="A memory rite with the 22 Major Arcana of the Tarot Club. Flip the sigil cards, match every pair, and seal the reading before the hourglass runs dry.">
+  <link rel="icon" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
+    <symbol id="mark-star" viewBox="0 0 32 32">
+      <g fill="currentColor" stroke="none">
+        <path d="M16 16 L14 9.5 L16 3 L18 9.5 Z" transform="rotate(0 16 16)"/>
+        <path d="M16 16 L14 9.5 L16 3 L18 9.5 Z" transform="rotate(90 16 16)"/>
+        <path d="M16 16 L14 9.5 L16 3 L18 9.5 Z" transform="rotate(180 16 16)"/>
+        <path d="M16 16 L14 9.5 L16 3 L18 9.5 Z" transform="rotate(270 16 16)"/>
+        <path d="M16 16 L14.9 12 L16 8 L17.1 12 Z" transform="rotate(45 16 16)"/>
+        <path d="M16 16 L14.9 12 L16 8 L17.1 12 Z" transform="rotate(135 16 16)"/>
+        <path d="M16 16 L14.9 12 L16 8 L17.1 12 Z" transform="rotate(225 16 16)"/>
+        <path d="M16 16 L14.9 12 L16 8 L17.1 12 Z" transform="rotate(315 16 16)"/>
+        <path d="M12.2 16 Q16 12.2 19.8 16 Q16 19.8 12.2 16 Z" opacity="0.9"/>
+        <circle cx="16" cy="16" r="1.55"/>
+        <circle cx="15.4" cy="15.4" r="0.55" fill="#fff6e0"/>
+        <circle cx="16" cy="16" r="9.6" fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="1.4 2.4" opacity="0.55"/>
+        <path d="M6.8 5.2 L7.4 6.6 L8.8 7.2 L7.4 7.8 L6.8 9.2 L6.2 7.8 L4.8 7.2 L6.2 6.6 Z" opacity="0.75"/>
+        <path d="M25.2 24.8 L25.8 26.2 L27.2 26.8 L25.8 27.4 L25.2 28.8 L24.6 27.4 L23.2 26.8 L24.6 26.2 Z" opacity="0.75"/>
+        <path d="M22.6 6.4 L23 7.4 L24 7.8 L23 8.2 L22.6 9.2 L22.2 8.2 L21.2 7.8 L22.2 7.4 Z" opacity="0.55"/>
+      </g>
+    </symbol>
+    <symbol id="mark-moon" viewBox="0 0 32 32">
+      <path fill-rule="evenodd" d="M16 7 a9 9 0 1 0 0 18 a9 9 0 1 0 0 -18 M19.5 8.1 a6 6 0 1 1 0 15.8 a6 6 0 1 1 0 -15.8" fill="currentColor"/>
+    </symbol>
+    <symbol id="mark-moon-r" viewBox="0 0 32 32">
+      <g transform="scale(-1 1) translate(-32 0)">
+        <path fill-rule="evenodd" d="M16 7 a9 9 0 1 0 0 18 a9 9 0 1 0 0 -18 M19.5 8.1 a6 6 0 1 1 0 15.8 a6 6 0 1 1 0 -15.8" fill="currentColor"/>
+      </g>
+    </symbol>
+  </svg>
+  <main class="app" id="app">
+    <header class="topbar">
+      <button class="brand" id="homeBtn" aria-label="Return to home"><span class="brand-mark"><svg class="mark" aria-hidden="true"><use href="#mark-star"/></svg></span><span><b>MEMORY OF THE TAROT CLUB</b><small>THE ARCANA MEMORY RITE</small></span></button>
+      <div class="top-stats"><span>★ <b id="totalStars">0</b> stars</span><button id="helpBtn" class="small-btn" aria-label="How to play">?</button></div>
+    </header>
+    <a class="psreader-back" href="https://psreader.site.je" aria-label="Back to PS Reader" title="Back to PS Reader">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="16" stroke-width="1" opacity="0.42" />
+        <circle cx="20" cy="20" r="12.5" stroke-width="0.8" stroke-dasharray="1.5 3" opacity="0.7" />
+        <ellipse cx="20" cy="20" rx="15" ry="6" stroke-width="0.7" stroke-dasharray="1.5 2.5" transform="rotate(-28 20 20)" opacity="0.65" />
+        <path class="back-ray" d="M20 3.5 21.5 8 20 10.5 18.5 8 20 3.5ZM20 29.5 21.5 32 20 36.5 18.5 32 20 29.5ZM3.5 20 8 18.5 10.5 20 8 21.5 3.5 20ZM29.5 20 32 18.5 36.5 20 32 21.5 29.5 20Z" />
+        <path d="M21 13.5 14.5 20l6.5 6.5M14.8 20H27" stroke-width="1.45" />
+        <circle class="back-star" cx="20" cy="20" r="2.2" />
+        <path d="M11 10.5h2M27 29.5h2M29.5 11h-2M10.5 29h2" stroke-width="0.9" opacity="0.8" />
+      </svg>
+    </a>
+
+    <section id="homeScreen" class="screen">
+      <p class="eyebrow">☾ · THE TAROT CLUB · ☽</p>
+      <h1>Memory of<br>the Tarot Club</h1>
+      <div class="home-grid">
+        <section class="hero panel">
+          <div class="orbit" id="themeIcon" aria-hidden="true"><svg class="mark mark-lg"><use href="#mark-star"/></svg></div>
+          <p class="kicker" id="themeDescriptor">CLASSIC SEPIA // MEMORY PROTOCOL</p>
+          <h2>Seal the sigils,<br><em>master the arcana.</em></h2>
+          <p class="muted">Flip two cards and find every matching pair before the water clock runs dry. Your memory is the rite.</p>
+          <button id="startBtn" class="primary">▶ BEGIN THE RITE <span>→</span></button>
+          <small class="hero-foot">RITES SEALED　—　<span id="completed">0</span></small>
+        </section>
+        <div class="home-links">
+          <button class="nav-card" id="galleryBtn"><span class="nav-icon gold">▦</span><span><b>The Major Arcana</b><small>All 22 sigil cards</small></span>→</button>
+          <button class="nav-card" id="helpCardBtn"><span class="nav-icon violet">?</span><span><b>Ritual manual</b><small>Learn the rite</small></span>→</button>
+          <a class="nav-card" id="tarotDrawBtn" href="https://tarotdraw.site.je/" target="_blank" rel="noopener"><span class="nav-icon gold">✶</span><span><b>Tarot Draw</b><small>Read the Major Arcana</small></span>→</a>
+        </div>
+      </div>
+
+      <section class="settings panel">
+        <div><small>CHOOSE YOUR BOARD</small><b>Reading difficulty</b></div>
+        <div class="diffs">
+          <button data-diff="small" class="diff active">◇ <b>Small</b><small>4 pairs · 60s</small><span class="run-count"><b data-run="small">0</b> RUNS</span></button>
+          <button data-diff="medium" class="diff">◇ <b>Medium</b><small>6 pairs · 75s</small><span class="run-count"><b data-run="medium">0</b> RUNS</span></button>
+          <button data-diff="large" class="diff">◇ <b>Large</b><small>8 pairs · 90s</small><span class="run-count"><b data-run="large">0</b> RUNS</span></button>
+        </div>
+      </section>
+
+      <section class="settings panel">
+        <div><small>VISUAL FREQUENCY</small><b>Choose a theme</b></div>
+        <div class="themes">
+          <button data-theme="classic" class="theme active">✦ Classic</button>
+          <button data-theme="violet" class="theme">☾ Violet</button>
+          <button data-theme="rose" class="theme">☽ Rose</button>
+        </div>
+        <button id="patternBtn" class="pattern"><span>▧</span><span><b>Pattern Safe Rite</b><small id="patternText">Off · enable non-color cues</small></span><strong id="patternState">OFF</strong></button>
+      </section>
+    </section>
+
+    <section id="gameScreen" class="screen hidden">
+      <div class="game-head"><button id="backBtn" class="text-btn">← Home</button><span id="diffLabel">SMALL RITE</span><span>TIME <b id="timer">1:00</b></span></div>
+      <div class="progress"><i id="progressBar"></i></div>
+      <div class="game-title"><div><p class="eyebrow">REMEMBER. MATCH. SEAL.</p><h2>Find the matched Arcana</h2></div><span id="score">0 ✦</span></div>
+      <div id="board" class="board" aria-label="Memory card board"></div>
+      <div class="game-tools"><button id="restartBtn" class="text-btn">↻ Restart</button><button id="hintBtn" class="tool">✦ Hint <b id="hintCount">1</b></button><button id="freezeBtn" class="tool">☾ Freeze <b id="freezeCount">1</b></button></div>
+    </section>
+
+    <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-card">
+        <button id="closeModal" class="close" aria-label="Close dialog">×</button>
+        <h2 id="modalTitle">How to play</h2>
+        <p id="modalText">Flip two sigil cards and find every matching pair before the water clock reaches zero. Warning oracles highlight a pair, and the Freeze stays the water.</p>
+        <button id="modalAction" class="primary">OK</button>
+      </div>
+    </div>
+
+    <div id="galleryModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="galleryTitle">
+      <div class="modal-card gallery-panel">
+        <div class="gallery-head">
+          <h2 id="galleryTitle">The Major Arcana</h2>
+          <button id="galleryClose" class="close" aria-label="Close gallery">×</button>
+        </div>
+        <div id="galleryGrid" class="gallery-grid"></div>
+      </div>
+    </div>
+
+    <footer>MEMORY OF THE TAROT CLUB <span>✦</span> LOCAL RITE DATA ONLY</footer>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>

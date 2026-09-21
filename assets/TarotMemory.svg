@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="Memory of the Tarot Club — ink and gold arcana sigil card">
+  <defs>
+    <linearGradient id="ink" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#16131f"/>
+      <stop offset="100%" stop-color="#0b0e14"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#c9a227" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#c9a227" stop-opacity="0"/>
+    </radialGradient>
+    <g id="cornerD">
+      <path d="M0 0 L5 13 L0 26 L-5 13 Z" fill="#c9a227"/>
+    </g>
+    <g id="sparkle">
+      <path d="M0 -8 L1.8 -1.8 L8 0 L1.8 1.8 L0 8 L-1.8 1.8 L-8 0 L-1.8 -1.8 Z" fill="#c9a227"/>
+    </g>
+  </defs>
+
+  <rect width="480" height="360" fill="url(#ink)"/>
+  <circle cx="240" cy="180" r="150" fill="url(#glow)"/>
+
+  <rect x="28" y="26" width="424" height="308" rx="16" fill="none" stroke="#c9a227" stroke-width="1.6" stroke-opacity="0.85"/>
+  <rect x="38" y="36" width="404" height="288" rx="10" fill="none" stroke="#c9a227" stroke-width="1" stroke-opacity="0.45"/>
+
+  <g transform="translate(42 40)"><use href="#cornerD"/></g>
+  <g transform="translate(438 40)"><use href="#cornerD"/></g>
+  <g transform="translate(42 320)"><use href="#cornerD"/></g>
+  <g transform="translate(438 320)"><use href="#cornerD"/></g>
+
+  <circle cx="240" cy="180" r="84" fill="none" stroke="#c9a227" stroke-width="1" opacity="0.14"/>
+
+  <g transform="translate(240 180)">
+    <g transform="translate(-73.6 -73.6) scale(4.6)">
+      <g fill="#c9a227" stroke="none">
+        <path d="M16 16 L14 9.5 L16 3 L18 9.5 Z" transform="rotate(0 16 16)"/>
+        <path d="M16 16 L14 9.5 L16 3 L18 9.5 Z" transform="rotate(90 16 16)"/>
+        <path d="M16 16 L14 9.5 L16 3 L18 9.5 Z" transform="rotate(180 16 16)"/>
+        <path d="M16 16 L14 9.5 L16 3 L18 9.5 Z" transform="rotate(270 16 16)"/>
+        <path d="M16 16 L14.9 12 L16 8 L17.1 12 Z" transform="rotate(45 16 16)"/>
+        <path d="M16 16 L14.9 12 L16 8 L17.1 12 Z" transform="rotate(135 16 16)"/>
+        <path d="M16 16 L14.9 12 L16 8 L17.1 12 Z" transform="rotate(225 16 16)"/>
+        <path d="M16 16 L14.9 12 L16 8 L17.1 12 Z" transform="rotate(315 16 16)"/>
+        <path d="M12.2 16 Q16 12.2 19.8 16 Q16 19.8 12.2 16 Z" opacity="0.95"/>
+        <circle cx="16" cy="16" r="1.7" fill="#0b0e14"/>
+        <circle cx="16" cy="16" r="0.9"/>
+        <circle cx="15.4" cy="15.4" r="0.5" fill="#fff6e0"/>
+        <circle cx="16" cy="16" r="9.6" fill="none" stroke="#c9a227" stroke-width="0.8" stroke-dasharray="1.4 2.4" opacity="0.4"/>
+      </g>
+    </g>
+  </g>
+
+  <line x1="150" y1="60" x2="225" y2="60" stroke="#c9a227" stroke-width="1" opacity="0.55"/>
+  <line x1="255" y1="60" x2="330" y2="60" stroke="#c9a227" stroke-width="1" opacity="0.55"/>
+  <text x="240" y="72" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="11" letter-spacing="6" fill="#c9a227" fill-opacity="0.92">THE ARCANA MEMORY RITE</text>
+
+  <text x="240" y="280" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="25" letter-spacing="9" fill="#f2e5c8">MEMORY OF THE</text>
+  <text x="240" y="310" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="31" letter-spacing="14" fill="#f2e5c8">TAROT CLUB</text>
+
+  <line x1="168" y1="325" x2="312" y2="325" stroke="#b3543f" stroke-width="1.5" opacity="0.85" stroke-linecap="round"/>
+
+  <text x="240" y="344" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="8" letter-spacing="5" fill="#8b8fa3" fill-opacity="0.8">RITES SEALED · LOCAL RITE DATA ONLY</text>
+
+  <use href="#sparkle" transform="translate(144 122) scale(0.5)" opacity="0.7"/>
+  <use href="#sparkle" transform="translate(336 122) scale(0.5)" opacity="0.7"/>
+  <use href="#sparkle" transform="translate(144 238) scale(0.5)" opacity="0.7"/>
+  <use href="#sparkle" transform="translate(336 238) scale(0.5)" opacity="0.7"/>
+</svg>

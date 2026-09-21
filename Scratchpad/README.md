@@ -29,7 +29,7 @@ Scratchpad is a browser-based journaling and notes dashboard designed for quick 
 ```text
 Scratchpad/
 ├── images/
-├── ScratchpadHome.html
+├── index.html
 ├── script.js
 ├── style.css
 ├── README.md
@@ -42,10 +42,10 @@ Open the app directly in a browser:
 
 ```bash
 cd "Scratchpad"
-start ScratchpadHome.html
+start index.html
 ```
 
-Or simply double-click `ScratchpadHome.html`.
+Or simply double-click `index.html`.
 
 ## Notes
 

@@ -118,6 +118,18 @@ function readConfig(el) {
     !!window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  const lowPower =
+    (typeof navigator !== "undefined" &&
+      navigator.hardwareConcurrency &&
+      navigator.hardwareConcurrency <= 4) ||
+    (typeof navigator !== "undefined" &&
+      navigator.deviceMemory &&
+      navigator.deviceMemory <= 4);
+
+  const cores = navigator.hardwareConcurrency || 8;
+  const mem = navigator.deviceMemory || 8;
+  const weak = isTouch || lowPower;
+
   const bool = (name, def) =>
     el.dataset[name] !== undefined && el.dataset[name] !== ""
       ? el.dataset[name] === "true"
@@ -126,20 +138,22 @@ function readConfig(el) {
   return {
     isTouch,
     reducedMotion,
-    trailLength: Math.max(1, int("trailLength", 50)),
+    weak,
+    trailLength: Math.max(1, int("trailLength", weak ? 20 : 36)),
     inertia: num("inertia", 0.5),
     grainIntensity: num("grainIntensity", 0.05),
     bloomStrength: num("bloomStrength", 0.05),
     bloomRadius: num("bloomRadius", 1.0),
     bloomThreshold: num("bloomThreshold", 0.08),
+    bloomEnabled: bool("bloom", !weak && cores >= 6 && mem >= 8 && !reducedMotion),
     brightness: num("brightness", 0.8),
     color: str("color", "#B497CF"),
     mixBlendMode: str("mixBlendMode", "normal"),
     edgeIntensity: num("edgeIntensity", 0.05),
-    maxDevicePixelRatio: num("maxDevicePixelRatio", 0.5),
-    targetPixels: num("targetPixels", isTouch ? 0.9e6 : 1.3e6),
-    fadeDelayMs: int("fadeDelayMs", isTouch ? 500 : 1000),
-    fadeDurationMs: int("fadeDurationMs", isTouch ? 1000 : 1500),
+    maxDevicePixelRatio: num("maxDevicePixelRatio", weak ? 0.3 : 0.4),
+    targetPixels: num("targetPixels", weak ? 0.4e6 : 0.85e6),
+    fadeDelayMs: int("fadeDelayMs", weak ? 250 : 350),
+    fadeDurationMs: int("fadeDurationMs", weak ? 500 : 700),
     zIndex: int("zIndex", 10),
     burstEnabled: bool("burst", true),
     sparkColor: str("sparkColor", ""),
@@ -178,7 +192,7 @@ export function initGhostCursor(el, opts = {}) {
     alpha: true,
     depth: false,
     stencil: false,
-    powerPreference: config.isTouch ? "low-power" : "high-performance",
+    powerPreference: config.weak ? "low-power" : "high-performance",
     premultipliedAlpha: false,
     preserveDrawingBuffer: false,
   });
@@ -233,13 +247,16 @@ export function initGhostCursor(el, opts = {}) {
   const composer = new EffectComposer(renderer);
   composer.addPass(new RenderPass(scene, camera));
 
-  const bloomPass = new UnrealBloomPass(
-    new THREE.Vector2(1, 1),
-    config.bloomStrength,
-    config.bloomRadius,
-    config.bloomThreshold,
-  );
-  composer.addPass(bloomPass);
+  let bloomPass = null;
+  if (config.bloomEnabled) {
+    bloomPass = new UnrealBloomPass(
+      new THREE.Vector2(1, 1),
+      config.bloomStrength,
+      config.bloomRadius,
+      config.bloomThreshold,
+    );
+    composer.addPass(bloomPass);
+  }
 
   const FilmGrainShader = {
     uniforms: {
@@ -331,7 +348,7 @@ export function initGhostCursor(el, opts = {}) {
     const hpx = Math.max(1, Math.floor(cssH * pixelRatio));
     material.uniforms.iResolution.value.set(wpx, hpx, 1);
     material.uniforms.iScale.value = calculateScale(host);
-    bloomPass.setSize(wpx, hpx);
+    if (bloomPass) bloomPass.setSize(wpx, hpx);
 
     hasValidSize = true;
   };
@@ -389,10 +406,12 @@ export function initGhostCursor(el, opts = {}) {
       } else {
         const boost = (1 - k) * 1.6;
         brightness = config.brightness * (1 + boost);
-        bloomPass.strength = config.bloomStrength * (1 + boost * 1.5);
+        if (bloomPass) {
+          bloomPass.strength = config.bloomStrength * (1 + boost * 1.5);
+        }
       }
     }
-    if (!burstActive) bloomPass.strength = config.bloomStrength;
+    if (!burstActive && bloomPass) bloomPass.strength = config.bloomStrength;
 
     material.uniforms.iBrightness.value = brightness;
     material.uniforms.iOpacity.value = fadeOpacity;

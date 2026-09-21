@@ -1,0 +1,2717 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Mystic Coin is a small digital divination tool. Ask a question, flip the coin, and receive a symbolic answer."
+    />
+    <meta name="theme-color" content="#111018" />
+    <title>Mystic Coin — Ask the Question</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%23120e0a' stroke='%23ead8aa' stroke-opacity='.62'/%3E%3Ccircle cx='20' cy='20' r='14' fill='none' stroke='%23ead8aa' stroke-opacity='.62' stroke-width='1'/%3E%3Cellipse cx='20' cy='20' rx='16' ry='7' transform='rotate(-32 20 20)' fill='none' stroke='%23b99b5f' stroke-opacity='.72' stroke-width='.8' stroke-dasharray='1.5 3'/%3E%3Cellipse cx='20' cy='20' rx='16' ry='7' transform='rotate(32 20 20)' fill='none' stroke='%23b99b5f' stroke-opacity='.72' stroke-width='.8' stroke-dasharray='1.5 3'/%3E%3Cpath d='M20 2l1.2 6.3L20 11l-1.2-2.7L20 2zm0 27l1.2 2.7L20 38l-1.2-6.3L20 29zM2 20l6.3-1.2L11 20l-2.7 1.2L2 20zm27 0l2.7-1.2L38 20l-6.3 1.2L29 20z' fill='%23ead8aa' fill-opacity='.72'/%3E%3Ccircle cx='20' cy='20' r='6' fill='%23120e0a' stroke='%23ead8aa' stroke-opacity='.82'/%3E%3Cpath d='M20 15l1.3 3.7L25 20l-3.7 1.3L20 25l-1.3-3.7L15 20l3.7-1.3L20 15z' fill='%23ead8aa' fill-opacity='.86'/%3E%3C/svg%3E" />
+    <style>
+/*
+ * Mystic Coin
+ * Mystical gold-and-dark visual system
+ */
+
+/* ========================================================================== 
+   DESIGN TOKENS
+   ========================================================================== */
+:root {
+  color-scheme: dark;
+
+  --bg: #111018;
+  --bg-deep: #0a0910;
+  --bg-raised: #1b1821;
+  --bg-card: #24202a;
+  --bg-card-hover: #2c2632;
+  --bg-glass: rgba(27, 24, 33, 0.78);
+
+  --gold: #d3b883;
+  --gold-bright: #efe3c7;
+  --gold-soft: #c7b899;
+  --gold-muted: #8f7950;
+  --gold-dark: #6f5a38;
+
+  --yes: #d3b883;
+  --no: #8f2f2b;
+  --again: #466d83;
+
+  --text-primary: #efe9dc;
+  --text-secondary: #aaa19a;
+  --text-muted: #756d68;
+
+  --border: rgba(211, 184, 131, 0.24);
+  --border-strong: rgba(211, 184, 131, 0.5);
+  --shadow: rgba(0, 0, 0, 0.42);
+
+  --font-display: Georgia, "Times New Roman", serif;
+  --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 24px;
+  --max-width: 980px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --cursor-mystic: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='12' cy='12' r='8.5' fill='%2316130f' fill-opacity='.88' stroke='%23ead8aa' stroke-width='1.1'/%3E%3Cellipse cx='12' cy='12' rx='6.5' ry='2.8' fill='none' stroke='%23b99b5f' stroke-width='.7' stroke-dasharray='1.3 2' transform='rotate(-28 12 12)'/%3E%3Cpath d='M12 6.7l1.1 3.9 3.9 1.4-3.9 1.1-1.1 4-1.1-4L7 12l3.9-1.4L12 6.7z' fill='%23ead8aa'/%3E%3Cpath d='M2 2l7 7' stroke='%23ead8aa' stroke-width='1.4' stroke-linecap='round'/%3E%3Ccircle cx='2.4' cy='2.4' r='1.2' fill='%23b99b5f'/%3E%3C/svg%3E") 2 2, auto;
+  --cursor-mystic-hover: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Ccircle cx='14' cy='14' r='10.5' fill='%2316130f' fill-opacity='.92' stroke='%23f0dfb2' stroke-width='1.4'/%3E%3Cellipse cx='14' cy='14' rx='8' ry='3.2' fill='none' stroke='%23c9a227' stroke-width='.9' stroke-dasharray='1.5 2' transform='rotate(-28 14 14)'/%3E%3Cpath d='M14 6.8l1.4 5 5 1.8-5 1.4-1.4 5-1.4-5-5-1.4 5-1.8 1.4-5z' fill='%23f0dfb2'/%3E%3Cpath d='M3 3l8 8' stroke='%23f0dfb2' stroke-width='1.7' stroke-linecap='round'/%3E%3Cpath d='M25 5l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1L25 5zM28 23l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2z' fill='%238f2f2b'/%3E%3Ccircle cx='3.2' cy='3.2' r='1.4' fill='%23c9a227'/%3E%3C/svg%3E") 3 3, auto;
+  --cursor-mystic-text: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 27 17 7' stroke='%23ead8aa' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M4 27 10 24' stroke='%238f2f2b' stroke-width='1.4' stroke-linecap='round'/%3E%3Cpath d='M17 7c3-4 7-5 10-5-1 4-3 7-8 8z' fill='%23b99b5f' stroke='%23ead8aa' stroke-width='.9' stroke-linejoin='round'/%3E%3Cpath d='M18 9 25 3M21 7l-1-2M23 5l-1 3' fill='none' stroke='%238f2f2b' stroke-width='.7' stroke-linecap='round'/%3E%3Cpath d='M24 19l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1 1-2.6z' fill='%23c9a227'/%3E%3Ccircle cx='4' cy='27' r='1.2' fill='%23c9a227'/%3E%3C/svg%3E") 4 27, text;
+  --cursor-mystic-input: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cellipse cx='14' cy='25' rx='7' ry='3' fill='%2316130f' stroke='%23ead8aa' stroke-width='1'/%3E%3Cpath d='M10 24c1-3 3-4 7-4 2 0 4 1 5 3' fill='none' stroke='%23b99b5f' stroke-width='1'/%3E%3Cpath d='M14 22 23 6' stroke='%23ead8aa' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M23 6c3-2 5-2 7-2-1 3-3 5-6 5z' fill='%23b99b5f' stroke='%23ead8aa' stroke-width='.8'/%3E%3Cpath d='M15 20 22 8M13 23l-3 4' fill='none' stroke='%238f2f2b' stroke-width='1' stroke-linecap='round'/%3E%3Cpath d='M5 9h5M7.5 6.5v5' stroke='%23c9a227' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E") 14 25, text;
+}
+
+/* ========================================================================== 
+   RESET AND BASE
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: var(--bg-deep);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  color: var(--text-secondary);
+  background:
+    radial-gradient(circle at 50% -10%, rgba(211, 184, 131, 0.1), transparent 38rem),
+    radial-gradient(circle at 0% 80%, rgba(143, 47, 43, 0.08), transparent 28rem),
+    var(--bg);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  cursor: var(--cursor-mystic);
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.12;
+  content: "";
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: var(--cursor-mystic);
+}
+
+button:disabled {
+  cursor: var(--cursor-mystic);
+}
+
+a,
+label,
+.coin {
+  cursor: var(--cursor-mystic);
+}
+
+a:hover,
+label:hover,
+.coin:hover,
+button:not(:disabled):hover,
+button:not(:disabled):focus-visible {
+  cursor: var(--cursor-mystic-hover);
+}
+
+h1:hover,
+h2:hover,
+h3:hover,
+p:hover,
+.eyebrow:hover,
+.result-label:hover,
+.brand-wordmark text:hover {
+  cursor: var(--cursor-mystic-text);
+}
+
+.question-form input:hover,
+.question-form input:focus {
+  cursor: var(--cursor-mystic-input);
+}
+
+::selection {
+  color: var(--bg-deep);
+  background: var(--gold-bright);
+}
+
+/* ========================================================================== 
+   PAGE SHELL
+   ========================================================================== */
+.mystic-app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.site-header,
+.site-footer {
+  width: min(100% - 40px, var(--max-width));
+  margin-inline: auto;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--gold-bright);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.brand-mark {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  color: var(--gold);
+  font-size: 0.9rem;
+  box-shadow: 0 0 22px rgba(211, 184, 131, 0.1);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 10px 0 18px;
+}
+
+.icon-button {
+  display: inline-grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--gold-soft);
+  background: transparent;
+  transition: border-color 180ms var(--ease), background 180ms var(--ease), color 180ms var(--ease), transform 180ms var(--ease);
+}
+
+.icon-button:hover,
+.icon-button:focus-visible {
+  border-color: var(--gold);
+  color: var(--gold-bright);
+  background: rgba(211, 184, 131, 0.08);
+  transform: translateY(-1px);
+}
+
+.ambient-button {
+  position: relative;
+  overflow: visible;
+}
+
+.ambient-icon-off {
+  display: none;
+}
+
+.ambient-button:not(.is-active) .ambient-icon-on {
+  display: none;
+}
+
+.ambient-button:not(.is-active) .ambient-icon-off {
+  display: block;
+}
+
+.ambient-button.is-active {
+  border-color: var(--gold);
+  color: var(--gold-bright);
+  background: rgba(211, 184, 131, 0.1);
+  box-shadow: 0 0 18px rgba(211, 184, 131, 0.13);
+}
+
+.ambient-button.is-active::after {
+  position: absolute;
+  right: 2px;
+  bottom: 1px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  content: "";
+  background: var(--gold-bright);
+  box-shadow: 0 0 8px var(--gold-bright);
+  animation: ambient-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes ambient-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.25); }
+}
+
+#cursor-trail {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.cursor-trail-particle {
+  position: fixed;
+  width: var(--trail-size, 4px);
+  height: var(--trail-size, 4px);
+  border-radius: 50%;
+  background: var(--trail-color, var(--gold-bright));
+  box-shadow: 0 0 9px var(--trail-color, var(--gold));
+  transform: translate(-50%, -50%);
+  animation: cursor-trail-fade var(--trail-duration, 720ms) ease-out forwards;
+}
+
+@keyframes cursor-trail-fade {
+  0% { opacity: 0.78; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--trail-drift-x)), calc(-50% + var(--trail-drift-y))) scale(0.15); }
+}
+
+.back-button {
+  display: inline-grid;
+  width: 38px;
+  min-height: 38px;
+  height: 38px;
+  padding: 0;
+  place-items: center;
+  color: var(--gold);
+  text-decoration: none;
+  transition: color 180ms var(--ease), transform 180ms var(--ease), filter 180ms var(--ease);
+}
+
+.back-button:hover,
+.back-button:focus-visible {
+  color: var(--gold-bright);
+  transform: translateX(-2px);
+  filter: drop-shadow(0 0 7px rgba(234, 216, 170, 0.38));
+}
+
+.back-button svg {
+  width: 38px;
+  height: 38px;
+  color: var(--gold-bright);
+  transform: none;
+  transition: transform 180ms var(--ease);
+}
+
+.back-button:hover svg,
+.back-button:focus-visible svg {
+  transform: translateX(-1px);
+}
+
+/* ========================================================================== 
+   HERO AND QUESTION FORM
+   ========================================================================== */
+.hero {
+  width: min(100% - 40px, 760px);
+  margin: 0 auto;
+  padding: clamp(64px, 11vw, 116px) 0 48px;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gold-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  width: 28px;
+  height: 1px;
+  content: "";
+  background: var(--border-strong);
+}
+
+.hero h1 {
+  max-width: 680px;
+  margin: 18px auto 16px;
+  color: var(--gold-bright);
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 9vw, 6.4rem);
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  line-height: 0.95;
+}
+
+.hero h1 em {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.hero-copy {
+  max-width: 520px;
+  margin: 0 auto;
+  color: var(--text-secondary);
+  font-size: clamp(1rem, 2vw, 1.12rem);
+}
+
+.reading-panel {
+  width: min(100% - 40px, 650px);
+  margin: 0 auto;
+  padding-bottom: 70px;
+}
+
+.question-form {
+  display: grid;
+  gap: 10px;
+}
+
+.question-form label {
+  color: var(--gold-soft);
+  font-family: var(--font-display);
+  font-size: 1rem;
+}
+
+.question-form input {
+  width: 100%;
+  min-height: 58px;
+  padding: 0 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  color: var(--text-primary);
+  background: rgba(17, 16, 24, 0.72);
+  transition: border-color 180ms var(--ease), box-shadow 180ms var(--ease), background 180ms var(--ease);
+}
+
+.question-form input::placeholder {
+  color: var(--text-muted);
+}
+
+.question-form input:focus {
+  border-color: var(--gold);
+  background: rgba(17, 16, 24, 0.94);
+  box-shadow: 0 0 0 4px rgba(211, 184, 131, 0.1);
+}
+
+.input-error {
+  min-height: 1.4em;
+  margin: 0;
+  color: #d98984;
+  font-size: 0.82rem;
+}
+
+/* ========================================================================== 
+   SIGIL AND COIN STAGE
+   ========================================================================== */
+.coin-stage {
+  position: relative;
+  display: grid;
+  min-height: 360px;
+  margin: 34px 0 28px;
+  place-items: center;
+  isolation: isolate;
+}
+
+.coin-stage::before,
+.coin-stage::after {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.coin-stage::before {
+  box-shadow: 0 0 80px rgba(211, 184, 131, 0.08), inset 0 0 60px rgba(211, 184, 131, 0.06);
+  animation: sigil-drift 18s linear infinite;
+}
+
+.coin-stage::after {
+  width: 310px;
+  height: 310px;
+  border-color: rgba(143, 47, 43, 0.28);
+  border-style: dashed;
+  animation: sigil-drift 26s linear infinite reverse;
+}
+
+.sigil-ticks {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: repeating-conic-gradient(from 0deg, var(--gold-muted) 0deg 1deg, transparent 1deg 30deg);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 18px), #000 calc(100% - 17px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 18px), #000 calc(100% - 17px));
+  opacity: 0.35;
+  animation: sigil-drift 32s linear infinite;
+}
+
+.coin-wrap {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 210px;
+  height: 210px;
+  place-items: center;
+  perspective: 1000px;
+}
+
+.coin-wrap::after {
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  width: 150px;
+  height: 22px;
+  border-radius: 50%;
+  content: "";
+  background: #000;
+  filter: blur(14px);
+  opacity: 0.48;
+  transform: translateX(-50%);
+}
+
+.coin {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  cursor: pointer;
+  touch-action: none;
+  transform-style: preserve-3d;
+  transition: transform 500ms var(--ease), filter 500ms var(--ease);
+}
+
+.coin-face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 7px solid var(--gold-dark);
+  border-radius: 50%;
+  color: var(--gold-bright);
+  background:
+    radial-gradient(circle at 35% 28%, rgba(239, 227, 199, 0.32), transparent 22%),
+    radial-gradient(circle, #493d2c, #201b18 70%);
+  box-shadow:
+    inset 0 0 0 2px rgba(239, 227, 199, 0.62),
+    inset 0 0 22px rgba(0, 0, 0, 0.55),
+    0 14px 38px rgba(0, 0, 0, 0.48);
+  backface-visibility: hidden;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: 0.18em;
+  text-align: center;
+  text-transform: uppercase;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 180ms ease, visibility 180ms ease;
+}
+
+.coin.is-yes .coin-face--yes,
+.coin.is-no .coin-face--no,
+.coin.is-again .coin-face--again {
+  visibility: visible;
+  opacity: 1;
+}
+
+.coin-face::before,
+.coin-face::after {
+  position: absolute;
+  border: 1px solid rgba(239, 227, 199, 0.48);
+  border-radius: 50%;
+  content: "";
+}
+
+.coin-face::before {
+  inset: 16px;
+}
+
+.coin-face::after {
+  inset: 28px;
+  border-color: rgba(211, 184, 131, 0.24);
+}
+
+.coin-face--yes::after {
+  background: radial-gradient(circle, var(--gold) 0 4px, transparent 5px), repeating-conic-gradient(var(--gold) 0 3deg, transparent 3deg 30deg);
+  background-position: center;
+  background-size: 100% 100%, 72px 72px;
+  background-repeat: no-repeat;
+  opacity: 0.58;
+}
+
+.coin-face--yes span,
+.coin-face--no span,
+.coin-face--again span {
+  position: relative;
+  z-index: 1;
+  padding: 7px 9px;
+  border: 1px solid rgba(239, 227, 199, 0.48);
+  background: rgba(17, 16, 24, 0.6);
+}
+
+.coin-face--no {
+  transform: rotateY(180deg);
+}
+
+.coin-face--no::after {
+  border-color: rgba(143, 47, 43, 0.52);
+  box-shadow: inset 0 0 20px rgba(143, 47, 43, 0.18);
+}
+
+.coin-face--again {
+  transform: rotateY(180deg) rotateX(180deg);
+}
+
+.coin-face--again::after {
+  border-style: dashed;
+  border-color: rgba(70, 109, 131, 0.75);
+}
+
+.coin.is-yes {
+  transform: rotateY(0deg);
+}
+
+.coin.is-no {
+  transform: rotateY(180deg);
+}
+
+.coin.is-again {
+  transform: rotateY(180deg) rotateX(180deg);
+}
+
+.coin.is-flipping {
+  animation: coin-flip 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  filter: drop-shadow(0 0 24px rgba(211, 184, 131, 0.48));
+}
+
+/* ========================================================================== 
+   CONTROLS AND RESULTS
+   ========================================================================== */
+.primary-button,
+.secondary-button {
+  min-height: 50px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: transform 180ms var(--ease), box-shadow 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease);
+}
+
+.primary-button {
+  border: 1px solid var(--gold);
+  color: var(--bg-deep);
+  background: var(--gold);
+  box-shadow: 0 8px 24px rgba(211, 184, 131, 0.16);
+}
+
+.primary-button:hover:not(:disabled),
+.primary-button:focus-visible:not(:disabled) {
+  background: var(--gold-bright);
+  box-shadow: 0 12px 30px rgba(211, 184, 131, 0.28);
+  transform: translateY(-2px);
+}
+
+.primary-button:disabled {
+  opacity: 0.5;
+}
+
+.secondary-button {
+  border: 1px solid var(--border);
+  color: var(--gold-soft);
+  background: transparent;
+}
+
+.secondary-button:hover,
+.secondary-button:focus-visible {
+  border-color: var(--gold);
+  color: var(--gold-bright);
+  background: rgba(211, 184, 131, 0.08);
+  transform: translateY(-2px);
+}
+
+.form-actions,
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.result-card {
+  position: relative;
+  margin-top: 30px;
+  padding: clamp(26px, 5vw, 42px);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  background: linear-gradient(145deg, rgba(36, 32, 42, 0.92), rgba(17, 16, 24, 0.94));
+  box-shadow: 0 20px 60px var(--shadow), inset 0 1px 0 rgba(239, 227, 199, 0.08);
+  animation: result-reveal 600ms var(--ease) both;
+}
+
+.result-card[data-result="yes"] { --result-accent: var(--yes); }
+.result-card[data-result="no"] { --result-accent: var(--no); }
+.result-card[data-result="again"] { --result-accent: var(--again); }
+
+.result-card::before {
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  width: 90px;
+  height: 3px;
+  border-radius: 0 0 4px 4px;
+  content: "";
+  background: var(--result-accent, var(--gold));
+  box-shadow: 0 0 24px var(--result-accent, var(--gold));
+  transform: translateX(-50%);
+}
+
+.result-question-label {
+  margin: 0 0 7px;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.result-question {
+  margin: 0 auto 26px;
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+.result-label {
+  margin: 0;
+  color: var(--result-accent, var(--gold));
+  font-family: var(--font-display);
+  font-size: clamp(2.3rem, 7vw, 4.4rem);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+
+.result-title {
+  margin: 14px 0 8px;
+  color: var(--gold-bright);
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 400;
+}
+
+.result-message {
+  max-width: 480px;
+  margin: 0 auto 26px;
+  color: var(--text-secondary);
+}
+
+/* ========================================================================== 
+   HISTORY DRAWER AND FOOTER
+   ========================================================================== */
+.history-drawer {
+  position: fixed;
+  inset: 0 0 0 auto;
+  z-index: 10;
+  width: min(390px, 100%);
+  padding: 28px;
+  overflow-y: auto;
+  border-left: 1px solid var(--border);
+  background: rgba(27, 24, 33, 0.96);
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.32);
+  transform: translateX(102%);
+  transition: transform 350ms var(--ease);
+}
+
+.history-drawer.is-open {
+  transform: translateX(0);
+}
+
+.history-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms ease;
+}
+
+.history-backdrop.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.history-title {
+  margin: 0 0 22px;
+  color: var(--gold-bright);
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 400;
+}
+
+.history-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.history-item {
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: rgba(17, 16, 24, 0.58);
+}
+
+.history-item-question {
+  margin: 0 0 6px;
+  color: var(--text-primary);
+  font-family: var(--font-display);
+}
+
+.history-item-meta {
+  color: var(--gold-muted);
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.site-footer {
+  margin-top: auto;
+  padding: 24px 0 32px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+/* ========================================================================== 
+   ANIMATION KEYFRAMES
+   ========================================================================== */
+@keyframes coin-flip {
+  0% {
+    transform: rotateY(0deg) rotateZ(0deg) scale(1);
+  }
+  24% {
+    transform: rotateY(520deg) rotateZ(8deg) scale(1.08);
+  }
+  52% {
+    transform: rotateY(1060deg) rotateZ(-7deg) scale(1.13);
+  }
+  78% {
+    transform: rotateY(1510deg) rotateZ(4deg) scale(1.06);
+  }
+  100% {
+    transform: rotateY(1800deg) rotateZ(0deg) scale(1);
+  }
+}
+
+@keyframes sigil-drift {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes result-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 rgba(211, 184, 131, 0); }
+  50% { box-shadow: 0 0 34px rgba(211, 184, 131, 0.22); }
+}
+
+/* ========================================================================== 
+   RESPONSIVE LAYOUT
+   ========================================================================== */
+@media (max-width: 560px) {
+  .site-header,
+  .site-footer,
+  .hero,
+  .reading-panel {
+    width: min(100% - 28px, var(--max-width));
+  }
+
+  .site-header {
+    min-height: 66px;
+  }
+
+  .hero {
+    padding-top: 70px;
+  }
+
+  .coin-stage {
+    min-height: 300px;
+  }
+
+  .coin-stage::before {
+    width: 220px;
+    height: 220px;
+  }
+
+  .coin-stage::after {
+    width: 270px;
+    height: 270px;
+  }
+
+  .sigil-ticks {
+    width: 290px;
+    height: 290px;
+  }
+
+  .coin-wrap {
+    width: 172px;
+    height: 172px;
+  }
+
+  .coin {
+    width: 158px;
+    height: 158px;
+  }
+
+  .coin-face {
+    border-width: 5px;
+    font-size: 0.82rem;
+  }
+
+  .form-actions,
+  .result-actions {
+    flex-direction: column;
+  }
+
+  .primary-button,
+  .secondary-button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 3px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Result state helpers for a simple JavaScript implementation. */
+.result-card.is-hidden {
+  display: none;
+}
+.coin-stage.is-reading .coin {
+  animation: coin-flip 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.coin-stage.is-reading::before {
+  animation: sigil-drift 4s linear infinite, pulse-glow 1.8s ease-in-out infinite;
+}
+
+.coin-stage.is-reading .sigil-ticks {
+  opacity: 0.58;
+  animation: sigil-drift 4s linear infinite, magic-pulse 900ms ease-in-out infinite alternate;
+}
+
+.coin-stage.is-reading .coin-wrap::after {
+  animation: shadow-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes magic-pulse {
+  from { filter: brightness(0.82); transform: scale(0.98) rotate(0deg); }
+  to { filter: brightness(1.45); transform: scale(1.04) rotate(8deg); }
+}
+
+@keyframes shadow-pulse {
+  0%, 100% { opacity: 0.42; transform: translateX(-50%) scale(0.9); }
+  50% { opacity: 0.7; transform: translateX(-50%) scale(1.12); }
+}
+
+/* ========================================================================== 
+   OCCULT EDITORIAL FINISH
+   ========================================================================== */
+:root {
+  --bg: #16130f;
+  --bg-deep: #0c0a08;
+  --bg-raised: #211b15;
+  --bg-card: #292117;
+  --gold: #b99b5f;
+  --gold-bright: #ead8aa;
+  --gold-soft: #cdbb8a;
+  --gold-muted: #806d45;
+  --border: rgba(185, 155, 95, 0.27);
+  --border-strong: rgba(234, 216, 170, 0.52);
+}
+
+body {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 50% 18%, rgba(115, 78, 37, 0.17), transparent 34rem),
+    radial-gradient(circle at 85% 72%, rgba(70, 109, 131, 0.06), transparent 23rem),
+    linear-gradient(115deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(25deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+    var(--bg);
+  background-size: auto, auto, 29px 29px, 43px 43px, auto;
+}
+
+body::before {
+  z-index: -2;
+  opacity: 0.2;
+  background-size: 190px 190px;
+  mix-blend-mode: soft-light;
+}
+
+body::after {
+  position: fixed;
+  inset: 18px;
+  z-index: -1;
+  border: 1px solid rgba(185, 155, 95, 0.17);
+  box-shadow:
+    inset 0 0 0 1px rgba(185, 155, 95, 0.05),
+    0 0 0 1px rgba(9, 8, 6, 0.45);
+  content: "";
+  pointer-events: none;
+}
+
+.mystic-app::before {
+  position: fixed;
+  inset: 27px;
+  z-index: -1;
+  border: 1px dashed rgba(185, 155, 95, 0.09);
+  background:
+    linear-gradient(90deg, transparent 49.92%, rgba(185, 155, 95, 0.07) 50%, transparent 50.08%),
+    linear-gradient(0deg, transparent 49.92%, rgba(185, 155, 95, 0.05) 50%, transparent 50.08%);
+  background-size: 100% 100%, 100% 100%;
+  content: "";
+  pointer-events: none;
+}
+
+.mystic-app::after {
+  position: fixed;
+  top: 28px;
+  left: 50%;
+  z-index: -1;
+  width: 92px;
+  height: 18px;
+  border-right: 1px solid rgba(234, 216, 170, 0.22);
+  border-bottom: 1px solid rgba(234, 216, 170, 0.22);
+  content: "";
+  transform: translateX(-50%) rotate(45deg);
+  pointer-events: none;
+}
+
+.site-header {
+  border-bottom: 0;
+  position: relative;
+  margin-bottom: 28px;
+  background:
+    linear-gradient(135deg, rgba(234, 216, 170, 0.025) 25%, transparent 25%) 0 0 / 9px 9px,
+    linear-gradient(315deg, rgba(234, 216, 170, 0.018) 25%, transparent 25%) 0 0 / 9px 9px,
+    rgba(18, 14, 10, 0.72);
+  box-shadow:
+    inset 0 -1px 0 rgba(234, 216, 170, 0.045),
+    0 10px 28px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(7px);
+}
+
+.site-header::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  content: "";
+  background: linear-gradient(90deg, transparent, var(--border-strong) 22%, var(--border) 78%, transparent);
+}
+
+.brand {
+  font-size: 0.86rem;
+  letter-spacing: 0.18em;
+  gap: 6px;
+  margin-left: 10px;
+}
+
+.brand-name {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.34em;
+  margin-left: 7px;
+  padding: 4px 17px 5px 12px;
+  color: var(--gold-bright);
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  letter-spacing: 0.13em;
+  line-height: 1;
+  text-shadow: 0 1px 0 rgba(255, 244, 210, 0.16), 0 2px 8px rgba(0, 0, 0, 0.52);
+}
+
+.brand-name::before,
+.brand-name::after {
+  position: absolute;
+  content: "";
+}
+
+.brand-name::before {
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: rgba(234, 216, 170, 0.42);
+}
+
+.brand-name::after {
+  right: 0;
+  bottom: 1px;
+  width: 7px;
+  height: 7px;
+  border-right: 1px solid rgba(234, 216, 170, 0.7);
+  border-bottom: 1px solid rgba(234, 216, 170, 0.7);
+  transform: rotate(-45deg);
+}
+
+.brand-name em {
+  color: var(--gold);
+  font-style: italic;
+  letter-spacing: 0.09em;
+}
+
+.brand-wordmark {
+  display: block;
+  width: 166px;
+  height: 42px;
+  overflow: visible;
+}
+
+.brand-wordmark .wordmark-rule {
+  stroke: rgba(234, 216, 170, 0.58);
+  stroke-width: 0.7;
+}
+
+.brand-wordmark .wordmark-fine {
+  stroke: rgba(185, 155, 95, 0.48);
+  stroke-width: 0.55;
+}
+
+.brand-wordmark .wordmark-diamond {
+  fill: rgba(234, 216, 170, 0.86);
+}
+
+.brand-wordmark .wordmark-ray {
+  fill: rgba(185, 155, 95, 0.72);
+}
+
+.brand-wordmark .wordmark-orbit {
+  fill: none;
+  stroke: rgba(185, 155, 95, 0.6);
+  stroke-width: 0.65;
+  stroke-dasharray: 1.2 2.4;
+}
+
+.brand-wordmark .wordmark-arc {
+  fill: none;
+  stroke: rgba(234, 216, 170, 0.48);
+  stroke-width: 0.65;
+  stroke-linecap: round;
+}
+
+.brand-wordmark .wordmark-star {
+  fill: rgba(234, 216, 170, 0.86);
+}
+
+.brand-wordmark .wordmark-dot {
+  fill: rgba(185, 155, 95, 0.8);
+}
+
+.brand-wordmark .wordmark-mystic,
+.brand-wordmark .wordmark-coin {
+  fill: var(--gold-bright);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
+  letter-spacing: 1.2px;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+
+.brand-wordmark .wordmark-mystic {
+  font-style: normal;
+  font-weight: 700;
+}
+
+.brand-wordmark .wordmark-coin {
+  fill: var(--gold);
+  font-style: italic;
+  letter-spacing: 1.7px;
+}
+
+.brand-mark {
+  border-radius: 5px;
+  transform: rotate(45deg);
+}
+
+.brand-mark::first-letter {
+  display: inline-block;
+  transform: rotate(-45deg);
+}
+
+.brand-mark {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(234, 216, 170, 0.62);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(185, 155, 95, 0.18), rgba(12, 10, 8, 0.5) 68%);
+  box-shadow:
+    0 0 0 3px rgba(185, 155, 95, 0.08),
+    0 0 20px rgba(185, 155, 95, 0.16),
+    inset 0 0 12px rgba(0, 0, 0, 0.42);
+  transform: none;
+}
+
+.brand-mark::before,
+.brand-mark::after {
+  position: absolute;
+  content: "";
+  pointer-events: none;
+}
+
+.brand-mark::before {
+  inset: 4px;
+  border: 1px dashed rgba(234, 216, 170, 0.46);
+  border-radius: 50%;
+  animation: sigil-drift 22s linear infinite reverse;
+}
+
+.brand-mark::after {
+  inset: 8px;
+  border: 1px solid rgba(185, 155, 95, 0.48);
+  transform: rotate(45deg);
+}
+
+.brand-mark svg {
+  position: relative;
+  z-index: 1;
+  width: 26px;
+  height: 26px;
+  overflow: visible;
+  transform: rotate(-45deg);
+}
+
+.brand-mark .logo-ring {
+  fill: none;
+  stroke: rgba(234, 216, 170, 0.62);
+  stroke-width: 1;
+}
+
+.brand-mark .logo-orbit {
+  fill: none;
+  stroke: rgba(185, 155, 95, 0.72);
+  stroke-width: 0.8;
+  stroke-dasharray: 1.5 3;
+}
+
+.brand-mark .logo-ray {
+  fill: rgba(234, 216, 170, 0.72);
+}
+
+.brand-mark .logo-core {
+  fill: rgba(185, 155, 95, 0.72);
+  stroke: rgba(234, 216, 170, 0.86);
+  stroke-width: 0.9;
+}
+
+.brand-mark .logo-star {
+  fill: rgba(234, 216, 170, 0.94);
+}
+
+.hero {
+  padding-top: clamp(74px, 13vw, 136px);
+}
+
+.eyebrow {
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+}
+
+.hero h1 {
+  max-width: 760px;
+  font-size: clamp(3.1rem, 10vw, 7.4rem);
+  letter-spacing: -0.075em;
+  line-height: 0.88;
+  text-shadow: 0 2px 22px rgba(0, 0, 0, 0.36);
+}
+
+.hero h1 em {
+  color: var(--gold-bright);
+  text-decoration: underline;
+  text-decoration-color: rgba(185, 155, 95, 0.45);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.14em;
+}
+
+.hero-copy {
+  max-width: 430px;
+  color: #9d927f;
+  font-size: 0.94rem;
+}
+
+.question-form {
+  position: relative;
+  padding: 26px 24px 30px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background:
+    linear-gradient(135deg, rgba(234, 216, 170, 0.025) 25%, transparent 25%) 0 0 / 8px 8px,
+    linear-gradient(315deg, rgba(234, 216, 170, 0.018) 25%, transparent 25%) 0 0 / 8px 8px,
+    rgba(26, 20, 14, 0.68);
+  box-shadow:
+    0 20px 70px rgba(0, 0, 0, 0.26),
+    inset 0 0 0 1px rgba(234, 216, 170, 0.035),
+    inset 0 0 34px rgba(0, 0, 0, 0.16);
+}
+
+.question-form::before,
+.question-form::after {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: var(--gold-muted);
+  content: "";
+}
+
+.question-form::before {
+  top: -1px;
+  left: -1px;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.question-form::after {
+  right: -1px;
+  bottom: -1px;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.question-form::before {
+  box-shadow: 8px 8px 0 -7px var(--gold-muted);
+}
+
+.question-form::after {
+  box-shadow: -8px -8px 0 -7px var(--gold-muted);
+}
+
+.question-form label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--gold-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.question-form input {
+  border-radius: 2px;
+  border-color: rgba(185, 155, 95, 0.32);
+  background: rgba(9, 8, 6, 0.42);
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+}
+
+.coin-stage {
+  min-height: 340px;
+  margin: 18px 0 10px;
+}
+
+.coin-stage::before {
+  width: 242px;
+  height: 242px;
+  border-color: rgba(185, 155, 95, 0.58);
+}
+
+.coin-stage::after {
+  width: 292px;
+  height: 292px;
+  border-color: rgba(143, 47, 43, 0.34);
+}
+
+.sigil-ticks {
+  width: 322px;
+  height: 322px;
+  opacity: 0.23;
+}
+
+.coin-face {
+  border-width: 4px;
+  border-color: #705b35;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 25%, rgba(234, 216, 170, 0.23), transparent 18%),
+    radial-gradient(circle, #4a3a24, #18120d 72%);
+  box-shadow:
+    inset 0 0 0 1px rgba(234, 216, 170, 0.65),
+    inset 0 0 0 8px rgba(37, 26, 14, 0.32),
+    inset 0 0 26px rgba(0, 0, 0, 0.68),
+    0 15px 38px rgba(0, 0, 0, 0.52);
+  font-size: 0.88rem;
+  letter-spacing: 0.14em;
+}
+
+.coin-face::before {
+  inset: 13px;
+  border-color: rgba(234, 216, 170, 0.4);
+}
+
+.coin-face::after {
+  inset: 24px;
+  border-color: rgba(185, 155, 95, 0.22);
+}
+
+.coin-face--yes span,
+.coin-face--no span,
+.coin-face--again span {
+  border: 0;
+  background: transparent;
+  color: var(--gold-bright);
+  text-shadow: 0 1px 8px #000;
+}
+
+.primary-button {
+  border-radius: 2px;
+  border-color: var(--gold);
+  color: #1a130b;
+  background: #c9ab70;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+}
+
+.secondary-button {
+  border-radius: 2px;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+}
+
+.result-card {
+  border-radius: 3px;
+  background: linear-gradient(145deg, rgba(48, 36, 23, 0.94), rgba(22, 17, 12, 0.96));
+}
+
+.result-label {
+  font-size: clamp(2.3rem, 7vw, 4rem);
+  letter-spacing: 0.2em;
+}
+
+.site-footer {
+  color: #766b5b;
+  letter-spacing: 0.04em;
+}
+
+/* Keep the settled coin readable: the active face is selected by opacity,
+   rather than stacking several rotated labels on the same visible plane. */
+.coin-face--no,
+.coin-face--again,
+.coin.is-no,
+.coin.is-again {
+  transform: none;
+}
+
+.coin-face .coin-glyph {
+  position: absolute;
+  z-index: 0;
+  display: grid;
+  width: 112px;
+  height: 112px;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  color: rgba(234, 216, 170, 0.34);
+  background: transparent;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 5.5rem;
+  line-height: 1;
+  text-shadow: 0 0 18px rgba(185, 155, 95, 0.18);
+  transform: translateY(-1px);
+}
+
+.coin-face > span:not(.coin-glyph) {
+  position: relative;
+  z-index: 1;
+}
+
+.coin-face--yes .coin-glyph {
+  color: rgba(234, 216, 170, 0.36);
+}
+
+.coin-face--yes .coin-glyph--sun {
+  width: 126px;
+  height: 126px;
+  color: transparent;
+  transform: translate(0, -1px);
+}
+
+.coin-glyph--sun svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.coin-glyph--sun .sun-halo {
+  fill: none;
+  stroke: rgba(234, 216, 170, 0.3);
+  stroke-width: 1;
+  stroke-dasharray: 1.5 4;
+}
+
+.coin-glyph--sun .sun-rays {
+  fill: rgba(234, 216, 170, 0.48);
+  stroke: rgba(185, 155, 95, 0.78);
+  stroke-width: 0.7;
+}
+
+.coin-glyph--sun .sun-orbit {
+  fill: none;
+  stroke: rgba(234, 216, 170, 0.46);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+}
+
+.coin-glyph--sun .sun-body {
+  fill: rgba(185, 155, 95, 0.64);
+  stroke: rgba(234, 216, 170, 0.86);
+  stroke-width: 1.3;
+}
+
+.coin-glyph--sun .sun-inner {
+  fill: none;
+  stroke: rgba(234, 216, 170, 0.62);
+  stroke-width: 1;
+}
+
+.coin-glyph--sun .sun-mark {
+  fill: rgba(234, 216, 170, 0.88);
+}
+
+.coin-glyph--sun .sun-dot {
+  fill: rgba(234, 216, 170, 0.82);
+}
+
+.coin-face--no .coin-glyph {
+  color: rgba(143, 47, 43, 0.55);
+  font-size: 6.3rem;
+  transform: translate(-4px, -5px) rotate(-18deg);
+}
+
+.coin-face--no .coin-glyph--moon {
+  width: 124px;
+  height: 124px;
+  color: transparent;
+  transform: translate(-1px, -2px);
+}
+
+.coin-glyph--moon svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.coin-glyph--moon .moon-body {
+  fill: rgba(143, 47, 43, 0.62);
+  stroke: rgba(234, 216, 170, 0.72);
+  stroke-width: 1.4;
+}
+
+.coin-glyph--moon .moon-orbit {
+  fill: none;
+  stroke: rgba(234, 216, 170, 0.42);
+  stroke-width: 1.1;
+  stroke-dasharray: 2 5;
+}
+
+.coin-glyph--moon .moon-halo {
+  fill: none;
+  stroke: rgba(234, 216, 170, 0.26);
+  stroke-width: 0.9;
+  stroke-dasharray: 1.5 4;
+}
+
+.coin-glyph--moon .moon-ring {
+  fill: none;
+  stroke: rgba(234, 216, 170, 0.38);
+  stroke-width: 0.9;
+}
+
+.coin-glyph--moon .moon-arc {
+  fill: none;
+  stroke: rgba(234, 216, 170, 0.52);
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+
+.coin-glyph--moon .moon-mark {
+  fill: rgba(234, 216, 170, 0.78);
+  stroke: rgba(143, 47, 43, 0.82);
+  stroke-width: 1;
+}
+
+.coin-glyph--moon .moon-star {
+  fill: rgba(234, 216, 170, 0.82);
+}
+
+.coin-glyph--moon .moon-dot {
+  fill: rgba(234, 216, 170, 0.8);
+}
+
+.coin-glyph--moon .moon-crater {
+  fill: rgba(60, 18, 18, 0.24);
+  stroke: rgba(234, 216, 170, 0.42);
+  stroke-width: 0.8;
+}
+
+.coin-glyph--moon .moon-filament {
+  fill: none;
+  stroke: rgba(234, 216, 170, 0.5);
+  stroke-width: 0.8;
+  stroke-linecap: round;
+}
+
+.coin-face--again .coin-glyph {
+  width: 102px;
+  height: 102px;
+  border: 1px solid rgba(70, 109, 131, 0.58);
+  border-radius: 50%;
+  color: rgba(205, 187, 138, 0.46);
+  font-size: 3rem;
+  box-shadow: inset 0 0 0 9px rgba(70, 109, 131, 0.1), 0 0 20px rgba(70, 109, 131, 0.16);
+}
+
+.coin-face--again .coin-glyph--full-moon {
+  width: 126px;
+  height: 126px;
+  border: 0;
+  color: transparent;
+  box-shadow: none;
+  transform: translate(0, -1px);
+}
+
+.coin-glyph--full-moon svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.coin-glyph--full-moon .full-moon-halo {
+  fill: none;
+  stroke: rgba(70, 109, 131, 0.65);
+  stroke-width: 1;
+  stroke-dasharray: 1.5 4;
+}
+
+.coin-glyph--full-moon .full-moon-orbit {
+  fill: none;
+  stroke: rgba(205, 187, 138, 0.5);
+  stroke-width: 1;
+  stroke-dasharray: 2 5;
+}
+
+.coin-glyph--full-moon .full-moon-body {
+  fill: rgba(70, 109, 131, 0.52);
+  stroke: rgba(205, 187, 138, 0.84);
+  stroke-width: 1.3;
+}
+
+.coin-glyph--full-moon .full-moon-ring {
+  fill: none;
+  stroke: rgba(205, 187, 138, 0.48);
+  stroke-width: 1;
+}
+
+.coin-glyph--full-moon .full-moon-crater {
+  fill: rgba(12, 10, 8, 0.2);
+  stroke: rgba(205, 187, 138, 0.36);
+  stroke-width: 0.8;
+}
+
+.coin-glyph--full-moon .full-moon-mark {
+  fill: rgba(205, 187, 138, 0.8);
+  stroke: rgba(70, 109, 131, 0.8);
+  stroke-width: 0.8;
+}
+
+.coin-glyph--full-moon .full-moon-star {
+  fill: rgba(205, 187, 138, 0.88);
+}
+
+.coin-glyph--full-moon .full-moon-dot {
+  fill: rgba(205, 187, 138, 0.78);
+}
+
+.coin-particle {
+  position: absolute;
+  z-index: 2;
+  width: var(--particle-size, 4px);
+  height: var(--particle-size, 4px);
+  border-radius: 50%;
+  pointer-events: none;
+  background: var(--particle-color, var(--gold-bright));
+  box-shadow: 0 0 9px var(--particle-color, var(--gold));
+  transform: translate(-50%, -50%);
+  animation: particle-rise var(--particle-duration, 1100ms) var(--ease) forwards;
+}
+
+.coin-particle::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  content: "";
+  background: var(--particle-color, var(--gold-bright));
+  transform: translate(-50%, -50%);
+}
+
+@keyframes particle-rise {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+  }
+  18% { opacity: 0.9; }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--particle-x)), calc(-50% + var(--particle-y))) scale(0.05) rotate(180deg);
+  }
+}
+
+.hero {
+  width: min(100% - 40px, 980px);
+  padding-bottom: 34px;
+  text-align: left;
+}
+
+.hero-index {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 38px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid rgba(185, 155, 95, 0.2);
+  color: #766b5b;
+  font-size: 0.61rem;
+  letter-spacing: 0.2em;
+}
+
+.hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 190px;
+  align-items: end;
+  gap: clamp(30px, 9vw, 110px);
+}
+
+.hero-main {
+  max-width: 690px;
+}
+
+.hero .eyebrow {
+  justify-content: flex-start;
+}
+
+.hero .eyebrow::before {
+  display: none;
+}
+
+.hero h1 {
+  margin: 20px 0 25px;
+  font-size: clamp(3.4rem, 8.5vw, 7.5rem);
+}
+
+.hero-copy {
+  margin: 0;
+  max-width: 410px;
+  padding-left: 18px;
+  border-left: 1px solid var(--gold-muted);
+  text-align: left;
+}
+
+.hero-note {
+  position: relative;
+  margin-bottom: 5px;
+  padding: 18px 0 18px 20px;
+  border-left: 1px solid rgba(185, 155, 95, 0.52);
+  color: var(--gold-soft);
+}
+
+.hero-note::before {
+  position: absolute;
+  top: 0;
+  left: -1px;
+  width: 32px;
+  height: 1px;
+  content: "";
+  background: var(--gold-bright);
+}
+
+.hero-note-mark {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+}
+
+.hero-note p {
+  margin: 0 0 20px;
+  color: var(--gold-bright);
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  line-height: 1.35;
+}
+
+.hero-note small {
+  color: #766b5b;
+  font-size: 0.57rem;
+  letter-spacing: 0.13em;
+  line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+  .hero {
+    width: min(100% - 28px, 980px);
+    padding-top: 60px;
+  }
+
+  .hero-index {
+    gap: 16px;
+    font-size: 0.53rem;
+  }
+
+  .hero-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .hero-note {
+    width: min(100%, 260px);
+    margin-left: auto;
+  }
+}
+    </style>
+  </head>
+  <body>
+    <div class="mystic-app">
+      <header class="site-header">
+        <a class="brand" href="" aria-label="Refresh Mystic Coin" title="Refresh page" onclick="event.preventDefault(); window.location.reload();">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" role="img" aria-label="Mystic Coin seal">
+              <circle class="logo-ring" cx="20" cy="20" r="14" />
+              <ellipse class="logo-orbit" cx="20" cy="20" rx="16" ry="7" transform="rotate(-32 20 20)" />
+              <ellipse class="logo-orbit" cx="20" cy="20" rx="16" ry="7" transform="rotate(32 20 20)" />
+              <path class="logo-ray" d="M20 2l1.2 6.3L20 11l-1.2-2.7L20 2zm0 27l1.2 2.7L20 38l-1.2-6.3L20 29zM2 20l6.3-1.2L11 20l-2.7 1.2L2 20zm27 0l2.7-1.2L38 20l-6.3 1.2L29 20z" />
+              <circle class="logo-core" cx="20" cy="20" r="6" />
+              <path class="logo-star" d="M20 15l1.3 3.7L25 20l-3.7 1.3L20 25l-1.3-3.7L15 20l3.7-1.3L20 15z" />
+            </svg>
+          </span>
+          <svg class="brand-wordmark" viewBox="0 0 176 42" role="img" aria-label="Mystic Coin">
+            <path class="wordmark-rule" d="M2 5h46M128 5h46M2 37h46M128 37h46" />
+            <path class="wordmark-fine" d="M54 5h68M54 37h68" />
+            <path class="wordmark-diamond" d="M52 5l3 3-3 3-3-3 3-3zM124 5l3 3-3 3-3-3 3-3z" />
+            <path class="wordmark-ray" d="M52 18l2 2-2 2-2-2 2-2zM126 18l2 2-2 2-2-2 2-2z" />
+            <ellipse class="wordmark-orbit" cx="88" cy="21" rx="34" ry="12" transform="rotate(-12 88 21)" />
+            <path class="wordmark-arc" d="M57 12c8-7 17-8 25-4M105 34c8 4 16 3 23-3" />
+            <path class="wordmark-star" d="M61 12l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1 1-2.6zM115 26l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1 1-2.6z" />
+            <circle class="wordmark-dot" cx="79" cy="8" r="1" />
+            <circle class="wordmark-dot" cx="101" cy="34" r="1" />
+            <circle class="wordmark-dot" cx="134" cy="21" r="1.1" />
+            <text class="wordmark-mystic" x="57" y="21">MYSTIC</text>
+            <text class="wordmark-coin" x="120" y="21">COIN</text>
+            <path class="wordmark-fine" d="M30 29h54M98 29h44" />
+          </svg>
+        </a>
+
+        <div class="header-actions">
+          <a class="back-button" href="https://psreader.site.je" aria-label="Back to PS Reader" title="Back to PS Reader">
+            <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="20" cy="20" r="16" stroke-width="1" opacity="0.42" />
+              <circle cx="20" cy="20" r="12.5" stroke-width="0.8" stroke-dasharray="1.5 3" opacity="0.7" />
+              <ellipse cx="20" cy="20" rx="15" ry="6" stroke-width="0.7" stroke-dasharray="1.5 2.5" transform="rotate(-28 20 20)" opacity="0.65" />
+              <path d="M20 3.5 21.5 8 20 10.5 18.5 8 20 3.5ZM20 29.5 21.5 32 20 36.5 18.5 32 20 29.5ZM3.5 20 8 18.5 10.5 20 8 21.5 3.5 20ZM29.5 20 32 18.5 36.5 20 32 21.5 29.5 20Z" fill="currentColor" stroke="none" opacity="0.62" />
+              <path d="M21 13.5 14.5 20l6.5 6.5" stroke-width="1.45" />
+              <path d="M14.8 20H27" stroke-width="1.2" />
+              <circle cx="20" cy="20" r="2.2" fill="currentColor" stroke="none" opacity="0.88" />
+              <path d="M11 10.5h2M27 29.5h2M29.5 11h-2M10.5 29h2" stroke-width="0.9" opacity="0.8" />
+            </svg>
+          </a>
+          <button
+            class="icon-button"
+            id="historyButton"
+            type="button"
+            data-action="history"
+            aria-label="Open reading history"
+            aria-controls="historyDrawer"
+            aria-expanded="false"
+            title="Reading history"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 12a9 9 0 1 0 3-6.7" />
+              <path d="M3 4v5h5" />
+              <path d="M12 7v5l3 2" />
+            </svg>
+          </button>
+          <button class="icon-button ambient-button" id="ambientButton" type="button" aria-label="Turn ambient music on" aria-pressed="false" title="Ambient music off">
+            <svg class="ambient-icon-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 9v6M8 6v12M12 3v18M16 6v12M20 9v6" />
+            </svg>
+            <svg class="ambient-icon-off" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 9v6M8 6v12M12 3v18M16 6v12M20 9v6" opacity="0.42" />
+              <path d="M4 4l16 16" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section class="reading-panel" aria-labelledby="reading-heading">
+          <h2 id="reading-heading" class="sr-only">Mystic Coin reading</h2>
+
+          <form class="question-form" id="questionForm" novalidate>
+            <label for="question">Inscription for the coin</label>
+            <input
+              id="question"
+              name="question"
+              type="text"
+              maxlength="160"
+              autocomplete="off"
+              placeholder="Should I open the door?"
+              aria-describedby="inputError readingStatus"
+              required
+            />
+            <p class="input-error" id="inputError" aria-live="polite"></p>
+
+            <div class="coin-stage" aria-label="Mystic Coin reading stage">
+              <span class="sigil-ticks" aria-hidden="true"></span>
+              <div class="coin-wrap">
+                <div class="coin is-yes" id="coin" role="button" tabindex="0" aria-label="Mystic Coin ready to flip. Click or swipe to flip.">
+                  <div class="coin-face coin-face--yes" aria-hidden="true">
+                    <span class="coin-glyph coin-glyph--sun" aria-hidden="true">
+                      <svg viewBox="0 0 120 120" role="img" aria-label="Intricate sun sigil">
+                        <circle class="sun-halo" cx="60" cy="60" r="52" />
+                        <path class="sun-rays" d="M60 4l3.8 13.8L60 24l-3.8-6.2L60 4zm0 92l3.8 6.2L60 116l-3.8-13.8L60 96zM4 60l13.8-3.8L24 60l-6.2 3.8L4 60zm92 0l6.2-3.8L116 60l-13.8 3.8L96 60zM20.4 20.4l12.8 6.1-5.2 5.2-6.1-12.8-1.5 1.5zm79.2 79.2l-12.8-6.1 5.2-5.2 6.1 12.8 1.5-1.5zM99.6 20.4l-6.1 12.8-5.2-5.2 12.8-6.1-1.5-1.5zM20.4 99.6l1.5-1.5 6.1-12.8 5.2 5.2-12.8 6.1-1.5 1.5z" />
+                        <ellipse class="sun-orbit" cx="60" cy="60" rx="43" ry="19" transform="rotate(-28 60 60)" />
+                        <ellipse class="sun-orbit" cx="60" cy="60" rx="43" ry="19" transform="rotate(32 60 60)" />
+                        <circle class="sun-body" cx="60" cy="60" r="23" />
+                        <circle class="sun-inner" cx="60" cy="60" r="17" />
+                        <path class="sun-mark" d="M60 45l2.7 10.3L73 58l-10.3 2.7L60 71l-2.7-10.3L47 58l10.3-2.7L60 45z" />
+                        <circle class="sun-dot" cx="60" cy="38" r="2" />
+                        <circle class="sun-dot" cx="60" cy="82" r="2" />
+                        <circle class="sun-dot" cx="38" cy="60" r="2" />
+                        <circle class="sun-dot" cx="82" cy="60" r="2" />
+                      </svg>
+                    </span>
+                    <span>Yes</span>
+                  </div>
+                  <div class="coin-face coin-face--no" aria-hidden="true">
+                    <span class="coin-glyph coin-glyph--moon">
+                      <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <circle class="moon-halo" cx="70" cy="70" r="57" />
+                        <ellipse class="moon-orbit" cx="70" cy="70" rx="55" ry="31" transform="rotate(-28 70 70)" />
+                        <ellipse class="moon-orbit" cx="70" cy="70" rx="51" ry="23" transform="rotate(36 70 70)" />
+                        <path class="moon-body" d="M88 18c-28 8-44 33-39 58 5 26 31 43 58 37-13 14-34 20-53 13-31-11-47-45-36-76 10-29 41-45 70-32Z" />
+                        <path class="moon-ring" d="M48 31c-17 14-24 36-18 56 5 17 18 29 34 35" />
+                        <path class="moon-arc" d="M31 91c17 20 42 27 65 18" />
+                        <circle class="moon-crater" cx="61" cy="54" r="4.5" />
+                        <circle class="moon-crater" cx="72" cy="78" r="5" />
+                        <circle class="moon-crater" cx="48" cy="76" r="2.8" />
+                        <path class="moon-filament" d="M53 39c8 8 15 11 24 11M48 91c9-5 17-6 27-2" />
+                        <path class="moon-mark" d="M72 35l3 8 8 3-8 3-3 8-3-8-8-3 8-3 3-8Z" />
+                        <path class="moon-star" d="M104 45l2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5Z" />
+                        <path class="moon-star" d="M41 50l2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5Z" />
+                        <circle class="moon-dot" cx="94" cy="92" r="2.5" />
+                        <circle class="moon-dot" cx="47" cy="83" r="2" />
+                      </svg>
+                    </span>
+                    <span>No</span>
+                  </div>
+                  <div class="coin-face coin-face--again" aria-hidden="true">
+                    <span class="coin-glyph coin-glyph--full-moon" aria-hidden="true">
+                      <svg viewBox="0 0 120 120" role="img" aria-label="Intricate full moon sigil">
+                        <circle class="full-moon-halo" cx="60" cy="60" r="53" />
+                        <ellipse class="full-moon-orbit" cx="60" cy="60" rx="49" ry="22" transform="rotate(-26 60 60)" />
+                        <ellipse class="full-moon-orbit" cx="60" cy="60" rx="49" ry="22" transform="rotate(34 60 60)" />
+                        <circle class="full-moon-body" cx="60" cy="60" r="28" />
+                        <circle class="full-moon-ring" cx="60" cy="60" r="23" />
+                        <circle class="full-moon-crater" cx="48" cy="48" r="5" />
+                        <circle class="full-moon-crater" cx="70" cy="46" r="3.5" />
+                        <circle class="full-moon-crater" cx="76" cy="65" r="6" />
+                        <circle class="full-moon-crater" cx="51" cy="72" r="4" />
+                        <circle class="full-moon-crater" cx="63" cy="80" r="2.5" />
+                        <path class="full-moon-mark" d="M60 39l2.3 8.7L71 50l-8.7 2.3L60 61l-2.3-8.7L49 50l8.7-2.3L60 39z" />
+                        <path class="full-moon-star" d="M27 38l2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5z" />
+                        <path class="full-moon-star" d="M93 79l1.7 4.3L99 85l-4.3 1.7L93 91l-1.7-4.3L87 85l4.3-1.7L93 79z" />
+                        <circle class="full-moon-dot" cx="36" cy="79" r="2" />
+                        <circle class="full-moon-dot" cx="84" cy="34" r="2" />
+                        <circle class="full-moon-dot" cx="104" cy="59" r="1.6" />
+                        <circle class="full-moon-dot" cx="17" cy="62" r="1.6" />
+                      </svg>
+                    </span>
+                    <span>Ask Again</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="primary-button" id="flipButton" data-action="flip" type="submit">
+                Cast the Sign
+              </button>
+            </div>
+            <p id="readingStatus" class="sr-only" role="status" aria-live="polite"></p>
+          </form>
+
+          <section class="result-card is-hidden" id="result" data-result="yes" aria-hidden="true" aria-labelledby="resultLabel resultTitle">
+            <p class="result-question-label">Your question</p>
+            <p class="result-question" id="resultQuestion"></p>
+            <p class="result-label" id="resultLabel">YES</p>
+            <h2 class="result-title" id="resultTitle">The path is open.</h2>
+            <p class="result-message" id="resultMessage"></p>
+            <div class="result-actions">
+              <button class="secondary-button" id="copyResult" data-action="copy-result" type="button">Copy Result</button>
+              <button class="primary-button" id="askAgain" data-action="ask-again" type="button">Ask Again</button>
+            </div>
+          </section>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>For reflection and entertainment only. The answer is yours to interpret.</p>
+      </footer>
+    </div>
+
+    <div class="history-backdrop" id="historyBackdrop" aria-hidden="true"></div>
+    <aside class="history-drawer" id="historyDrawer" aria-hidden="true" aria-labelledby="historyTitle">
+      <div class="history-header">
+        <button class="icon-button" id="historyClose" data-action="close-history" type="button" aria-label="Close reading history">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+      </div>
+      <h2 class="history-title" id="historyTitle">Reading History</h2>
+      <ul class="history-list" id="historyList"></ul>
+      <button class="secondary-button" id="clearHistory" data-action="clear-history" type="button">Clear History</button>
+    </aside>
+
+    <div id="cursor-trail" aria-hidden="true"></div>
+
+    <script>
+/*
+ * Mystic Coin
+ * Interaction controller: readings, outcomes, clipboard, and history drawer.
+ */
+
+(() => {
+  "use strict";
+
+  const CONFIG = {
+    animationDuration: 1800,
+    maxQuestionLength: 160,
+    maxHistoryItems: 5,
+    storageKey: "mystic-coin-history",
+  };
+
+  const outcomes = [
+    {
+      id: "yes",
+      label: "YES",
+      weight: 45,
+      title: "The path is open.",
+      messages: [
+        "You already have enough information to begin. Trust your instinct and take the first step.",
+        "The current flows in your favor. Begin with what you know and allow the next step to reveal itself.",
+        "The sign is favorable. Move forward, but remember that courage is not the absence of uncertainty.",
+      ],
+    },
+    {
+      id: "no",
+      label: "NO",
+      weight: 45,
+      title: "The signs suggest caution.",
+      messages: [
+        "This may not be the right moment. Pause, prepare, or reconsider your approach before moving forward.",
+        "The gate remains closed. This does not mean never; it may simply mean not yet.",
+        "For now, protect your energy and reconsider the direction before committing to the next step.",
+      ],
+    },
+    {
+      id: "again",
+      label: "ASK AGAIN",
+      weight: 10,
+      title: "The answer remains hidden.",
+      messages: [
+        "The situation is still changing. Give it time and return when you have more clarity.",
+        "The coin refuses to choose. Ask again when the question becomes clearer.",
+        "The signs are divided. Gather more information before making your decision.",
+      ],
+    },
+  ];
+
+  const elements = {
+    form: document.querySelector(".question-form"),
+    input: document.querySelector("#question"),
+    inputError: document.querySelector("#inputError, .input-error"),
+    flipButton: document.querySelector("#flipButton, [data-action='flip']"),
+    coinStage: document.querySelector(".coin-stage"),
+    coin: document.querySelector("#coin, .coin"),
+    resultCard: document.querySelector("#result, .result-card"),
+    resultQuestion: document.querySelector("#resultQuestion, .result-question"),
+    resultLabel: document.querySelector("#resultLabel, .result-label"),
+    resultTitle: document.querySelector("#resultTitle, .result-title"),
+    resultMessage: document.querySelector("#resultMessage, .result-message"),
+    copyButton: document.querySelector("#copyResult, [data-action='copy-result']"),
+    againButton: document.querySelector("#askAgain, [data-action='ask-again']"),
+    status: document.querySelector("#readingStatus, [role='status']"),
+    historyButton: document.querySelector("#historyButton, [data-action='history']"),
+    historyDrawer: document.querySelector("#historyDrawer, .history-drawer"),
+    historyBackdrop: document.querySelector("#historyBackdrop, .history-backdrop"),
+    historyClose: document.querySelector("#historyClose, [data-action='close-history']"),
+    historyList: document.querySelector("#historyList, .history-list"),
+    clearHistoryButton: document.querySelector("#clearHistory, [data-action='clear-history']"),
+    ambientButton: document.querySelector("#ambientButton"),
+    cursorTrail: document.querySelector("#cursor-trail"),
+  };
+
+  let isFlipping = false;
+  let currentReading = null;
+  let history = loadHistory();
+  let hoverAudioContext = null;
+  let lastHoverSoundAt = 0;
+  let ambientAudioContext = null;
+  let ambientNodes = null;
+  let ambientEnabled = false;
+  let lastTrailAt = 0;
+
+  function chooseOutcome() {
+    const pool = outcomes;
+    const poolWeight = pool.reduce((sum, outcome) => sum + outcome.weight, 0);
+    let cursor = Math.random() * poolWeight;
+
+    for (const outcome of pool) {
+      cursor -= outcome.weight;
+      if (cursor < 0) {
+        return outcome;
+      }
+    }
+
+    return pool[pool.length - 1];
+  }
+
+  function chooseMessage(outcome) {
+    const index = Math.floor(Math.random() * outcome.messages.length);
+    return outcome.messages[index];
+  }
+
+  function createReading(question) {
+    const outcome = chooseOutcome();
+    return {
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      question,
+      resultId: outcome.id,
+      result: outcome.label,
+      title: outcome.title,
+      message: chooseMessage(outcome),
+      timestamp: new Date().toISOString(),
+    };
+  }
+
+  function loadHistory() {
+    try {
+      const saved = window.localStorage.getItem(CONFIG.storageKey);
+      if (!saved) return [];
+      const parsed = JSON.parse(saved);
+      return Array.isArray(parsed) ? parsed.slice(0, CONFIG.maxHistoryItems) : [];
+    } catch (error) {
+      console.warn("Mystic Coin: unable to load reading history.", error);
+      return [];
+    }
+  }
+
+  function saveHistory() {
+    try {
+      window.localStorage.setItem(CONFIG.storageKey, JSON.stringify(history));
+    } catch (error) {
+      console.warn("Mystic Coin: unable to save reading history.", error);
+    }
+  }
+
+  function addToHistory(reading) {
+    history = [reading, ...history].slice(0, CONFIG.maxHistoryItems);
+    saveHistory();
+    renderHistory();
+  }
+
+  function formatDate(timestamp) {
+    const date = new Date(timestamp);
+    if (Number.isNaN(date.getTime())) return "Unknown time";
+
+    return new Intl.DateTimeFormat(undefined, {
+      dateStyle: "medium",
+      timeStyle: "short",
+    }).format(date);
+  }
+
+  function renderHistory() {
+    if (!elements.historyList) return;
+
+    elements.historyList.replaceChildren();
+
+    if (!history.length) {
+      const empty = document.createElement("li");
+      empty.className = "history-empty";
+      empty.textContent = "No readings yet. The coin is waiting for your first question.";
+      elements.historyList.append(empty);
+      if (elements.clearHistoryButton) elements.clearHistoryButton.disabled = true;
+      return;
+    }
+
+    if (elements.clearHistoryButton) elements.clearHistoryButton.disabled = false;
+
+    history.forEach((reading) => {
+      const item = document.createElement("li");
+      item.className = "history-item";
+      item.dataset.result = reading.resultId;
+
+      const question = document.createElement("p");
+      question.className = "history-item-question";
+      question.textContent = reading.question;
+
+      const meta = document.createElement("div");
+      meta.className = "history-item-meta";
+      meta.textContent = `${reading.result} · ${formatDate(reading.timestamp)}`;
+
+      item.append(question, meta);
+      elements.historyList.append(item);
+    });
+  }
+
+  function setStatus(message) {
+    if (elements.status) elements.status.textContent = message;
+  }
+
+  function showInputError(message) {
+    if (elements.inputError) elements.inputError.textContent = message;
+    if (elements.input) {
+      elements.input.setAttribute("aria-invalid", "true");
+      elements.input.focus();
+    }
+  }
+
+  function clearInputError() {
+    if (elements.inputError) elements.inputError.textContent = "";
+    if (elements.input) elements.input.removeAttribute("aria-invalid");
+  }
+
+  function setCoinResult(resultId) {
+    if (!elements.coin) return;
+    elements.coin.classList.remove("is-yes", "is-no", "is-again");
+    elements.coin.classList.add(`is-${resultId}`);
+    elements.coin.setAttribute("aria-label", `Mystic Coin result: ${resultId}`);
+  }
+
+  function showResult(reading) {
+    currentReading = reading;
+    const result = outcomes.find((outcome) => outcome.id === reading.resultId);
+
+    setCoinResult(reading.resultId);
+
+    if (elements.resultCard) {
+      elements.resultCard.hidden = false;
+      elements.resultCard.classList.remove("is-hidden");
+      elements.resultCard.dataset.result = reading.resultId;
+      elements.resultCard.setAttribute("aria-hidden", "false");
+    }
+    if (elements.resultQuestion) elements.resultQuestion.textContent = reading.question;
+    if (elements.resultLabel) elements.resultLabel.textContent = reading.result;
+    if (elements.resultTitle) elements.resultTitle.textContent = result?.title ?? reading.title;
+    if (elements.resultMessage) elements.resultMessage.textContent = reading.message;
+
+    setStatus(`${reading.result}. ${reading.title} ${reading.message}`);
+    playActionTone("reveal");
+    elements.resultCard?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  function hideResult() {
+    if (!elements.resultCard) return;
+    elements.resultCard.hidden = true;
+    elements.resultCard.classList.add("is-hidden");
+    elements.resultCard.setAttribute("aria-hidden", "true");
+  }
+
+  function releaseParticles() {
+    if (!elements.coinStage) return;
+    const colors = ["#ead8aa", "#b99b5f", "#8f2f2b", "#cdbb8a"];
+    const count = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 18;
+
+    for (let index = 0; index < count; index += 1) {
+      const particle = document.createElement("span");
+      const angle = (Math.PI * 2 * index) / count + (Math.random() - 0.5) * 0.45;
+      const distance = 105 + Math.random() * 105;
+      particle.className = "coin-particle";
+      particle.style.left = `calc(50% + ${(Math.random() - 0.5) * 18}px)`;
+      particle.style.top = `calc(50% + ${(Math.random() - 0.5) * 18}px)`;
+      particle.style.setProperty("--particle-x", `${Math.cos(angle) * distance}px`);
+      particle.style.setProperty("--particle-y", `${Math.sin(angle) * distance}px`);
+      particle.style.setProperty("--particle-size", `${2 + Math.random() * 4}px`);
+      particle.style.setProperty("--particle-duration", `${850 + Math.random() * 650}ms`);
+      particle.style.setProperty("--particle-color", colors[index % colors.length]);
+      particle.addEventListener("animationend", () => particle.remove(), { once: true });
+      elements.coinStage.append(particle);
+    }
+  }
+
+  function playFlipChime() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+
+    try {
+      const context = new AudioContext();
+      const now = context.currentTime;
+      const master = context.createGain();
+      master.gain.setValueAtTime(0.0001, now);
+      master.gain.exponentialRampToValueAtTime(0.055, now + 0.025);
+      master.gain.exponentialRampToValueAtTime(0.0001, now + 1.15);
+      master.connect(context.destination);
+
+      [261.63, 392, 523.25].forEach((frequency, index) => {
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+        oscillator.type = index === 1 ? "triangle" : "sine";
+        oscillator.frequency.setValueAtTime(frequency, now + index * 0.08);
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(0.32, now + 0.04 + index * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.92 + index * 0.08);
+        oscillator.connect(gain);
+        gain.connect(master);
+        oscillator.start(now + index * 0.08);
+        oscillator.stop(now + 1.15);
+      });
+
+      window.setTimeout(() => context.close(), 1400);
+    } catch (error) {
+      // Sound is decorative; a blocked or unavailable audio context should not affect the reading.
+      console.debug("Mystic Coin: audio effect unavailable.", error);
+    }
+  }
+
+  function playHoverTone(kind = "interactive") {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const nowMs = performance.now();
+    if (nowMs - lastHoverSoundAt < 110) return;
+    lastHoverSoundAt = nowMs;
+
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+
+    try {
+      hoverAudioContext ??= new AudioContext();
+      const context = hoverAudioContext;
+      const begin = context.currentTime;
+      const frequency = kind === "input" ? 523.25 : kind === "text" ? 392 : 659.25;
+      const oscillator = context.createOscillator();
+      const gain = context.createGain();
+      oscillator.type = kind === "text" ? "sine" : "triangle";
+      oscillator.frequency.setValueAtTime(frequency, begin);
+      oscillator.frequency.exponentialRampToValueAtTime(frequency * 1.025, begin + 0.06);
+      gain.gain.setValueAtTime(0.0001, begin);
+      gain.gain.exponentialRampToValueAtTime(0.028, begin + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.0001, begin + 0.095);
+      oscillator.connect(gain);
+      gain.connect(context.destination);
+      oscillator.start(begin);
+      oscillator.stop(begin + 0.11);
+      if (context.state === "suspended") context.resume().catch(() => {});
+    } catch (error) {
+      console.debug("Mystic Coin: hover audio unavailable.", error);
+    }
+  }
+
+  function playActionTone(kind = "focus") {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+
+    const tones = {
+      focus: { frequency: 523.25, type: "sine", volume: 0.035, duration: 0.16 },
+      open: { frequency: 392, type: "triangle", volume: 0.045, duration: 0.22 },
+      close: { frequency: 293.66, type: "triangle", volume: 0.035, duration: 0.18 },
+      reveal: { frequency: 659.25, type: "sine", volume: 0.05, duration: 0.32 },
+      success: { frequency: 783.99, type: "sine", volume: 0.045, duration: 0.24 },
+    };
+    const tone = tones[kind] ?? tones.focus;
+
+    try {
+      hoverAudioContext ??= new AudioContext();
+      const context = hoverAudioContext;
+      const begin = context.currentTime;
+      const oscillator = context.createOscillator();
+      const gain = context.createGain();
+      oscillator.type = tone.type;
+      oscillator.frequency.setValueAtTime(tone.frequency, begin);
+      oscillator.frequency.exponentialRampToValueAtTime(tone.frequency * 1.04, begin + tone.duration * 0.55);
+      gain.gain.setValueAtTime(0.0001, begin);
+      gain.gain.exponentialRampToValueAtTime(tone.volume, begin + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0001, begin + tone.duration);
+      oscillator.connect(gain);
+      gain.connect(context.destination);
+      oscillator.start(begin);
+      oscillator.stop(begin + tone.duration + 0.02);
+      if (context.state === "suspended") context.resume().catch(() => {});
+    } catch (error) {
+      console.debug("Mystic Coin: action audio unavailable.", error);
+    }
+  }
+
+  function updateAmbientButton() {
+    if (!elements.ambientButton) return;
+    elements.ambientButton.classList.toggle("is-active", ambientEnabled);
+    elements.ambientButton.setAttribute("aria-pressed", String(ambientEnabled));
+    elements.ambientButton.setAttribute("aria-label", ambientEnabled ? "Mute ambient music" : "Turn ambient music on");
+    elements.ambientButton.title = ambientEnabled ? "Mute ambient music" : "Ambient music off";
+  }
+
+  function startAmbientMusic() {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext || ambientEnabled) return;
+
+    try {
+      ambientAudioContext ??= new AudioContext();
+      const context = ambientAudioContext;
+      const now = context.currentTime;
+      const master = context.createGain();
+      master.gain.setValueAtTime(0.0001, now);
+      master.gain.exponentialRampToValueAtTime(0.045, now + 2.4);
+      master.connect(context.destination);
+
+      const oscillators = [
+        { frequency: 110, type: "sine", volume: 0.34 },
+        { frequency: 164.81, type: "sine", volume: 0.18 },
+        { frequency: 220, type: "triangle", volume: 0.08 },
+      ].map(({ frequency, type, volume }) => {
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+        oscillator.type = type;
+        oscillator.frequency.setValueAtTime(frequency, now);
+        gain.gain.value = volume;
+        oscillator.connect(gain);
+        gain.connect(master);
+        oscillator.start(now);
+        return oscillator;
+      });
+
+      ambientNodes = { context, master, oscillators };
+      ambientEnabled = true;
+      updateAmbientButton();
+      context.resume().catch(() => {});
+      playActionTone("open");
+    } catch (error) {
+      console.debug("Mystic Coin: ambient audio unavailable.", error);
+    }
+  }
+
+  function stopAmbientMusic() {
+    if (!ambientNodes) return;
+    const { context, master, oscillators } = ambientNodes;
+    const now = context.currentTime;
+    master.gain.cancelScheduledValues(now);
+    master.gain.setValueAtTime(Math.max(master.gain.value, 0.0001), now);
+    master.gain.exponentialRampToValueAtTime(0.0001, now + 0.45);
+    oscillators.forEach((oscillator) => oscillator.stop(now + 0.5));
+    ambientNodes = null;
+    ambientEnabled = false;
+    updateAmbientButton();
+    playActionTone("close");
+  }
+
+  function toggleAmbientMusic() {
+    if (ambientEnabled) stopAmbientMusic();
+    else startAmbientMusic();
+  }
+
+  function startReading(event) {
+    event?.preventDefault();
+    if (isFlipping) return;
+
+    const question = elements.input?.value.trim() ?? "";
+    if (!question) {
+      showInputError("Ask a question before flipping the coin.");
+      return;
+    }
+    if (question.length > CONFIG.maxQuestionLength) {
+      showInputError(`Keep your question under ${CONFIG.maxQuestionLength} characters.`);
+      return;
+    }
+
+    clearInputError();
+    isFlipping = true;
+    hideResult();
+    setStatus("The coin is considering your question...");
+
+    if (elements.flipButton) elements.flipButton.disabled = true;
+    elements.coinStage?.classList.add("is-reading");
+    elements.coin?.classList.add("is-flipping");
+    releaseParticles();
+    playFlipChime();
+
+    window.setTimeout(() => {
+      const reading = createReading(question);
+      showResult(reading);
+      addToHistory(reading);
+
+      elements.coinStage?.classList.remove("is-reading");
+      elements.coin?.classList.remove("is-flipping");
+      if (elements.flipButton) elements.flipButton.disabled = false;
+      isFlipping = false;
+    }, CONFIG.animationDuration);
+  }
+
+  function openHistory() {
+    renderHistory();
+    playActionTone("open");
+    elements.historyDrawer?.classList.add("is-open");
+    elements.historyDrawer?.setAttribute("aria-hidden", "false");
+    elements.historyBackdrop?.classList.add("is-visible");
+    elements.historyBackdrop?.setAttribute("aria-hidden", "false");
+    elements.historyButton?.setAttribute("aria-expanded", "true");
+    elements.historyClose?.focus();
+  }
+
+  function closeHistory() {
+    playActionTone("close");
+    elements.historyDrawer?.classList.remove("is-open");
+    elements.historyDrawer?.setAttribute("aria-hidden", "true");
+    elements.historyBackdrop?.classList.remove("is-visible");
+    elements.historyBackdrop?.setAttribute("aria-hidden", "true");
+    elements.historyButton?.setAttribute("aria-expanded", "false");
+    elements.historyButton?.focus();
+  }
+
+  function toggleHistory() {
+    const isOpen = elements.historyDrawer?.classList.contains("is-open");
+    if (isOpen) closeHistory();
+    else openHistory();
+  }
+
+  async function copyResult() {
+    if (!currentReading) {
+      setStatus("Flip the coin first, then you can copy the reading.");
+      return;
+    }
+
+    const text = [
+      "Mystic Coin Reading",
+      "",
+      `Question: ${currentReading.question}`,
+      `Result: ${currentReading.result}`,
+      "",
+      currentReading.title,
+      currentReading.message,
+    ].join("\n");
+
+    try {
+      await navigator.clipboard.writeText(text);
+      const originalLabel = elements.copyButton?.textContent;
+      if (elements.copyButton) elements.copyButton.textContent = "Copied to clipboard";
+      setStatus("Your Mystic Coin reading was copied to the clipboard.");
+      playActionTone("success");
+      window.setTimeout(() => {
+        if (elements.copyButton && originalLabel) elements.copyButton.textContent = originalLabel;
+      }, 1800);
+    } catch (error) {
+      setStatus("Unable to copy automatically. Select the result text and copy it manually.");
+      console.warn("Mystic Coin: clipboard access failed.", error);
+    }
+  }
+
+  function clearHistory() {
+    history = [];
+    saveHistory();
+    renderHistory();
+    setStatus("Reading history cleared.");
+  }
+
+  function releaseCursorTrail(event) {
+    if (!elements.cursorTrail || event.pointerType === "touch") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const now = performance.now();
+    if (now - lastTrailAt < 24) return;
+    lastTrailAt = now;
+
+    const particle = document.createElement("span");
+    const colors = ["#ead8aa", "#b99b5f", "#8f2f2b", "#cdbb8a"];
+    particle.className = "cursor-trail-particle";
+    particle.style.left = `${event.clientX}px`;
+    particle.style.top = `${event.clientY}px`;
+    particle.style.setProperty("--trail-size", `${2 + Math.random() * 3.5}px`);
+    particle.style.setProperty("--trail-color", colors[Math.floor(Math.random() * colors.length)]);
+    particle.style.setProperty("--trail-drift-x", `${(Math.random() - 0.5) * 24}px`);
+    particle.style.setProperty("--trail-drift-y", `${8 + Math.random() * 24}px`);
+    particle.style.setProperty("--trail-duration", `${500 + Math.random() * 360}ms`);
+    particle.addEventListener("animationend", () => particle.remove(), { once: true });
+    elements.cursorTrail.append(particle);
+  }
+
+  function bindEvents() {
+    elements.form?.addEventListener("submit", startReading);
+    elements.flipButton?.addEventListener("click", startReading);
+    elements.copyButton?.addEventListener("click", copyResult);
+    elements.againButton?.addEventListener("click", () => {
+      playActionTone("focus");
+      elements.input?.focus();
+      elements.input?.select();
+    });
+
+    elements.input?.addEventListener("focus", () => playActionTone("focus"));
+
+    elements.input?.addEventListener("input", () => {
+      clearInputError();
+      if (elements.input.value.length > CONFIG.maxQuestionLength) {
+        elements.input.value = elements.input.value.slice(0, CONFIG.maxQuestionLength);
+      }
+    });
+
+    elements.historyButton?.addEventListener("click", toggleHistory);
+    elements.historyClose?.addEventListener("click", closeHistory);
+    elements.historyBackdrop?.addEventListener("click", closeHistory);
+    elements.clearHistoryButton?.addEventListener("click", clearHistory);
+    elements.ambientButton?.addEventListener("click", toggleAmbientMusic);
+    document.addEventListener("pointermove", releaseCursorTrail, { passive: true });
+
+    document.addEventListener("pointerover", (event) => {
+      const target = event.target.closest?.(".coin, button, a, input, select, textarea, [role='button'], h1, h2, h3, p, label, .eyebrow, .result-label, .brand-wordmark text");
+      if (!target || target.contains(event.relatedTarget)) return;
+      const kind = target.matches("input, select, textarea") ? "input" : target.matches("h1, h2, h3, p, label, .eyebrow, .result-label, .brand-wordmark text") ? "text" : "interactive";
+      playHoverTone(kind);
+    });
+
+    if (elements.coin) {
+      let pointerStart = null;
+
+      elements.coin.addEventListener("click", () => startReading());
+      elements.coin.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          startReading();
+        }
+      });
+      elements.coin.addEventListener("pointerdown", (event) => {
+        pointerStart = { x: event.clientX, y: event.clientY };
+        elements.coin.setPointerCapture?.(event.pointerId);
+      });
+      elements.coin.addEventListener("pointerup", (event) => {
+        if (!pointerStart) return;
+        const deltaX = event.clientX - pointerStart.x;
+        const deltaY = event.clientY - pointerStart.y;
+        const distance = Math.hypot(deltaX, deltaY);
+        pointerStart = null;
+        if (distance >= 28) {
+          event.preventDefault();
+          startReading();
+        }
+      });
+      elements.coin.addEventListener("pointercancel", () => {
+        pointerStart = null;
+      });
+    }
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && elements.historyDrawer?.classList.contains("is-open")) {
+        closeHistory();
+      }
+    });
+  }
+
+  function initialize() {
+    if (elements.resultCard) {
+      elements.resultCard.hidden = true;
+      elements.resultCard.classList.add("is-hidden");
+      elements.resultCard.setAttribute("aria-hidden", "true");
+    }
+    if (elements.historyDrawer) elements.historyDrawer.setAttribute("aria-hidden", "true");
+    if (elements.historyBackdrop) elements.historyBackdrop.setAttribute("aria-hidden", "true");
+    if (elements.historyButton) elements.historyButton.setAttribute("aria-expanded", "false");
+    updateAmbientButton();
+
+    renderHistory();
+    bindEvents();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initialize, { once: true });
+  } else {
+    initialize();
+  }
+})();
+    </script>
+  </body>
+</html>

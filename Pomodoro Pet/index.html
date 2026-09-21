@@ -1,0 +1,648 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pomodoro Pet - a cozy focus timer that grows a virtual companion.">
+  <title>Pomodoro Pet</title>
+  <link rel="stylesheet" href="styles.css?v=16">
+  <link rel="icon" href="favicon.svg?v=4">
+</head>
+<body>
+  <div class="app-shell" id="app">
+
+    <header class="header">
+      <div class="header__identity">
+        <span class="header__leafmark" aria-hidden="true"></span>
+        <div>
+          <p class="eyebrow">Pomodoro Pet</p>
+          <h1 id="header-pet-name">Sprout</h1>
+        </div>
+      </div>
+      <div class="header__stats">
+        <span class="header-pill" title="Level">
+          <span class="header-pill__label">Lv</span>
+          <span id="header-level">1</span>
+        </span>
+        <span class="header-pill header-pill--coins" title="Coins">
+          <span class="coin-icon" aria-hidden="true"></span>
+          <span id="coins">0</span>
+        </span>
+        <button id="theme-toggle" class="icon-button" type="button" aria-label="Toggle theme" aria-pressed="false">
+          <svg id="theme-sun" class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" fill="currentColor"></circle>
+            <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"></path>
+          </svg>
+          <svg id="theme-moon" class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor"></path>
+          </svg>
+        </button>
+        <button id="sound-toggle" class="icon-button" type="button" aria-label="Toggle sound" aria-pressed="true">
+          <svg id="sound-on" class="icon icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M11 5 6.5 8.5H3.5v7h3L11 19z"></path>
+            <path d="M15.5 8.5a3.5 3.5 0 0 1 0 7"></path>
+            <path d="M18.2 5.8a6.8 6.8 0 0 1 0 12.4"></path>
+          </svg>
+          <svg id="sound-off" class="icon icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <g opacity="0.45">
+              <path d="M11 5 6.5 8.5H3.5v7h3L11 19z"></path>
+              <path d="M15.5 8.5a3.5 3.5 0 0 1 0 7"></path>
+            </g>
+            <path d="M4 20 20 4" stroke-width="2"></path>
+          </svg>
+        </button>
+        <button id="settings-open" class="icon-button" type="button" aria-label="Open settings">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="main-grid">
+
+      <section class="card pet-card" aria-labelledby="pet-title">
+        <div class="card-heading pet-card__heading">
+          <div>
+            <p class="eyebrow">Your companion</p>
+            <h2 id="pet-title">Tiny Sprout</h2>
+          </div>
+          <span class="stage-icon" aria-hidden="true">&#10022;</span>
+        </div>
+
+        <div class="stage-announcement" id="evolution-notice" role="status" aria-live="polite" hidden></div>
+
+        <div class="pet-viewport">
+          <div class="pet pet--tiny-sprout" data-stage="tiny-sprout" data-state="ready">
+            <span class="pet-aura" aria-hidden="true"></span>
+            <span class="pet-shadow" aria-hidden="true"></span>
+
+            <div class="pet-art" role="img" aria-label="Sprout, Tiny Sprout, ready">
+              <svg class="pet-svg pet-svg--tiny-sprout" viewBox="0 0 220 240" aria-hidden="true">
+                <defs>
+                  <linearGradient id="sg-body" x1="0" y1="0" x2="0.9" y2="1">
+                    <stop offset="0" stop-color="#cdf3d4"></stop>
+                    <stop offset="0.55" stop-color="#a8ddb5"></stop>
+                    <stop offset="1" stop-color="#8bc99b"></stop>
+                  </linearGradient>
+                  <linearGradient id="sg-leaf" x1="0.1" y1="0" x2="0.9" y2="1">
+                    <stop offset="0" stop-color="#ecfff0"></stop>
+                    <stop offset="0.55" stop-color="#d2f3d8"></stop>
+                    <stop offset="1" stop-color="#a9ddb0"></stop>
+                  </linearGradient>
+                  <linearGradient id="sg-foot" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#bde9c6"></stop>
+                    <stop offset="1" stop-color="#93d0a1"></stop>
+                  </linearGradient>
+                </defs>
+
+                <path class="pf-stem" d="M110 98 C110 84 108 74 104 62" fill="none" stroke="#68aa7a" stroke-width="5" stroke-linecap="round"></path>
+
+                <g class="pf-leaf pf-leaf--one">
+                  <path d="M104 94 C85 83 82 56 96 37 C99 32 104 31 107 34 C125 47 128 72 111 92 C109 94 106 95 104 94Z" fill="url(#sg-leaf)" stroke="#57936a" stroke-width="3" stroke-linejoin="round"></path>
+                  <path d="M106 86 C104 73 102 60 99 49" fill="none" stroke="#75b985" stroke-width="2.5" stroke-linecap="round" opacity="0.8"></path>
+                </g>
+
+                <path class="pf-body" d="M67 158 C67 119 89 98 110 98 C131 98 153 119 153 158 L153 191 C153 213 131 225 110 225 C89 225 67 213 67 191Z" fill="url(#sg-body)" stroke="#57936a" stroke-width="3.5" stroke-linejoin="round"></path>
+                <path class="pf-body-hi" d="M81 127 C89 112 98 105 110 104" fill="none" stroke="#eafff0" stroke-width="5" stroke-linecap="round" opacity="0.5"></path>
+
+                <path class="pf-foot" d="M84 198 C84 192 89 189 96 189 C103 189 108 194 108 201 L108 211 C108 218 103 222 96 222 C89 222 84 218 84 211Z" fill="url(#sg-foot)" stroke="#57936a" stroke-width="3"></path>
+                <path class="pf-foot" d="M124 201 C124 194 129 189 136 189 C143 189 148 193 148 200 L148 211 C148 218 143 222 136 222 C129 222 124 218 124 211Z" fill="url(#sg-foot)" stroke="#57936a" stroke-width="3"></path>
+
+                <g class="pf-face pf-face--focusing">
+                  <ellipse class="pf-eye pf-eye--l" cx="92" cy="151" rx="5" ry="7.5"></ellipse>
+                  <ellipse class="pf-eye pf-eye--r" cx="128" cy="151" rx="5" ry="7.5"></ellipse>
+                  <path class="pf-brow" d="M84 139 L94 136"></path>
+                  <path class="pf-brow" d="M136 136 L146 139"></path>
+                  <path class="pf-mouth" d="M103 174 C107 171.5 113 171.5 117 174"></path>
+                  <ellipse class="pf-cheek" cx="79" cy="168" rx="7" ry="4.5"></ellipse>
+                  <ellipse class="pf-cheek" cx="141" cy="168" rx="7" ry="4.5"></ellipse>
+                </g>
+
+                <g class="pf-face pf-face--ready">
+                  <ellipse class="pf-eye pf-eye--l" cx="92" cy="151" rx="6.5" ry="9"></ellipse>
+                  <ellipse class="pf-eye pf-eye--r" cx="128" cy="151" rx="6.5" ry="9"></ellipse>
+                  <circle class="pf-eye-shine" cx="90" cy="147" r="2.2" fill="#ffffff"></circle>
+                  <circle class="pf-eye-shine" cx="126" cy="147" r="2.2" fill="#ffffff"></circle>
+                  <path class="pf-mouth" d="M102 172 C106 178 114 178 118 172"></path>
+                  <ellipse class="pf-cheek" cx="79" cy="168" rx="7" ry="4.5"></ellipse>
+                  <ellipse class="pf-cheek" cx="141" cy="168" rx="7" ry="4.5"></ellipse>
+                </g>
+
+                <g class="pf-face pf-face--break">
+                  <path class="pf-eye-lid" d="M85 150 Q92 158 99 150"></path>
+                  <path class="pf-eye-lid" d="M121 150 Q128 158 135 150"></path>
+                  <path class="pf-mouth" d="M103 173 C107 177 113 177 117 173"></path>
+                  <ellipse class="pf-cheek" cx="79" cy="169" rx="7" ry="4.5"></ellipse>
+                  <ellipse class="pf-cheek" cx="141" cy="169" rx="7" ry="4.5"></ellipse>
+                </g>
+
+                <g class="pf-face pf-face--celebrating">
+                  <path class="pf-eye-happy" d="M85 147 L92 154 L99 147"></path>
+                  <path class="pf-eye-happy" d="M121 147 L128 154 L135 147"></path>
+                  <path class="pf-mouth-open" d="M99 168 C103 173 117 173 121 168 C118 174 102 174 99 168Z"></path>
+                  <ellipse class="pf-cheek" cx="78" cy="170" rx="8" ry="5"></ellipse>
+                  <ellipse class="pf-cheek" cx="142" cy="170" rx="8" ry="5"></ellipse>
+                </g>
+
+                <g class="pf-face pf-face--sleepy">
+                  <path class="pf-eye-lid" d="M86 152 Q92 159 98 152"></path>
+                  <path class="pf-eye-lid" d="M122 152 Q128 159 134 152"></path>
+                  <path class="pf-mouth" d="M106 175 L114 175"></path>
+                  <ellipse class="pf-cheek" cx="79" cy="169" rx="7" ry="4.5"></ellipse>
+                  <ellipse class="pf-cheek" cx="141" cy="169" rx="7" ry="4.5"></ellipse>
+                </g>
+
+                <path class="pf-spark" d="M52 106 L55 114 L63 117 L55 120 L52 128 L49 120 L41 117 L49 114Z" fill="#f6c85f" opacity="0.9"></path>
+                <path class="pf-spark" d="M170 118 L172 124 L178 126 L172 128 L170 134 L168 128 L162 126 L168 124Z" fill="#d9f0ff" opacity="0.9"></path>
+              </svg>
+
+              <svg class="pet-svg pet-svg--focus-bloom" viewBox="0 0 220 240" aria-hidden="true">
+                <defs>
+                  <linearGradient id="fb-body" x1="0" y1="0" x2="0.9" y2="1">
+                    <stop offset="0" stop-color="#d6ecf7"></stop>
+                    <stop offset="0.55" stop-color="#9ccbeb"></stop>
+                    <stop offset="1" stop-color="#82b6db"></stop>
+                  </linearGradient>
+                  <linearGradient id="fb-leaf" x1="0.1" y1="0" x2="0.9" y2="1">
+                    <stop offset="0" stop-color="#e3f7dd"></stop>
+                    <stop offset="0.55" stop-color="#a9ddb0"></stop>
+                    <stop offset="1" stop-color="#8bcb88"></stop>
+                  </linearGradient>
+                  <linearGradient id="fb-foot" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#c9e8f2"></stop>
+                    <stop offset="1" stop-color="#8ec2e6"></stop>
+                  </linearGradient>
+                </defs>
+
+                <path class="pf-stem" d="M110 90 C110 76 110 68 110 60" fill="none" stroke="#5fa56a" stroke-width="5" stroke-linecap="round"></path>
+
+                <g class="pf-bloom">
+                  <circle cx="110" cy="47" r="11" fill="#f6c85f" stroke="#d9b849" stroke-width="2.5"></circle>
+                  <circle cx="110" cy="47" r="4.5" fill="#b98a4a"></circle>
+                </g>
+
+                <g class="pf-leaf pf-leaf--l">
+                  <path d="M84 78 C64 72 56 52 64 35 C67 31 72 31 76 34 C90 43 95 62 87 76 C85 79 83 80 84 79Z" fill="url(#fb-leaf)" stroke="#5fa56a" stroke-width="3" stroke-linejoin="round"></path>
+                  <path d="M82 72 C78 62 76 52 76 44" fill="none" stroke="#6fbb7a" stroke-width="2.5" stroke-linecap="round" opacity="0.8"></path>
+                </g>
+
+                <g class="pf-leaf pf-leaf--r">
+                  <path d="M136 78 C156 72 164 52 156 35 C153 31 148 31 144 34 C130 43 125 62 133 76 C135 79 137 80 136 79Z" fill="url(#fb-leaf)" stroke="#5fa56a" stroke-width="3" stroke-linejoin="round"></path>
+                  <path d="M138 72 C142 62 144 52 144 44" fill="none" stroke="#6fbb7a" stroke-width="2.5" stroke-linecap="round" opacity="0.8"></path>
+                </g>
+
+                <path class="pf-body" d="M66 156 C66 114 88 90 110 90 C132 90 154 114 154 156 L154 192 C154 214 132 226 110 226 C88 226 66 214 66 192Z" fill="url(#fb-body)" stroke="#639bbf" stroke-width="3.5" stroke-linejoin="round"></path>
+                <path class="pf-body-hi" d="M80 124 C88 108 98 101 111 100" fill="none" stroke="#eaf6ff" stroke-width="5" stroke-linecap="round" opacity="0.5"></path>
+
+                <path class="pf-foot" d="M83 199 C83 193 88 190 95 190 C102 190 107 195 107 202 L107 212 C107 219 102 223 95 223 C88 223 83 219 83 212Z" fill="url(#fb-foot)" stroke="#639bbf" stroke-width="3"></path>
+                <path class="pf-foot" d="M123 202 C123 195 128 190 135 190 C142 190 147 194 147 201 L147 212 C147 219 142 223 135 223 C128 223 123 219 123 212Z" fill="url(#fb-foot)" stroke="#639bbf" stroke-width="3"></path>
+
+                <g class="pf-prop pf-prop--notebook">
+                  <path d="M150 152 L170 152 L170 180 L150 180 Z" fill="#fff1bf" stroke="#d9b849" stroke-width="2.5" stroke-linejoin="round" transform="rotate(9 160 166)"></path>
+                  <path d="M153 160 L167 160 M153 167 L167 167 M153 174 L162 174" stroke="#d9b849" stroke-width="2" opacity="0.7" transform="rotate(9 160 166)"></path>
+                </g>
+
+                <g class="pf-face pf-face--focusing">
+                  <ellipse class="pf-eye pf-eye--l" cx="92" cy="151" rx="5.5" ry="7.5"></ellipse>
+                  <ellipse class="pf-eye pf-eye--r" cx="128" cy="151" rx="5.5" ry="7.5"></ellipse>
+                  <path class="pf-brow" d="M84 139 L94 136"></path>
+                  <path class="pf-brow" d="M136 136 L146 139"></path>
+                  <path class="pf-mouth" d="M103 174 C107 171.5 113 171.5 117 174"></path>
+                  <ellipse class="pf-cheek" cx="79" cy="168" rx="7" ry="4.5"></ellipse>
+                  <ellipse class="pf-cheek" cx="141" cy="168" rx="7" ry="4.5"></ellipse>
+                </g>
+
+                <g class="pf-face pf-face--ready">
+                  <ellipse class="pf-eye pf-eye--l" cx="92" cy="151" rx="7" ry="9.5"></ellipse>
+                  <ellipse class="pf-eye pf-eye--r" cx="128" cy="151" rx="7" ry="9.5"></ellipse>
+                  <circle class="pf-eye-shine" cx="89" cy="146" r="2.4" fill="#ffffff"></circle>
+                  <circle class="pf-eye-shine" cx="126" cy="146" r="2.4" fill="#ffffff"></circle>
+                  <path class="pf-mouth" d="M101 171 C105 177 115 177 119 171"></path>
+                  <ellipse class="pf-cheek" cx="78" cy="167" rx="7.5" ry="4.5"></ellipse>
+                  <ellipse class="pf-cheek" cx="142" cy="167" rx="7.5" ry="4.5"></ellipse>
+                </g>
+
+                <g class="pf-face pf-face--break">
+                  <path class="pf-eye-lid" d="M84 150 Q92 158 100 150"></path>
+                  <path class="pf-eye-lid" d="M120 150 Q128 158 136 150"></path>
+                  <path class="pf-mouth" d="M102 172 C106 176 114 176 118 172"></path>
+                  <ellipse class="pf-cheek" cx="79" cy="169" rx="7" ry="4.5"></ellipse>
+                  <ellipse class="pf-cheek" cx="141" cy="169" rx="7" ry="4.5"></ellipse>
+                </g>
+
+                <g class="pf-face pf-face--celebrating">
+                  <path class="pf-eye-happy" d="M84 146 L92 153 L100 146"></path>
+                  <path class="pf-eye-happy" d="M120 146 L128 153 L136 146"></path>
+                  <path class="pf-mouth-open" d="M99 167 C103 172 117 172 121 167 C118 173 102 173 99 167Z"></path>
+                  <ellipse class="pf-cheek" cx="77" cy="169" rx="8" ry="5"></ellipse>
+                  <ellipse class="pf-cheek" cx="143" cy="169" rx="8" ry="5"></ellipse>
+                </g>
+
+                <g class="pf-face pf-face--sleepy">
+                  <path class="pf-eye-lid" d="M85 152 Q92 159 99 152"></path>
+                  <path class="pf-eye-lid" d="M121 152 Q128 159 135 152"></path>
+                  <path class="pf-mouth" d="M106 175 L114 175"></path>
+                  <ellipse class="pf-cheek" cx="79" cy="169" rx="7" ry="4.5"></ellipse>
+                  <ellipse class="pf-cheek" cx="141" cy="169" rx="7" ry="4.5"></ellipse>
+                </g>
+
+                <path class="pf-spark" d="M48 60 L50 66 L56 68 L50 70 L48 76 L46 70 L40 68 L46 66Z" fill="#f6c85f" opacity="0.9"></path>
+                <path class="pf-spark" d="M172 92 L174 98 L180 100 L174 102 L172 108 L170 102 L164 100 L170 98Z" fill="#d9f0ff" opacity="0.9"></path>
+              </svg>
+
+              <svg class="pet-svg pet-svg--study-sage" viewBox="0 0 220 240" aria-hidden="true">
+                <defs>
+                  <linearGradient id="ss-body" x1="0" y1="0" x2="0.9" y2="1">
+                    <stop offset="0" stop-color="#dcd0f4"></stop>
+                    <stop offset="0.55" stop-color="#b9a7e8"></stop>
+                    <stop offset="1" stop-color="#9f86d9"></stop>
+                  </linearGradient>
+                  <linearGradient id="ss-leaf" x1="0.1" y1="0" x2="0.9" y2="1">
+                    <stop offset="0" stop-color="#ecfff0"></stop>
+                    <stop offset="0.55" stop-color="#b4dfa8"></stop>
+                    <stop offset="1" stop-color="#8bcb88"></stop>
+                  </linearGradient>
+                  <linearGradient id="ss-foot" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#d6cbf2"></stop>
+                    <stop offset="1" stop-color="#9a7fd4"></stop>
+                  </linearGradient>
+                </defs>
+
+                <path class="pf-stem" d="M92 66 C80 62 70 52 68 42" fill="none" stroke="#5fa56a" stroke-width="5" stroke-linecap="round"></path>
+                <path class="pf-stem" d="M128 66 C140 62 150 52 152 42" fill="none" stroke="#5fa56a" stroke-width="5" stroke-linecap="round"></path>
+
+                <g class="pf-leaf pf-leaf--c1">
+                  <path d="M97 52 C94 38 96 26 102 17 C105 13 110 14 113 18 C118 28 116 42 107 52 C104 54 100 54 97 52Z" fill="url(#ss-leaf)" stroke="#5fa56a" stroke-width="3" stroke-linejoin="round"></path>
+                  <path d="M108 46 C108 38 108 30 109 23" fill="none" stroke="#6fbb7a" stroke-width="2" stroke-linecap="round" opacity="0.8"></path>
+                </g>
+
+                <g class="pf-leaf pf-leaf--c2">
+                  <path d="M110 44 C96 46 84 50 75 60 C72 63 73 68 77 70 C90 72 103 66 111 52 C113 49 114 46 110 44Z" fill="url(#ss-leaf)" stroke="#5fa56a" stroke-width="3" stroke-linejoin="round"></path>
+                  <path d="M96 56 C92 58 88 62 85 66" fill="none" stroke="#6fbb7a" stroke-width="2.5" stroke-linecap="round" opacity="0.8"></path>
+                </g>
+
+                <g class="pf-leaf pf-leaf--c3">
+                  <path d="M110 44 C124 46 136 50 145 60 C148 63 147 68 143 70 C130 72 117 66 109 52 C107 49 106 46 110 44Z" fill="url(#ss-leaf)" stroke="#5fa56a" stroke-width="3" stroke-linejoin="round"></path>
+                  <path d="M124 56 C128 58 132 62 135 66" fill="none" stroke="#6fbb7a" stroke-width="2.5" stroke-linecap="round" opacity="0.8"></path>
+                </g>
+
+                <path class="pf-body" d="M62 154 C62 106 86 84 110 84 C134 84 158 106 158 154 L158 192 C158 215 134 227 110 227 C86 227 62 215 62 192Z" fill="url(#ss-body)" stroke="#806db8" stroke-width="3.5" stroke-linejoin="round"></path>
+                <path class="pf-body-hi" d="M78 120 C86 104 96 97 110 96" fill="none" stroke="#f0e9ff" stroke-width="5" stroke-linecap="round" opacity="0.5"></path>
+
+                <path class="pf-foot" d="M82 200 C82 194 87 191 94 191 C101 191 106 196 106 203 L106 213 C106 220 101 224 94 224 C87 224 82 220 82 213Z" fill="url(#ss-foot)" stroke="#806db8" stroke-width="3"></path>
+                <path class="pf-foot" d="M122 203 C122 196 127 191 134 191 C141 191 146 195 146 202 L146 213 C146 220 141 224 134 224 C127 224 122 220 122 213Z" fill="url(#ss-foot)" stroke="#806db8" stroke-width="3"></path>
+
+                <g class="pf-prop pf-prop--glasses">
+                  <circle cx="92" cy="151" r="13" fill="rgba(150,130,200,0.16)" stroke="#806db8" stroke-width="2.5"></circle>
+                  <circle cx="128" cy="151" r="13" fill="rgba(150,130,200,0.16)" stroke="#806db8" stroke-width="2.5"></circle>
+                  <path d="M105 151 L115 151" stroke="#806db8" stroke-width="2.5" stroke-linecap="round"></path>
+                  <path d="M79 150 L74 147" stroke="#806db8" stroke-width="2.5" stroke-linecap="round"></path>
+                  <path d="M141 150 L146 147" stroke="#806db8" stroke-width="2.5" stroke-linecap="round"></path>
+                </g>
+
+                <g class="pf-prop pf-prop--clock">
+                  <path d="M160 152 C160 150 162 148 164 148 L164 152 Z" fill="none" stroke="#806db8" stroke-width="2.5"></path>
+                  <circle cx="164" cy="164" r="11" fill="var(--color-reward)" stroke="var(--color-reward-dark)" stroke-width="2.5"></circle>
+                  <path d="M164 158 L164 164 L169 166" fill="none" stroke="var(--color-reward-dark)" stroke-width="2" stroke-linecap="round"></path>
+                </g>
+
+                <g class="pf-prop pf-prop--beard">
+                  <path d="M104 184 Q108 192 102 199 Q101 191 100 185Z" fill="#b9a7e8" stroke="#806db8" stroke-width="2" stroke-linejoin="round"></path>
+                  <path d="M116 184 Q112 192 118 199 Q119 191 120 185Z" fill="#b9a7e8" stroke="#806db8" stroke-width="2" stroke-linejoin="round"></path>
+                  <path d="M110 185 Q110 196 110 200 Q107 194 106 187Z" fill="#b9a7e8" stroke="#806db8" stroke-width="2" stroke-linejoin="round"></path>
+                </g>
+
+                <g class="pf-face pf-face--focusing">
+                  <ellipse class="pf-eye pf-eye--l" cx="92" cy="151" rx="4.5" ry="7"></ellipse>
+                  <ellipse class="pf-eye pf-eye--r" cx="128" cy="151" rx="4.5" ry="7"></ellipse>
+                  <path class="pf-brow" d="M85 140 L94 137"></path>
+                  <path class="pf-brow" d="M135 137 L145 140"></path>
+                  <path class="pf-mouth" d="M103 173 C107 171 113 171 117 173"></path>
+                  <ellipse class="pf-cheek" cx="80" cy="168" rx="6.5" ry="4.5"></ellipse>
+                  <ellipse class="pf-cheek" cx="140" cy="168" rx="6.5" ry="4.5"></ellipse>
+                </g>
+
+                <g class="pf-face pf-face--ready">
+                  <ellipse class="pf-eye pf-eye--l" cx="92" cy="151" rx="6" ry="8.5"></ellipse>
+                  <ellipse class="pf-eye pf-eye--r" cx="128" cy="151" rx="6" ry="8.5"></ellipse>
+                  <circle class="pf-eye-shine" cx="90" cy="147" r="2.1" fill="#ffffff"></circle>
+                  <circle class="pf-eye-shine" cx="126" cy="147" r="2.1" fill="#ffffff"></circle>
+                  <path class="pf-mouth" d="M103 172 C107 177 113 177 117 172"></path>
+                  <ellipse class="pf-cheek" cx="80" cy="168" rx="6.5" ry="4.5"></ellipse>
+                  <ellipse class="pf-cheek" cx="140" cy="168" rx="6.5" ry="4.5"></ellipse>
+                </g>
+
+                <g class="pf-face pf-face--break">
+                  <path class="pf-eye-lid" d="M86 150 Q92 157 98 150"></path>
+                  <path class="pf-eye-lid" d="M122 150 Q128 157 134 150"></path>
+                  <path class="pf-mouth" d="M104 173 C108 176 112 176 116 173"></path>
+                  <ellipse class="pf-cheek" cx="80" cy="169" rx="6.5" ry="4.5"></ellipse>
+                  <ellipse class="pf-cheek" cx="140" cy="169" rx="6.5" ry="4.5"></ellipse>
+                </g>
+
+                <g class="pf-face pf-face--celebrating">
+                  <path class="pf-eye-happy" d="M86 147 L92 153 L98 147"></path>
+                  <path class="pf-eye-happy" d="M122 147 L128 153 L134 147"></path>
+                  <path class="pf-mouth-open" d="M100 168 C103 172 117 172 120 168 C118 173 102 173 100 168Z"></path>
+                  <ellipse class="pf-cheek" cx="79" cy="170" rx="7.5" ry="5"></ellipse>
+                  <ellipse class="pf-cheek" cx="141" cy="170" rx="7.5" ry="5"></ellipse>
+                </g>
+
+                <g class="pf-face pf-face--sleepy">
+                  <path class="pf-eye-lid" d="M87 152 Q92 158 97 152"></path>
+                  <path class="pf-eye-lid" d="M123 152 Q128 158 133 152"></path>
+                  <path class="pf-mouth" d="M107 175 L113 175"></path>
+                  <ellipse class="pf-cheek" cx="80" cy="169" rx="6.5" ry="4.5"></ellipse>
+                  <ellipse class="pf-cheek" cx="140" cy="169" rx="6.5" ry="4.5"></ellipse>
+                </g>
+
+                <path class="pf-spark" d="M42 58 L44 64 L50 66 L44 68 L42 74 L40 68 L34 66 L40 64Z" fill="#d9c8ff" opacity="0.9"></path>
+                <path class="pf-spark" d="M176 70 L178 76 L184 78 L178 80 L176 86 L174 80 L168 78 L174 76Z" fill="#f6c85f" opacity="0.9"></path>
+                <path class="pf-spark" d="M36 128 L37 132 L41 133 L37 134 L36 138 L35 134 L31 133 L35 132Z" fill="#d9c8ff" opacity="0.85"></path>
+                <path class="pf-spark" d="M188 150 L189 154 L193 155 L189 156 L188 160 L187 156 L183 155 L187 154Z" fill="#f6c85f" opacity="0.85"></path>
+              </svg>
+            </div>
+
+            <span class="pet-accessories" aria-hidden="true">
+              <span class="acc acc--paper-crown" data-acc="paper-crown" hidden></span>
+              <span class="acc acc--cozy-beanie" data-acc="cozy-beanie" hidden></span>
+              <span class="acc acc--round-glasses" data-acc="round-glasses" hidden></span>
+              <span class="acc acc--tiny-backpack" data-acc="tiny-backpack" hidden></span>
+              <span class="acc acc--notebook" data-acc="notebook" hidden></span>
+              <span class="acc acc--clock-charm" data-acc="clock-charm" hidden></span>
+              <span class="acc acc--scarf" data-acc="scarf" hidden></span>
+              <span class="acc acc--coffee-mug" data-acc="coffee-mug" hidden></span>
+              <span class="acc acc--cat-ear-headphones" data-acc="cat-ear-headphones" hidden></span>
+              <span class="acc acc--star-wand" data-acc="star-wand" hidden></span>
+              <span class="acc acc--wizard-hat" data-acc="wizard-hat" hidden></span>
+            </span>
+          </div>
+        </div>
+
+        <p class="pet-message" id="pet-message" role="status" aria-live="polite">Ready when you are.</p>
+      </section>
+
+      <section class="card timer-card" aria-labelledby="timer-heading">
+        <div class="card-heading timer-card__heading">
+          <div>
+            <p class="eyebrow">Timer</p>
+            <h2 id="timer-heading">Focus</h2>
+          </div>
+          <div class="mode-switch" role="tablist" aria-label="Timer mode">
+            <button class="mode-btn is-active" id="mode-btn-focus" type="button" role="tab" aria-selected="true">Focus</button>
+            <button class="mode-btn" id="mode-btn-short" type="button" role="tab" aria-selected="false">Short</button>
+            <button class="mode-btn" id="mode-btn-long" type="button" role="tab" aria-selected="false">Long</button>
+          </div>
+        </div>
+
+        <div class="timer-ring-wrap">
+          <svg class="timer-ring" viewBox="0 0 200 200" aria-hidden="true">
+            <circle class="timer-ring__track" cx="100" cy="100" r="86"></circle>
+            <circle class="timer-ring__progress" id="timer-ring-progress" cx="100" cy="100" r="86"></circle>
+          </svg>
+          <div class="timer-center">
+            <p class="timer-mode-label" id="timer-mode-label">Focus</p>
+            <p class="timer-display" id="timer-display">25:00</p>
+          </div>
+        </div>
+
+        <div class="time-dial" id="time-dial">
+          <button class="time-dial__arrow time-dial__arrow--prev" id="time-dial-prev" type="button" aria-label="Decrease duration">&#8249;</button>
+          <div class="time-dial__ruler" id="time-dial-ruler" role="listbox" aria-label="Timer duration"></div>
+          <span class="time-dial__cursor" aria-hidden="true"></span>
+          <span class="time-dial__bar" id="time-dial-bar" aria-hidden="true"></span>
+          <button class="time-dial__arrow time-dial__arrow--next" id="time-dial-next" type="button" aria-label="Increase duration">&#8250;</button>
+          <p class="time-dial__caption" id="time-dial-caption"></p>
+        </div>
+
+        <p class="timer-session-hint" id="session-hint">Ready</p>
+
+        <div class="timer-actions">
+          <button id="timer-primary" class="button-primary" type="button">Start Focus</button>
+          <button id="timer-reset" class="button-ghost" type="button">Reset</button>
+        </div>
+        <p class="reward-preview" id="reward-preview">Complete this session to earn 10 XP + 5 coins.</p>
+      </section>
+
+      <section class="card progress-card" aria-labelledby="progress-heading">
+        <div class="card-heading">
+          <div>
+            <p class="eyebrow">Progress</p>
+            <h2 id="progress-heading">Your journey</h2>
+          </div>
+        </div>
+
+        <div class="xp-block">
+          <div class="xp-labels">
+            <span>Level <span id="level">1</span></span>
+            <span><span id="xp-current">0</span> / 50 XP</span>
+          </div>
+          <div class="xp-bar" role="progressbar" aria-valuemin="0" aria-valuemax="50" aria-valuenow="0" aria-label="XP progress">
+            <div class="xp-fill" id="xp-fill"></div>
+          </div>
+        </div>
+
+        <ul class="stats-row">
+          <li class="stat">
+            <span class="stat__label">Streak</span>
+            <span class="stat__value" id="streak">0</span>
+            <span class="stat__unit">days</span>
+          </li>
+          <li class="stat">
+            <span class="stat__label">Today</span>
+            <span class="stat__value" id="today-sessions">0</span>
+            <span class="stat__unit">sessions</span>
+          </li>
+          <li class="stat">
+            <span class="stat__label">Total</span>
+            <span class="stat__value" id="total-sessions">0</span>
+            <span class="stat__unit">sessions</span>
+          </li>
+        </ul>
+
+        <p class="bonus-hint" id="bonus-hint">Complete 4 sessions today for a +25 coin bonus.</p>
+      </section>
+
+      <section class="card music-card" aria-labelledby="music-title">
+        <div class="card-heading">
+          <div>
+            <p class="eyebrow">Focus playlist</p>
+            <h2 id="music-title">Lofi beats</h2>
+          </div>
+        </div>
+        <iframe
+          src="https://open.spotify.com/embed/playlist/0vvXsWCC9xrXsKd4FyS8kM?utm_source=generator&theme=0"
+          width="100%" height="352" frameBorder="0" loading="lazy"
+          title="Lofi focus playlist on Spotify"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          allowfullscreen></iframe>
+      </section>
+
+      <nav class="secondary-navigation" aria-label="Feature sections">
+        <button class="tab is-active" type="button" data-panel="garden" aria-selected="true">Garden</button>
+        <button class="tab" type="button" data-panel="shop" aria-selected="false">Shop</button>
+        <button class="tab" type="button" data-panel="achievements" aria-selected="false">Achievements</button>
+      </nav>
+
+      <section class="card panel panel--garden is-open" id="panel-garden" aria-labelledby="garden-title">
+        <div class="card-heading">
+          <div>
+            <p class="eyebrow">Focus Garden</p>
+            <h2 id="garden-title">Growing with you</h2>
+          </div>
+        </div>
+        <p class="panel-intro">Each completed focus session waters your plants. Watch the garden bloom.</p>
+        <div class="garden-grid" id="garden-grid"></div>
+      </section>
+
+      <section class="card panel panel--shop" id="panel-shop" aria-labelledby="shop-title">
+        <div class="card-heading">
+          <div>
+            <p class="eyebrow">Accessory Shop</p>
+            <h2 id="shop-title">Dress up your pet</h2>
+          </div>
+        </div>
+        <p class="panel-intro">One head item and one body item can be worn at a time. Accessories are cosmetic only.</p>
+        <div class="shop-grid" id="shop-grid"></div>
+      </section>
+
+      <section class="card panel panel--achievements" id="panel-achievements" aria-labelledby="achievements-title">
+        <div class="card-heading">
+          <div>
+            <p class="eyebrow">Milestones</p>
+            <h2 id="achievements-title">Achievements</h2>
+          </div>
+        </div>
+        <p class="panel-intro">Badges stay unlocked once earned.</p>
+        <ul class="achievements-list" id="achievements-list"></ul>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <p>Progress is saved in this browser only.</p>
+    </footer>
+  </div>
+
+  <div class="dialog-backdrop" id="settings-dialog" hidden>
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+      <div class="card-heading">
+        <div>
+          <p class="eyebrow">Settings</p>
+          <h2 id="settings-title">Preferences</h2>
+        </div>
+        <button id="settings-close" class="icon-button" type="button" aria-label="Close settings">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"></path>
+          </svg>
+        </button>
+      </div>
+
+      <form id="settings-form" class="settings-form">
+        <fieldset class="settings-group">
+          <legend>Timer durations</legend>
+          <div class="settings-row">
+            <label for="set-focus">Focus (minutes)</label>
+            <input id="set-focus" name="focusMinutes" type="number" min="15" max="120" value="25">
+          </div>
+          <div class="settings-row">
+            <label for="set-short">Short break (minutes)</label>
+            <input id="set-short" name="shortBreakMinutes" type="number" min="5" max="15" value="5">
+          </div>
+          <div class="settings-row">
+            <label for="set-long">Long break (minutes)</label>
+            <input id="set-long" name="longBreakMinutes" type="number" min="15" max="30" value="15">
+          </div>
+          <p class="settings-hint">Standard values: 25 / 5 / 15.</p>
+        </fieldset>
+
+        <fieldset class="settings-group">
+          <legend>Pet</legend>
+          <div class="settings-row">
+            <label for="set-name">Pet name</label>
+            <input id="set-name" type="text" maxlength="20" value="Sprout">
+          </div>
+        </fieldset>
+
+        <fieldset class="settings-group">
+          <legend>Feedback</legend>
+          <label class="settings-check">
+            <input id="set-sound" type="checkbox">
+            <span>Sound effects</span>
+          </label>
+          <label class="settings-check">
+            <input id="set-haptics" type="checkbox">
+            <span>Haptics (vibration)</span>
+          </label>
+          <div class="settings-row">
+            <label for="set-motion">Motion</label>
+            <select id="set-motion">
+              <option value="system">Follow system</option>
+              <option value="reduce">Reduced motion</option>
+            </select>
+          </div>
+        </fieldset>
+      </form>
+
+      <div class="settings-actions">
+        <span class="storage-note" id="storage-note">Progress is saved in this browser only and may be lost if browser storage is cleared.</span>
+        <div class="settings-actions__row">
+          <button id="export-save" class="button-ghost" type="button">Export save</button>
+          <button id="import-save" class="button-ghost" type="button">Import save</button>
+          <input id="import-file" type="file" accept="application/json,.json" hidden>
+          <button id="reset-progress" class="button-danger" type="button">Reset progress</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ob-backdrop" id="onboarding" hidden>
+    <div class="ob-card">
+      <div class="ob-steps" id="ob-steps" aria-hidden="true">
+        <span class="ob-step is-active"></span>
+        <span class="ob-step"></span>
+        <span class="ob-step"></span>
+      </div>
+      <div class="ob-body" id="ob-body"></div>
+      <div class="ob-actions">
+        <button id="ob-skip" class="button-ghost" type="button">Skip setup</button>
+        <button id="ob-primary" class="button-primary" type="button">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="reward-region" id="reward-region" role="status" aria-live="polite"></div>
+
+  <div class="dev-panel" id="dev-panel" hidden>
+    <p class="dev-panel__title">Dev tools</p>
+    <label class="dev-row">
+      <input id="dev-10s" type="checkbox">
+      <span>10-second focus</span>
+    </label>
+    <label class="dev-row">
+      <span>Simulate date +</span>
+      <select id="dev-date-offset">
+        <option value="0">0 days</option>
+        <option value="1">1 day</option>
+        <option value="2">2 days</option>
+        <option value="5">5 days</option>
+      </select>
+    </label>
+    <div class="dev-row dev-row--buttons">
+      <span class="dev-row__label">Jump to stage</span>
+      <button class="icon-button dev-stage" type="button" data-stage="sprout">Sprout</button>
+      <button class="icon-button dev-stage" type="button" data-stage="bloom">Bloom</button>
+      <button class="icon-button dev-stage" type="button" data-stage="sage">Sage</button>
+      <button class="icon-button" id="dev-coins" type="button">+100 coins</button>
+    </div>
+    <div class="dev-row dev-row--buttons">
+      <button id="dev-export-events" class="button-ghost" type="button">Export events</button>
+      <button id="dev-clear-events" class="button-ghost" type="button">Clear events</button>
+    </div>
+  </div>
+
+  <script src="app.js?v=15"></script>
+</body>
+</html>

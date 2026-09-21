@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 224 42" role="img" aria-label="Mystic Coin">
+  <style>
+    .seal {
+      fill: none;
+    }
+    .logo-ring {
+      stroke: rgba(234, 216, 170, 0.62);
+      stroke-width: 1;
+    }
+    .logo-orbit {
+      stroke: rgba(185, 155, 95, 0.72);
+      stroke-width: 0.8;
+      stroke-dasharray: 1.5 3;
+    }
+    .logo-ray {
+      fill: rgba(234, 216, 170, 0.72);
+    }
+    .logo-core {
+      fill: rgba(185, 155, 95, 0.72);
+      stroke: rgba(234, 216, 170, 0.86);
+      stroke-width: 0.9;
+    }
+    .logo-star {
+      fill: rgba(234, 216, 170, 0.94);
+    }
+    .wordmark-rule {
+      stroke: rgba(234, 216, 170, 0.58);
+      stroke-width: 0.7;
+    }
+    .wordmark-fine {
+      stroke: rgba(185, 155, 95, 0.48);
+      stroke-width: 0.55;
+    }
+    .wordmark-diamond {
+      fill: rgba(234, 216, 170, 0.86);
+    }
+    .wordmark-ray {
+      fill: rgba(185, 155, 95, 0.72);
+    }
+    .wordmark-orbit {
+      fill: none;
+      stroke: rgba(185, 155, 95, 0.6);
+      stroke-width: 0.65;
+      stroke-dasharray: 1.2 2.4;
+    }
+    .wordmark-arc {
+      fill: none;
+      stroke: rgba(234, 216, 170, 0.48);
+      stroke-width: 0.65;
+      stroke-linecap: round;
+    }
+    .wordmark-star {
+      fill: rgba(234, 216, 170, 0.86);
+    }
+    .wordmark-dot {
+      fill: rgba(185, 155, 95, 0.8);
+    }
+    .wordmark-mystic,
+    .wordmark-coin {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 15px;
+      dominant-baseline: middle;
+      text-anchor: middle;
+    }
+    .wordmark-mystic {
+      fill: #efe3c7;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+    }
+    .wordmark-coin {
+      fill: #d3b883;
+      font-style: italic;
+      letter-spacing: 1.7px;
+    }
+  </style>
+
+  <defs>
+    <linearGradient id="header-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0910" />
+      <stop offset="0.48" stop-color="#17131d" />
+      <stop offset="1" stop-color="#241c22" />
+    </linearGradient>
+    <radialGradient id="header-glow" cx="50%" cy="-10%" r="90%">
+      <stop offset="0" stop-color="#d3b883" stop-opacity="0.18" />
+      <stop offset="0.42" stop-color="#8f2f2b" stop-opacity="0.06" />
+      <stop offset="1" stop-color="#0a0910" stop-opacity="0" />
+    </radialGradient>
+    <pattern id="header-grain" width="18" height="18" patternUnits="userSpaceOnUse">
+      <path d="M0 3h18M0 11h18M4 0v18M13 0v18" stroke="#ead8aa" stroke-opacity="0.035" stroke-width="0.45" />
+      <circle cx="3" cy="7" r="0.45" fill="#ead8aa" fill-opacity="0.12" />
+      <circle cx="15" cy="15" r="0.35" fill="#8f2f2b" fill-opacity="0.18" />
+    </pattern>
+    <filter id="header-noise" x="-10%" y="-20%" width="120%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="3" stitchTiles="stitch" result="noise" />
+      <feColorMatrix in="noise" type="saturate" values="0" result="mono" />
+      <feComponentTransfer in="mono">
+        <feFuncA type="table" tableValues="0 0.11" />
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect x="0.5" y="0.5" width="223" height="41" rx="7" fill="url(#header-bg)" />
+  <rect x="0.5" y="0.5" width="223" height="41" rx="7" fill="url(#header-glow)" />
+  <rect x="1" y="1" width="222" height="40" rx="6.5" fill="url(#header-grain)" opacity="0.8" />
+  <rect x="1" y="1" width="222" height="40" rx="6.5" filter="url(#header-noise)" opacity="0.7" />
+  <g fill="none" stroke="#b99b5f" stroke-opacity="0.14" stroke-width="0.55" pointer-events="none">
+    <circle cx="112" cy="21" r="28" />
+    <ellipse cx="112" cy="21" rx="96" ry="13" transform="rotate(-8 112 21)" stroke-dasharray="1.5 4" />
+    <path d="M8 21h30M186 21h30M112 3v7M112 32v7" />
+  </g>
+  <rect x="0.75" y="0.75" width="222.5" height="40.5" rx="7" fill="none" stroke="#d3b883" stroke-opacity="0.34" stroke-width="0.8" />
+  <rect x="3" y="3" width="218" height="36" rx="5" fill="none" stroke="#8f2f2b" stroke-opacity="0.18" stroke-width="0.55" stroke-dasharray="1 3" />
+
+  <g transform="translate(0 2) scale(0.95)" class="seal">
+    <g transform="rotate(-45 20 20)">
+      <circle class="logo-ring" cx="20" cy="20" r="14" />
+      <ellipse class="logo-orbit" cx="20" cy="20" rx="16" ry="7" transform="rotate(-32 20 20)" />
+      <ellipse class="logo-orbit" cx="20" cy="20" rx="16" ry="7" transform="rotate(32 20 20)" />
+      <path class="logo-ray" d="M20 2l1.2 6.3L20 11l-1.2-2.7L20 2zm0 27l1.2 2.7L20 38l-1.2-6.3L20 29zM2 20l6.3-1.2L11 20l-2.7 1.2L2 20zm27 0l2.7-1.2L38 20l-6.3 1.2L29 20z" />
+      <circle class="logo-core" cx="20" cy="20" r="6" />
+      <path class="logo-star" d="M20 15l1.3 3.7L25 20l-3.7 1.3L20 25l-1.3-3.7L15 20l3.7-1.3L20 15z" />
+    </g>
+  </g>
+
+  <g transform="translate(52 0)" class="wordmark">
+    <path class="wordmark-rule" d="M2 5h46M128 5h46M2 37h46M128 37h46" />
+    <path class="wordmark-fine" d="M54 5h68M54 37h68" />
+    <path class="wordmark-diamond" d="M52 5l3 3-3 3-3-3 3-3zM124 5l3 3-3 3-3-3 3-3z" />
+    <path class="wordmark-ray" d="M52 18l2 2-2 2-2-2 2-2zM126 18l2 2-2 2-2-2 2-2z" />
+    <ellipse class="wordmark-orbit" cx="88" cy="21" rx="34" ry="12" transform="rotate(-12 88 21)" />
+    <path class="wordmark-arc" d="M57 12c8-7 17-8 25-4M105 34c8 4 16 3 23-3" />
+    <path class="wordmark-star" d="M61 12l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1 1-2.6zM115 26l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1 1-2.6z" />
+    <circle class="wordmark-dot" cx="79" cy="8" r="1" />
+    <circle class="wordmark-dot" cx="101" cy="34" r="1" />
+    <circle class="wordmark-dot" cx="134" cy="21" r="1.1" />
+    <text class="wordmark-mystic" x="57" y="21">MYSTIC</text>
+    <text class="wordmark-coin" x="120" y="21">COIN</text>
+    <path class="wordmark-fine" d="M30 29h54M98 29h44" />
+  </g>
+</svg>

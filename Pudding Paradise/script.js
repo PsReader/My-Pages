@@ -59,7 +59,12 @@ if (document.querySelector(".menu-grid") || document.querySelector(".menu-items"
     if (newVal < 0) newVal = 0;
     cart[flavor] = newVal;
     var el = document.getElementById("qty-" + flavor);
-    if (el) el.textContent = newVal;
+    if (el) {
+      el.textContent = newVal;
+      el.classList.remove("qty-bump");
+      void el.offsetWidth;
+      el.classList.add("qty-bump");
+    }
   };
 
   window.processOrder = function () {

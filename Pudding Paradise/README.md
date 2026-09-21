@@ -8,7 +8,7 @@ Pudding Paradise is a pastel, mobile-friendly dessert brand website designed to 
 
 ## Pages
 
-- `puddinghome.html` — landing page with brand storytelling and featured highlights
+- `index.html` — landing page with brand storytelling and featured highlights
 - `menu.html` — dessert menu and product showcase
 - `review.html` — social proof and customer feedback section
 
@@ -34,7 +34,7 @@ Pudding Paradise is a pastel, mobile-friendly dessert brand website designed to 
 Pudding Paradise/
 ├── images/
 ├── menu.html
-├── puddinghome.html
+├── index.html
 ├── review.html
 ├── README.md
 └── ...
@@ -46,7 +46,7 @@ Open any HTML file directly in a browser.
 
 ```bash
 cd "Pudding Paradise"
-start puddinghome.html
+start index.html
 ```
 
 Or simply double-click the page you want to view.

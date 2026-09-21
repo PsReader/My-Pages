@@ -26,7 +26,7 @@ The project includes:
 
 | Section             | Purpose                                       |
 | ------------------- | --------------------------------------------- |
-| **LOTMhome.html**   | Main landing page / entry point               |
+| **index.html**   | Main landing page / entry point               |
 | **Novel.html**      | Story overview and narrative framing          |
 | **Mc_Profile.html** | Character spotlight / profile hub             |
 | **Pathways.html**   | Beyonder pathways and sequences               |
@@ -61,7 +61,7 @@ LOTM/
 ├── js/
 │   └── script.js
 ├── images/
-├── LOTMhome.html
+├── index.html
 ├── Mc_Profile.html
 ├── Novel.html
 ├── Pathways.html
@@ -93,10 +93,10 @@ LOTM/
 
 ```bash
 cd LOTM
-start LOTMhome.html
+start index.html
 ```
 
-Or simply open `LOTMhome.html` directly in a browser.
+Or simply open `index.html` directly in a browser.
 
 ---
 

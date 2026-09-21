@@ -2,58 +2,100 @@
 
 A portfolio workspace of creative web experiments, themed mini-projects, and interactive front-end builds.
 
-This collection brings together different directions in my web development practice: immersive motion experiences, storytelling-driven pages, playful storefront designs, and lightweight utility apps. Each project is stored in its own folder and reflects a different style of interface design and front-end problem solving.
+This collection brings together different directions in web development practice: immersive motion experiences, storytelling-driven pages, playful storefront designs, and lightweight utility apps. Each project lives in its own folder and reflects a different style of interface design and front-end problem solving.
 
 ---
 
-## Project overview
+## Projects
 
 ### GestureLab
 
-A webcam-powered interaction sandbox built with React, TypeScript, Three.js, and MediaPipe hand tracking.
+The only build-managed project. A webcam-powered interaction sandbox built with React, TypeScript, Three.js, and MediaPipe hand tracking.
 
 - interactive hand gesture controls
 - 3D scene rendering with React Three Fiber
 - shader-based visual effects and live motion feedback
 - real-time camera-driven experimentation
-- folder: `GestureLab`
+- folder: `GestureLab` · live: `gesturelab.site.je`
 
 ### LOTM
 
 A fan-made lore archive and storytelling website for _Lord of the Mysteries_.
 
-- multi-page content structure
+- 19-page content structure with shared CSS/JS
 - dark fantasy aesthetic
-- lore, pathways, character references, and chapters
+- lore, pathways, character references, volumes, and galleries
 - static HTML/CSS/JavaScript implementation
-- folder: `LOTM`
+- folder: `LOTM` · live: `lotm-fan-wiki.site.je`
 
 ### Pudding Paradise
 
 A dessert-themed storefront and landing page concept with a soft, pastel personality.
 
 - responsive static website
-- menu, home, and review pages
-- brand-driven visual design
-- folder: `Pudding Paradise`
+- menu, home, and review pages plus a shared stylesheet
+- brand-driven visual design with a custom image set
+- folder: `Pudding Paradise` · live: `pudding-paradise.site.je`
+
+### Tarot Draw
+
+A single-file tarot reader for the 22 Major Arcana, delivered behind an open-book veil.
+
+- choose a spread, flip sigil cards, or draw today's card
+- shareable readings
+- local-only journal with backup export
+- folder: `TarotDraw` · live: `tarotdraw.site.je`
+
+### Mystic Coin
+
+A small digital divination tool in a mystical gold-and-dark theme.
+
+- ask a question, flip the gilded coin, and receive a symbolic Yes / No / Again answer
+- running history of past flips
+- self-contained single-file page
+- folder: `MysticCoin` · live: `mystic-coin.site.je`
 
 ### Scratchpad
 
-A simple note-taking dashboard focused on organization and local persistence.
+A thought-dashboard for lightweight, browser-based note organization.
 
-- browser-based note management
+- local localStorage persistence
 - theme switching
-- searchable and categorized notes
-- localStorage-based saving
+- searchable and organized notes
 - folder: `Scratchpad`
+
+### Music collection
+
+A set of freely used ambient MP3 tracks (likely for site or video background audio).
+
+- folder: `music`
 
 ---
 
-## Root files
+## Root files & folders
 
-- `index.html` — main landing or portfolio entry page
+- `index.html` — portfolio landing page with the Live Demos carousel (project cards with view-live links)
 - `portfolio.html` — polished personal portfolio page
-- `ghost-cursor.js` — custom cursor effect script used in the portfolio
+- `ghost-cursor.js` — Three.js ES module cursor-trail effect used by the portfolio
+- `assets/` — shared card images and logo SVGs (e.g. `TarotDraw.png`, `MysticCoinLogo.svg`)
+- `Deploy/` — ready-to-publish ZIP bundles, one set per project (see below)
+- `robots.txt`, `sitemap.xml`, `site.webmanifest` — site metadata
+
+## Deploy folder
+
+`Deploy/` holds publish-ready ZIPs, named `deploy-<Project>-<category>.zip`:
+
+| Bundle | Contents |
+|---|---|
+| `deploy-root.zip`, `deploy-root-assets.zip` | portfolio pages, cursor script, shared `assets/` |
+| `deploy-GestureLab-root.zip`, `deploy-GestureLab-assets.zip` | production `dist/` build |
+| `deploy-LOTM-{html,css,js,images}.zip` | LOTM split by content type |
+| `deploy-PuddingParadise-{html,images}.zip` | pages + image set |
+| `deploy-TarotDraw-root.zip`, `deploy-MysticCoin-root.zip` | single-file apps |
+| `deploy-Scratchpad-{root,images}.zip` | app + logo SVGs |
+| `deploy-music.zip` | audio tracks |
+
+Regenerate after source changes (e.g. rebuilding the root `index.html` cards).
 
 ---
 
@@ -68,7 +110,7 @@ npm install
 npm run dev
 ```
 
-- For the static project folders, open the `.html` file directly or serve them through a local browser preview.
+- For deployable builds, upload the matching ZIP from `Deploy/`.
 
 ---
 

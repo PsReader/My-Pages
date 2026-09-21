@@ -191,12 +191,12 @@ function setupFilters() {
  */
 function setupActiveNavigation() {
   const currentPage =
-    window.location.pathname.split('/').pop() || 'LOTMhome.html';
+    window.location.pathname.split('/').pop() || 'index.html';
   const navLinks = document.querySelectorAll('.topnav a');
 
   navLinks.forEach(link => {
     const href = link.getAttribute('href');
-    if (href === currentPage || (currentPage === '' && href === 'LOTMhome.html')) {
+    if (href === currentPage || (currentPage === '' && href === 'index.html')) {
       link.classList.add('active-page');
       link.style.color = '#FFD700';
       link.style.fontWeight = 'bold';

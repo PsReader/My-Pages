@@ -1,0 +1,8 @@
+{
+  "name": "Lord of the Mysteries Fan Wiki",
+  "short_name": "LOTM Wiki",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1423",
+  "theme_color": "#1a1423"
+}

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" aria-labelledby="title desc">
+  <title id="title">Typebound editorial typing trainer preview</title>
+  <desc id="desc">A colorful editorial-inspired Typebound dashboard with a warm paper background, bold typography, speed metrics, progress bars, and a stylized keyboard.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f5f0e8"/><stop offset="1" stop-color="#e8e0d4"/></linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c94c3d"/><stop offset="1" stop-color="#9f302e"/></linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#3e6f86"/><stop offset="1" stop-color="#7da0a6"/></linearGradient>
+    <pattern id="grain" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="2" cy="4" r=".8" fill="#243746" opacity=".09"/><circle cx="13" cy="12" r=".65" fill="#243746" opacity=".07"/><circle cx="7" cy="16" r=".5" fill="#c94c3d" opacity=".08"/></pattern>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#243746" flood-opacity=".16"/></filter>
+  </defs>
+  <rect width="800" height="560" rx="2" fill="url(#paper)"/><rect width="800" height="560" rx="2" fill="url(#grain)"/>
+  <path d="M0 86H800M0 492H800" stroke="#243746" stroke-opacity=".18"/>
+  <text x="48" y="48" fill="#243746" font-family="Georgia,serif" font-size="15" font-weight="700" letter-spacing="4">TYPEBOUND</text>
+  <text x="752" y="48" text-anchor="end" fill="#243746" font-family="Arial,sans-serif" font-size="11" font-weight="700" letter-spacing="2">PLAY · PROGRESS · PROFILE</text><circle cx="728" cy="43" r="4" fill="#c94c3d"/>
+  <text x="48" y="164" fill="#243746" font-family="Georgia,serif" font-size="61" font-weight="700" letter-spacing="-3">Type fast.</text>
+  <text x="48" y="224" fill="#c94c3d" font-family="Georgia,serif" font-size="57" font-style="italic" font-weight="700" letter-spacing="-3">Stay accurate.</text>
+  <path d="M50 242C145 253 250 250 352 240" fill="none" stroke="#c94c3d" stroke-width="4" stroke-linecap="butt"/>
+  <text x="50" y="274" fill="#53636b" font-family="Arial,sans-serif" font-size="13" letter-spacing=".4">Choose your pressure. Race through phrases.</text>
+  <g filter="url(#shadow)"><rect x="474" y="108" width="278" height="184" rx="2" fill="#243746"/><rect x="474" y="108" width="278" height="11" rx="2" fill="#c94c3d"/></g>
+  <text x="500" y="151" fill="#f5f0e8" font-family="Arial,sans-serif" font-size="11" font-weight="700" letter-spacing="2">READY TO RUN</text>
+  <text x="500" y="183" fill="#f5f0e8" font-family="Georgia,serif" font-size="25" font-weight="700">Easy · 45 seconds</text><line x1="500" y1="203" x2="726" y2="203" stroke="#f5f0e8" stroke-opacity=".22"/>
+  <text x="500" y="231" fill="#9bb2b5" font-family="Arial,sans-serif" font-size="10" letter-spacing="1.5">BEST</text><text x="500" y="258" fill="#f5f0e8" font-family="Georgia,serif" font-size="25" font-weight="700">0</text>
+  <rect x="615" y="226" width="104" height="34" rx="2" fill="#c94c3d"/><text x="667" y="248" text-anchor="middle" fill="#fffaf2" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1">START</text>
+  <g fill="#243746"><text x="50" y="337" font-family="Arial,sans-serif" font-size="11" font-weight="700" letter-spacing="1.5">SPEED</text><text x="50" y="374" font-family="Georgia,serif" font-size="34" font-weight="700">0.0</text><text x="125" y="373" font-family="Arial,sans-serif" font-size="12">letters / sec</text><text x="244" y="337" font-family="Arial,sans-serif" font-size="11" font-weight="700" letter-spacing="1.5">ACCURACY</text><text x="244" y="374" font-family="Georgia,serif" font-size="34" font-weight="700">100</text><text x="326" y="373" font-family="Arial,sans-serif" font-size="12">%</text></g>
+  <path d="M50 394H385" stroke="#243746" stroke-opacity=".22"/><path d="M50 394H238" stroke="#c94c3d" stroke-width="5"/>
+  <g filter="url(#shadow)"><rect x="426" y="326" width="326" height="118" rx="2" fill="#fffaf2" stroke="#243746" stroke-opacity=".24"/></g>
+  <text x="450" y="354" fill="#53636b" font-family="Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="1.4">YOUR NEXT PHRASE</text><text x="450" y="383" fill="#243746" font-family="Georgia,serif" font-size="22" font-weight="700">Keep your rhythm</text>
+  <circle cx="707" cy="374" r="20" fill="#dce7e4"/><path d="M699 374l6 6 11-14" fill="none" stroke="#3e6f86" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter"/><rect x="450" y="405" width="252" height="7" rx="2" fill="#d8d3ca"/><rect x="450" y="405" width="146" height="7" rx="2" fill="url(#blue)"/>
+  <g transform="translate(48 426)"><rect width="337" height="86" rx="2" fill="#243746"/><g fill="#f5f0e8"><rect x="14" y="14" width="32" height="17" rx="2"/><rect x="51" y="14" width="32" height="17" rx="2"/><rect x="88" y="14" width="32" height="17" rx="2"/><rect x="125" y="14" width="32" height="17" rx="2"/><rect x="162" y="14" width="32" height="17" rx="2"/><rect x="199" y="14" width="32" height="17" rx="2"/><rect x="236" y="14" width="32" height="17" rx="2"/><rect x="273" y="14" width="50" height="17" rx="2"/><rect x="28" y="36" width="32" height="17" rx="2"/><rect x="65" y="36" width="32" height="17" rx="2"/><rect x="102" y="36" width="32" height="17" rx="2"/><rect x="139" y="36" width="32" height="17" rx="2"/><rect x="176" y="36" width="32" height="17" rx="2"/><rect x="213" y="36" width="32" height="17" rx="2"/><rect x="250" y="36" width="58" height="17" rx="2"/><rect x="51" y="58" width="43" height="14" rx="2"/><rect x="99" y="58" width="148" height="14" rx="2"/><rect x="252" y="58" width="52" height="14" rx="2"/></g><rect x="162" y="14" width="32" height="17" rx="2" fill="#c94c3d"/><rect x="139" y="36" width="32" height="17" rx="2" fill="url(#blue)"/></g>
+  <text x="752" y="532" text-anchor="end" fill="#53636b" font-family="Arial,sans-serif" font-size="10" letter-spacing="2">NO. 08 · DAILY PRACTICE</text>
+</svg>

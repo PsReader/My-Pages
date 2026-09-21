@@ -485,6 +485,24 @@ header {
   gap: clamp(10px, 2vw, 18px);
 }
 
+/* ==========================================
+   FLAVOR ACCENTS
+   ========================================== */
+
+.menu-card--strawberry { --accent: #ff6b8a; --accent-soft: rgba(255, 107, 138, 0.12); }
+.menu-card--coklat     { --accent: #8B5E3C; --accent-soft: rgba(139, 94, 60, 0.12); }
+.menu-card--mangga     { --accent: #FFB347; --accent-soft: rgba(255, 179, 71, 0.12); }
+.menu-card--oreo       { --accent: #2d2d2d; --accent-soft: rgba(45, 45, 45, 0.10); }
+
+.menu-item--strawberry { --accent: #ff6b8a; --accent-soft: rgba(255, 107, 138, 0.12); }
+.menu-item--coklat     { --accent: #8B5E3C; --accent-soft: rgba(139, 94, 60, 0.12); }
+.menu-item--mangga     { --accent: #FFB347; --accent-soft: rgba(255, 179, 71, 0.12); }
+.menu-item--oreo       { --accent: #2d2d2d; --accent-soft: rgba(45, 45, 45, 0.10); }
+
+/* ==========================================
+   HOME PAGE MENU CARDS — Redesign
+   ========================================== */
+
 .menu-card {
   background-color: var(--light-purple);
   padding: clamp(10px, 2vw, 14px);
@@ -492,71 +510,202 @@ header {
   border: 2px solid rgba(142, 107, 150, 0.25);
   box-shadow: var(--shadow-sm);
   transition:
-    transform var(--transition),
-    box-shadow var(--transition);
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .menu-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent, rgba(142, 107, 150, 0.4));
 }
 
-.menu-img {
+.menu-img-wrap {
   width: 100%;
-  height: clamp(70px, 14vw, 130px);
-  object-fit: cover;
+  height: clamp(80px, 16vw, 140px);
   border-radius: 10px;
+  overflow: hidden;
+  position: relative;
   background-color: white;
 }
 
+.menu-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.menu-card:hover .menu-img-wrap img {
+  transform: scale(1.08);
+}
+
+.menu-img-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--accent-soft, transparent), transparent 60%);
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.menu-card:hover .menu-img-wrap::after {
+  opacity: 1;
+}
+
 .menu-name {
-  background-color: var(--main-purple);
+  background-color: var(--accent, var(--main-purple));
   color: white;
   border-radius: 10px;
   margin: clamp(4px, 1vw, 8px) 0;
   padding: clamp(3px, 0.8vw, 5px);
   font-size: clamp(0.72rem, 1.6vw, 1rem);
   font-weight: 700;
+  transition: background-color 0.3s ease;
 }
 
-/* --- Menu Items (Menu page) --- */
+.menu-card-desc {
+  font-size: clamp(0.68rem, 1.3vw, 0.85rem);
+  color: #666;
+  line-height: 1.4;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height 0.35s ease,
+    opacity 0.3s ease,
+    margin 0.3s ease;
+  margin: 0;
+}
+
+.menu-card:hover .menu-card-desc {
+  max-height: 60px;
+  opacity: 1;
+  margin: clamp(2px, 0.5vw, 4px) 0 clamp(4px, 1vw, 8px);
+}
+
+.menu-card-price {
+  color: var(--accent, var(--main-purple));
+  font-weight: 700;
+  font-size: clamp(0.72rem, 1.4vw, 0.95rem);
+  margin-bottom: clamp(4px, 1vw, 8px);
+}
+
+.menu-card .counter-box {
+  background-color: var(--accent-soft, rgba(255, 255, 255, 0.5));
+}
+
+.menu-card .btn-qty {
+  border-color: var(--accent, var(--main-purple));
+  color: var(--accent, var(--main-purple));
+}
+
+.menu-card .btn-qty:hover {
+  background-color: var(--accent, var(--main-purple));
+  color: white;
+}
+
+/* Best seller ribbon */
+.best-seller {
+  position: absolute;
+  top: 14px;
+  right: -30px;
+  background: linear-gradient(
+    110deg,
+    #ff4d6d 0%,
+    #ff6b8a 35%,
+    rgba(255, 255, 255, 0.4) 50%,
+    #ff6b8a 65%,
+    #ff4d6d 100%
+  );
+  background-size: 200% 100%;
+  animation: bestSellerShimmer 3s ease-in-out infinite;
+  color: white;
+  font-size: clamp(0.55rem, 1.1vw, 0.7rem);
+  font-weight: 700;
+  padding: 3px 36px;
+  transform: rotate(45deg);
+  z-index: 2;
+  box-shadow: 0 3px 12px rgba(255, 77, 109, 0.45);
+  letter-spacing: 0.03em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+.best-seller::before {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 6px solid #c43a57;
+  border-bottom: 6px solid transparent;
+}
+
+/* ==========================================
+   MENU PAGE CARDS — Grid + Redesign
+   ========================================== */
+
 .menu-items {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: clamp(12px, 2.5vw, 20px);
 }
 
 .menu-item {
   background-color: var(--light-purple);
-  padding: clamp(12px, 2.5vw, 18px);
+  padding: clamp(10px, 2vw, 16px);
   border-radius: var(--radius);
   border: 2px solid rgba(142, 107, 150, 0.25);
   box-shadow: var(--shadow-sm);
   display: flex;
-  gap: clamp(12px, 2vw, 18px);
+  gap: clamp(10px, 1.5vw, 14px);
   flex-direction: column;
   transition:
-    transform var(--transition),
-    box-shadow var(--transition);
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .menu-item:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent, rgba(142, 107, 150, 0.4));
 }
 
 .menu-item-img {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 10;
   border-radius: 10px;
   overflow: hidden;
   flex-shrink: 0;
+  position: relative;
 }
 
 .menu-item-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.menu-item:hover .menu-item-img img {
+  transform: scale(1.06);
+}
+
+.menu-item-img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--accent-soft, transparent), transparent 50%);
+  border-radius: 10px;
+  pointer-events: none;
 }
 
 .menu-item-content {
@@ -565,28 +714,76 @@ header {
 }
 
 .menu-item-name {
-  background-color: var(--main-purple);
+  background-color: var(--accent, var(--main-purple));
   color: white;
-  padding: clamp(4px, 1vw, 7px) clamp(8px, 1.5vw, 12px);
+  padding: clamp(3px, 0.8vw, 5px) clamp(8px, 1.5vw, 12px);
   border-radius: 10px;
   font-weight: 700;
   margin-bottom: clamp(4px, 1vw, 7px);
   display: inline-block;
-  font-size: clamp(0.78rem, 1.6vw, 1.1rem);
+  font-size: clamp(0.75rem, 1.5vw, 1.05rem);
+  transition: background-color 0.3s ease;
 }
 
 .menu-item-desc {
   color: #555;
-  font-size: clamp(0.78rem, 1.5vw, 1.05rem);
+  font-size: clamp(0.72rem, 1.3vw, 0.95rem);
   margin: clamp(4px, 1vw, 7px) 0;
   line-height: 1.5;
 }
 
 .menu-item-price {
-  color: var(--main-purple);
+  color: var(--accent, var(--main-purple));
   font-weight: 700;
-  font-size: clamp(0.88rem, 1.8vw, 1.3rem);
-  margin-top: clamp(6px, 1.5vw, 10px);
+  font-size: clamp(0.82rem, 1.6vw, 1.2rem);
+  margin-top: clamp(4px, 1vw, 8px);
+}
+
+.menu-item .counter-box {
+  background-color: var(--accent-soft, rgba(255, 255, 255, 0.5));
+}
+
+.menu-item .btn-qty {
+  border-color: var(--accent, var(--main-purple));
+  color: var(--accent, var(--main-purple));
+}
+
+.menu-item .btn-qty:hover {
+  background-color: var(--accent, var(--main-purple));
+  color: white;
+}
+
+/* Staggered entrance for menu items */
+.menu-item {
+  animation: fadeInUp 0.5s ease both;
+}
+.menu-item:nth-child(1) { animation-delay: 0s; }
+.menu-item:nth-child(2) { animation-delay: 0.1s; }
+.menu-item:nth-child(3) { animation-delay: 0.2s; }
+.menu-item:nth-child(4) { animation-delay: 0.3s; }
+
+/* Menu page "best seller" badge (inline, not ribbon) */
+.menu-item-badge {
+  display: inline-block;
+  background: linear-gradient(
+    110deg,
+    #ff4d6d 0%,
+    #ff6b8a 35%,
+    rgba(255, 255, 255, 0.4) 50%,
+    #ff6b8a 65%,
+    #ff4d6d 100%
+  );
+  background-size: 200% 100%;
+  animation: bestSellerShimmer 3s ease-in-out infinite;
+  color: white;
+  font-size: clamp(0.55rem, 1vw, 0.7rem);
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+  box-shadow: 0 2px 6px rgba(255, 77, 109, 0.4);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 /* --- Counter & Quantity --- */
@@ -629,6 +826,23 @@ header {
   font-size: clamp(0.9rem, 1.8vw, 1.15rem);
   min-width: 32px;
   text-align: center;
+}
+
+/* Best seller shimmer sweep */
+@keyframes bestSellerShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Quantity bump animation */
+@keyframes qtyBump {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+.qty-bump {
+  animation: qtyBump 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* --- Order Button --- */
@@ -1116,14 +1330,19 @@ header {
 @media (prefers-reduced-motion: reduce) {
   .section-title-badge,
   .menu-card,
+  .menu-item,
   .order-btn::after,
   .review-card:hover .avatar-circle {
     animation: none !important;
   }
   .menu-card,
-  .review-card,
-  .menu-item {
+  .menu-item,
+  .review-card {
     transition: box-shadow 0.3s ease !important;
+  }
+  .menu-card:hover .menu-img-wrap img,
+  .menu-item:hover .menu-item-img img {
+    transform: none !important;
   }
 }
 
@@ -1210,6 +1429,14 @@ header {
     padding: 8px;
   }
 
+  .menu-items {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-item-badge {
+    display: none;
+  }
+
   .back-button {
     top: 10px;
     right: 10px;
@@ -1271,13 +1498,12 @@ header {
   }
 
   .menu-item {
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
   }
 
   .menu-item-img {
-    width: 180px;
-    aspect-ratio: 1;
+    width: 100%;
+    aspect-ratio: 16 / 10;
     border-radius: var(--radius);
   }
 
@@ -1353,6 +1579,6 @@ header {
   }
 
   .menu-item-img {
-    width: 220px;
+    width: 100%;
   }
 }

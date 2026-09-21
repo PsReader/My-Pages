@@ -45,10 +45,10 @@ export function RoutingPanel({
         <p className="drawer-subtitle">Route light through the hand</p>
         <p className="drawer-tag">{activeShaderLabel} &middot; {activeJointLabel}</p>
         <a
-          href="../index.html"
+          href="https://psreader.site.je/"
           className="drawer-back"
-          title="Back to Demo Hub"
-          aria-label="Back to Demo Hub"
+          title="Back to Portfolio"
+          aria-label="Back to Portfolio"
         >
           <span aria-hidden="true">←</span> Back
         </a>
