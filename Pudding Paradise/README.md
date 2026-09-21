@@ -2,6 +2,8 @@
 
 A playful dessert-themed storefront and landing page concept built with static HTML and CSS.
 
+[Live site](https://pudding-paradise.site.je) · [GitHub](https://github.com/PsReader/PuddingParadise)
+
 ## Overview
 
 Pudding Paradise is a pastel, mobile-friendly dessert brand website designed to feel warm, cheerful, and welcoming. The project includes a homepage, menu page, and review page to create a complete storefront experience without requiring a framework or backend.
@@ -16,16 +18,18 @@ Pudding Paradise is a pastel, mobile-friendly dessert brand website designed to 
 
 - HTML5
 - CSS3
+- Vanilla JavaScript
 - Google Fonts (`Quicksand`)
-- Font Awesome icons
+- Inline SVG icons
 
 ## Features
 
 - responsive layout for desktop and mobile
 - soft pastel dessert-inspired visual style
 - product-focused presentation and menu browsing
-- review/testimonial section for brand trust
-- simple multi-page navigation
+- quantity cart that builds a WhatsApp order message
+- review section with star-filtered testimonials and a feedback form persisted in localStorage
+- toast notifications and scroll-aware navigation
 - lightweight static structure with no setup required
 
 ## Project structure
@@ -36,6 +40,8 @@ Pudding Paradise/
 ├── menu.html
 ├── index.html
 ├── review.html
+├── script.js
+├── style.css
 ├── README.md
 └── ...
 ```

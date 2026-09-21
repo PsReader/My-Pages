@@ -1,6 +1,8 @@
-# Scratchpad
+# Scratchpad — Thought Dashboard
 
 A lightweight personal note-taking app with themed UI, persistent local storage, and structured note categories.
+
+[GitHub](https://github.com/PsReader/Scratchpad)
 
 ## Overview
 
@@ -14,7 +16,8 @@ Scratchpad is a browser-based journaling and notes dashboard designed for quick 
 - search by title, content, tags, or section
 - undo and redo note actions
 - clear all notes when needed
-- switch between multiple visual themes
+- switch between multiple visual themes, including a randomized SVG pine-forest backdrop
+- notes show browser-local save status ("Saved at" timestamp)
 - responsive layout for desktop and mobile use
 
 ## Tech stack

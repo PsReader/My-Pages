@@ -2,6 +2,8 @@
 
 Type Bound is a browser-based typing challenge that now supports both offline mode and optional Supabase cloud accounts.
 
+[Live site](https://typebound.site.je) · [GitHub](https://github.com/PsReader/TypeBound)
+
 The main play loop has been refined around immediate feedback: a clearer live-session marker, accessible time progress, Space-to-start support, stronger input focus, larger coarse-pointer targets, mobile-friendly controls, and reduced-motion support.
 
 ## InfinityFree deployment

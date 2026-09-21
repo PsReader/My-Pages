@@ -4,6 +4,8 @@
 
 An interactive fan-made encyclopedia and visual tribute to the world of **Lord of the Mysteries** by **Cuttlefish That Loves Diving**. This project is built as a themed lore archive with multiple pages for characters, pathways, quotes, abilities, gallery content, and chapter summaries.
 
+[Live site](https://lotm-fan-wiki.site.je) · [GitHub](https://github.com/PsReader/LOTM)
+
 ---
 
 ## Overview
@@ -61,6 +63,9 @@ LOTM/
 ├── js/
 │   └── script.js
 ├── images/
+├── robots.txt
+├── site.webmanifest
+├── sitemap.xml
 ├── index.html
 ├── Mc_Profile.html
 ├── Novel.html
@@ -130,4 +135,4 @@ Created by **PsReader**.
 
 > _"We are all fools in the eyes of fate — but some of us learn to read the script."_
 
-**Last updated:** August 2026
+**Last updated:** September 2026

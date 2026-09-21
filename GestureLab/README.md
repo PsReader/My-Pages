@@ -2,13 +2,15 @@
 
 GestureLab is a webcam-powered, real-time hand-tracking sandbox for creative interaction and motion-driven visuals. It combines MediaPipe hand detection with React Three Fiber and custom GLSL shaders to turn hand gestures into interactive 3D effects.
 
+[Live demo](https://gesturelab.site.je) · [GitHub](https://github.com/PsReader/GestureLab)
+
 ## What it does
 
 - Tracks up to two hands using MediaPipe HandLandmarker.
 - Renders detected hand joints and skeletons in a responsive Three.js scene.
 - Uses one hand for mode selection and the other hand for direct manipulation.
 - Controls a central sphere/halo object via gestures for position, scale, color, and rotation.
-- Supports screenshot capture and GIF recording.
+- Supports PNG screenshot capture.
 
 ## Getting Started Locally
 
@@ -53,10 +55,11 @@ Changes persist when switching modes, so the scene keeps its last state when you
 
 ### Interactive modes
 
-GestureLab supports two interactive views:
+GestureLab supports three interactive views:
 
 - **Sphere & Halo** — the default mode where hand gestures control a central sphere and halo.
 - **Retrolens** — a video-based portal effect that uses both hands as corner anchors and cycles image filters.
+- **AirGlow** — an air-drawing overlay where the index fingertip draws on a 2D canvas (pen, shapes, and eraser) with a gesture-triggered color wheel.
 
 In Retrolens:
 
@@ -68,7 +71,7 @@ In Retrolens:
 ### Navbar / overlay
 
 - Shows tracking status and current shader/joint information.
-- Enables screenshot capture and GIF recording.
+- Enables PNG screenshot capture.
 - Displays live info for active mode and hand detection.
 
 ## Visuals & shaders
@@ -92,7 +95,7 @@ Each tracked joint can use a different shader style, creating a layered, reactiv
 - `src/scene/HandScene.tsx` renders landmark spheres, skeleton lines, and the main interactive object in Three.js.
 - `src/components/CentralSphere.tsx` drives the central sphere and halo based on gesture mode.
 - `src/shaders/buildShaderMaterial.ts` creates the custom shader materials used for landmark visuals.
-- `src/captureStore.ts` shares screenshot/GIF capture state across the app.
+- `src/captureStore.ts` shares screenshot capture state across the app.
 
 ## Scripts
 
