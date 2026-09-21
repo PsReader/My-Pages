@@ -92,12 +92,6 @@ A browser typing challenge with local scoring, analytics, optional Supabase clou
 - peer-to-peer WebRTC race mode
 - folder: `TypeBound` · repo: [github.com/PsReader/TypeBound](https://github.com/PsReader/TypeBound) · live: `typebound.site.je`
 
-### Music collection
-
-A set of freely used ambient MP3 tracks (likely for site or video background audio).
-
-- folder: `music`
-
 ---
 
 ## Root files & folders
