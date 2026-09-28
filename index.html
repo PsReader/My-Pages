@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="PsReader — Frontend dev showcasing live projects: Lord of the Mysteries fan wiki, Pudding Paradise dessert ordering site, GestureLab hand-tracking 3D app, Tarot Draw &amp; Tarot Memory tarot games, and Scratchpad workspace. Built with HTML, CSS, JavaScript, React, Three.js."
+      content="PsReader - Frontend dev showcasing live projects: Lord of the Mysteries fan wiki, Pudding Paradise dessert ordering site, GestureLab hand-tracking 3D app, Tarot Draw &amp; Tarot Memory tarot games, and Scratchpad workspace. Built with HTML, CSS, JavaScript, React, Three.js."
     />
     <link rel="canonical" href="https://psreader.site.je/index.html" />
     <script type="application/ld+json">
@@ -13,13 +13,13 @@
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "PsReader",
-  "description": "PsReader — Frontend dev showcasing live projects: Lord of the Mysteries fan wiki, Pudding Paradise dessert ordering site, GestureLab hand-tracking 3D app, Tarot Draw &amp; Tarot Memory tarot games, and Scratchpad workspace. Built with HTML, CSS, JavaScript, React, Three.js.",
+  "description": "PsReader - Frontend dev showcasing live projects: Lord of the Mysteries fan wiki, Pudding Paradise dessert ordering site, GestureLab hand-tracking 3D app, Tarot Draw &amp; Tarot Memory tarot games, and Scratchpad workspace. Built with HTML, CSS, JavaScript, React, Three.js.",
   "url": "https://psreader.site.je/index.html",
   "inLanguage": "en"
 }
     </script>
     <link rel="manifest" href="site.webmanifest" />
-    <title>PsReader — LOTM Wiki, Pudding Paradise, GestureLab & More | Live Demos</title>
+    <title>PsReader - LOTM Wiki, Pudding Paradise, GestureLab & More | Live Demos</title>
     <link rel="icon" type="image/svg+xml" id="favicon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%230077b6'/%3E%3Cstop offset='50%25' stop-color='%2300b4d8'/%3E%3Cstop offset='100%25' stop-color='%2390cdf4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23g)'/%3E%3Cg fill='white'%3E%3Crect x='6.4' y='6.7' width='4.8' height='18.7' rx='0.5'/%3E%3Cpath d='M11.2 6.7h6.9a5.9 5.9 0 0 1 0 11.2h-6.9v-4.8h6.9a1.1 1.1 0 0 0 0-1.6h-6.9z'/%3E%3Cpath d='M15.5 19.7l5.6 5.6h6.9l-5.6-5.6z'/%3E%3C/g%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -77,7 +77,7 @@
          DESIGN TOKENS
          ================================================================= */
       :root {
-        /* Surface palette — premium deep slate, never pure black */
+        /* Surface palette - premium deep slate, never pure black */
         --bg-base: #0b0d13;
         --bg-raised: #10121a;
         --bg-card: #161923;
@@ -88,7 +88,7 @@
         --border: #21263a;
         --border-hover: #2f3652;
 
-        /* Single accent — deep indigo */
+        /* Single accent - deep indigo */
         --accent: #0077b6;
         --accent-hover: #00b4d8;
         --accent-muted: rgba(0, 119, 182, 0.12);
@@ -175,7 +175,7 @@
       }
 
       /* =================================================================
-         HEADER — glassmorphism sticky bar
+         HEADER - glassmorphism sticky bar
          ================================================================= */
       .site-header {
         position: fixed;
@@ -270,7 +270,7 @@
       }
 
       /* =================================================================
-         IMPERFECTION — break the grid
+         IMPERFECTION - break the grid
          ================================================================= */
       .magazine-card:nth-child(odd):not(.magazine-about):not(.magazine-project) {
         transform: rotate(-0.3deg);
@@ -359,7 +359,7 @@
       [data-theme="lavender"] { --accent: #7c3aed; --accent-hover: #a78bfa; --accent-muted: rgba(124,58,237,0.12); --accent-light: #c4b5fd; --logo-c1: #7c3aed; --logo-c2: #a78bfa; --logo-c3: #c4b5fd; }
       [data-theme="default"] { --accent: #0077b6; --accent-hover: #00b4d8; --accent-muted: rgba(0,119,182,0.12); --accent-light: #90cdf4; --logo-c1: #0077b6; --logo-c2: #00b4d8; --logo-c3: #90cdf4; }
 
-      /* Light mode — active when html.dark is removed */
+      /* Light mode - active when html.dark is removed */
       html:not(.dark) {
         --bg-primary: #f8f9fa;
         --bg-base: #f8f9fa;
@@ -422,7 +422,7 @@
       }
 
       /* =================================================================
-         CUSTOM CURSOR — accent-colored, context-morphing
+         CUSTOM CURSOR - accent-colored, context-morphing
          ================================================================= */
       @media (hover: hover) and (pointer: fine) {
         * { cursor: none !important; }
@@ -511,6 +511,9 @@
           gap: 12px;
           width: 100%;
         }
+        /* R-03: comfortable tap targets on touch devices */
+        .theme-toggle { width: 44px; height: 44px; }
+        .mobile-menu-toggle { padding: 10px 14px; }
       }
       @media (max-width: 768px) {
         .site-header {
@@ -625,8 +628,6 @@
         border: 1px solid rgba(255, 255, 255, 0.06);
         border-radius: var(--radius-xl);
         overflow: hidden;
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
         box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
         transition:
           border-color 250ms var(--ease),
@@ -698,7 +699,7 @@
         background: var(--accent-hover);
       }
 
-      /* Accent glow on hover — top edge */
+      /* Accent glow on hover - top edge */
       .project-card::before {
         content: "";
         position: absolute;
@@ -759,7 +760,7 @@
         opacity: 1;
       }
 
-      /* Featured card — GestureLab */
+      /* Featured card - GestureLab */
       .project-card--featured {
         border-color: color-mix(in srgb, var(--accent) 28%, transparent);
       }
@@ -808,7 +809,7 @@
       }
 
       /* =================================================================
-         HERO — full viewport, generous breathing room
+         HERO - full viewport, generous breathing room
          ================================================================= */
       .hero {
         position: relative;
@@ -850,7 +851,7 @@
         z-index: 0;
       }
 
-      /* Second ambient glow — right side */
+      /* Second ambient glow - right side */
       .hero::after {
         content: "";
         position: absolute;
@@ -885,27 +886,8 @@
         z-index: 1;
       }
 
-      .hero-eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 0.6875rem;
-        font-weight: 600;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--accent);
-        margin-bottom: 24px;
-      }
-
-      .hero-eyebrow::before {
-        content: "";
-        width: 24px;
-        height: 1px;
-        background: var(--accent);
-        opacity: 0.5;
-      }
-
-      /* Ambient orb — soft breathing glow behind hero content */
+      /* Ambient glow. Single focal accent behind the hero headline.
+         R-31: this is the page's one focal point; everything below stays flat. */
       .hero-orb {
         position: absolute;
         top: 14%;
@@ -1039,7 +1021,7 @@
         flex-wrap: wrap;
       }
 
-      /* Scroll indicator — subtle gradient fade at the bottom of hero */
+      /* Scroll indicator - subtle gradient fade at the bottom of hero */
       .hero-scroll-fade {
         position: absolute;
         bottom: 0;
@@ -1221,32 +1203,11 @@
       }
 
       /* =================================================================
-         PROJECT CAROUSEL — featured projects showcase
+         PROJECT CAROUSEL - gallery grid
+         R-31: browser-chrome framing is the gallery motif. Identical
+         frames are a deliberate contact sheet; the two flagged projects
+         carry hierarchy through the featured modifier instead of badges.
          ================================================================= */
-      .project-featured-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 3px 10px;
-        margin-left: 10px;
-        font-size: 0.625rem;
-        font-weight: 700;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--accent-hover);
-        background: color-mix(in srgb, var(--accent) 12%, transparent);
-        border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
-        border-radius: 999px;
-        white-space: nowrap;
-      }
-      .project-featured-badge::before {
-        content: "";
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--accent-hover);
-        box-shadow: 0 0 8px var(--accent-hover);
-      }
 
       /* Browser chrome bar */
       .project-chrome {
@@ -1343,7 +1304,6 @@
         letter-spacing: 0.16em;
         text-transform: uppercase;
         box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
-        backdrop-filter: blur(8px);
       }
 
       .project-viewport img,
@@ -1539,7 +1499,7 @@
          TECH STACK GRID
          ================================================================= */
       /* =================================================================
-         TECH STACK — horizontal scroll (GSAP ScrollTrigger pinned)
+         TECH STACK - horizontal scroll (GSAP ScrollTrigger pinned)
          ================================================================= */
       .stack-scroll-wrapper {
         overflow: hidden;
@@ -1553,13 +1513,6 @@
         );
       }
 
-      .stack-grid {
-        display: flex;
-        gap: 20px;
-        width: max-content;
-        padding-right: 60px;
-      }
-
       .stack-grid--mobile {
         display: none;
       }
@@ -1571,9 +1524,6 @@
         border-radius: var(--radius-lg);
         padding: 28px 24px;
         overflow: hidden;
-        width: 300px;
-        min-width: 300px;
-        flex-shrink: 0;
         transition:
           transform 320ms var(--ease-premium),
           border-color 250ms var(--ease),
@@ -1869,7 +1819,7 @@
         transition-delay: 0.3s;
       }
 
-      /* Hero elements — CSS animation, no observer needed */
+      /* Hero elements - CSS animation, no observer needed */
       .hero-animate {
         opacity: 0;
         animation: fadeUp 0.7s var(--ease) forwards;
@@ -1927,12 +1877,12 @@
       }
 
       /* =================================================================
-         RESPONSIVE — Tablet (≤ 900px)
+         RESPONSIVE - Tablet (≤ 900px)
          ================================================================= */
       @media (max-width: 900px) {
         .carousel-nav {
-          width: 36px;
-          height: 36px;
+          width: 44px;
+          height: 44px;
         }
 
         .hero h1 {
@@ -1945,7 +1895,7 @@
       }
 
       /* =================================================================
-         RESPONSIVE — Mobile (≤ 640px)
+         RESPONSIVE - Mobile (≤ 640px)
          ================================================================= */
       @media (max-width: 640px) {
         .hero {
@@ -1986,8 +1936,8 @@
         }
 
         .carousel-nav {
-          width: 32px;
-          height: 32px;
+          width: 44px;
+          height: 44px;
         }
 
         .carousel-nav svg {
@@ -2041,10 +1991,6 @@
           justify-content: center;
         }
 
-        .stack-grid {
-          flex-direction: column;
-        }
-
         .stack-grid--mobile {
           grid-template-columns: 1fr 1fr;
           gap: 10px;
@@ -2082,7 +2028,7 @@
       }
 
       /* =================================================================
-         RESPONSIVE — Mobile (≤ 480px)
+         RESPONSIVE - Mobile (≤ 480px)
          ================================================================= */
       @media (max-width: 480px) {
         .hero-subtitle {
@@ -2092,7 +2038,7 @@
       }
 
       /* =================================================================
-         RESPONSIVE — Small mobile (≤ 380px)
+         RESPONSIVE - Small mobile (≤ 380px)
          ================================================================= */
       @media (max-width: 380px) {
         .hero {
@@ -2113,8 +2059,8 @@
         }
 
         .carousel-nav {
-          width: 28px;
-          height: 28px;
+          width: 40px;
+          height: 40px;
         }
 
         .carousel-nav svg {
@@ -2134,10 +2080,6 @@
           font-size: 1.125rem;
         }
 
-        .stack-grid {
-          flex-direction: column;
-        }
-
         .stack-grid--mobile {
           grid-template-columns: 1fr;
         }
@@ -2148,7 +2090,7 @@
       }
 
       /* =================================================================
-         RESPONSIVE — Desktop (≥ 1024px): inline primary nav
+         RESPONSIVE - Desktop (≥ 1024px): inline primary nav
          ================================================================= */
       @media (min-width: 1024px) {
         .header-inner {
@@ -2199,7 +2141,7 @@
         }
       }
       /* =================================================================
-         GHOST CURSOR — React Bits style trailing glow
+         GHOST CURSOR - React Bits style trailing glow
          ================================================================= */
       .ghost-cursor {
         position: fixed;
@@ -2261,7 +2203,7 @@
       }
 
       /* =================================================================
-         PAGE TRANSITIONS — View Transitions API
+         PAGE TRANSITIONS - View Transitions API
          ================================================================= */
       @media (prefers-reduced-motion: no-preference) {
         @view-transition { navigation: auto; }
@@ -2317,7 +2259,7 @@
             <a
               href="index.html"
               class="wordmark-avatar-link"
-              aria-label="PsReader — home"
+              aria-label="PsReader - home"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="brand-logo" width="36" height="36" aria-hidden="true">
                 <g fill="currentColor">
@@ -2330,7 +2272,7 @@
             <a
               href="index.html"
               class="wordmark-text"
-              aria-label="PsReader — home"
+              aria-label="PsReader - home"
             >
               PsReader
             </a>
@@ -2404,7 +2346,6 @@
         <canvas class="hero-grain" aria-hidden="true" width="256" height="256"></canvas>
         <div class="hero-orb" aria-hidden="true"></div>
         <div class="hero-content">
-          <span class="hero-eyebrow hero-animate">Live Demos Hub</span>
           <h1 class="hero-d1">
             <span class="hero-line">I Build Things</span>
             <span class="hero-line">That <span class="hero-accent-word">Move</span> on Screen</span>
@@ -2415,7 +2356,7 @@
           ></span>
           <p class="hero-subtitle hero-animate hero-d2" aria-live="polite"></p>
           <p class="hero-desc hero-animate hero-d2">
-            Eight projects I actually built and deployed. Each one starts with
+            Projects I actually built and deployed. Each one starts with
             semantic HTML and goes from there. No copy-paste templates.
           </p>
           <div class="hero-cta hero-animate hero-d4">
@@ -2445,11 +2386,11 @@
                   d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
                 />
               </svg>
-              Explore GitHub Source
+              View source on GitHub
             </a>
           </div>
         </div>
-        <!-- Gradient fade — curiosity pull -->
+        <!-- Gradient fade - curiosity pull -->
         <div class="hero-scroll-fade" aria-hidden="true"></div>
         <div class="hero-spotlight" aria-hidden="true"></div>
       </section>
@@ -2597,7 +2538,7 @@
                   <p>
                     A single-file tarot reader for the 22 Major Arcana, delivered
                     behind an open-book veil. Choose a spread, flip the sigil
-                    cards, or just draw today's card — readings are shareable.
+                    cards, or just draw today's card - readings are shareable.
                   </p>
                   <div class="project-cta">
                     <a href="https://tarotdraw.site.je" class="btn btn--primary">
@@ -2666,7 +2607,7 @@
                   <h3 class="project-name">Tarot Memory</h3>
                   <p class="project-tech">HTML · CSS · JavaScript</p>
                   <p>
-                    Memory of the Tarot Club — a flip-and-match rite on the 22
+                    Memory of the Tarot Club - a flip-and-match rite on the 22
                     Major Arcana sigils from Tarot Draw. Three rites with
                     5&ndash;10 levels, three themes, and a Pattern Safe mode.
                   </p>
@@ -2865,7 +2806,6 @@
                   <span class="dot dot--close"></span>
                   <span class="dot dot--min"></span>
                   <span class="dot dot--max"></span>
-                  <span class="project-featured-badge">Newest</span>
                   <div class="chrome-address">
                     <a class="chrome-url" href="https://gesturelab.site.je" target="_blank" rel="noopener noreferrer">GestureLab / Live Prototype</a>
                   </div>
@@ -2942,14 +2882,13 @@
                   <span class="dot dot--close"></span>
                   <span class="dot dot--min"></span>
                   <span class="dot dot--max"></span>
-                  <span class="project-featured-badge">Newest</span>
                   <div class="chrome-address">
                     <a class="chrome-url" href="https://typebound.site.je/#home" target="_blank" rel="noopener noreferrer">typebound.site.je</a>
                   </div>
                 </div>
                 <div class="project-viewport">
                   <img
-                    src="tybound.svg"
+                    src="assets/typebound.svg"
                     alt="Typebound typing speed and accuracy trainer preview"
                     loading="lazy"
                   />
@@ -3079,6 +3018,78 @@
                   </div>
                 </div>
               </article>
+
+              <!-- Lumen -->
+              <article class="project-card reveal stagger-5" id="project-lumen">
+                <div class="project-card-glow" aria-hidden="true"></div>
+                <div class="project-chrome">
+                  <span class="dot dot--close"></span>
+                  <span class="dot dot--min"></span>
+                  <span class="dot dot--max"></span>
+                  <div class="chrome-address">
+                    <a class="chrome-url" href="https://lumens.site.je" target="_blank" rel="noopener noreferrer">lumens.site.je</a>
+                  </div>
+                </div>
+                <div class="project-viewport">
+                  <img
+                    src="assets/lumen-mark.svg"
+                    alt="Lumen contrast checker showing two color orbs on a dark stage joined by a light beam, a ratio of 11.46 to 1 with a passing verdict, and a sample paragraph in that pair"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="project-body">
+                  <h3 class="project-name">Lumen</h3>
+                  <p class="project-tech">HTML · CSS · JavaScript</p>
+                  <p>
+                    A WCAG contrast ratio checker for text and background colors.
+                    Enter a pair in HEX, RGB, HSL, or OKLCH, read the AA, AAA, and
+                    non-text verdicts, and see the pair applied to real interface
+                    components. Runs offline, nothing leaves the browser.
+                  </p>
+                  <div class="project-cta">
+                    <a
+                      href="https://lumens.site.je"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="btn btn--primary"
+                    >
+                      View Live Demo
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                        />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                      </svg>
+                    </a>
+                    <a
+                      href="https://github.com/PsReader/Lumen"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="btn btn--ghost"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                        />
+                      </svg>
+                      Source Code
+                    </a>
+                  </div>
+                </div>
+              </article>
             </div>
           </div>
 
@@ -3120,7 +3131,7 @@
       </section>
 
       <!-- ============================================================
-         TECH STACK — showcasing technologies used
+         TECH STACK - showcasing technologies used
          ============================================================ -->
       <section class="section" id="about">
         <p class="section-label reveal">Tech Stack</p>
@@ -3483,7 +3494,6 @@
             defaults: { ease: "expo.out", duration: 0.7 },
           });
           heroTl
-            .from(".hero-eyebrow", { y: 30, opacity: 0 })
             .from(".hero h1", { y: 40, opacity: 0 }, "-=0.35")
             .from(".hero-subtitle", { y: 24, opacity: 0 }, "-=0.35")
             .from(".hero-desc", { y: 30, opacity: 0 }, "-=0.35")
@@ -3530,7 +3540,7 @@
             });
           });
 
-          // ===== Kinetic typography — font-weight on scroll =====
+          // ===== Kinetic typography - font-weight on scroll =====
           if (!reducedMotion) {
             gsap.from(".hero-line", {
               opacity: 0,
@@ -3809,7 +3819,7 @@
           });
         }
 
-        // ===== Infinite carousel — node-shifting with GSAP =====
+        // ===== Infinite carousel - node-shifting with GSAP =====
         const carousel = document.getElementById("carousel");
         const track = carousel?.querySelector(".carousel-track");
         const indicatorsEl = document.getElementById("carousel-indicators");
@@ -4070,29 +4080,6 @@
           }, { passive: true });
         }
 
-        // ===== GSAP ScrollTrigger — horizontal tech stack scroll =====
-        if (hasGsap && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-          const wrapper = document.querySelector(".stack-scroll-wrapper");
-          const grid = wrapper?.querySelector(".stack-grid");
-          if (wrapper && grid) {
-            const totalScroll = grid.scrollWidth - wrapper.offsetWidth;
-            if (totalScroll > 0) {
-              gsap.to(grid, {
-                x: -totalScroll,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: wrapper,
-                  start: "top 20%",
-                  end: () => "+=" + totalScroll,
-                  pin: true,
-                  scrub: 1,
-                  invalidateOnRefresh: true,
-                },
-              });
-            }
-          }
-        }
-
         // ===== Scroll progress bar =====
         const scrollProgress = document.getElementById("scrollProgress");
         if (scrollProgress && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -4191,15 +4178,6 @@
         const sfx = {
           hover: () => playTone(1200, 0.08, "sine", 0.03),
           click: () => playTone(800, 0.1, "triangle", 0.04),
-          transition: () => {
-            playTone(600, 0.15, "sine", 0.03);
-            setTimeout(() => playTone(900, 0.12, "sine", 0.03), 80);
-          },
-          success: () => {
-            playTone(523, 0.12, "sine", 0.04);
-            setTimeout(() => playTone(659, 0.12, "sine", 0.04), 100);
-            setTimeout(() => playTone(784, 0.15, "sine", 0.04), 200);
-          },
         };
 
         const soundToggle = document.getElementById("soundToggle");
@@ -4229,7 +4207,7 @@
           el.addEventListener("click", () => sfx.click());
         });
 
-        // ===== Custom Cursor — accent-colored, morphing, splatter =====
+        // ===== Custom Cursor - accent-colored, morphing, splatter =====
         const cursorDot = document.getElementById("cursorDot");
         const cursorRing = document.getElementById("cursorRing");
         const distortMap = document.querySelector(".distort-map");
@@ -4238,8 +4216,6 @@
           let cx = -100, cy = -100;
           let rx = -100, ry = -100;
           let isTouch = false;
-          let moving = false;
-          let moveTimer = null;
           const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
           const accentMap = {
@@ -4270,11 +4246,6 @@
             if (isTouch) return;
             cx = e.clientX;
             cy = e.clientY;
-            moving = true;
-            clearTimeout(moveTimer);
-            moveTimer = setTimeout(() => {
-              moving = false;
-            }, 300);
           });
 
           document.addEventListener("touchstart", () => {
@@ -4355,7 +4326,7 @@
             });
           });
 
-          document.querySelectorAll(".btn, .nav-cta-glow").forEach((el) => {
+          document.querySelectorAll(".btn").forEach((el) => {
             el.addEventListener("mousemove", (e) => {
               const rect = el.getBoundingClientRect();
               const x = e.clientX - rect.left - rect.width / 2;
@@ -4580,7 +4551,7 @@
           function animate() {
             rafId = requestAnimationFrame(animate);
 
-            // Rotation — lerp toward mouse instead of additive drift
+            // Rotation - lerp toward mouse instead of additive drift
             if (mouseOnCanvas) {
               targetRotY = mouseX * mouseSensitivity;
               targetRotX = mouseY * mouseSensitivity * 0.5;
@@ -4598,7 +4569,7 @@
             // Expand spring
             expandFactor += (expandTarget - expandFactor) * 0.06;
 
-            // Hover detection — find nearest node in screen space
+            // Hover detection - find nearest node in screen space
             let minDist = Infinity;
             let nearestIdx = -1;
             if (mouseOnCanvas) {
@@ -4619,7 +4590,7 @@
             nodes.forEach((node, i) => {
               const ud = node.userData;
 
-              // Expansion — push away from center
+              // Expansion - push away from center
               const dir = ud.basePos.clone().normalize();
               const expandedPos = ud.basePos.clone().multiplyScalar(expandFactor);
 
@@ -4678,7 +4649,7 @@
               geo.attributes.position.needsUpdate = true;
             });
 
-            // Line glow — boost opacity for lines near cursor
+            // Line glow - boost opacity for lines near cursor
             if (mouseOnCanvas) {
               const mx = ((mouseX + 1) / 2) * canvas.clientWidth;
               const my = ((-mouseY + 1) / 2) * canvas.clientHeight;
