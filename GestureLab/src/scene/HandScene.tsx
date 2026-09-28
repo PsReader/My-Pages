@@ -33,14 +33,14 @@ const skeletonPairs = [
 ];
 const maxHands = 2;
 
-// Pre-allocated scratch vectors — avoids per-frame GC pressure
+// Pre-allocated scratch vectors, avoids per-frame GC pressure
 const _zero = new THREE.Vector3(0, 0, 0);
 const _target = new THREE.Vector3();
 const _offscreen = new THREE.Vector3(0, 10, -2);
 
 interface HandSceneProps {
   landmarks: HandLandmark[][];
-  shaderMap: Record<number, Record<number, string>>;
+  shaderMap: Record<number, string>;
   palmCenter: { x: number; y: number } | null;
   handAngle: number;
   lowPerf?: boolean;
@@ -73,7 +73,6 @@ export function HandScene({
   const meshRefs = useRef<Array<Array<THREE.Mesh | null>>>([]);
   const materialCacheRef = useRef<Map<string, THREE.ShaderMaterial>>(new Map());
   const prevPositionsRef = useRef<Array<THREE.Vector3>>([]);
-  const skeletonRefs = useRef<Array<THREE.LineSegments | null>>([]);
   const skeletonGeometryRefs = useRef<Array<THREE.BufferGeometry | null>>([]);
   const worldPositionsRef = useRef<Array<Array<THREE.Vector3>>>([]);
 
@@ -144,7 +143,7 @@ export function HandScene({
 
         if (mesh) {
           mesh.scale.setScalar(0.55 + Math.min(velocity * 2.6, 0.7));
-          const shaderId = shaderMap[handIndex]?.[jointIndex] ?? shaderMap[0]?.[jointIndex] ?? "thermal-vision";
+          const shaderId = shaderMap[jointIndex] ?? "thermal-vision";
           const material =
             materialCacheRef.current.get(shaderId) ??
             buildShaderMaterial(shaderId);
@@ -239,11 +238,7 @@ export function HandScene({
                 </mesh>
               </group>
             ))}
-            <lineSegments
-              ref={(node) => {
-                skeletonRefs.current[handIndex] = node;
-              }}
-            >
+            <lineSegments>
               <bufferGeometry
                 ref={(node) => {
                   skeletonGeometryRefs.current[handIndex] = node;

@@ -27,8 +27,8 @@ GestureLab maps the hands into two roles:
 
 | Hand                         | Role                                                            |
 | ---------------------------- | --------------------------------------------------------------- |
-| The hand showing 1–4 fingers | **Mode selector** — choose the active control mode              |
-| The other hand               | **Manipulator** — perform gestures to adjust the central object |
+| The hand showing 1-4 fingers | **Mode selector**: choose the active control mode              |
+| The other hand               | **Manipulator**: perform gestures to adjust the central object |
 
 When no mode is selected, the app uses **Auto** mode and animates the scene from motion energy and proximity.
 
@@ -48,7 +48,7 @@ Changes persist when switching modes, so the scene keeps its last state when you
 
 | Action                  | Input                                                 |
 | ----------------------- | ----------------------------------------------------- |
-| Select a mode           | Hold up 1–4 fingers on one hand                       |
+| Select a mode           | Hold up 1-4 fingers on one hand                       |
 | Manipulate              | Use the opposite hand with pinch/move/rotate gestures |
 | Toggle navbar           | Fold your ring finger                                 |
 | Switch interactive view | Use the UI controls in the overlay                    |
@@ -57,9 +57,9 @@ Changes persist when switching modes, so the scene keeps its last state when you
 
 GestureLab supports three interactive views:
 
-- **Sphere & Halo** — the default mode where hand gestures control a central sphere and halo.
-- **Retrolens** — a video-based portal effect that uses both hands as corner anchors and cycles image filters.
-- **AirGlow** — an air-drawing overlay where the index fingertip draws on a 2D canvas (pen, shapes, and eraser) with a gesture-triggered color wheel.
+- **Sphere & Halo**: the default mode where hand gestures control a central sphere and halo.
+- **Retrolens**: a video-based portal effect that uses both hands as corner anchors and cycles image filters.
+- **AirGlow**: an air-drawing overlay where the index fingertip draws on a 2D canvas (pen, shapes, and eraser) with a gesture-triggered color wheel.
 
 In Retrolens:
 
@@ -78,14 +78,12 @@ In Retrolens:
 
 Each tracked joint can use a different shader style, creating a layered, reactive effect. Shader examples include:
 
-- **Thermal Vision** — heat-map glow
-- **Chromatic Aberration** — split-spectrum shimmer
-- **Entropy Erosion** — fractal, noise-driven motion
-- **Gravitational Lensing** — warped motion field
-- **Plasma Bridge** — dynamic arc bands
-- **Scanline Pulse** — pulsing scanlines
-- **Neon Scattering** — glowing chromatic scatter
-- **Topographic Matrix** — contour/trail lines
+- **Thermal Vision**: heat-map glow
+- **Chromatic Aberration**: split-spectrum shimmer
+- **Plasma Bridge**: dynamic arc bands
+- **Scanline Pulse**: pulsing scanlines
+- **Neon Scattering**: glowing chromatic scatter
+- **Topographic Matrix**: contour/trail lines
 
 ## Behind the scenes
 
@@ -95,7 +93,7 @@ Each tracked joint can use a different shader style, creating a layered, reactiv
 - `src/scene/HandScene.tsx` renders landmark spheres, skeleton lines, and the main interactive object in Three.js.
 - `src/components/CentralSphere.tsx` drives the central sphere and halo based on gesture mode.
 - `src/shaders/buildShaderMaterial.ts` creates the custom shader materials used for landmark visuals.
-- `src/captureStore.ts` shares screenshot capture state across the app.
+- `src/App.tsx` handles PNG screenshot capture from the WebGL canvas.
 
 ## Scripts
 
@@ -112,6 +110,5 @@ Each tracked joint can use a different shader style, creating a layered, reactiv
 - TypeScript
 - Three.js / React Three Fiber
 - MediaPipe HandLandmarker
-- Tailwind CSS
 - GSAP
 - GLSL shaders

@@ -34,9 +34,9 @@ export function RoutingPanel({
   const statusText =
     isReady && isTracking
       ? hasDetectedHand
-        ? "Hand detected — live view"
-        : "Camera live — waiting for hand"
-      : "Camera idle — initializing";
+        ? "Hand detected: live view"
+        : "Camera live: waiting for hand"
+      : "Camera idle: initializing";
 
   return (
     <div className="overlay-panel drawer-content">

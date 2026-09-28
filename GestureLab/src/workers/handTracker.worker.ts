@@ -21,8 +21,8 @@ self.onmessage = async (e: MessageEvent) => {
         runningMode: "VIDEO",
         numHands: 2,
         minHandDetectionConfidence: 0.3,
-        minHandPresenceConfidence: 0.3,
-        minTrackingConfidence: 0.35,
+minHandPresenceConfidence: 0.55,
+minTrackingConfidence: 0.5,
       })
       self.postMessage({ type: "ready" })
     } catch (err) {

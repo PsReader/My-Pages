@@ -3,6 +3,7 @@ import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import type { HandLandmark } from "../hooks/useHands";
 import type { CentralParams } from "./centralParams";
+import { computeHandAngle, computePalmCenter } from "../lib/utils";
 
 interface Props {
   landmarks: HandLandmark[][];
@@ -13,27 +14,6 @@ interface Props {
   mode: number;
   modeHandIndex: number;
   lowPerf?: boolean;
-}
-
-function avgPalm(hand: HandLandmark[]) {
-  if (!hand || hand.length < 21) return null;
-  let sx = 0,
-    sy = 0;
-  for (const i of [0, 5, 9, 13, 17]) {
-    const lm = hand[i];
-    if (!lm) return null;
-    sx += lm.x;
-    sy += lm.y;
-  }
-  return { x: sx / 5, y: sy / 5 };
-}
-
-function handAngleOf(hand: HandLandmark[]) {
-  if (!hand || hand.length < 21) return 0;
-  const wrist = hand[0],
-    mid = hand[9];
-  if (!wrist || !mid) return 0;
-  return Math.atan2(mid.y - wrist.y, mid.x - wrist.x);
 }
 
 function pinchDist(hand: HandLandmark[]) {
@@ -60,6 +40,14 @@ function generateShellPoints(count: number, radius: number) {
 
 const autoSmooth = 0.08;
 
+const REACQUIRE_GRACE_FRAMES = 5;
+const MAX_PINCH_DELTA = 0.5;
+const MIN_SCALE = 0.25;
+const MAX_SCALE = 3;
+const SCALE_LERP = 0.25;
+const ROT_DEADZONE = 0.003;
+const MAX_ROT_DELTA = 0.3;
+
 export function CentralSphere({
   landmarks,
   palmCenter: propCenter,
@@ -70,7 +58,6 @@ export function CentralSphere({
   modeHandIndex,
   lowPerf,
 }: Props) {
-  const groupRef = useRef<THREE.Group>(null);
   const haloRef = useRef<THREE.Mesh>(null);
   const sphereRef = useRef<THREE.Points>(null);
 
@@ -147,9 +134,10 @@ export function CentralSphere({
   const prevAngleValid = useRef(false);
   const prevPinch = useRef(0);
   const prevPinchValid = useRef(false);
+  const reacquireFrames = useRef(0);
 
   /* ---- Motion energy ---- */
-  const prevJoints = useRef<THREE.Vector3[]>([]);
+  const prevJoints = useRef<THREE.Vector3[][]>([[], []]);
   const _energyVec = useMemo(() => new THREE.Vector3(), []);
 
   /* ---- Ref-forward hot props ---- */
@@ -174,25 +162,60 @@ export function CentralSphere({
     const wX = aspect * 1.3;
     const wY = 1.3;
 
+    /* ---- Motion energy from all joints, per hand ---- */
+    let energy = 0;
+    landmarks.forEach((hand, handIdx) => {
+      if (hand.length < 21) return;
+      const handPrev = prevJoints.current[handIdx] ?? [];
+      for (let i = 0; i < 21; i++) {
+        const lm = hand[i];
+        if (!lm) continue;
+        _energyVec.set(
+          (lm.x - 0.5) * wX,
+          (0.5 - lm.y) * wY,
+          (lm.z ?? 0) * 0.35,
+        );
+        const prev = handPrev[i];
+        const d = prev ? _energyVec.distanceTo(prev) : 0;
+        energy += d;
+        if (prev) {
+          prev.copy(_energyVec);
+        } else {
+          handPrev[i] = _energyVec.clone();
+        }
+      }
+      prevJoints.current[handIdx] = handPrev;
+    });
+    if (landmarks.length === 0) prevJoints.current = [[], []];
+    const intensity = Math.min(1, energy / 24);
+
     /* ---- Determine manipulation hand ---- */
+    // The hand showing the finger count declares the mode; the OTHER hand
+    // drives manipulation. This only falls back to the mode hand itself when
+    // no second hand is visible.
     const otherIdx = mhIdx === 0 ? 1 : mhIdx === 1 ? 0 : -1;
-    const hasOther = otherIdx >= 0 && landmarks[otherIdx]?.length >= 21;
-    const manipHand = hasOther
-      ? landmarks[otherIdx]
-      : mhIdx >= 0
-        ? (landmarks[mhIdx] ?? [])
-        : [];
+    const modeArm = mhIdx >= 0 ? (landmarks[mhIdx] ?? []) : [];
+    const otherArm = otherIdx >= 0 ? (landmarks[otherIdx] ?? []) : [];
+    const otherActive = otherIdx >= 0 && otherArm.length >= 21;
+    const modeActive = modeArm.length >= 21;
+    const manipHand = otherActive ? otherArm : modeActive ? modeArm : [];
     const hasManip = manipHand.length >= 21;
 
-    const manipPalm = hasManip ? avgPalm(manipHand) : null;
-    const manipAngle = hasManip ? handAngleOf(manipHand) : propAngle;
+    const manipPalm = hasManip ? computePalmCenter(manipHand) : null;
+    const manipAngle = hasManip ? computeHandAngle(manipHand) : propAngle;
 
     /* ---- Frame-to-frame deltas for gesture control ---- */
     let dAngle = 0;
     if (hasManip) {
       if (prevAngleValid.current) {
         const raw = manipAngle - prevAngle.current;
-        dAngle = Math.atan2(Math.sin(raw), Math.cos(raw));
+        dAngle =
+          Math.abs(raw) < ROT_DEADZONE
+            ? 0
+            : Math.max(
+                -MAX_ROT_DELTA,
+                Math.min(MAX_ROT_DELTA, Math.atan2(Math.sin(raw), Math.cos(raw))),
+              );
       }
       prevAngle.current = manipAngle;
       prevAngleValid.current = true;
@@ -209,32 +232,17 @@ export function CentralSphere({
       prevPinchValid.current = false;
     }
 
+    // Reacquire grace: after the manip hand reappears, ignore deltas for a
+    // few frames so a re-grip geometry change cannot jump scale/rotation.
+    if (hasManip) {
+      reacquireFrames.current++;
+    } else {
+      reacquireFrames.current = 0;
+    }
+    const gripReady = reacquireFrames.current >= REACQUIRE_GRACE_FRAMES;
+
     /* ---- Effective center for positioning ---- */
     const effCenter = propCenter ?? manipPalm;
-
-    /* ---- Motion energy from all joints ---- */
-    let energy = 0;
-    landmarks.forEach((hand) => {
-      if (hand.length < 21) return;
-      for (let i = 0; i < 21; i++) {
-        const lm = hand[i];
-        if (!lm) continue;
-        _energyVec.set(
-          (lm.x - 0.5) * wX,
-          (0.5 - lm.y) * wY,
-          (lm.z ?? 0) * 0.35,
-        );
-        const prev = prevJoints.current[i];
-        energy += prev ? _energyVec.distanceTo(prev) : 0;
-        if (prev) {
-          prev.copy(_energyVec);
-        } else {
-          prevJoints.current[i] = _energyVec.clone();
-        }
-      }
-    });
-    if (landmarks.length === 0) prevJoints.current = [];
-    const intensity = Math.min(1, energy / 24);
 
     /* ---- Palm world-space ---- */
     let pX = 0,
@@ -260,7 +268,7 @@ export function CentralSphere({
     let tx = p.posX,
       ty = p.posY,
       tz = p.posZ;
-    if (curMode === 1 && hasOther && manipPalm) {
+    if (curMode === 1 && hasManip && manipPalm) {
       tx = (manipPalm.x - 0.5) * wX;
       ty = (0.5 - manipPalm.y) * wY;
       tz = 0;
@@ -285,7 +293,7 @@ export function CentralSphere({
       ty = camera.position.y + _dragDir.y * d - dragOffRef.current.y;
     }
 
-    const lerpFactor = curMode === 1 && hasOther ? 0.35 : autoSmooth;
+    const lerpFactor = curMode === 1 && hasManip ? 0.35 : autoSmooth;
     _lerpTarget.set(tx, ty, tz);
     sPos.current.lerp(
       _lerpTarget,
@@ -294,16 +302,22 @@ export function CentralSphere({
     prevMode.current = curMode;
 
     /* ===== Scale (mode 2: pinch delta → scale, persistent) ===== */
-    if (curMode === 2 && hasOther && hasManip) {
-      gScale.current = Math.max(0.1, gScale.current + dPinch * 12);
-      sScale.current = gScale.current;
-      onParamsChange({ sphereScale: gScale.current, autoScale: false });
+    if (curMode === 2 && hasManip) {
+      if (gripReady) {
+        const dClamped = Math.max(-MAX_PINCH_DELTA, Math.min(MAX_PINCH_DELTA, dPinch * 12));
+        gScale.current = Math.max(
+          MIN_SCALE,
+          Math.min(MAX_SCALE, gScale.current * (1 + dClamped)),
+        );
+        sScale.current += (gScale.current - sScale.current) * SCALE_LERP;
+        onParamsChange({ sphereScale: gScale.current, autoScale: false });
+      }
     } else {
-      sScale.current = gScale.current;
+      sScale.current += (gScale.current - sScale.current) * SCALE_LERP;
     }
 
     /* ===== Color (mode 3: index finger X → hue, persistent) ===== */
-    if (curMode === 3 && hasOther && hasManip) {
+    if (curMode === 3 && hasManip) {
       const idx = manipHand[8];
       if (idx) {
         gHue.current = ((1 - idx.x) * 0.83 + 1) % 1;
@@ -325,7 +339,7 @@ export function CentralSphere({
     }
 
     /* ===== Rotation (mode 4: hand angle delta → ring tilt, persistent) ===== */
-    if (curMode === 4 && hasOther && hasManip) {
+    if (curMode === 4 && hasManip) {
       hasCustomRot.current = true;
       gRot.current += dAngle;
       sRotY.current += (gRot.current - sRotY.current) * 0.35;
@@ -349,7 +363,7 @@ export function CentralSphere({
     /* ===== Apply to meshes ===== */
     halo.position.copy(sPos.current);
     const hScale = p.autoPosition ? 1 + intensity * 0.24 + prox * 0.15 : 1;
-    halo.scale.setScalar(hScale);
+    halo.scale.setScalar(hScale * sScale.current);
     if (curMode === 4 && hasManip) {
       halo.rotation.x = Math.PI / 2;
       halo.rotation.y = sRotY.current;
@@ -407,7 +421,7 @@ export function CentralSphere({
   };
 
   return (
-    <group ref={groupRef}>
+    <>
       <mesh
         ref={haloRef}
         rotation={[Math.PI / 2, 0, 0]}
@@ -451,6 +465,6 @@ export function CentralSphere({
           />
         </mesh>
       </group>
-    </group>
+    </>
   );
 }

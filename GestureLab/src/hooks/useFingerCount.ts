@@ -11,7 +11,7 @@ export function isExtended(hand: HandLandmark[], tip: number, pip: number, ratio
   return dt > dp * ratio
 }
 
-// Thumb abduction test – distance from thumb tip to index MCP vs hand size.
+// Thumb abduction test, distance from thumb tip to index MCP vs hand size.
 // In a fist the thumb is tucked (tip near index MCP); extended it sticks out.
 function thumbExtended(hand: HandLandmark[]): boolean {
   const tip = hand[4]
@@ -49,4 +49,13 @@ export function useRingFingerFolded(hands: HandLandmark[][]): boolean {
     }
     return false
   }, [hands])
+}
+
+export function pinkyOnlyFolded(hand: HandLandmark[]): boolean {
+  if (!hand || hand.length < 21) return false
+  const pinkyFolded = !isExtended(hand, 20, 19)
+  const indexUp = isExtended(hand, 8, 7)
+  const middleUp = isExtended(hand, 12, 11)
+  const ringUp = isExtended(hand, 16, 15)
+  return pinkyFolded && indexUp && middleUp && ringUp
 }

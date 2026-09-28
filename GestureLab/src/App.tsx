@@ -1,8 +1,9 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import type * as THREE from "three";
 import { AmbientBackground } from "./components/AmbientBackground";
-import { isLowPerfDevice } from "./lib/utils";
+import { computeHandAngle, computePalmCenter, isLowPerfDevice } from "./lib/utils";
 import { OnboardingOverlay } from "./components/OnboardingOverlay";
 import { RoutingPanel } from "./components/RoutingPanel";
 import { useHands } from "./hooks/useHands";
@@ -10,97 +11,31 @@ import { useWebcam } from "./hooks/useWebcam";
 import { HandScene } from "./scene/HandScene";
 import { shaderRegistry } from "./shaders/shaderRegistry";
 import { useFingerCount, useRingFingerFolded } from "./hooks/useFingerCount";
-import { captureStore } from "./captureStore";
-import { CaptureBridge } from "./components/CaptureBridge";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 
 import { defaultCentralParams, MODE_INFO, type CentralParams } from "./components/centralParams";
-import { INTERACTIVES, type InteractiveDefinition } from "./components/interactives";
+import { INTERACTIVES } from "./components/interactives";
 import { AirGlow, AIRGLOW_TOOL_INFO, type PenHand } from "./components/AirGlow";
 
-const jointOptions = [
-  { value: 4, label: "Thumb Tip" },
-  { value: 8, label: "Index Tip" },
-  { value: 12, label: "Middle Tip" },
-  { value: 16, label: "Ring Tip" },
-  { value: 20, label: "Pinky Tip" },
-];
+const shaderMap = {
+  4: "plasma-bridge",
+  8: "chromatic-aberration",
+  12: "neon-scattering",
+  16: "scanline-pulse",
+  20: "topographic-matrix",
+};
 
-/* Palm = average of wrist(0) + finger MCP joints (5,9,13,17) */
-const palmJoints = [0, 5, 9, 13, 17];
+const activeJointLabel = "Index Tip";
+const activeShaderEntry = shaderRegistry["chromatic-aberration"];
+const activeShaderLabel = activeShaderEntry.name;
+const activeShaderDescription = activeShaderEntry.description;
 
-function computePalmCenter(
-  handLandmarks: Array<{ x: number; y: number; z?: number }>,
-) {
-  if (!handLandmarks || handLandmarks.length < 21) return null;
-  let sx = 0,
-    sy = 0;
-  for (const idx of palmJoints) {
-    const lm = handLandmarks[idx];
-    if (!lm) return null;
-    sx += lm.x;
-    sy += lm.y;
-  }
-  // Return in normalized coords [0,1] matching MediaPipe output
-  return { x: sx / palmJoints.length, y: sy / palmJoints.length };
-}
+const MODE_HOLD_FRAMES = 5;
 
-function computeHandAngle(
-  handLandmarks: Array<{ x: number; y: number; z?: number }>,
-): number {
-  if (!handLandmarks || handLandmarks.length < 21) return 0
-  const wrist = handLandmarks[0]
-  const midMcp = handLandmarks[9]
-  if (!wrist || !midMcp) return 0
-  return Math.atan2(midMcp.y - wrist.y, midMcp.x - wrist.x)
-}
-
-type RoutingPanelBaseProps = {
-  activeJointLabel: string;
-  activeShaderLabel: string;
-  activeShaderDescription: string;
-  isReady: boolean;
-  isTracking: boolean;
-  hasDetectedHand: boolean;
-  error: string | null;
-  onNavToggle: () => void;
-  onReset: () => void;
-  interactives: InteractiveDefinition[];
-  activeInteractive: string;
-  onInteractiveChange: (id: string) => void;
-}
-
-function RoutingPanelWithCapture(props: RoutingPanelBaseProps) {
-  const capture = useSyncExternalStore(
-    captureStore.subscribe,
-    captureStore.getSnapshot,
-  );
-  return (
-    <RoutingPanel
-      {...props}
-      onScreenshot={capture.takeScreenshot}
-    />
-  );
-}
 function App() {
   const { videoRef, isReady, error } = useWebcam();
-  const isLowPerf = useMemo(() => isLowPerfDevice(), []);
+  const isLowPerf = isLowPerfDevice();
   const { landmarks, handedness, isTracking } = useHands(videoRef, { lowPerf: isLowPerf });
-  const selectedJoint = 8;
-  const activeHand = 0;
-
-  const initialShaderMap = {
-    4: "plasma-bridge",
-    8: "chromatic-aberration",
-    12: "neon-scattering",
-    16: "scanline-pulse",
-    20: "topographic-matrix",
-  }
-
-  const [shaderMap] = useState<Record<number, Record<number, string>>>({
-    0: { ...initialShaderMap },
-    1: { ...initialShaderMap },
-  });
 
   const [onboardingDone, setOnboardingDone] = useState(() => localStorage.getItem("gesturelab-onboarded") === "true");
 
@@ -137,14 +72,19 @@ function App() {
     localStorage.setItem("gesturelab-airglow-hand", hand)
   }, [])
 
-  const shaderOptions = useMemo(
-    () =>
-      Object.entries(shaderRegistry).map(([value, entry]) => ({
-        value,
-        label: entry.name,
-      })),
-    [],
-  );
+  const glRef = useRef<THREE.WebGLRenderer | null>(null);
+
+  const takeScreenshot = useCallback(() => {
+    const canvas = glRef.current?.domElement;
+    if (!canvas) return;
+    const dataUrl = canvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.download = `gesturelab-${Date.now()}.png`;
+    link.href = dataUrl;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }, []);
 
   const hasDetectedHand = landmarks.some((hand) => hand.length > 0);
 
@@ -155,33 +95,34 @@ function App() {
 
   const fCount0 = useFingerCount(landmarks[0] || [])
   const fCount1 = useFingerCount(landmarks[1] || [])
-  const modeHandIndex = useMemo(() => {
-    if (fCount0 >= 1 && fCount0 <= 4) return 0
-    if (fCount1 >= 1 && fCount1 <= 4) return 1
-    return -1
-  }, [fCount0, fCount1])
-  const activeMode = modeHandIndex >= 0
-    ? (modeHandIndex === 0 ? fCount0 : fCount1)
-    : 0
+  // Commit a mode only after the same finger count holds for MODE_HOLD_FRAMES
+  // consecutive frames, so transient flicker through in-between counts never
+  // snaps the sphere across modes.
+  const pendingIdxRef = useRef(-1)
+  const pendingCountRef = useRef(0)
+  const stableFramesRef = useRef(0)
+  const committedIdxRef = useRef(-1)
+  const committedCountRef = useRef(0)
+  const rawIdx = fCount0 >= 1 && fCount0 <= 4 ? 0 : fCount1 >= 1 && fCount1 <= 4 ? 1 : -1
+  const rawCount = rawIdx >= 0 ? (rawIdx === 0 ? fCount0 : fCount1) : 0
+  if (rawIdx === pendingIdxRef.current && rawCount === pendingCountRef.current) {
+    stableFramesRef.current++
+    if (stableFramesRef.current >= MODE_HOLD_FRAMES) {
+      committedIdxRef.current = rawIdx
+      committedCountRef.current = rawCount
+    }
+  } else {
+    pendingIdxRef.current = rawIdx
+    pendingCountRef.current = rawCount
+    stableFramesRef.current = 0
+  }
+  const modeHandIndex = committedIdxRef.current
+  const activeMode = committedCountRef.current
   const ringFolded = useRingFingerFolded(landmarks)
 
   const handleCentralChange = useCallback((update: Partial<CentralParams>) => {
     setCentralParams(prev => ({ ...prev, ...update }))
   }, [])
-
-  const activeJointLabel =
-    jointOptions.find((joint) => joint.value === selectedJoint)?.label ??
-    "Index Tip";
-
-  const currentShaderId = shaderMap[activeHand]?.[selectedJoint] ?? shaderMap[0]?.[selectedJoint] ?? "thermal-vision";
-  const activeShaderEntry = shaderOptions.find(
-    (option) => option.value === currentShaderId,
-  );
-  const activeShaderLabel = activeShaderEntry?.label ?? "Thermal Vision";
-  const activeShaderDescription =
-    Object.entries(shaderRegistry).find(
-      ([value]) => value === currentShaderId,
-    )?.[1]?.description ?? "A luminous membrane that responds to motion.";
 
   // Ring finger → navbar toggle
   useEffect(() => {
@@ -198,7 +139,11 @@ function App() {
   return (
       <div className="app-shell">
         <div className="canvas-shell">
-          <Canvas camera={{ position: [0, 0, 3.5], fov: 50 }} dpr={[1, 1.5]} gl={{ preserveDrawingBuffer: true }} style={{ zIndex: 0 }}>
+          <Canvas
+            onCreated={(state) => {
+              glRef.current = state.gl;
+            }}
+            camera={{ position: [0, 0, 3.5], fov: 50 }} dpr={[1, 1.5]} gl={{ preserveDrawingBuffer: true }} style={{ zIndex: 0 }}>
             <ambientLight intensity={0.8} />
             <directionalLight position={[2, 2, 4]} intensity={1.2} />
             <AmbientBackground
@@ -221,7 +166,6 @@ function App() {
               modeHandIndex={modeHandIndex}
             />
             <OrbitControls enableZoom={false} enablePan={false} />
-            <CaptureBridge />
           </Canvas>
         </div>
 
@@ -245,7 +189,7 @@ function App() {
         </div>
         <div className={`nav-grip ${navOpen ? "hidden" : ""}`} onClick={() => setNavOpen(true)} />
         <nav className={`nav-overlay ${!navOpen ? "nav-closed" : ""}`}>
-          <RoutingPanelWithCapture
+          <RoutingPanel
             activeJointLabel={activeJointLabel}
             activeShaderLabel={activeShaderLabel}
             activeShaderDescription={activeShaderDescription}
@@ -253,6 +197,7 @@ function App() {
             isTracking={isTracking}
             hasDetectedHand={hasDetectedHand}
             error={error}
+            onScreenshot={takeScreenshot}
             onNavToggle={() => setNavOpen(p => !p)}
             onReset={handleReset}
             interactives={INTERACTIVES}

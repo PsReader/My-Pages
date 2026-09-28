@@ -52,7 +52,7 @@ export function useWebcam() {
         setError(null);
       } catch (err) {
         if (cancelled) return;
-        // "Timeout starting video source" is transient — retry with backoff
+        // "Timeout starting video source" is transient: retry with backoff
         if (attempt < MAX_ATTEMPTS) {
           retryTimer = window.setTimeout(tryStart, attempt * 2000);
         } else {

@@ -8,6 +8,34 @@ export type HandLandmark = {
   z?: number;
 };
 
+interface EuroState {
+  filtered: number;
+  deriv: number;
+}
+
+// One-Euro filter: low-pass with a speed-adaptive cutoff. Filters keypoint
+// noise when the hand is still, relaxes as motion speeds up so it stays
+// responsive without going raw. Params tuned for MediaPipe normalized
+// coordinates.
+const EURO_MIN_CUTOFF = 1.8;
+const EURO_BETA = 0.01;
+const EURO_DERIV_CUTOFF = 1.0;
+
+const euroAlpha = (cutoff: number, dt: number) => {
+  const tau = 1 / (2 * Math.PI * cutoff);
+  return 1 / (1 + tau / dt);
+};
+
+const oneEuro = (value: number, state: EuroState, dt: number) => {
+  const dx = (value - state.filtered) / dt;
+  const alphaDeriv = euroAlpha(EURO_DERIV_CUTOFF, dt);
+  state.deriv = alphaDeriv * dx + (1 - alphaDeriv) * state.deriv;
+  const cutoff = EURO_MIN_CUTOFF + EURO_BETA * Math.abs(state.deriv);
+  const alpha = euroAlpha(cutoff, dt);
+  state.filtered = alpha * value + (1 - alpha) * state.filtered;
+  return state.filtered;
+};
+
 export type HandednessLabel = "Left" | "Right" | "unknown";
 
 function canUseWorker(): boolean {
@@ -19,12 +47,9 @@ function canUseWorker(): boolean {
 
 export function useHands(
   videoRef: RefObject<HTMLVideoElement>,
-  options?: { useWorker?: boolean; lowPerf?: boolean },
+  options?: { lowPerf?: boolean },
 ) {
-  const canUseWorkerVal = canUseWorker();
-  const [useWorker, setUseWorker] = useState(
-    options?.useWorker === false ? false : canUseWorkerVal,
-  );
+  const [useWorker, setUseWorker] = useState(canUseWorker);
 
   const [landmarks, setLandmarks] = useState<HandLandmark[][]>([[], []]);
   const [handedness, setHandedness] = useState<HandednessLabel[]>([
@@ -41,6 +66,10 @@ export function useHands(
   const prevHandednessRef = useRef<HandednessLabel[]>(["unknown", "unknown"]);
   const lostFrameCountRef = useRef<[number, number]>([0, 0]);
   const maxLostFrames = 10;
+  const euroStateRef = useRef<
+    Array<Array<{ x: EuroState; y: EuroState; z: EuroState } | null>>
+  >([[], []]);
+  const lastDetectTimeRef = useRef<number | null>(null);
   const pendingFramesRef = useRef(0);
   const workerInitTimedOutRef = useRef(false);
 
@@ -59,21 +88,30 @@ export function useHands(
     (a.x - b.x) ** 2 + (a.y - b.y) ** 2 + ((a.z ?? 0) - (b.z ?? 0)) ** 2;
 
   const pastAssignmentsRef = useRef<Array<number | null>>([null, null]);
+  // Committed slot order: order[slotIndex] = rawHands index. Anchored across
+  // frames so a single wobble in the cheap assignment test cannot flip slots.
+  const slotOrderRef = useRef<[number, number]>([0, 1]);
+  const slotFlipFramesRef = useRef(0);
+  const slotOrderKnownRef = useRef(false);
+  const SLOT_SWITCH_MARGIN = 0.25;
+  const SLOT_HOLD_FRAMES = 6;
 
   const handCost = (
     hand: { landmarks: HandLandmark[]; handedness: string },
     slotIndex: number,
     previousHand: HandLandmark[] | undefined,
     handIndex: number,
+    useHandedness: boolean,
   ) => {
-    const handednessPenalty =
-      hand.handedness === "unknown"
+    const handednessPenalty = useHandedness
+      ? hand.handedness === "unknown"
         ? 0.12
         : hand.handedness === "Left" && slotIndex === 0
           ? 0
           : hand.handedness === "Right" && slotIndex === 1
             ? 0
-            : 0.32;
+            : 0.32
+      : 0;
     const prevPenalty = previousHand?.length
       ? Math.min(1, distanceSq(getWrist(hand.landmarks), getWrist(previousHand)) * 1.8)
       : 0.18;
@@ -134,28 +172,54 @@ export function useHands(
       return { slots, labels };
     }
 
+    // With two hands, handedness from MediaPipe is unreliable and can jitter
+    // frame to frame. When prior wrists are available, decide by wrist
+    // proximity + temporal stickiness only; bootstrap with handedness only on
+    // the first frames.
+    const bothTracked = !!previousHands[0]?.length && !!previousHands[1]?.length;
+    const useHandedness = !bothTracked;
     const candidates = [
       {
         order: [0, 1] as [number, number],
         cost:
-          handCost(rawHands[0], 0, previousHands[0], 0) +
-          handCost(rawHands[1], 1, previousHands[1], 1),
+          handCost(rawHands[0], 0, previousHands[0], 0, useHandedness) +
+          handCost(rawHands[1], 1, previousHands[1], 1, useHandedness),
       },
       {
         order: [1, 0] as [number, number],
         cost:
-          handCost(rawHands[0], 1, previousHands[1], 0) +
-          handCost(rawHands[1], 0, previousHands[0], 1),
+          handCost(rawHands[0], 1, previousHands[1], 0, useHandedness) +
+          handCost(rawHands[1], 0, previousHands[0], 1, useHandedness),
       },
     ];
     const best = candidates.reduce(
       (min, current) => (current.cost < min.cost ? current : min),
       candidates[0],
     );
-    slots[best.order[0]] = rawHands[0].landmarks;
-    slots[best.order[1]] = rawHands[1].landmarks;
-    labels[best.order[0]] = slotLabel(best.order[0], rawHands[0]);
-    labels[best.order[1]] = slotLabel(best.order[1], rawHands[1]);
+
+    // Hysteresis: only switch the committed order when the alternative wins
+    // by a clear margin for several consecutive frames. A single-frame wobble
+    // never flips slots.
+    const cur = slotOrderRef.current;
+    const curCost = candidates.find(
+      (c) => c.order[0] === cur[0] && c.order[1] === cur[1],
+    )?.cost ?? best.cost;
+    if (!slotOrderKnownRef.current) {
+      slotOrderRef.current = best.order;
+      slotOrderKnownRef.current = true;
+    } else if (best.order[0] !== cur[0] && best.cost + SLOT_SWITCH_MARGIN < curCost) {
+      slotFlipFramesRef.current++;
+      if (slotFlipFramesRef.current >= SLOT_HOLD_FRAMES) {
+        slotOrderRef.current = best.order;
+      }
+    } else {
+      slotFlipFramesRef.current = 0;
+    }
+    const order = slotOrderRef.current;
+    slots[order[0]] = rawHands[0].landmarks;
+    slots[order[1]] = rawHands[1].landmarks;
+    labels[order[0]] = slotLabel(order[0], rawHands[0]);
+    labels[order[1]] = slotLabel(order[1], rawHands[1]);
     return { slots, labels };
   };
 
@@ -163,6 +227,13 @@ export function useHands(
   const processRawHands = (
     rawHands: Array<{ landmarks: HandLandmark[]; handedness: string }>,
   ) => {
+    // dt once per detection, shared by both hands (clamped; the main-thread
+    // fallback and worker produce results at slightly different cadences).
+    const now = performance.now();
+    const dt = lastDetectTimeRef.current
+      ? Math.min(Math.max((now - lastDetectTimeRef.current) / 1000, 0.005), 0.2)
+      : 1 / 60;
+    lastDetectTimeRef.current = now;
     // Normalize handedness and mirror X once, so every consumer sees
     // user-perspective coordinates (selfie view): the left hand renders on
     // the left and is labeled "Left", regardless of worker vs main thread.
@@ -193,17 +264,20 @@ export function useHands(
       if (handLandmarks && handLandmarks.length > 0) {
         lostFrameCountRef.current[handIndex] = 0;
         nextLandmarks[handIndex] = handLandmarks.map((landmark, index) => {
-          const prev = prevHand[index];
-          if (!prev) return landmark;
-          const dx = Math.abs(landmark.x - prev.x);
-          const dy = Math.abs(landmark.y - prev.y);
-          const dz = Math.abs((landmark.z ?? 0) - (prev.z ?? 0));
-          const motion = dx + dy + dz;
-          const factor = Math.min(0.99, Math.max(0.9, 0.94 + motion * 0.5));
+          let euro = euroStateRef.current[handIndex][index];
+          if (!euro) {
+            // Fresh hand after absence: seed the filter state from raw values
+            // so a new hand never inherits a dead hand's stale state.
+            euro = euroStateRef.current[handIndex][index] = {
+              x: { filtered: landmark.x, deriv: 0 },
+              y: { filtered: landmark.y, deriv: 0 },
+              z: { filtered: landmark.z ?? 0, deriv: 0 },
+            };
+          }
           return {
-            x: prev.x + (landmark.x - prev.x) * factor,
-            y: prev.y + (landmark.y - prev.y) * factor,
-            z: (prev.z ?? 0) + ((landmark.z ?? 0) - (prev.z ?? 0)) * factor,
+            x: oneEuro(landmark.x, euro.x, dt),
+            y: oneEuro(landmark.y, euro.y, dt),
+            z: oneEuro(landmark.z ?? 0, euro.z, dt),
           };
         });
       } else if (
@@ -215,6 +289,7 @@ export function useHands(
         nextLandmarks[handIndex] = prevHand;
       } else {
         lostFrameCountRef.current[handIndex] = 0;
+        euroStateRef.current[handIndex] = [];
         nextLandmarks[handIndex] = [];
       }
     });
@@ -372,8 +447,8 @@ export function useHands(
           runningMode: "VIDEO",
           numHands: 2,
           minHandDetectionConfidence: 0.3,
-          minHandPresenceConfidence: 0.3,
-          minTrackingConfidence: 0.35,
+minHandPresenceConfidence: 0.55,
+minTrackingConfidence: 0.5,
         });
 
         if (cancelled) {

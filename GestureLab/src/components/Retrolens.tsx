@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { RefObject } from "react";
 import * as THREE from "three";
 import type { HandLandmark } from "../hooks/useHands";
-import { isExtended } from "../hooks/useFingerCount";
+import { pinkyOnlyFolded } from "../hooks/useFingerCount";
 
 const FILTERS = [
   "MONO",
@@ -19,15 +19,6 @@ const FILTERS = [
 ];
 
 const EDGE_POINTS = 12;
-
-function pinkyOnlyFolded(hand: HandLandmark[]): boolean {
-  if (!hand || hand.length < 21) return false;
-  const pinkyFolded = !isExtended(hand, 20, 19);
-  const indexUp = isExtended(hand, 8, 7);
-  const middleUp = isExtended(hand, 12, 11);
-  const ringUp = isExtended(hand, 16, 15);
-  return pinkyFolded && indexUp && middleUp && ringUp;
-}
 
 const portalVertexShader = /* glsl */ `
   varying vec2 vUv;
@@ -143,8 +134,6 @@ export function Retrolens({
   onFilterChange,
 }: RetrolensProps) {
   const groupRef = useRef<THREE.Group>(null);
-  const quadRef = useRef<THREE.Mesh>(null);
-  const borderRef = useRef<THREE.LineLoop>(null);
   const glowRef = useRef<THREE.Points>(null);
 
   const [videoTexture, setVideoTexture] = useState<THREE.VideoTexture | null>(null);
@@ -344,8 +333,8 @@ export function Retrolens({
 
   return (
     <group ref={groupRef} visible={false}>
-      <mesh ref={quadRef} geometry={quadGeometry} material={material} />
-      <lineLoop ref={borderRef} geometry={borderGeometry}>
+      <mesh geometry={quadGeometry} material={material} />
+      <lineLoop geometry={borderGeometry}>
         <lineBasicMaterial
           color="#7df3ff"
           transparent

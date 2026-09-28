@@ -29,14 +29,6 @@ export function buildShaderMaterial(shaderId: string, overrides?: Record<string,
       return mkShader(vs,
         `uniform float u_time; uniform vec2 u_velocity; uniform float u_speed; uniform float u_amount; uniform float u_intensity; varying vec2 vUv; void main(){ vec2 uv=vUv*2.0-1.0; float r=length(uv); float wave=sin((r*18.0)-u_time*u_speed+u_velocity.x*3.0)*u_amount; vec3 col=vec3(0.16+wave,0.06,0.54); col.r+=u_intensity*pow(1.0-r,2.0); col.g+=0.03*sin(u_time+uv.x*6.0+u_velocity.y); gl_FragColor=vec4(col,1.0); }`,
         u);
-    case "entropy-erosion":
-      return mkShader(vs,
-        `uniform float u_time; uniform vec2 u_velocity; uniform float u_speed; uniform float u_speed2; uniform float u_mix; varying vec2 vUv; void main(){ vec2 uv=vUv*2.0-1.0; float n=sin(uv.x*13.0+u_time*u_speed+u_velocity.x)+cos(uv.y*11.0-u_time*u_speed2+u_velocity.y); vec3 col=mix(vec3(0.05,0.03,0.12),vec3(0.6,0.4,0.95),u_mix+0.5*sin(n*3.0)); gl_FragColor=vec4(col,1.0); }`,
-        u);
-    case "gravitational-lensing":
-      return mkShader(vs,
-        `uniform float u_time; uniform vec2 u_velocity; uniform float u_warp; uniform float u_speed; varying vec2 vUv; void main(){ vec2 uv=vUv*2.0-1.0; float radius=length(uv); float warp=pow(1.0-radius,2.0)*u_warp+length(u_velocity)*0.02; vec3 col=vec3(0.04,0.04,0.18)+vec3(0.2,0.1,0.4)*warp; col+=vec3(0.05,0.2,0.6)*sin(u_time+radius*u_speed); gl_FragColor=vec4(col,1.0); }`,
-        u);
     case "plasma-bridge":
       return mkShader(vs,
         `uniform float u_time; uniform vec2 u_velocity; uniform float u_speed; uniform float u_density; varying vec2 vUv; void main(){ vec2 uv=vUv*2.0-1.0; float band=sin(length(uv)*u_density-u_time*u_speed+u_velocity.x*8.0)*0.5+0.5; vec3 col=mix(vec3(0.05,0.08,0.26),vec3(0.84,0.21,1.0),band); gl_FragColor=vec4(col,1.0); }`,
@@ -62,8 +54,6 @@ export function buildShaderMaterial(shaderId: string, overrides?: Record<string,
 
 export const shaderDefaults: Record<string, Record<string, number>> = {
   "chromatic-aberration":  { u_speed: 5.0, u_amount: 0.035, u_intensity: 0.08 },
-  "entropy-erosion":       { u_speed: 2.0, u_speed2: 1.6, u_mix: 0.5 },
-  "gravitational-lensing": { u_warp: 0.25, u_speed: 12.0 },
   "plasma-bridge":         { u_speed: 6.0, u_density: 14.0 },
   "scanline-pulse":        { u_density: 180.0, u_speed: 8.0, u_brightness: 1.0 },
   "neon-scattering":       { u_glow: 2.0, u_scatter: 6.0 },

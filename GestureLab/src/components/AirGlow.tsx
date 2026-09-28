@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import type { HandLandmark, HandednessLabel } from "../hooks/useHands";
-import { isExtended } from "../hooks/useFingerCount";
+import { isExtended, pinkyOnlyFolded } from "../hooks/useFingerCount";
 
 const DEFAULT_COLOR = "#6cdcff";
 const WHEEL_SIZE = 260;
@@ -66,14 +66,6 @@ function toolOf(mode: number): Tool {
   if (mode === 4) return "erase";
   if (mode === 2) return "shape";
   return "pen";
-}
-
-function pinkyOnlyFolded(hand: HandLandmark[]): boolean {
-  const pinkyFolded = !isExtended(hand, 20, 19);
-  const indexUp = isExtended(hand, 8, 7);
-  const middleUp = isExtended(hand, 12, 11);
-  const ringUp = isExtended(hand, 16, 15);
-  return pinkyFolded && indexUp && middleUp && ringUp;
 }
 
 function hsvToRgb(h: number, s: number, v: number): [number, number, number] {
