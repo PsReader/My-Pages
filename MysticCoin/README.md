@@ -7,7 +7,7 @@ A small digital divination tool in a mystical gold-and-dark theme.
 ## Features
 
 - ask a question, flip the gilded coin, and receive a symbolic Yes / No / Again answer
-- weighted outcomes — most flips resolve to a clear yes or no — with multiple message variants
+- weighted outcomes, most flips resolve to a clear yes or no, with multiple message variants
 - running history of past flips stored in the browser
 - copy your result to the clipboard
 - WebAudio chimes plus an optional ambient drone

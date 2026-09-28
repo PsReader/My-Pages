@@ -1,4 +1,4 @@
-# Scratchpad — Thought Dashboard
+# Scratchpad : Thought Dashboard
 
 A lightweight personal note-taking app with themed UI, persistent local storage, and structured note categories.
 

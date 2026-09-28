@@ -2,8 +2,6 @@
   "use strict";
 
   const STORAGE_KEY = "pomodoroPetState";
-  const EVENT_LOG_KEY = "pomodoroPetEventLog";
-  const MAX_LOCAL_EVENTS = 250;
   const APP_VERSION = "1.0.0";
 
   const DEV_MODE = new URLSearchParams(window.location.search).has("dev");
@@ -364,7 +362,6 @@
     startTickLoop();
     saveState();
     if (state.timer.mode === "focus") {
-      trackEvent("focus_started", { duration_minutes: state.timer.remainingSeconds / 60 });
       playSound("timer-start");
     } else {
       playSound("ui-select");
@@ -445,7 +442,6 @@
       state.dailyBonusClaimed = false;
     }
 
-    const streakTransition = computeStreakTransition(previousDate, today);
     state.streak = computeStreak(previousDate, today);
 
     state.lastSessionDate = today;
@@ -464,24 +460,10 @@
     updateLevel(state);
     const nextStage = getPetStageFn(state.level);
 
-    const awarded = checkAchievements();
-    const gardenBed = tendGarden(today);
+    checkAchievements();
+    tendGarden(today);
 
     saveState();
-
-    trackEvent("focus_completed", {
-      duration_minutes: getModeDurationSeconds(state, "focus") / 60,
-      coins_awarded: 5,
-      xp_awarded: 10
-    });
-    trackEvent("streak_" + streakTransition);
-    if (bonusAwarded) trackEvent("daily_bonus_awarded", { today_sessions: state.todaySessions, amount: 25 });
-    awarded.forEach((id) => trackEvent("achievement_unlocked", { achievement_id: id }));
-    if (gardenBed) trackEvent("garden_reward_unlocked", { plant_id: gardenBed.id });
-    if (state.level !== previousLevel) trackEvent("level_reached", { level: state.level, previous_level: previousLevel });
-    if (nextStage !== previousStage) {
-      trackEvent("evolution_unlocked", { from_stage: previousStage, to_stage: nextStage });
-    }
 
     playSound("timer-complete");
     setTimeout(() => playSound("coins"), 350);
@@ -526,13 +508,6 @@
         }
       }, 2200);
     }
-  }
-
-  function computeStreakTransition(previousDate, today) {
-    if (!previousDate) return "started";
-    if (previousDate === today) return "continued";
-    if (daysBetween(previousDate, today) === 1) return "continued";
-    return "broken";
   }
 
   function computeStreak(previousDate, today) {
@@ -611,7 +586,6 @@
     state.coins -= accessory.cost;
     state.ownedAccessories.push(accessoryId);
     saveState();
-    trackEvent("accessory_purchased", { accessory_id: accessoryId, cost: accessory.cost });
     playSound("coins");
     renderApp();
     announce(accessory.name + " purchased! Equip it from the shop.");
@@ -634,7 +608,6 @@
     }
     state.equippedAccessories = next;
     saveState();
-    trackEvent("accessory_equipped", { accessory_id: accessoryId, category: accessory.category });
     playSound("ui-select");
     renderApp();
   }
@@ -1144,49 +1117,6 @@
     } catch (e) {}
   }
 
-  function trackEvent(name, properties) {
-    properties = properties || {};
-    const event = {
-      name: name,
-      properties: Object.assign(
-        {
-          petStage: getPetStageFn(state.level),
-          level: state.level,
-          totalSessions: state.totalSessions,
-          streakDays: state.streak,
-          todaySessions: state.todaySessions,
-          appVersion: APP_VERSION
-        },
-        properties
-      ),
-      occurredAt: new Date().toISOString()
-    };
-
-    try {
-      const existing = JSON.parse(localStorage.getItem(EVENT_LOG_KEY) || "[]");
-      let next = existing;
-      if (!Array.isArray(next)) next = [];
-      next = next.concat([event]).slice(-MAX_LOCAL_EVENTS);
-      localStorage.setItem(EVENT_LOG_KEY, JSON.stringify(next));
-    } catch (e) {}
-  }
-
-  function clearEvents() {
-    try {
-      localStorage.removeItem(EVENT_LOG_KEY);
-    } catch (e) {}
-  }
-
-  function exportEvents() {
-    let events = [];
-    try {
-      events = JSON.parse(localStorage.getItem(EVENT_LOG_KEY) || "[]");
-    } catch (e) {
-      events = [];
-    }
-    downloadJson(events, "pomodoro-pet-events.json");
-  }
-
   function downloadJson(data, filename) {
     const file = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(file);
@@ -1432,7 +1362,6 @@
     state.onboarding.complete = true;
     state.onboarding.step = "meet";
     saveState();
-    trackEvent(startNow ? "onboarding_completed" : "onboarding_skipped");
     qs("#onboarding").hidden = true;
     renderApp();
     announce("Welcome, " + (state.petName || "Sprout") + "!");
@@ -1476,9 +1405,6 @@
     });
 
     qs("#dev-coins").addEventListener("click", addDevCoins);
-
-    qs("#dev-export-events").addEventListener("click", () => exportEvents());
-    qs("#dev-clear-events").addEventListener("click", () => clearEvents());
   }
 
   function setupTabs() {
@@ -1690,8 +1616,6 @@
 
     if (!state.onboarding.complete) {
       showOnboarding(state.onboarding.step);
-    } else {
-      trackEvent("app_opened");
     }
 
     if (state.timer.isRunning) {

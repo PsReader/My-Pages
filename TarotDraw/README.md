@@ -6,7 +6,7 @@ A single-file tarot reader for the 22 Major Arcana, delivered behind an animated
 
 ## Features
 
-- choose a spread — Daily, Three-card (Past/Present/Future), or Celtic Cross
+- choose a spread: Daily, Three-card (Past/Present/Future), or Celtic Cross
 - flip sigil cards and read upright or reversed interpretations
 - deterministic draws: the Daily card is seeded from the date, and other spreads are seedable and shareable via URL
 - local-only journal with backup export/import

@@ -13,6 +13,8 @@
   --rose: #8f2f2b;
   --violet: #625244;
   --line: rgba(91, 70, 50, 0.32);
+  --sig-g: #9b7b37;
+  --sig-a: #9b5547;
   --card-w: 124px;
   --cursor-quill: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M18 14C18 8 22 3 28 3c0 6-3 10-10 11z' fill='%23121323' stroke='%23c9a227' stroke-width='1.2' stroke-linejoin='round'/%3E%3Cpath d='M19 13c2-4 5-7 8-10M22 8l-2 1M25 6l-1 3M27 5l-1 3' fill='none' stroke='%238a6d1f' stroke-width='.8' stroke-linecap='round'/%3E%3Cpath d='M5 28 28 3' stroke='%23efe7d6' stroke-width='1.8' stroke-linecap='round'/%3E%3Cpath d='M5 28 8 25' stroke='%23b3543f' stroke-width='1.4' stroke-linecap='round'/%3E%3Cpath d='M18 14 23 9' stroke='%23c9a227' stroke-width='1.3' stroke-linecap='round'/%3E%3Ccircle cx='5' cy='28' r='1.2' fill='%23c9a227'/%3E%3C/svg%3E") 5 28, auto;
 }
@@ -45,6 +47,8 @@ body.theme-violet {
   --gold-deep: #3e304f;
   --rose: #7a4054;
   --line: rgba(88, 71, 110, 0.34);
+  --sig-g: #6a56a0;
+  --sig-a: #8c4f78;
 }
 body.theme-rose {
   --bg: #d9c2b5;
@@ -54,6 +58,8 @@ body.theme-rose {
   --gold-deep: #4c2c25;
   --rose: #9b3f46;
   --line: rgba(112, 69, 50, 0.34);
+  --sig-g: #9a7c52;
+  --sig-a: #a34952;
 }
 body.pattern-safe .card.hint .back::after { content: "✦"; display: grid; place-items: center; background: none; transform: none; color: #7d2825; font: bold 34px/1 Georgia, serif; text-shadow: 0 1px 0 rgba(255,255,255,0.6); }
 
@@ -72,7 +78,6 @@ button {
 button:hover { background: rgba(143,47,43,0.09); color: var(--rose); }
 button.active { background: var(--ink); color: #f2e5c8; font-weight: 700; border-color: var(--ink); }
 button:focus-visible, .card:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
-.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .hidden { display: none !important; }
 
 .app { min-height: 100vh; position: relative; overflow: hidden; }
@@ -256,7 +261,6 @@ h2 em { color: var(--rose); font-style: normal; }
   box-shadow: inset 0 0 60px rgba(0,0,0,0.16), 0 14px 40px rgba(0,0,0,0.10);
 }
 .board::before { content: "✦  LEVEL " attr(data-level) " OF " attr(data-total) "  ✦"; display: block; grid-column: 1 / -1; text-align: center; color: var(--gold-soft); font-size: 8px; letter-spacing: 3px; opacity: 0.65; }
-.board:empty { display: none; }
 .board.small { grid-template-columns: repeat(4, auto); }
 .board.medium { grid-template-columns: repeat(4, auto); }
 .board.large { grid-template-columns: repeat(4, auto); }
@@ -341,9 +345,9 @@ h2 em { color: var(--rose); font-style: normal; }
   transform: rotate(-14deg); pointer-events: none; opacity: 0.78;
 }
 .card .sigil svg { width: 38px; height: 38px; fill: none; position: relative; z-index: 1; }
-.card .sigil .g { stroke: #9b7b37; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.card .sigil .a { stroke: #9b5547; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.card .sigil .f { stroke: none; fill: #9b5547; }
+.card .sigil .g { stroke: var(--sig-g); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.card .sigil .a { stroke: var(--sig-a); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.card .sigil .f { stroke: none; fill: var(--sig-a); }
 .card .name {
   margin: auto 0 0; padding: 6px 4px 4px; width: 100%;
   border-top: 1px solid rgba(125,56,45,0.52); border-bottom: 1px solid rgba(138,109,31,0.48);
@@ -400,7 +404,6 @@ h2 em { color: var(--rose); font-style: normal; }
 .tool { min-height: 40px; padding: 9px 16px; border: 1px solid var(--line); border-radius: 8px; background: rgba(255,248,224,0.4); color: var(--gold-deep); font-size: 12px; }
 .tool b { font-family: "Libre Baskerville", Georgia, serif; color: var(--rose); margin-left: 4px; }
 .tool:hover { border-color: var(--rose); color: var(--rose); background: rgba(255,248,224,0.7); }
-.tool:disabled { opacity: 0.35; cursor: default; }
 
 /* ===== Modal ===== */
 .modal {
@@ -438,9 +441,9 @@ h2 em { color: var(--rose); font-style: normal; }
 .gallery-card .g-sigil { position: relative; width: 58px; height: 50px; margin: 0 auto 7px; border-radius: 50%; display: grid; place-items: center; background-color: rgba(138,109,31,0.09); border: 1px solid rgba(138,109,31,0.55); box-shadow: inset 0 1px 2px rgba(138,109,31,0.28), 0 0 0 3px rgba(201,162,39,0.08), 0 0 0 4px rgba(179,84,63,0.2); }
 .gallery-card .g-sigil::after { content: "✦  ✦  ✦  ✦"; position: absolute; inset: -7px; display: flex; align-items: center; justify-content: center; border: 1px dashed rgba(138,109,31,0.4); border-radius: 50%; color: rgba(179,84,63,0.6); font-size: 5px; letter-spacing: 4px; transform: rotate(12deg); pointer-events: none; }
 .gallery-card .g-sigil svg { width: 32px; height: 32px; fill: none; position: relative; z-index: 1; }
-.gallery-card .g-sigil .g { stroke: #9b7b37; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.gallery-card .g-sigil .a { stroke: #9b5547; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.gallery-card .g-sigil .f { stroke: none; fill: #9b5547; }
+.gallery-card .g-sigil .g { stroke: var(--sig-g); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.gallery-card .g-sigil .a { stroke: var(--sig-a); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.gallery-card .g-sigil .f { stroke: none; fill: var(--sig-a); }
 .gallery-card .g-name { font-family: "Libre Baskerville", Georgia, serif; font-size: 12px; font-weight: 700; color: #6f3028; line-height: 1.2; }
 .gallery-card .g-kw { display: block; margin-top: 4px; color: var(--muted); font-size: 9px; line-height: 1.35; }
 

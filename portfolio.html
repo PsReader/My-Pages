@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="PsReader — Frontend developer portfolio. Responsive web projects including a hand-tracking 3D app (GestureLab), LOTM fan wiki, and interactive dessert ordering site. Built with semantic HTML, CSS, JavaScript, React, and Three.js."
+      content="PsReader - Frontend developer portfolio. Responsive web projects including a hand-tracking 3D app (GestureLab), LOTM fan wiki, and interactive dessert ordering site. Built with semantic HTML, CSS, JavaScript, React, and Three.js."
     />
     <link rel="canonical" href="https://psreader.site.je/portfolio.html" />
     <script type="application/ld+json">
@@ -13,13 +13,13 @@
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "PsReader",
-  "description": "PsReader — Frontend developer portfolio. Responsive web projects including a hand-tracking 3D app (GestureLab), LOTM fan wiki, and interactive dessert ordering site. Built with semantic HTML, CSS, JavaScript, React, and Three.js.",
+  "description": "PsReader - Frontend developer portfolio. Responsive web projects including a hand-tracking 3D app (GestureLab), LOTM fan wiki, and interactive dessert ordering site. Built with semantic HTML, CSS, JavaScript, React, and Three.js.",
   "url": "https://psreader.site.je/portfolio.html",
   "inLanguage": "en"
 }
     </script>
     <link rel="manifest" href="site.webmanifest" />
-    <title>PsReader — Frontend Developer Portfolio | HTML, CSS, JS & Three.js Projects</title>
+    <title>PsReader - Frontend Developer Portfolio | HTML, CSS, JS & Three.js Projects</title>
     <link rel="icon" type="image/svg+xml" id="favicon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%230077b6'/%3E%3Cstop offset='50%25' stop-color='%2300b4d8'/%3E%3Cstop offset='100%25' stop-color='%2390cdf4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23g)'/%3E%3Cg fill='white'%3E%3Crect x='6.4' y='6.7' width='4.8' height='18.7' rx='0.5'/%3E%3Cpath d='M11.2 6.7h6.9a5.9 5.9 0 0 1 0 11.2h-6.9v-4.8h6.9a1.1 1.1 0 0 0 0-1.6h-6.9z'/%3E%3Cpath d='M15.5 19.7l5.6 5.6h6.9l-5.6-5.6z'/%3E%3C/g%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -142,8 +142,8 @@
       }
       .magazine-card {
         background: var(--bg-frosted);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        /* R-31: glassmorphism capped at the site header only (R-10);
+           cards keep a frosted fill but no backdrop blur. */
         border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
         border-radius: var(--radius-lg);
         padding: 32px;
@@ -303,6 +303,8 @@
         position: relative;
         overflow: hidden;
       }
+      /* R-31: hover emphasis confined to the magazine project thumbnails,
+         the page's interactive focal accents. Nothing page-wide. */
       .magazine-project-thumb::after {
         content: '';
         position: absolute;
@@ -394,8 +396,10 @@
       }
 
       /* =================================================================
-         TECH STACK — constellation
+         TECH STACK - constellation
          ================================================================= */
+      /* R-31: soft band behind the tech-stack marquee marks that section
+         without page-wide glow. Single section-level accent, held at 6%. */
       .stack-scroll-wrapper {
         overflow: hidden;
         position: relative;
@@ -403,7 +407,7 @@
         border-radius: 16px;
         background: radial-gradient(
           ellipse 80% 70% at 50% 50%,
-          color-mix(in srgb, var(--accent) 8%, transparent),
+          color-mix(in srgb, var(--accent) 6%, transparent),
           transparent 70%
         );
       }
@@ -472,7 +476,7 @@
       }
 
       /* =================================================================
-         IMPERFECTION — break the grid
+         IMPERFECTION - break the grid
          ================================================================= */
       .magazine-card:nth-child(odd):not(.magazine-about):not(.magazine-project) {
         transform: rotate(-0.3deg);
@@ -610,6 +614,9 @@
 
       /* =================================================================
          INTERACTIVE TERMINAL
+         R-31: functional widget, every command in the list actually runs
+         (help, whoami, projects, skills, contact, theme, secret, clear).
+         Terminal styling is the identity reason, not a screenshot prop.
          ================================================================= */
       .terminal-fab {
         position: fixed;
@@ -654,6 +661,8 @@
         flex-direction: column;
         overflow: hidden;
         box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+        /* R-31: terminal identity typeface, kept to this widget and
+           code-flavored labels where a developer personality is the point. */
         font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
         transform: translateY(calc(100% + 40px));
         opacity: 0;
@@ -878,7 +887,7 @@
       }
 
       /* =================================================================
-         RESPONSIVE — Desktop (≥ 1024px): inline primary nav
+         RESPONSIVE - Desktop (≥ 1024px): inline primary nav
          ================================================================= */
       @media (min-width: 1024px) {
         .header-inner {
@@ -1060,7 +1069,8 @@
         opacity: 0.5;
       }
 
-      /* Ambient orb — soft breathing glow behind hero content */
+      /* R-31: single focal accent behind the hero content. The hero is the
+         page's one focal point; other sections render flat against it. */
       .hero-orb {
         position: absolute;
         top: 14%;
@@ -1685,11 +1695,11 @@
 
       /* =================================================================
          DARK MODE (default is dark; html.dark keeps dark, no toggle needed)
-         Light mode is triggered by removing dark — but since dark IS the
+         Light mode is triggered by removing dark - but since dark IS the
          default, the toggle just adds/removes the 'dark' class for future use.
          ================================================================= */
 
-      /* Light mode — active when html.dark is removed */
+      /* Light mode - active when html.dark is removed */
       html:not(.dark) {
         --bg-primary: #f8f9fa;
         --bg-base: #f8f9fa;
@@ -1708,7 +1718,6 @@
       }
       html:not(.dark) .ghost-cursor { opacity: 0.35; filter: blur(0.3px) saturate(0.6); }
       html:not(.dark) .cursor-spotlight { display: none; }
-      html:not(.dark) .nav-cta-glow { box-shadow: none; }
 
 
       html:not(.dark) .site-header {
@@ -1741,7 +1750,7 @@
       }
 
       /* =================================================================
-         CUSTOM CURSOR — accent-colored, context-morphing
+         CUSTOM CURSOR - accent-colored, context-morphing
          ================================================================= */
       @media (hover: hover) and (pointer: fine) {
         * { cursor: none !important; }
@@ -1878,7 +1887,7 @@
       }
 
       /* =================================================================
-         RESPONSIVE — Tablet (≤ 900px)
+         RESPONSIVE - Tablet (≤ 900px)
          ================================================================= */
       @media (max-width: 900px) {
         .hero h1 {
@@ -1891,7 +1900,7 @@
       }
 
       /* =================================================================
-         RESPONSIVE — Mobile (≤ 640px)
+         RESPONSIVE - Mobile (≤ 640px)
          ================================================================= */
       @media (max-width: 640px) {
         .hero {
@@ -1963,7 +1972,7 @@
       }
 
       /* =================================================================
-         RESPONSIVE — Small mobile (≤ 380px)
+         RESPONSIVE - Small mobile (≤ 380px)
          ================================================================= */
       @media (max-width: 380px) {
         .hero {
@@ -2005,7 +2014,7 @@
       }
 
       /* =================================================================
-         GHOST CURSOR — React Bits style trailing glow
+         GHOST CURSOR - React Bits style trailing glow
          ================================================================= */
       .ghost-cursor {
         position: fixed;
@@ -2025,7 +2034,7 @@
       }
 
       /* =================================================================
-         PAGE TRANSITIONS — View Transitions API
+         PAGE TRANSITIONS - View Transitions API
          ================================================================= */
       @media (prefers-reduced-motion: no-preference) {
         @view-transition { navigation: auto; }
@@ -2077,7 +2086,7 @@
             <a
               href="portfolio.html"
               class="wordmark-avatar-link"
-              aria-label="PsReader — home"
+              aria-label="PsReader - home"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="brand-logo" width="36" height="36" aria-hidden="true">
                 <g fill="currentColor">
@@ -2090,7 +2099,7 @@
             <a
               href="portfolio.html"
               class="wordmark-text"
-              aria-label="PsReader — home"
+              aria-label="PsReader - home"
             >
               PsReader
             </a>
@@ -2225,7 +2234,9 @@
       </div>
 
       <!-- ============================================================
-         BENTO GRID — About, Stats, Skills, Focus, Project
+         ABOUT SECTION - mix of magazine-card spans (about, stats,
+         skills, focus, project). R-31: varied spans and heights break
+         the uniform-card rhythm and keep a clear hierarchy.
          ============================================================ -->
       <section class="section" id="about">
         <p class="section-label">Overview</p>
@@ -2256,7 +2267,7 @@
           <div class="stats-strip">
             <div class="stats-strip-inner">
               <div class="stats-strip-item">
-                <span class="stats-strip-num">7</span>
+                <span class="stats-strip-num">9</span>
                 <span class="stats-strip-label">Projects Built</span>
               </div>
               <div class="stats-strip-item">
@@ -2269,7 +2280,7 @@
               </div>
               <div class="stats-strip-item">
                 <span class="stats-strip-num">100%</span>
-                <span class="stats-strip-label">Hand-Written</span>
+                <span class="stats-strip-label">Hand-Coded</span>
               </div>
             </div>
           </div>
@@ -2319,7 +2330,7 @@
       </section>
 
       <!-- ============================================================
-         TECH STACK — Three.js constellation
+         TECH STACK - Three.js constellation
          ============================================================ -->
       <section class="section" id="tech-stack">
         <p class="section-label reveal">Tools</p>
@@ -2329,7 +2340,7 @@
             Everything starts with semantic HTML and responsive CSS. JavaScript
             adds the interactivity, and lately I've been reaching for React and
             Three.js to push into WebGL shaders and hand-tracking. The stack is
-            lightweight by choice — no build step needed for most of what I ship.
+            lightweight by choice - no build step needed for most of what I ship.
           </p>
         </div>
         <div class="stack-scroll-wrapper reveal stagger-4">
@@ -2656,7 +2667,7 @@
             );
           });
 
-          // ===== Kinetic typography — font-weight on scroll =====
+          // ===== Kinetic typography - font-weight on scroll =====
           if (!reducedMotion) {
             gsap.from(".hero-line", {
               opacity: 0,
@@ -2861,28 +2872,30 @@
         const commands = {
           help: () => [
             "Available commands:",
-            '  <span class="cmd">whoami</span>      — About PsReader',
-            '  <span class="cmd">projects</span>    — List projects',
-            '  <span class="cmd">skills</span>      — Tech stack',
-            '  <span class="cmd">contact</span>     — Get in touch',
-            '  <span class="cmd">theme</span>       — Toggle dark/light',
-            '  <span class="cmd">secret</span>      — Try it ;)',
-            '  <span class="cmd">clear</span>       — Clear terminal',
+            '  <span class="cmd">whoami</span>      - About PsReader',
+            '  <span class="cmd">projects</span>    - List projects',
+            '  <span class="cmd">skills</span>      - Tech stack',
+            '  <span class="cmd">contact</span>     - Get in touch',
+            '  <span class="cmd">theme</span>       - Toggle dark/light',
+            '  <span class="cmd">secret</span>      - Try it ;)',
+            '  <span class="cmd">clear</span>       - Clear terminal',
           ],
           whoami: () => [
-            '<span class="accent">PsReader</span> — Frontend Developer & Student',
+            '<span class="accent">PsReader</span> - Frontend Developer & Student',
             "Building things that feel alive.",
             "Currently studying at SMKN 1 Kota Bekasi.",
           ],
           projects: () => [
             "Projects:",
-            '  <span class="cmd">1.</span> Lord of the Mysteries — fan wiki with 20+ pages',
-            '  <span class="cmd">2.</span> Tarot Draw — Daily, Three-card and Celtic Cross readings',
-            '  <span class="cmd">3.</span> Tarot Memory — Arcana memory-matching rite',
-            '  <span class="cmd">4.</span> Mystic Coin — Yes/No coin-flip oracle',
-            '  <span class="cmd">5.</span> Pudding Paradise — Pixel-art pastry shop landing page',
-            '  <span class="cmd">6.</span> GestureLab — Hand gesture recognition with Three.js + MediaPipe',
-            '  <span class="cmd">7.</span> Scratchpad — Canvas art playground',
+            '  <span class="cmd">1.</span> Lord of the Mysteries - fan wiki with 20+ pages',
+            '  <span class="cmd">2.</span> Tarot Draw - Daily, Three-card and Celtic Cross readings',
+            '  <span class="cmd">3.</span> Tarot Memory - Arcana memory-matching rite',
+            '  <span class="cmd">4.</span> Mystic Coin - Yes/No coin-flip oracle',
+            '  <span class="cmd">5.</span> Pudding Paradise - Pixel-art pastry shop landing page',
+            '  <span class="cmd">6.</span> GestureLab - Hand gesture recognition with Three.js + MediaPipe',
+            '  <span class="cmd">7.</span> Scratchpad - Canvas art playground',
+            '  <span class="cmd">8.</span> TypeBound - P2P WebRTC typing races with local analytics',
+            '  <span class="cmd">9.</span> Pomodoro Pet - Focus timer that grows a virtual companion',
           ],
           skills: () => [
             "Skills:",
@@ -3068,15 +3081,6 @@
         const sfx = {
           hover: () => playTone(1200, 0.08, "sine", 0.03),
           click: () => playTone(800, 0.1, "triangle", 0.04),
-          transition: () => {
-            playTone(600, 0.15, "sine", 0.03);
-            setTimeout(() => playTone(900, 0.12, "sine", 0.03), 80);
-          },
-          success: () => {
-            playTone(523, 0.12, "sine", 0.04);
-            setTimeout(() => playTone(659, 0.12, "sine", 0.04), 100);
-            setTimeout(() => playTone(784, 0.15, "sine", 0.04), 200);
-          },
         };
 
         // Sound toggle in nav
@@ -3108,7 +3112,7 @@
           el.addEventListener("click", () => sfx.click());
         });
 
-        // ===== Custom Cursor — accent-colored, morphing, splatter =====
+        // ===== Custom Cursor - accent-colored, morphing, splatter =====
         const cursorDot = document.getElementById("cursorDot");
         const cursorRing = document.getElementById("cursorRing");
         const distortMap = document.querySelector(".distort-map");
@@ -3117,8 +3121,6 @@
           let cx = -100, cy = -100;
           let rx = -100, ry = -100;
           let isTouch = false;
-          let moving = false;
-          let moveTimer = null;
           const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
           // ── Color tracking ──
@@ -3151,11 +3153,6 @@
             if (isTouch) return;
             cx = e.clientX;
             cy = e.clientY;
-            moving = true;
-            clearTimeout(moveTimer);
-            moveTimer = setTimeout(() => {
-              moving = false;
-            }, 300);
           });
 
           document.addEventListener("touchstart", () => {
@@ -3235,7 +3232,7 @@
           });
 
           // ── Magnetic pull on buttons ──
-          document.querySelectorAll(".btn, .nav-cta-glow").forEach((el) => {
+          document.querySelectorAll(".btn").forEach((el) => {
             el.addEventListener("mousemove", (e) => {
               const rect = el.getBoundingClientRect();
               const x = e.clientX - rect.left - rect.width / 2;

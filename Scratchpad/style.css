@@ -29,8 +29,6 @@
   --cursor: var(--accent);
   --badge-bg: rgba(255, 255, 255, 0.08);
   --badge-text: var(--text);
-  --paper-grain: none;
-  --page-glow: rgba(255, 255, 255, 0.06);
   --focus-glow: rgba(110, 197, 255, 0.18);
   --panel-border: rgba(255, 255, 255, 0.12);
   --card-surface: var(--surface-2);
@@ -75,53 +73,37 @@ select {
 }
 
 body[data-theme="midnight-studio"] {
-  --bg: #020712;
-  --surface: rgba(10, 26, 52, 0.96);
-  --surface-2: rgba(14, 32, 62, 0.94);
-  --text: #eef7ff;
-  --muted: #7ba9c4;
+  --bg: #05080f;
+  --surface: rgba(11, 18, 32, 0.96);
+  --surface-2: rgba(16, 26, 45, 0.94);
+  --text: #eaf2ff;
+  --muted: #7c8ba3;
   --accent: #4fdcff;
   --accent-2: #7de6ff;
   --accent-rgb: 79, 220, 255;
-  --border: rgba(79, 220, 255, 0.18);
-  --shadow: 0 26px 70px rgba(0, 0, 0, 0.34);
+  --border: rgba(79, 220, 255, 0.14);
+  --shadow: 0 20px 55px rgba(0, 0, 0, 0.4);
   --font-body: "Space Grotesk", "Segoe UI", Roboto, sans-serif;
   --font-editor: "Space Grotesk", "Segoe UI", Roboto, sans-serif;
   --texture:
     radial-gradient(
-      circle at 18% 12%,
-      rgba(79, 220, 255, 0.16),
-      transparent 20%
-    ),
-    radial-gradient(
-      circle at 82% 6%,
-      rgba(255, 255, 255, 0.06),
-      transparent 18%
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.02) 0 1px,
-      transparent 1px 22px
+      ellipse 70% 30% at 50% 0%,
+      rgba(255, 255, 255, 0.05),
+      transparent 60%
     );
   --header-accent: linear-gradient(
     90deg,
-    transparent,
-    rgba(79, 220, 255, 0.26),
-    transparent
+    rgba(79, 220, 255, 0.1),
+    #4fdcff,
+    rgba(79, 220, 255, 0.1)
   );
-  --editor-glow: inset 0 0 0 1px rgba(79, 220, 255, 0.14);
-  --selection: rgba(79, 220, 255, 0.24);
+  --editor-glow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  --selection: rgba(79, 220, 255, 0.28);
   --cursor: #4fdcff;
-  --badge-bg: rgba(79, 220, 255, 0.14);
-  --badge-text: #eef7ff;
-  --paper-grain: radial-gradient(
-    circle at 20% 20%,
-    rgba(255, 255, 255, 0.02),
-    transparent 36%
-  );
-  --panel-border: rgba(79, 220, 255, 0.2);
-  --button-glow: rgba(79, 220, 255, 0.16);
-  --card-surface: rgba(12, 24, 50, 0.94);
+  --badge-bg: rgba(79, 220, 255, 0.12);
+  --badge-text: #dbf5ff;
+  --panel-border: rgba(79, 220, 255, 0.16);
+  --card-surface: rgba(10, 17, 33, 0.96);
 }
 
 body[data-theme="forest-quiet"] {
@@ -130,73 +112,37 @@ body[data-theme="forest-quiet"] {
   --surface-2: #d5c7a3;
   --text: #2b3a28;
   --muted: #667056;
-  --accent: #526b44;
+  --accent: #506b3f;
   --accent-2: #8a8a61;
-  --accent-rgb: 82, 107, 68;
-  --border: rgba(82, 107, 68, 0.18);
+  --accent-rgb: 80, 107, 63;
+  --border: rgba(80, 107, 63, 0.2);
   --shadow: 0 24px 56px rgba(60, 70, 49, 0.16);
   --font-body: "Georgia", "Times New Roman", serif;
   --font-editor: "Iowan Old Style", "Palatino Linotype", serif;
   --texture:
-    radial-gradient(circle at 16% 24%, rgba(82, 107, 68, 0.2), transparent 22%),
-    linear-gradient(
-      120deg,
-      rgba(120, 96, 65, 0.08) 0 1px,
-      transparent 1px 18px
-    ),
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.22),
-      rgba(255, 255, 255, 0.04)
+    radial-gradient(
+      circle at 18% 8%,
+      rgba(255, 250, 230, 0.55),
+      transparent 28%
     ),
     radial-gradient(
-      circle at 25% 80%,
-      rgba(82, 107, 68, 0.12),
-      transparent 18%
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.03) 0 1px,
-      transparent 1px 12px
+      circle at 78% 88%,
+      rgba(80, 107, 63, 0.1),
+      transparent 30%
     );
-  --forest-overlay:
-    radial-gradient(
-      circle at 15% 15%,
-      rgba(82, 107, 68, 0.14),
-      transparent 14%
-    ),
-    radial-gradient(
-      circle at 80% 22%,
-      rgba(82, 107, 68, 0.12),
-      transparent 11%
-    ),
-    radial-gradient(
-      circle at 40% 65%,
-      rgba(82, 107, 68, 0.08),
-      transparent 14%
-    ),
-    linear-gradient(180deg, rgba(82, 107, 68, 0.08), transparent 42%),
-    linear-gradient(90deg, rgba(104, 124, 92, 0.06), transparent 78%),
-    var(--forest-svg, url("images/pine1.svg"));
   --header-accent: linear-gradient(
     90deg,
     transparent,
-    rgba(82, 107, 68, 0.24),
+    rgba(80, 107, 63, 0.35),
     transparent
   );
-  --editor-glow: inset 0 0 0 1px rgba(82, 107, 68, 0.12);
-  --selection: rgba(82, 107, 68, 0.18);
-  --cursor: #526b44;
-  --badge-bg: rgba(82, 107, 68, 0.16);
-  --badge-text: #2b3a28;
-  --paper-grain: linear-gradient(
-    135deg,
-    rgba(120, 96, 65, 0.05) 0 1px,
-    transparent 1px 16px
-  );
-  --panel-border: rgba(82, 107, 68, 0.18);
-  --button-glow: rgba(82, 107, 68, 0.12);
-  --card-surface: #d9cdb3;
+  --editor-glow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  --selection: rgba(80, 107, 63, 0.2);
+  --cursor: #506b3f;
+  --badge-bg: rgba(80, 107, 63, 0.14);
+  --badge-text: #2a3a24;
+  --panel-border: rgba(80, 107, 63, 0.2);
+  --card-surface: #ddd0b4;
   --forest-svg-size: 140px;
   --forest-svg-opacity: 0.12;
 }
@@ -230,16 +176,16 @@ body[data-theme="forest-quiet"]::after {
 }
 
 body[data-theme="ink-paper"] {
-  --bg: #f3e2ce;
-  --surface: #f7ecd8;
-  --surface-2: #e7d3b7;
-  --text: #3e2f1f;
-  --muted: #7d6753;
-  --accent: #5f4b39;
-  --accent-2: #a17b5a;
-  --accent-rgb: 95, 75, 57;
-  --border: rgba(95, 75, 57, 0.18);
-  --shadow: 0 24px 62px rgba(78, 62, 47, 0.16);
+  --bg: #f4e9d6;
+  --surface: #f7efde;
+  --surface-2: #e8d9c0;
+  --text: #2f2b26;
+  --muted: #7a6f5f;
+  --accent: #37507a;
+  --accent-2: #8a7a5c;
+  --accent-rgb: 55, 80, 122;
+  --border: rgba(55, 80, 122, 0.2);
+  --shadow: 0 20px 48px rgba(78, 62, 47, 0.14);
   --font-body: "Libre Baskerville", "Georgia", serif;
   --font-editor: "Courier New", Courier, monospace;
   --font-heading: "Libre Baskerville", "Georgia", serif;
@@ -248,54 +194,42 @@ body[data-theme="ink-paper"] {
   --heading-weight: 700;
   --texture:
     repeating-linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.05) 0 1px,
-      transparent 1px 10px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.04) 0 1px,
-      transparent 1px 20px
-    ),
-    repeating-linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0.05) 0 1px,
-      transparent 1px 28px
+      rgba(55, 80, 122, 0.1) 0 1px,
+      transparent 1px 30px
     ),
-    radial-gradient(circle at 40% 10%, rgba(0, 0, 0, 0.05), transparent 4%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 35%);
+    linear-gradient(
+      90deg,
+      transparent 0 56px,
+      rgba(190, 90, 70, 0.5) 56px 57px,
+      transparent 57px
+    );
   --header-accent: linear-gradient(
     90deg,
     transparent,
-    rgba(95, 75, 57, 0.22),
+    rgba(55, 80, 122, 0.4),
     transparent
   );
-  --editor-glow: inset 0 0 0 1px rgba(95, 75, 57, 0.14);
-  --selection: rgba(95, 75, 57, 0.18);
-  --cursor: #5f4b39;
-  --badge-bg: rgba(95, 75, 57, 0.14);
-  --badge-text: #3e2f1f;
-  --paper-grain: linear-gradient(
-    90deg,
-    rgba(113, 92, 70, 0.04) 0 1px,
-    transparent 1px 16px
-  );
-  --panel-border: rgba(95, 75, 57, 0.18);
-  --button-glow: rgba(95, 75, 57, 0.12);
+  --editor-glow: inset 0 0 0 1px rgba(55, 80, 122, 0.14);
+  --selection: rgba(55, 80, 122, 0.16);
+  --cursor: #37507a;
+  --badge-bg: rgba(55, 80, 122, 0.12);
+  --badge-text: #37507a;
+  --panel-border: rgba(55, 80, 122, 0.16);
   --card-surface: #f0e3d0;
 }
 
 body[data-theme="moonlit-library"] {
-  --bg: #180a20;
-  --surface: #2d1837;
-  --surface-2: #3b2147;
-  --text: #f4ecff;
-  --muted: #a18bb2;
-  --accent: #d6bdf6;
-  --accent-2: #e5d6b8;
-  --accent-rgb: 214, 189, 246;
-  --border: rgba(214, 189, 246, 0.18);
-  --shadow: 0 25px 68px rgba(10, 5, 19, 0.44);
+  --bg: #1a1026;
+  --surface: #2b1c3b;
+  --surface-2: #3a274f;
+  --text: #f2e9f8;
+  --muted: #a08aab;
+  --accent: #d9b87a;
+  --accent-2: #d6bdf6;
+  --accent-rgb: 217, 184, 122;
+  --border: rgba(217, 184, 122, 0.2);
+  --shadow: 0 25px 60px rgba(10, 5, 19, 0.5);
   --font-body: "Cormorant Garamond", "Palatino Linotype", serif;
   --font-editor: "Cormorant Garamond", "Palatino Linotype", serif;
   --font-heading: "Cormorant Garamond", "Palatino Linotype", serif;
@@ -304,98 +238,74 @@ body[data-theme="moonlit-library"] {
   --heading-weight: 700;
   --texture:
     radial-gradient(
-      circle at 16% 10%,
-      rgba(214, 189, 246, 0.16),
-      transparent 22%
+      ellipse 60% 40% at 50% 108%,
+      rgba(217, 184, 122, 0.16),
+      transparent 65%
     ),
     radial-gradient(
-      circle at 78% 8%,
-      rgba(229, 214, 184, 0.12),
-      transparent 18%
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.015) 0 1px,
-      transparent 1px 16px
-    ),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 50%);
+      ellipse 45% 30% at 18% 4%,
+      rgba(214, 189, 246, 0.1),
+      transparent 60%
+    );
   --header-accent: linear-gradient(
     90deg,
     transparent,
-    rgba(214, 189, 246, 0.24),
+    rgba(217, 184, 122, 0.5),
     transparent
   );
-  --editor-glow: inset 0 0 0 1px rgba(214, 189, 246, 0.14);
-  --selection: rgba(214, 189, 246, 0.22);
-  --cursor: #d6bdf6;
-  --badge-bg: rgba(214, 189, 246, 0.16);
-  --badge-text: #f4ecff;
-  --paper-grain: radial-gradient(
-    circle at 20% 20%,
-    rgba(255, 255, 255, 0.02),
-    transparent 34%
-  );
-  --panel-border: rgba(214, 189, 246, 0.2);
-  --button-glow: rgba(214, 189, 246, 0.14);
-  --card-surface: rgba(35, 16, 42, 0.95);
+  --editor-glow: inset 0 0 0 1px rgba(217, 184, 122, 0.16);
+  --selection: rgba(217, 184, 122, 0.22);
+  --cursor: #d9b87a;
+  --badge-bg: rgba(217, 184, 122, 0.18);
+  --badge-text: #f2e9f8;
+  --panel-border: rgba(217, 184, 122, 0.22);
+  --card-surface: rgba(43, 28, 59, 0.94);
 }
 
 body[data-theme="minimal-zen"] {
   --bg: #fbfaf5;
-  --surface: #f6f5ef;
-  --surface-2: #efeee5;
+  --surface: #f5f4ee;
+  --surface-2: #eceae1;
   --text: #20221e;
-  --muted: #70756d;
-  --accent: #779372;
-  --accent-2: #9cb59c;
-  --accent-rgb: 119, 147, 114;
-  --border: rgba(34, 38, 33, 0.1);
-  --shadow: 0 16px 40px rgba(80, 89, 78, 0.06);
+  --muted: #71746c;
+  --accent: #4c5b48;
+  --accent-2: #8a9478;
+  --accent-rgb: 76, 91, 72;
+  --border: rgba(32, 34, 30, 0.12);
+  --shadow: 0 10px 30px rgba(70, 76, 68, 0.05);
   --font-body: "Space Grotesk", "Segoe UI", sans-serif;
   --font-editor: "Space Grotesk", "Segoe UI", sans-serif;
   --font-heading: "Space Grotesk", "Segoe UI", sans-serif;
   --heading-tracking: 0.12em;
   --heading-transform: uppercase;
   --heading-weight: 700;
-  --texture:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.22),
-      rgba(255, 255, 255, 0.02)
-    ),
-    radial-gradient(
-      circle at 85% 10%,
-      rgba(255, 255, 255, 0.12),
-      transparent 20%
-    );
+  --texture: none;
   --header-accent: linear-gradient(
     90deg,
     transparent,
-    rgba(119, 147, 114, 0.14),
+    rgba(76, 91, 72, 0.3),
     transparent
   );
-  --editor-glow: inset 0 0 0 1px rgba(119, 147, 114, 0.12);
-  --selection: rgba(119, 147, 114, 0.16);
-  --cursor: #779372;
-  --badge-bg: rgba(119, 147, 114, 0.14);
-  --badge-text: #2f342d;
-  --paper-grain: none;
-  --panel-border: rgba(119, 147, 114, 0.14);
-  --button-glow: rgba(119, 147, 114, 0.08);
-  --card-surface: #f2f1e8;
+  --editor-glow: inset 0 0 0 1px rgba(32, 34, 30, 0.08);
+  --selection: rgba(76, 91, 72, 0.12);
+  --cursor: #4c5b48;
+  --badge-bg: rgba(76, 91, 72, 0.1);
+  --badge-text: #4c5b48;
+  --panel-border: rgba(32, 34, 30, 0.1);
+  --card-surface: #f3f2ea;
 }
 
 body[data-theme="retro-typewriter"] {
-  --bg: #f7efe0;
-  --surface: #eddecc;
-  --surface-2: #d4c5a0;
-  --text: #3f3320;
+  --bg: #ece0cb;
+  --surface: #f2e8d7;
+  --surface-2: #dccdb4;
+  --text: #33302a;
   --muted: #7c6d56;
-  --accent: #6b593e;
-  --accent-2: #9a7c53;
-  --accent-rgb: 107, 89, 62;
-  --border: rgba(107, 89, 62, 0.2);
-  --shadow: 0 24px 58px rgba(86, 70, 41, 0.18);
+  --accent: #4d4030;
+  --accent-2: #8f7450;
+  --accent-rgb: 77, 64, 48;
+  --border: rgba(77, 64, 48, 0.22);
+  --shadow: 0 18px 44px rgba(86, 70, 41, 0.15);
   --font-body: "Courier New", Courier, monospace;
   --font-editor: "Courier New", Courier, monospace;
   --font-heading: "Courier New", Courier, monospace;
@@ -403,111 +313,76 @@ body[data-theme="retro-typewriter"] {
   --heading-transform: none;
   --heading-weight: 700;
   --texture:
-    repeating-linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.12) 0 1px,
-      transparent 1px 8px
+    radial-gradient(
+      circle at 25% 30%,
+      rgba(77, 64, 48, 0.12),
+      transparent 35%
     ),
-    repeating-linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.08) 0 1px,
-      transparent 1px 12px
+    repeating-radial-gradient(
+      circle at 50% 50%,
+      rgba(77, 64, 48, 0.09) 0 1px,
+      transparent 1px 7px
     ),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.06), transparent 40%),
-    radial-gradient(circle at 70% 20%, rgba(0, 0, 0, 0.08), transparent 18%),
-    radial-gradient(circle at 40% 50%, rgba(0, 0, 0, 0.07), transparent 10%),
-    repeating-linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.03) 0 1px,
-      transparent 1px 6px
+    radial-gradient(
+      ellipse 90% 70% at 50% 50%,
+      transparent 50%,
+      rgba(77, 64, 48, 0.08) 100%
     );
   --header-accent: linear-gradient(
     90deg,
     transparent,
-    rgba(107, 89, 62, 0.24),
+    rgba(77, 64, 48, 0.4),
     transparent
   );
-  --editor-glow: inset 0 0 0 1px rgba(107, 89, 62, 0.16);
-  --selection: rgba(107, 89, 62, 0.18);
-  --cursor: #6b593e;
-  --badge-bg: rgba(107, 89, 62, 0.14);
-  --badge-text: #3f3320;
-  --paper-grain: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.04) 0 1px,
-    transparent 1px 16px
-  );
-  --panel-border: rgba(107, 89, 62, 0.18);
-  --button-glow: rgba(107, 89, 62, 0.12);
-  --card-surface: #e7d7b3;
+  --editor-glow: inset 0 0 0 1px rgba(77, 64, 48, 0.14);
+  --selection: rgba(77, 64, 48, 0.16);
+  --cursor: #4d4030;
+  --badge-bg: rgba(77, 64, 48, 0.1);
+  --badge-text: #33302a;
+  --panel-border: rgba(77, 64, 48, 0.2);
+  --card-surface: #e8ddc8;
 }
 
 body[data-theme="solar-desk"] {
-  --bg: #fff6e4;
+  --bg: #fff4de;
   --surface: #ffe9c6;
-  --surface-2: #f6d48a;
+  --surface-2: #f4d191;
   --text: #4d3317;
   --muted: #8f6f40;
   --accent: #c68724;
-  --accent-2: #e4b55f;
+  --accent-2: #e0ad4f;
   --accent-rgb: 198, 135, 36;
   --border: rgba(198, 135, 36, 0.16);
-  --shadow: 0 24px 58px rgba(161, 108, 50, 0.18);
+  --shadow: 0 20px 48px rgba(161, 108, 50, 0.16);
   --font-body: "Trebuchet MS", "Segoe UI", sans-serif;
   --font-editor: "Trebuchet MS", "Segoe UI", sans-serif;
-  --texture:
-    linear-gradient(
-      120deg,
-      rgba(198, 135, 36, 0.22) 0 12%,
-      transparent 12% 100%
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(198, 135, 36, 0.1) 0 1px,
-      transparent 1px 18px
-    ),
-    radial-gradient(
-      circle at 40% 10%,
-      rgba(255, 255, 255, 0.28),
-      transparent 22%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.28),
-      rgba(255, 255, 255, 0.05)
-    );
+  --texture: none;
   --header-accent: linear-gradient(
     90deg,
     transparent,
-    rgba(198, 135, 36, 0.26),
+    rgba(198, 135, 36, 0.45),
     transparent
   );
-  --editor-glow: inset 0 0 0 1px rgba(198, 135, 36, 0.14);
+  --editor-glow: inset 0 0 0 1px rgba(198, 135, 36, 0.16);
   --selection: rgba(198, 135, 36, 0.18);
   --cursor: #c68724;
   --badge-bg: rgba(198, 135, 36, 0.14);
   --badge-text: #4d3317;
-  --paper-grain: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.06) 0 1px,
-    transparent 1px 18px
-  );
   --panel-border: rgba(198, 135, 36, 0.2);
-  --button-glow: rgba(198, 135, 36, 0.12);
-  --card-surface: #f6d49a;
+  --card-surface: #fbe7bd;
 }
 
 body[data-theme="cosmic-notes"] {
-  --bg: #020712;
-  --surface: #0d1528;
-  --surface-2: #141d36;
-  --text: #f2effd;
-  --muted: #7b88b2;
-  --accent: #8b52ff;
+  --bg: #05060f;
+  --surface: #0d1226;
+  --surface-2: #141937;
+  --text: #ece4fb;
+  --muted: #7b86a8;
+  --accent: #8b6ff6;
   --accent-2: #00d1ff;
-  --accent-rgb: 139, 82, 255;
-  --border: rgba(139, 82, 255, 0.18);
-  --shadow: 0 26px 68px rgba(0, 0, 0, 0.48);
+  --accent-rgb: 139, 111, 246;
+  --border: rgba(139, 111, 246, 0.2);
+  --shadow: 0 26px 60px rgba(0, 0, 0, 0.55);
   --font-body: "Space Grotesk", "Segoe UI", sans-serif;
   --font-editor: "Space Grotesk", "Segoe UI", sans-serif;
   --font-heading: "Space Grotesk", "Segoe UI", sans-serif;
@@ -515,61 +390,30 @@ body[data-theme="cosmic-notes"] {
   --heading-transform: none;
   --heading-weight: 800;
   --texture:
-    radial-gradient(
-      circle at 18% 12%,
-      rgba(0, 209, 255, 0.28),
-      transparent 18%
-    ),
-    radial-gradient(circle at 78% 6%, rgba(139, 82, 255, 0.3), transparent 24%),
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.04) 0 1px,
-      transparent 1px 22px
-    ),
-    radial-gradient(
-      circle at 55% 30%,
-      rgba(255, 255, 255, 0.12),
-      transparent 12%
-    ),
-    radial-gradient(
-      circle at 35% 70%,
-      rgba(139, 82, 255, 0.1),
-      transparent 10%
-    ),
-    radial-gradient(
-      circle at 20% 15%,
-      rgba(255, 255, 255, 0.12),
-      transparent 2%
-    ),
-    radial-gradient(
-      circle at 80% 25%,
-      rgba(255, 255, 255, 0.08),
-      transparent 3%
-    ),
-    radial-gradient(
-      circle at 60% 80%,
-      rgba(255, 255, 255, 0.06),
-      transparent 3%
-    );
+    radial-gradient(circle at 12% 18%, rgba(139, 111, 246, 0.3), transparent 24%),
+    radial-gradient(circle at 4% 4%, rgba(255, 255, 255, 0.8) 1px, transparent 2px),
+    radial-gradient(circle at 88% 10%, rgba(255, 255, 255, 0.6) 1px, transparent 2px),
+    radial-gradient(circle at 70% 24%, rgba(255, 255, 255, 0.5) 1px, transparent 2px),
+    radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.4) 1px, transparent 2px),
+    radial-gradient(circle at 60% 55%, rgba(255, 255, 255, 0.5) 1px, transparent 2px),
+    radial-gradient(circle at 20% 70%, rgba(255, 255, 255, 0.35) 1px, transparent 2px),
+    radial-gradient(circle at 90% 75%, rgba(255, 255, 255, 0.5) 1px, transparent 2px),
+    radial-gradient(circle at 45% 85%, rgba(255, 255, 255, 0.4) 1px, transparent 2px),
+    radial-gradient(circle at 78% 60%, rgba(0, 209, 255, 0.5) 1px, transparent 2px),
+    radial-gradient(circle at 40% 12%, rgba(0, 209, 255, 0.4) 1px, transparent 2px);
   --header-accent: linear-gradient(
     90deg,
     transparent,
-    rgba(0, 209, 255, 0.22),
+    rgba(139, 111, 246, 0.5),
     transparent
   );
-  --editor-glow: inset 0 0 0 1px rgba(0, 209, 255, 0.16);
-  --selection: rgba(0, 209, 255, 0.24);
-  --cursor: #00d1ff;
-  --badge-bg: rgba(0, 209, 255, 0.14);
-  --badge-text: #f2effd;
-  --paper-grain: radial-gradient(
-    circle at 18% 22%,
-    rgba(255, 255, 255, 0.02),
-    transparent 34%
-  );
-  --panel-border: rgba(139, 82, 255, 0.2);
-  --button-glow: rgba(0, 209, 255, 0.14);
-  --card-surface: rgba(10, 17, 34, 0.96);
+  --editor-glow: inset 0 0 0 1px rgba(139, 111, 246, 0.16);
+  --selection: rgba(139, 111, 246, 0.2);
+  --cursor: #8b6ff6;
+  --badge-bg: rgba(139, 111, 246, 0.18);
+  --badge-text: #ece4fb;
+  --panel-border: rgba(139, 111, 246, 0.2);
+  --card-surface: rgba(13, 18, 38, 0.95);
 }
 
 .container {
@@ -803,10 +647,6 @@ header {
   background: rgba(var(--accent-rgb), 0.14);
   border-color: var(--accent);
   box-shadow: 0 0 0 1px var(--accent);
-}
-
-.theme-option__badge {
-  display: none;
 }
 
 .theme-option__left {
@@ -1175,17 +1015,17 @@ body[data-theme="forest-quiet"] .composer-card,
 body[data-theme="forest-quiet"] .dashboard-section,
 body[data-theme="forest-quiet"] .note-card {
   background: linear-gradient(180deg, #f7f1e6 0%, #f0e4cf 100%);
-  border-color: rgba(82, 107, 68, 0.18);
+  border-color: rgba(80, 107, 63, 0.18);
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.08),
     0 18px 36px rgba(60, 70, 49, 0.12);
   background-image:
     linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent),
-    radial-gradient(circle at 20% 10%, rgba(82, 107, 68, 0.06), transparent 15%);
+    radial-gradient(circle at 20% 10%, rgba(80, 107, 63, 0.06), transparent 15%);
 }
 
 body[data-theme="forest-quiet"] .section-header {
-  border-bottom: 1px dashed rgba(82, 107, 68, 0.25);
+  border-bottom: 1px dashed rgba(80, 107, 63, 0.25);
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
@@ -1194,7 +1034,7 @@ body[data-theme="ink-paper"] .composer-card,
 body[data-theme="ink-paper"] .dashboard-section,
 body[data-theme="ink-paper"] .note-card {
   background: #f0e3d0;
-  border-color: rgba(95, 75, 57, 0.22);
+  border-color: rgba(55, 80, 122, 0.2);
   box-shadow: 0 18px 34px rgba(78, 62, 47, 0.12);
 }
 
@@ -1207,7 +1047,7 @@ body[data-theme="ink-paper"] .theme-option {
   border-width: 1px;
   background: linear-gradient(
     180deg,
-    rgba(95, 75, 57, 0.12),
+    rgba(55, 80, 122, 0.1),
     rgba(255, 255, 255, 0.04)
   );
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
@@ -1238,7 +1078,7 @@ body[data-theme="retro-typewriter"] .composer-card,
 body[data-theme="retro-typewriter"] .dashboard-section,
 body[data-theme="retro-typewriter"] .note-card {
   background: linear-gradient(180deg, #f5e7d6 0%, #ece0c9 100%);
-  border: 1px dotted rgba(107, 89, 62, 0.28);
+  border: 1px dotted rgba(77, 64, 48, 0.28);
   box-shadow: 0 16px 32px rgba(86, 70, 41, 0.1);
 }
 
@@ -1247,7 +1087,7 @@ body[data-theme="retro-typewriter"] .add-note-btn,
 body[data-theme="retro-typewriter"] .theme-option {
   border-radius: 8px;
   background: #ebe0d4;
-  box-shadow: inset 0 0 0 1px rgba(107, 89, 62, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(77, 64, 48, 0.12);
 }
 
 body[data-theme="cosmic-notes"] .composer-card,
@@ -1255,10 +1095,10 @@ body[data-theme="cosmic-notes"] .dashboard-section,
 body[data-theme="cosmic-notes"] .note-card {
   position: relative;
   overflow: hidden;
-  background: rgba(13, 21, 40, 0.96);
-  border-color: rgba(0, 209, 255, 0.28);
+  background: rgba(13, 18, 38, 0.96);
+  border-color: rgba(139, 111, 246, 0.24);
   box-shadow:
-    0 0 0 1px rgba(0, 209, 255, 0.1),
+    0 0 0 1px rgba(139, 111, 246, 0.1),
     0 26px 62px rgba(0, 0, 0, 0.42);
 }
 
@@ -1272,12 +1112,12 @@ body[data-theme="cosmic-notes"] .note-card::before {
   background:
     radial-gradient(
       circle at 12% 18%,
-      rgba(0, 209, 255, 0.08),
+      rgba(139, 111, 246, 0.1),
       transparent 14%
     ),
     radial-gradient(
       circle at 78% 15%,
-      rgba(139, 82, 255, 0.08),
+      rgba(0, 209, 255, 0.07),
       transparent 16%
     );
   opacity: 0.75;

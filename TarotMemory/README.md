@@ -22,7 +22,7 @@ Clearing a level advances the run; running out of time resets the current run to
 - Pattern Safe mode for players who rely on non-color cues
 - gallery of all 22 Major Arcana sigils
 - keyboard and touch friendly controls
-- progress saved in the visitor's browser via `localStorage` keys prefixed with `tm.` — stars, every cleared level (RITES SEALED counter), and completed-run counts per difficulty
+- progress saved in the visitor's browser via `localStorage` keys prefixed with `tm.`: stars, every cleared level (RITES SEALED counter), and completed-run counts per difficulty
 
 ## How to run
 

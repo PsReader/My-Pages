@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Type Bound Supabase email templates</title>
+    <style>
+      body { margin: 0; padding: 24px; background: #171717; color: #f4f0e7; font-family: "Space Grotesk", Arial, sans-serif; }
+      header { border-bottom: 1px solid #605e59; padding-bottom: 16px; margin-bottom: 24px; }
+      header h1 { margin: 0; font-size: 24px; letter-spacing: -0.04em; text-transform: uppercase; color: #f15a3a; }
+      header p { margin: 6px 0 0; color: #aaa59c; font-size: 13px; }
+      section { margin-bottom: 40px; }
+      h2 { color: #f4f0e7; font-size: 18px; text-transform: uppercase; letter-spacing: -0.02em; }
+      h3 { color: #aaa59c; font-size: 12px; font-family: "DM Mono", monospace; text-transform: uppercase; letter-spacing: 0.12em; margin: 24px 0 8px; }
+      pre { background: #242424; border: 1px solid #3c3b38; padding: 16px; overflow-x: auto; white-space: pre-wrap; word-break: break-word; font-family: "DM Mono", monospace; font-size: 12px; line-height: 1.6; }
+      .note { color: #aaa59c; font-size: 13px; border-left: 3px solid #3159d8; padding-left: 12px; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Type Bound Supabase email templates</h1>
+      <p>Paste into the dashboard: Authentication → Email Templates.</p>
+    </header>
+
+    <section>
+      <h2>1. Confirm signup</h2>
+      <h3>Subject</h3>
+      <pre>Confirm your Type Bound account</pre>
+
+      <h3>HTML content</h3>
+      <pre>&lt;body style="margin:0;padding:0;background:#171717;color:#f4f0e7;font-family:'Space Grotesk',Helvetica,Arial,sans-serif;"&gt;
+&lt;table role="presentation" width="100%" cellpadding="0" cellspacing="0"&gt;
+&lt;tr&gt;&lt;td align="center" style="padding:40px 16px;"&gt;
+&lt;table role="presentation" width="520" cellpadding="0" cellspacing="0" style="border:1px solid #3c3b38;background:#242424;max-width:520px;"&gt;
+&lt;tr&gt;&lt;td style="padding:8px 32px;border-bottom:1px solid #605e59;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#f15a3a;"&gt;Type &lt;strong style="color:#f4f0e7;"&gt;Bound&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="padding:32px;"&gt;
+&lt;h1 style="margin:0 0 16px;font-size:30px;letter-spacing:-.05em;line-height:1;text-transform:uppercase;"&gt;Confirm your account&lt;/h1&gt;
+&lt;p style="margin:0 0 12px;font-size:14px;line-height:1.7;"&gt;{{ if .Data.username }}Welcome, {{ .Data.username }}. You {{ else }}You {{ end }}are one step from creating a Type Bound account. Confirm this address to unlock cloud sync and the online leaderboard.&lt;/p&gt;
+&lt;p style="margin:16px 0;font-size:14px;color:#aaa59c;"&gt;This link is single-use and expires.&lt;/p&gt;
+&lt;p style="margin:28px 0;"&gt;&lt;a href="{{ .ConfirmationURL }}" style="background:#f15a3a;color:#fff8ed;padding:12px 18px;font-weight:700;text-decoration:none;border:1px solid #171717;"&gt;Confirm my account&lt;/a&gt;&lt;/p&gt;
+&lt;p style="margin:0;font-size:12px;color:#77736b;"&gt;If the button does not work, open this URL directly:&lt;br /&gt;&lt;span style="font-family:'DM Mono',monospace;font-size:11px;word-break:break-all;"&gt;{{ .ConfirmationURL }}&lt;/span&gt;&lt;/p&gt;
+&lt;p style="margin:20px 0 0;font-size:11px;color:#77736b;"&gt;If you did not create this account, ignore this email.&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;</pre>
+
+      <h3>Plain text</h3>
+      <pre>Confirm your Type Bound account
+
+Welcome. You are one step from creating a Type Bound account. Confirm
+this address to unlock cloud sync and the online leaderboard. This link
+is single-use and expires.
+
+{{ .ConfirmationURL }}
+
+If you did not create this account, ignore this email.</pre>
+    </section>
+
+    <section>
+      <h2>2. Reset password</h2>
+      <h3>Subject</h3>
+      <pre>Reset your Type Bound password</pre>
+
+      <h3>HTML content</h3>
+      <pre>&lt;body style="margin:0;padding:0;background:#171717;color:#f4f0e7;font-family:'Space Grotesk',Helvetica,Arial,sans-serif;"&gt;
+&lt;table role="presentation" width="100%" cellpadding="0" cellspacing="0"&gt;
+&lt;tr&gt;&lt;td align="center" style="padding:40px 16px;"&gt;
+&lt;table role="presentation" width="520" cellpadding="0" cellspacing="0" style="border:1px solid #3c3b38;background:#242424;max-width:520px;"&gt;
+&lt;tr&gt;&lt;td style="padding:8px 32px;border-bottom:1px solid #605e59;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#f15a3a;"&gt;Type &lt;strong style="color:#f4f0e7;"&gt;Bound&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="padding:32px;"&gt;
+&lt;h1 style="margin:0 0 16px;font-size:30px;letter-spacing:-.05em;line-height:1;text-transform:uppercase;"&gt;Reset your password&lt;/h1&gt;
+&lt;p style="margin:0 0 12px;font-size:14px;line-height:1.7;"&gt;We received a request to change the password for your Type Bound account. Choose a new one with the button below. This link is single-use and expires.&lt;/p&gt;
+&lt;p style="margin:0 0 28px;font-size:14px;color:#aaa59c;"&gt;Your account is not locked. You can ignore this email if you did not ask for a reset.&lt;/p&gt;
+&lt;p style="margin:28px 0;"&gt;&lt;a href="{{ .ConfirmationURL }}" style="background:#f15a3a;color:#fff8ed;padding:12px 18px;font-weight:700;text-decoration:none;border:1px solid #171717;"&gt;Reset password&lt;/a&gt;&lt;/p&gt;
+&lt;p style="margin:0;font-size:12px;color:#77736b;"&gt;If the button does not work, open this URL directly:&lt;br /&gt;&lt;span style="font-family:'DM Mono',monospace;font-size:11px;word-break:break-all;"&gt;{{ .ConfirmationURL }}&lt;/span&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;</pre>
+
+      <h3>Plain text</h3>
+      <pre>Reset your Type Bound password
+
+We received a request to change the password for your Type Bound account.
+Choose a new one at the link below. It is single-use and expires. Your
+account is not locked. If you did not ask for a reset, ignore this email.
+
+{{ .ConfirmationURL }}</pre>
+    </section>
+  </body>
+</html>

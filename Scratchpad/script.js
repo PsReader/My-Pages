@@ -40,49 +40,49 @@ const themes = [
     value: "midnight-studio",
     label: "Midnight Studio",
     icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c-2.8 0-5.1 2.3-5.1 5.1 0 1.1.4 2.2 1.1 3.1L8 12.4a5.4 5.4 0 0 0-1.4 3.7c0 2.9 2.4 5.3 5.3 5.3 2.9 0 5.3-2.4 5.3-5.3 0-1.4-.6-2.7-1.5-3.6l-.5-.6c.7-.9 1.1-2 1.1-3.1C17.1 5.3 14.8 3 12 3Z" fill="currentColor"/></svg>',
-    swatch: ["#6ec5ff", "#4cc9f0"],
+    swatch: ["#4fdcff", "#7de6ff"],
   },
   {
     value: "forest-quiet",
     label: "Forest Quiet",
     icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 7 11h2l-3 6h4v3h4v-3h4l-3-6h2L12 4Z" fill="currentColor"/></svg>',
-    swatch: ["#4f6f4a", "#7c8f5a"],
+    swatch: ["#506b3f", "#8a8a61"],
   },
   {
     value: "ink-paper",
     label: "Ink & Paper",
     icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h8a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H9l-3-3V6a3 3 0 0 1 3-3Zm2 4v2h6V7H9Zm0 4v2h4v-2H9Z" fill="currentColor"/></svg>',
-    swatch: ["#4b433b", "#8b6c4c"],
+    swatch: ["#37507a", "#8a7a5c"],
   },
   {
     value: "moonlit-library",
     label: "Moonlit Library",
     icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm2 3v8h6V7H7Zm8 0h2v8h-2V7Z" fill="currentColor"/></svg>',
-    swatch: ["#c7a4ff", "#8f7ce8"],
+    swatch: ["#d9b87a", "#d6bdf6"],
   },
   {
     value: "minimal-zen",
     label: "Minimal Zen",
     icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4a8 8 0 1 0 8 8 8 8 0 0 0-8-8Zm0 2a6 6 0 0 1 4.1 10.2 1 1 0 0 0-.2-.1l-3.9-2.8a1 1 0 0 0-1.2 0L8.1 16.1a1 1 0 0 0-.2.1A6 6 0 0 1 12 6Z" fill="currentColor"/></svg>',
-    swatch: ["#6d8b6d", "#8aa487"],
+    swatch: ["#4c5b48", "#8a9478"],
   },
   {
     value: "retro-typewriter",
     label: "Retro Typewriter",
     icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12a2 2 0 0 1 2 2v2H4V6a2 2 0 0 1 2-2Zm-2 6h16v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8Zm3 2v2h4v-2H7Zm6 0v2h4v-2h-4Z" fill="currentColor"/></svg>',
-    swatch: ["#6a5b3c", "#8a7450"],
+    swatch: ["#4d4030", "#8f7450"],
   },
   {
     value: "solar-desk",
     label: "Solar Desk",
     icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm7.1 4.9a1 1 0 0 1 1.4 0l1.4 1.4a1 1 0 1 1-1.4 1.4l-1.4-1.4a1 1 0 0 1 0-1.4ZM4.5 7.9a1 1 0 0 1 1.4 0l1.4 1.4a1 1 0 0 1-1.4 1.4L4.5 9.3a1 1 0 0 1 0-1.4ZM12 8a4 4 0 1 0 4 4 4 4 0 0 0-4-4Zm8 7a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1Zm-16 0a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1Zm14.1 4.9a1 1 0 0 1 0 1.4l-1.4 1.4a1 1 0 0 1-1.4-1.4l1.4-1.4a1 1 0 0 1 1.4 0Zm-12.2 0a1 1 0 0 1 0 1.4L8.5 20.6a1 1 0 0 1-1.4-1.4l1.4-1.4a1 1 0 0 1 1.4 0Z" fill="currentColor"/></svg>',
-    swatch: ["#bf7a20", "#d99a37"],
+    swatch: ["#c68724", "#e0ad4f"],
   },
   {
     value: "cosmic-notes",
     label: "Cosmic Notes",
     icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-4 4V5a2 2 0 0 1 2-2Zm2 4v2h6V7H9Zm0 4v2h4v-2H9Z" fill="currentColor"/></svg>',
-    swatch: ["#7c4dff", "#00d4ff"],
+    swatch: ["#8b6ff6", "#00d1ff"],
   },
 ];
 
@@ -169,14 +169,14 @@ function applyTheme(themeName) {
   document.body.setAttribute("data-theme", themeName);
 
   const themeColorMap = {
-    "midnight-studio": "#020712",
+    "midnight-studio": "#05080f",
     "forest-quiet": "#f3ebd9",
-    "ink-paper": "#f3e2ce",
-    "moonlit-library": "#180a20",
+    "ink-paper": "#f4e9d6",
+    "moonlit-library": "#1a1026",
     "minimal-zen": "#fbfaf5",
-    "retro-typewriter": "#f7efe0",
-    "solar-desk": "#fff6e4",
-    "cosmic-notes": "#020712",
+    "retro-typewriter": "#ece0cb",
+    "solar-desk": "#fff4de",
+    "cosmic-notes": "#05060f",
   };
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.content = themeColorMap[themeName] || "#07111f";
