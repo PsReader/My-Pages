@@ -70,6 +70,18 @@
         font-family: "Libre Baskerville", "Merriweather", Georgia, serif;
       }
 
+      a {
+        color: #d4af9f;
+        background-color: transparent;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      a:hover {
+        color: #e8c8b8;
+        text-decoration: underline;
+      }
+
       h1 {
         color: #ffd700;
         font-size: 3.5rem;
@@ -242,6 +254,175 @@
       h6 {
         font-family: "Merriweather", "Libre Baskerville", Georgia, serif;
       }
+
+      /* ===== SPOTLIGHT ===== */
+      .image-frame {
+        border: 3px solid #d4af9f;
+        border-radius: 8px;
+        padding: 12px;
+        background: linear-gradient(
+          135deg,
+          rgba(212, 175, 159, 0.1),
+          rgba(255, 215, 0, 0.05)
+        );
+        box-shadow:
+          0 0 20px rgba(212, 175, 159, 0.4),
+          inset 0 0 15px rgba(255, 215, 0, 0.1);
+        transition: all 0.3s ease;
+        display: inline-block;
+      }
+
+      .image-frame:hover {
+        border-color: #ffd700;
+      }
+
+      blockquote {
+        color: #d4af9f;
+        font-size: 1.1rem;
+        font-style: italic;
+        line-height: 1.8;
+        margin: 20px 0 10px 0;
+        padding: 15px;
+        border-left: 4px solid rgba(212, 175, 159, 0.5);
+        background-color: rgba(212, 175, 159, 0.05);
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        animation: slideInUp 0.4s ease-out;
+      }
+
+      blockquote:hover {
+        background-color: rgba(212, 175, 159, 0.08);
+        border-left-color: rgba(212, 175, 159, 0.8);
+        color: #e8c8b8;
+      }
+
+      .spotlight {
+        text-align: center;
+        margin: 10px 0 35px;
+      }
+
+      .spotlight-emblems img {
+        width: 34px;
+        margin: 0 10px;
+        border-radius: 6px;
+        padding: 6px;
+      }
+
+      .spotlight blockquote {
+        margin: 20px auto 5px;
+        max-width: 700px;
+      }
+
+      /* ===== VOLUMES ===== */
+      .vol-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin: 25px 0;
+      }
+
+      .vol-card {
+        display: block;
+        text-decoration: none;
+        background-color: rgba(212, 175, 159, 0.06);
+        border: 1px solid rgba(212, 175, 159, 0.25);
+        border-left: 3px solid #ffc300;
+        border-radius: 6px;
+        padding: 16px 18px;
+        transition: all 0.3s ease;
+        color: #d4af9f;
+      }
+
+      .vol-card:hover {
+        background-color: rgba(212, 175, 159, 0.12);
+        border-color: rgba(212, 175, 159, 0.6);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+      }
+
+      .vol-num {
+        color: #ffc300;
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+
+      .vol-card h3 {
+        color: #e8c8b8;
+        margin: 6px 0 8px;
+        font-size: 1.15rem;
+      }
+
+      .vol-card p {
+        margin: 0;
+        font-size: 0.92rem;
+        opacity: 0.9;
+        line-height: 1.5;
+      }
+
+      /* ===== QUOTE ROTATOR ===== */
+      .rotator {
+        text-align: center;
+        margin: 40px 0;
+        padding: 25px 20px;
+        background-color: rgba(212, 175, 159, 0.05);
+        border-radius: 8px;
+      }
+
+      .rotator blockquote {
+        margin: 15px auto 5px;
+        max-width: 760px;
+      }
+
+      /* ===== EXPLORE ===== */
+      .explore-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 14px;
+        margin: 25px 0;
+      }
+
+      .explore-tile {
+        display: block;
+        text-decoration: none;
+        background-color: rgba(212, 175, 159, 0.06);
+        border: 1px solid rgba(212, 175, 159, 0.2);
+        border-radius: 6px;
+        padding: 16px;
+        text-align: center;
+        transition: all 0.3s ease;
+        color: #d4af9f;
+      }
+
+      .explore-tile:hover {
+        background-color: rgba(212, 175, 159, 0.12);
+        border-color: rgba(212, 175, 159, 0.6);
+        transform: translateY(-3px);
+      }
+
+      .explore-tile img {
+        width: 44px;
+        height: 44px;
+        margin-bottom: 8px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .explore-tile span {
+        display: block;
+        font-weight: 600;
+        color: #e8c8b8;
+        margin-bottom: 4px;
+      }
+
+      .explore-tile small {
+        display: block;
+        font-size: 0.8rem;
+        opacity: 0.85;
+        line-height: 1.4;
+      }
     </style>
     <link rel="stylesheet" href="css/dynamic-styles.css" />
   </head>
@@ -264,6 +445,27 @@
     <h1><b>Lord of the Mysteries Fan Wiki</b></h1>
     <hr />
     <div style="max-width: 1000px; margin: 0 auto; padding: 0 20px">
+
+      <!-- Klein Moretti spotlight -->
+      <div class="spotlight">
+        <div class="spotlight-emblems">
+          <img src="images/Fool_Symbol2.webp" class="image-frame" alt="Fool emblem" />
+          <img src="images/Error_Symbol2.webp" class="image-frame" alt="Error emblem" />
+          <img src="images/Door_Symbol2.webp" class="image-frame" alt="Door emblem" />
+        </div>
+        <blockquote>
+          "You can address me as… <a href="identities.html">The Fool</a>."
+        </blockquote>
+        <h6>— Klein Moretti on <a href="index.html">Lord of Mysteries</a>, Chapter 6</h6>
+        <p align="left">
+          Klein Moretti is the main protagonist of <i>Lord of Mysteries</i>. He owns the
+          Sefirah Castle and holds authority over <b>the Fool</b>, <b>Error</b>, and
+          <b>Door</b>. He is the mysterious leader of the
+          <a href="TarotClub.html">Tarot Club</a> and, from 1352, the God of the
+          <a href="Church.html">Church of the Fool</a>.
+        </p>
+      </div>
+
       <h2>1. What Is LOTM?</h2>
       <p align="left">
         Lord of Mysteries is a western fantasy (xuanhuan) web novel written by
@@ -315,6 +517,124 @@
           and with the support of the Shanghai Press and Publication Bureau.
         </li>
       </ul>
+    </div>
+
+    <!-- The Volumes -->
+    <div style="max-width: 1000px; margin: 0 auto; padding: 0 20px">
+      <h2>The Volumes</h2>
+      <div class="vol-grid">
+        <a class="vol-card" href="Volume 1.html">
+          <div class="vol-num">Volume 1</div>
+          <h3>Clown</h3>
+          <p>"Everyone will die, including me."</p>
+        </a>
+        <a class="vol-card" href="Volume 2.html">
+          <div class="vol-num">Volume 2</div>
+          <h3>Faceless</h3>
+          <p>"It was the best of times, it was the worst of times."</p>
+        </a>
+        <a class="vol-card" href="Volume 3.html">
+          <div class="vol-num">Volume 3</div>
+          <h3>Traveler</h3>
+          <p>"Every journey has its destination."</p>
+        </a>
+        <a class="vol-card" href="Volume 4.html">
+          <div class="vol-num">Volume 4</div>
+          <h3>Undying</h3>
+          <p>"Undying is a bestowment or a curse."</p>
+        </a>
+        <a class="vol-card" href="Volume 5.html">
+          <div class="vol-num">Volume 5</div>
+          <h3>Red Priest</h3>
+          <p>"Every drowning person will struggle."</p>
+        </a>
+        <a class="vol-card" href="Volume 6.html">
+          <div class="vol-num">Volume 6</div>
+          <h3>Lightseeker</h3>
+          <p>"Lightseeker represents the pursuit of truth and light."</p>
+        </a>
+        <a class="vol-card" href="Volume 7.html">
+          <div class="vol-num">Volume 7</div>
+          <h3>The Hanged Man</h3>
+          <p>"The Hanged Man is sacrifice and perspective."</p>
+        </a>
+        <a class="vol-card" href="Volume 8.html">
+          <div class="vol-num">Volume 8</div>
+          <h3>Fool</h3>
+          <p>"The Fool walks the path of the extraordinary."</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- Featured Quote -->
+    <div class="rotator">
+      <h2>Featured Quote</h2>
+      <blockquote id="featuredQuote">
+        "Free things cost the most."
+      </blockquote>
+      <h6 id="featuredQuoteAttr">— Klein Moretti on Lord of Mysteries, Chapter 5</h6>
+    </div>
+
+    <!-- Explore the Archive -->
+    <div style="max-width: 1000px; margin: 0 auto; padding: 0 20px">
+      <h2>Explore the Archive</h2>
+      <div class="explore-grid">
+        <a class="explore-tile" href="Novel.html">
+          <img src="images/Cuttlefish.webp" alt="Novel" />
+          <span>Novel</span>
+          <small>Story overview and framing</small>
+        </a>
+        <a class="explore-tile" href="Mc_Profile.html">
+          <img src="images/Klein-N.jpg" alt="MC Profile" />
+          <span>MC Profile</span>
+          <small>Klein Moretti, character hub</small>
+        </a>
+        <a class="explore-tile" href="Pathways.html">
+          <img src="images/Fool_Symbol2.webp" alt="Pathways" />
+          <span>Pathways</span>
+          <small>Sequences and progression</small>
+        </a>
+        <a class="explore-tile" href="Abilities.html">
+          <img src="images/Error_Symbol2.webp" alt="Abilities" />
+          <span>Abilities</span>
+          <small>Powers of the Fool Pathway</small>
+        </a>
+        <a class="explore-tile" href="identities.html">
+          <img src="images/Door_Symbol2.webp" alt="Identities" />
+          <span>Identities</span>
+          <small>Aliases and disguises</small>
+        </a>
+        <a class="explore-tile" href="Church.html">
+          <img src="images/Sacred.webp" alt="Church" />
+          <span>Church</span>
+          <small>Factions and organizations</small>
+        </a>
+        <a class="explore-tile" href="Quotes.html">
+          <img src="images/Fool-G.webp" alt="Quotes" />
+          <span>Quotes</span>
+          <small>Memorable lines and lore</small>
+        </a>
+        <a class="explore-tile" href="Songs.html">
+          <img src="images/LOTM_Audio.webp" alt="Songs" />
+          <span>Songs</span>
+          <small>Fan songs and music</small>
+        </a>
+        <a class="explore-tile" href="Gallery.html">
+          <img src="images/Fool_Art.webp" alt="Gallery" />
+          <span>Gallery</span>
+          <small>Art and visual tribute</small>
+        </a>
+        <a class="explore-tile" href="TarotClub.html">
+          <img src="images/Tarot_club.webp" alt="Tarot Club" />
+          <span>Tarot Club</span>
+          <small>Lore, rules, and commissions</small>
+        </a>
+        <a class="explore-tile" href="Author.html">
+          <img src="images/Dwayne.webp" alt="Author" />
+          <span>Novel Author</span>
+          <small>Creator and project notes</small>
+        </a>
+      </div>
     </div>
 
     <!-- Professional Footer with Disclaimer -->

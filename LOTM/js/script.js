@@ -2,47 +2,9 @@
  * ==============================================================================
  * DYNAMIC WEBSITE FUNCTIONALITY
  * ==============================================================================
- * Comprehensive JavaScript module for interactive UI components including tabs,
- * accordions, modals, filters, smooth scrolling, lazy loading, and animations.
+ * Interactive UI components: accordions, active navigation highlighting, and
+ * scroll-to-top.
  */
-
-/* ============================================================================= */
-/* TAB COMPONENT */
-/* ============================================================================= */
-
-/**
- * Sets up tab functionality
- * Attaches click handlers to tab buttons and shows/hides tab content
- */
-function setupTabs() {
-  const tabButtons = document.querySelectorAll('[data-tab-button]');
-  const tabContents = document.querySelectorAll('[data-tab-content]');
-
-  tabButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const tabName = this.getAttribute('data-tab-button');
-
-      // Hide all tabs and remove active state
-      tabContents.forEach(content => {
-        content.style.display = 'none';
-        content.classList.remove('active');
-      });
-
-      // Remove active class from all buttons
-      tabButtons.forEach(btn => btn.classList.remove('active'));
-
-      // Show selected tab and mark button as active
-      const selectedTab = document.querySelector(
-        `[data-tab-content="${tabName}"]`
-      );
-      if (selectedTab) {
-        selectedTab.style.display = 'block';
-        selectedTab.classList.add('active');
-        this.classList.add('active');
-      }
-    });
-  });
-}
 
 /* ============================================================================= */
 /* ACCORDION COMPONENT */
@@ -56,7 +18,7 @@ function setupAccordions() {
   const accordionHeaders = document.querySelectorAll('[data-accordion-header]');
 
   accordionHeaders.forEach(header => {
-    header.addEventListener('click', function() {
+    const toggle = function() {
       const content = this.nextElementSibling;
 
       // Close all other accordions
@@ -71,112 +33,16 @@ function setupAccordions() {
       this.classList.toggle('active');
       content.style.display =
         content.style.display === 'block' ? 'none' : 'block';
-    });
-  });
-}
+    };
 
-/* ============================================================================= */
-/* SMOOTH SCROLL */
-/* ============================================================================= */
+    header.addEventListener('click', toggle);
 
-/**
- * Sets up smooth scrolling for anchor links
- * Smooth animation when clicking links with href starting with #
- */
-function setupSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
+    // Keyboard support for role="button" headers
+    header.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle.call(this);
       }
-    });
-  });
-}
-
-/* ============================================================================= */
-/* MODAL COMPONENT */
-/* ============================================================================= */
-
-/**
- * Sets up modal/dialog functionality
- * Handles opening, closing, and clicking outside to close
- */
-function setupModals() {
-  const modalTriggers = document.querySelectorAll('[data-modal-trigger]');
-  const modals = document.querySelectorAll('[data-modal]');
-  const closeButtons = document.querySelectorAll('[data-modal-close]');
-
-  // Open modal on trigger click
-  modalTriggers.forEach(trigger => {
-    trigger.addEventListener('click', function() {
-      const modalId = this.getAttribute('data-modal-trigger');
-      const modal = document.querySelector(`[data-modal="${modalId}"]`);
-      if (modal) {
-        modal.style.display = 'flex';
-        modal.classList.add('active');
-      }
-    });
-  });
-
-  // Close modal on close button click
-  closeButtons.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const modal = this.closest('[data-modal]');
-      if (modal) {
-        modal.style.display = 'none';
-        modal.classList.remove('active');
-      }
-    });
-  });
-
-  // Close modal when clicking outside content
-  modals.forEach(modal => {
-    modal.addEventListener('click', function(e) {
-      if (e.target === this) {
-        this.style.display = 'none';
-        this.classList.remove('active');
-      }
-    });
-  });
-}
-
-/* ============================================================================= */
-/* FILTER COMPONENT */
-/* ============================================================================= */
-
-/**
- * Sets up item filtering functionality
- * Filters items based on selected filter button
- */
-function setupFilters() {
-  const filterButtons = document.querySelectorAll('[data-filter]');
-
-  filterButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const filterValue = this.getAttribute('data-filter');
-      const items = document.querySelectorAll('[data-filter-item]');
-
-      // Update active button state
-      filterButtons.forEach(btn => btn.classList.remove('active'));
-      this.classList.add('active');
-
-      // Filter and display/hide items
-      items.forEach(item => {
-        if (
-          filterValue === 'all' ||
-          item.getAttribute('data-filter-item') === filterValue
-        ) {
-          item.style.display = 'block';
-          item.classList.add('fade-in');
-        } else {
-          item.style.display = 'none';
-        }
-      });
     });
   });
 }
@@ -205,29 +71,161 @@ function setupActiveNavigation() {
 }
 
 /* ============================================================================= */
-/* LAZY IMAGE LOADING */
+/* TAROT CLUB BACK NAVIGATION */
 /* ============================================================================= */
 
 /**
- * Sets up lazy loading for images
- * Uses Intersection Observer API for performance optimization
+ * Points every .tarot-back link back to the page the visitor came from,
+ * unless that page is this one. Shared so the Tarot Club family of pages
+ * does not each carry an inline copy.
  */
-function setupLazyLoading() {
-  const images = document.querySelectorAll('img[data-lazy]');
-
-  if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.src = entry.target.getAttribute('data-lazy');
-          entry.target.removeAttribute('data-lazy');
-          imageObserver.unobserve(entry.target);
-        }
-      });
-    });
-
-    images.forEach(img => imageObserver.observe(img));
+function setupTarotBackNavigation() {
+  const back = document.querySelectorAll('.tarot-back');
+  if (back.length === 0) return;
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  const ref = document.referrer || '';
+  const m = ref.match(/([^\/]+\.html)(?:\?|$)/);
+  if (m && m[1] !== currentPage && m[1].indexOf('.html') !== -1) {
+    back.forEach(a => a.setAttribute('href', m[1]));
   }
+}
+
+/* ============================================================================= */
+/* TAROT TABLE CAPTION */
+/* ============================================================================= */
+
+/**
+ * Fills the caption under the dealt hand with the hovered or focused card.
+ * Runs only on pages that carry the .tarot-caption and .tarot-card markup.
+ */
+function setupTarotTable() {
+  const caption = document.querySelector('.tarot-caption');
+  if (!caption) return;
+
+  const setText = function() {
+    caption.textContent = this.getAttribute('data-name') || '';
+    this.classList.add('chosen');
+  };
+  const clearText = function() {
+    caption.textContent = '';
+    this.classList.remove('chosen');
+  };
+
+  document.querySelectorAll('.tarot-card').forEach(card => {
+    card.addEventListener('mouseenter', setText);
+    card.addEventListener('mouseleave', clearText);
+    card.addEventListener('focus', setText);
+    card.addEventListener('blur', clearText);
+    card.addEventListener('click', setText);
+  });
+}
+
+/**
+ * Deals the cards into the fan once, the first time the fan scrolls into view.
+ * Falls back to the settled state immediately for reduced-motion users and
+ * browsers without IntersectionObserver.
+ */
+function setupTarotFanReveal() {
+  const fan = document.querySelector('.tarot-fan');
+  if (!fan) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      !('IntersectionObserver' in window)) {
+    fan.classList.add('seated');
+    return;
+  }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('seated');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.25 });
+  io.observe(fan);
+}
+
+/* ============================================================================= */
+/* PARTICIPANT CHIPS */
+/* ============================================================================= */
+
+/**
+ * Decorates every "Participants:" line on the Gatherings page so each named
+ * member is wrapped in a chip bearing that member's pathway glyph. Unmatched
+ * text (new-member labels, "and", roles) survives untouched. No data is lost.
+ */
+const PART_CARDS = {
+  'Klein Moretti': 'Fool_Symbol2.webp',
+  'The Fool': 'Fool_Symbol2.webp',
+  'Mr. Fool': 'Fool_Symbol2.webp',
+  'Mr. World': 'Fool_Symbol2.webp',
+  'The World': 'Fool_Symbol2.webp',
+  'Gehrman Sparrow': 'Fool_Symbol2.webp',
+  'Audrey Hall': 'Visionary_Symbol2.webp',
+  'Alger Wilson': 'Tyrant_Symbol2.webp',
+  'Derrick Berg': 'Sun_Symbol2.webp',
+  'Fors Wall': 'Door_Symbol2.webp',
+  'Emlyn White': 'Moon_Symbol2.webp',
+  'Cattleya': 'Hermit_Symbol2.webp',
+  'Leonard Mitchell': 'Darkness_Symbol2.webp',
+  'Xio Derecha': 'Justiciar_Symbol2.webp'
+};
+
+function setupParticipantChips() {
+  const order = Object.keys(PART_CARDS).sort((a, b) => b.length - a.length);
+
+  document.querySelectorAll('p').forEach(p => {
+    if (!p.textContent.trim().startsWith('Participants')) return;
+    let html = p.innerHTML;
+    order.forEach(name => {
+      html = html.split(name).join(
+        '<span class="participant-chip">' +
+        '<img src="images/' + PART_CARDS[name] + '" width="18" height="18" alt="' + name + '">' +
+        '<span>' + name + '</span></span>'
+      );
+    });
+    p.innerHTML = html;
+  });
+}
+
+/**
+ * Rotates the featured quote block on the homepage. Only quote/attribute
+ * text changes; no layout shift. Static first quote for reduced-motion
+ * users and when the block is absent.
+ */
+const FEATURED_QUOTES = [
+  {
+    text: 'Free things cost the most.',
+    attr: '— Klein Moretti on Lord of Mysteries, Chapter 5'
+  },
+  {
+    text: 'The oldest and strongest emotion of mankind is fear, and the oldest and strongest fear is the fear of the unknown.',
+    attr: '— Klein Moretti on Lord of Mysteries, Chapter 9'
+  },
+  {
+    text: 'A true professor can communicate with people gently and politely.',
+    attr: '— Klein to Melissa on Lord of Mysteries, Chapter 98'
+  },
+  {
+    text: 'Fate never repeats itself indefinitely. It always brings us some surprises.',
+    attr: '— Klein Moretti on Lord of Mysteries, Chapter 153'
+  }
+];
+
+function setupQuoteRotator() {
+  const textEl = document.getElementById('featuredQuote');
+  const attrEl = document.getElementById('featuredQuoteAttr');
+  if (!textEl || !attrEl) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let index = 0;
+  setInterval(() => {
+    index = (index + 1) % FEATURED_QUOTES.length;
+    textEl.textContent = '"' + FEATURED_QUOTES[index].text + '"';
+    attrEl.textContent = FEATURED_QUOTES[index].attr;
+  }, 6000);
 }
 
 /* ============================================================================= */
@@ -260,33 +258,6 @@ function setupScrollToTop() {
 }
 
 /* ============================================================================= */
-/* SCROLL ANIMATIONS */
-/* ============================================================================= */
-
-/**
- * Sets up scroll animations using Intersection Observer
- * Adds animation classes to elements as they come into view
- */
-function setupScrollAnimation() {
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-  };
-
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('animate-on-scroll');
-      }
-    });
-  }, observerOptions);
-
-  document
-    .querySelectorAll('[data-animate]')
-    .forEach(el => observer.observe(el));
-}
-
-/* ============================================================================= */
 /* INITIALIZATION */
 /* ============================================================================= */
 
@@ -294,17 +265,12 @@ function setupScrollAnimation() {
  * Initializes all interactive components when DOM is ready
  */
 document.addEventListener('DOMContentLoaded', function() {
-  setupTabs();
   setupAccordions();
-  setupSmoothScroll();
-  setupModals();
-  setupFilters();
   setupActiveNavigation();
-  setupLazyLoading();
+  setupTarotBackNavigation();
   setupScrollToTop();
+  setupTarotTable();
+  setupTarotFanReveal();
+  setupParticipantChips();
+  setupQuoteRotator();
 });
-
-/**
- * Sets up scroll animations after page load
- */
-window.addEventListener('load', setupScrollAnimation);

@@ -33,6 +33,11 @@ The project includes:
 | **Mc_Profile.html** | Character spotlight / profile hub             |
 | **Pathways.html**   | Beyonder pathways and sequences               |
 | **Church.html**     | Organizations and hidden factions             |
+| **TarotClub.html**  | Tarot Club lore, rules, and commissions       |
+| **TarotClub_Members.html** | Tarot Club membership roster and trivia  |
+| **TarotClub_Gatherings.html** | Tarot Club meeting log, by volume       |
+| **TarotClub_Achievements.html** | Tarot Club achievements and milestones |
+| **TarotClub_Rituals.html** | Tarot Club rituals and proceedings     |
 | **Author.html**     | Creator and project notes                     |
 | **Abilities.html**  | Power and ability compendium                  |
 | **identities.html** | Character identities and aliases              |
@@ -77,6 +82,11 @@ LOTM/
 ├── Quotes.html
 ├── Songs.html
 ├── Gallery.html
+├── TarotClub.html
+├── TarotClub_Members.html
+├── TarotClub_Gatherings.html
+├── TarotClub_Achievements.html
+├── TarotClub_Rituals.html
 ├── Volume 1.html
 ├── Volume 2.html
 ├── Volume 3.html

@@ -2,44 +2,9 @@
  * ==============================================================================
  * DYNAMIC WEBSITE STYLING
  * ==============================================================================
- * Comprehensive styling for interactive components including tabs, accordions,
- * modals, filters, and scroll animations with theme colors.
+ * Interactive component styling: sticky navigation, accordions, and scroll to
+ * top with theme colors.
  */
-
-/* ============================================================================= */
-/* ANIMATIONS */
-/* ============================================================================= */
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 /* ============================================================================= */
 /* STICKY NAVIGATION */
@@ -49,57 +14,6 @@
   position: sticky;
   top: 0;
   z-index: 90;
-}
-
-/* ============================================================================= */
-/* TAB COMPONENT */
-/* ============================================================================= */
-
-.tab-buttons {
-  display: flex;
-  gap: 10px;
-  margin: 20px 0;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.tab-button {
-  padding: 12px 24px;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #d4af9f;
-  border: 1px solid rgba(212, 175, 159, 0.3);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.tab-button:hover {
-  background-color: rgba(212, 175, 159, 0.15);
-  border-color: rgba(212, 175, 159, 0.6);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(212, 175, 159, 0.2);
-}
-
-.tab-button.active {
-  background-color: rgba(212, 175, 159, 0.25);
-  color: #e8c8b8;
-  border-color: rgba(212, 175, 159, 0.8);
-  box-shadow: 0 4px 12px rgba(212, 175, 159, 0.3);
-}
-
-.tab-content {
-  display: none;
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 6px;
-  border: 1px solid rgba(212, 175, 159, 0.15);
-  animation: fadeIn 0.3s ease-in;
-}
-
-.tab-content.active {
-  display: block;
 }
 
 /* ============================================================================= */
@@ -166,115 +80,15 @@
   animation: slideDown 0.3s ease-out;
 }
 
-/* ============================================================================= */
-/* MODAL COMPONENT */
-/* ============================================================================= */
-
-[data-modal] {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  align-items: center;
-  justify-content: center;
-  animation: fadeIn 0.3s ease;
-}
-
-[data-modal].active {
-  display: flex;
-  background-color: rgba(30, 20, 40, 0.95);
-  padding: 30px;
-  border-radius: 8px;
-  border: 1px solid rgba(212, 175, 159, 0.4);
-  max-width: 600px;
-  width: 90%;
-  position: relative;
-  animation: slideUp 0.3s ease-out;
-  color: #FFC300;
-}
-
-.modal-close {
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  font-size: 28px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.modal-close:hover {
-  color: #e8c8b8;
-  transform: scale(1.1);
-}
-
-.modal-header {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 15px;
-  color: #e8c8b8;
-}
-
-.modal-body {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #FFC300;
-}
-
-/* ============================================================================= */
-/* FILTER COMPONENT */
-/* ============================================================================= */
-
-.filter-buttons {
-  display: flex;
-  gap: 10px;
-  margin: 20px 0;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.filter-button {
-  padding: 10px 20px;
-  background-color: rgba(255, 255, 255, 0.08);
-  color: #d4af9f;
-  border: 1px solid rgba(212, 175, 159, 0.3);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.filter-button:hover {
-  background-color: rgba(212, 175, 159, 0.15);
-  border-color: rgba(212, 175, 159, 0.6);
-  transform: translateY(-2px);
-}
-
-.filter-button.active {
-  background-color: rgba(212, 175, 159, 0.25);
-  color: #e8c8b8;
-  border-color: rgba(212, 175, 159, 0.8);
-  box-shadow: 0 4px 12px rgba(255, 195, 0, 0.4);
-}
-
-[data-filter-item] {
-  animation: fadeIn 0.3s ease;
-}
-
-.fade-in {
-  animation: fadeIn 0.3s ease;
-}
-
-.fade-in:hover {
-  background-color: rgba(212, 175, 159, 0.25) !important;
-  color: #e8c8b8 !important;
-  border-bottom: 2px solid rgba(212, 175, 159, 0.8);
-  box-shadow: 0 2px 8px rgba(212, 175, 159, 0.2);
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ============================================================================= */
@@ -311,45 +125,10 @@
 }
 
 /* ============================================================================= */
-/* SCROLL ANIMATIONS */
-/* ============================================================================= */
-
-[data-animate] {
-  opacity: 0;
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-[data-animate].animate-on-scroll {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ============================================================================= */
 /* RESPONSIVE DESIGN - Tablets (768px and below) */
 /* ============================================================================= */
 
 @media (max-width: 768px) {
-  .tab-buttons {
-    flex-direction: column;
-  }
-
-  .tab-button {
-    width: 100%;
-  }
-
-  .filter-buttons {
-    flex-direction: column;
-  }
-
-  .filter-button {
-    width: 100%;
-  }
-
-  .modal-content {
-    max-width: 95%;
-    padding: 20px;
-  }
-
   #scrollToTop {
     bottom: 20px;
     right: 20px;
@@ -358,4 +137,3 @@
     font-size: 18px;
   }
 }
-

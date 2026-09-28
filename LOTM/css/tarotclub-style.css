@@ -1,0 +1,540 @@
+﻿@keyframes fadeIn {
+				from {
+					opacity: 0;
+				}
+				to {
+					opacity: 1;
+				}
+			}
+			
+			@keyframes slideInDown {
+				from {
+					transform: translateY(-20px);
+					opacity: 0;
+				}
+				to {
+					transform: translateY(0);
+					opacity: 1;
+				}
+			}
+			
+			@keyframes slideInUp {
+				from {
+					transform: translateY(15px);
+					opacity: 0;
+				}
+				to {
+					transform: translateY(0);
+					opacity: 1;
+				}
+			}
+			
+			@keyframes float {
+				0%, 100% { transform: translateY(0px); }
+				50% { transform: translateY(-10px); }
+			}
+			
+			body {
+				background: linear-gradient(135deg, rgba(20, 10, 25, 0.95), rgba(40, 20, 50, 0.95)),
+						url('../images/crimson moon.webp');
+				background-attachment: fixed;
+				color: #d4af9f;
+				font-family: "Libre Baskerville", "Merriweather", Georgia, serif;
+			}
+			
+			h1 {
+				color: #FFD700;
+				font-size: 3.5rem;
+				font-weight: 700;
+				text-align: center;
+				margin: 30px 0 20px;
+				animation: slideInDown 0.6s ease-out;
+				letter-spacing: 1px;
+				text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+			}
+			
+			h2 {
+				color: #d4af9f;
+				font-size: 1.8rem;
+				font-weight: 600;
+				margin: 25px 0 15px;
+				padding: 12px;
+				background-color: rgba(212, 175, 159, 0.1);
+				border-left: 3px solid rgba(212, 175, 159, 0.5);
+				border-radius: 4px;
+				animation: slideInUp 0.4s ease-out;
+				transition: all 0.3s ease;
+			}
+			
+			h2:hover {
+				background-color: rgba(212, 175, 159, 0.15);
+				border-left-color: rgba(212, 175, 159, 0.8);
+				transform: translateX(5px);
+			}
+			
+			h3, h4, h6 {
+				color: #d4af9f;
+				font-size: 1.2rem;
+				font-weight: 600;
+				animation: fadeIn 0.4s ease-out;
+				transition: all 0.3s ease;
+				margin: 15px 0 10px;
+			}
+			
+			h3:hover, h4:hover, h6:hover {
+				color: #e8c8b8;
+				transform: translateX(5px);
+			}
+			
+			div {
+				animation: fadeIn 0.5s ease-out;
+			}
+			
+			p, li {
+				color: #d4af9f;
+				font-size: 1rem;
+				line-height: 1.6;
+				margin: 10px 0;
+			}
+			
+			.button1 {
+				background-color: rgba(212, 175, 159, 0.15);
+				color: #d4af9f;
+				border: 1px solid rgba(212, 175, 159, 0.4);
+				padding: 10px 20px;
+				border-radius: 6px;
+				transition: all 0.3s ease;
+				cursor: pointer;
+				font-weight: 500;
+			}
+
+			.button1:hover {
+				background-color: rgba(212, 175, 159, 0.25);
+				color: #e8c8b8;
+				border-color: rgba(212, 175, 159, 0.8);
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(212, 175, 159, 0.2);
+			}
+			
+			.button1:active {
+				transform: translateY(0);
+				box-shadow: 0 2px 6px rgba(212, 175, 159, 0.2);
+			}
+			
+			a {
+				color: #d4af9f;
+				background-color: transparent;
+				text-decoration: none;
+				transition: all 0.3s ease;
+			}
+			
+			a:hover {
+				color: #e8c8b8;
+				text-decoration: underline;
+			}
+			
+			hr {
+				border: none;
+				height: 2px;
+				background: linear-gradient(90deg, transparent, rgba(212, 175, 159, 0.5), transparent);
+				margin: 20px auto;
+			}
+			
+			.topnav {
+				overflow: hidden;
+				background: rgba(212, 175, 159, 0.1);
+				border: 1px solid rgba(212, 175, 159, 0.3);
+				border-radius: 6px;
+				animation: slideInDown 0.6s ease-out;
+				margin: 20px 0;
+			}
+			
+			.topnav a {
+				float: left;
+				display: block;
+				color: #d4af9f;
+				text-align: center;
+				padding: 14px 20px;
+				text-decoration: none;
+				transition: all 0.3s ease;
+				font-weight: 500;
+				font-size: 0.95rem;
+			}
+			
+			.topnav a:hover {
+				background-color: rgba(212, 175, 159, 0.2);
+				border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+				color: #e8c8b8;
+			}
+			
+			.topnav a.active-page {
+				background-color: rgba(212, 175, 159, 0.2);
+				border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+				color: #e8c8b8;
+			}
+			
+			.image-frame {
+				border: 3px solid #d4af9f;
+				border-radius: 8px;
+				padding: 12px;
+				background: linear-gradient(135deg, rgba(212, 175, 159, 0.1), rgba(255, 215, 0, 0.05));
+				box-shadow: 0 0 20px rgba(212, 175, 159, 0.4), 
+							inset 0 0 15px rgba(255, 215, 0, 0.1);
+				transition: all 0.3s ease;
+				display: inline-block;
+			}
+			
+			.image-frame:hover {
+				border-color: #FFD700;
+				box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), 
+							inset 0 0 20px rgba(255, 215, 0, 0.15);
+				transform: translateY(-5px);
+			}
+			
+			img {
+				animation: fadeIn 0.6s ease-out;
+				transition: transform 0.3s ease, filter 0.3s ease;
+				border-radius: 4px;
+				max-width: 100%;
+				height: auto;
+			}
+			
+			img:hover {
+				transform: scale(1.05);
+				filter: drop-shadow(0 0 12px rgba(212, 175, 159, 0.4));
+			}
+			
+			#scrollToTop {
+				display: none;
+				position: fixed;
+				bottom: 20px;
+				right: 20px;
+				z-index: 99;
+				font-size: 1.5rem;
+				background-color: rgba(212, 175, 159, 0.15);
+				color: #d4af9f;
+				cursor: pointer;
+				padding: 12px 15px;
+				border-radius: 6px;
+				border: 1px solid rgba(212, 175, 159, 0.4);
+				transition: all 0.3s ease;
+			}
+			
+			#scrollToTop:hover {
+				background-color: rgba(212, 175, 159, 0.25);
+				transform: translateY(-3px);
+			}
+			
+			@media (max-width: 768px) {
+				h1 { font-size: 2rem; }
+				h2 { font-size: 1.4rem; }
+				.topnav { margin: 15px 0; }
+				p, li { font-size: 0.95rem; }
+			}
+		    h1, h2, h3, h4, h5, h6 { font-family: "Merriweather", "Libre Baskerville", Georgia, serif; }
+
+			.member-table {
+				border-collapse: collapse;
+				margin: 0 auto;
+				text-align: left;
+				min-width: 680px;
+			}
+			
+			.member-table th, .member-table td {
+				border: 1px solid rgba(212, 175, 159, 0.4);
+				padding: 10px 14px;
+				vertical-align: top;
+			}
+			
+			.member-table th {
+				background-color: rgba(212, 175, 159, 0.12);
+				color: #e8c8b8;
+			}
+			
+			.member-table img.pathway-icon {
+				vertical-align: middle;
+				margin-right: 6px;
+			}
+			
+			.meeting {
+				margin: 15px 0;
+				padding: 12px 14px;
+				border: 1px solid rgba(212, 175, 159, 0.2);
+				border-radius: 6px;
+				text-align: left;
+			}
+			
+			.blockquote {
+				border-left: 3px solid rgba(212, 175, 159, 0.5);
+				padding-left: 14px;
+				font-style: italic;
+				color: #c49a7f;
+				text-align: left;
+				margin: 12px 0;
+				line-height: 1.6;
+			}
+			
+			.ritual-blockquote {
+				margin: 15px auto;
+				padding: 14px 20px;
+				max-width: 720px;
+				border-left: 3px solid rgba(212, 175, 159, 0.6);
+				background-color: rgba(212, 175, 159, 0.08);
+				border-radius: 4px;
+				font-style: italic;
+				font-size: 1.05rem;
+				line-height: 1.7;
+				color: #e8c8b8;
+			}
+			
+			.ritual-caption {
+				color: #c49a7f;
+				font-size: 0.95rem;
+				font-weight: 400;
+				margin-top: -5px;
+			}
+			
+			.records-table {
+				border-collapse: collapse;
+				margin: 0 auto;
+				text-align: left;
+				min-width: 880px;
+			}
+			
+			.records-table th, .records-table td {
+				border: 1px solid rgba(212, 175, 159, 0.4);
+				padding: 10px 14px;
+				vertical-align: top;
+			}
+			
+			.records-table th {
+				background-color: rgba(212, 175, 159, 0.12);
+				color: #e8c8b8;
+			}
+			
+			/* The meeting table: The Fool presiding at the head, members dealt in an arc before him */
+			.tarot-fan {
+				position: relative;
+				width: min(920px, 100%);
+				margin: 40px auto 0;
+				padding-top: 214px;
+				display: grid;
+				grid-template-columns: repeat(11, minmax(0, 1fr));
+				gap: 14px;
+				align-items: start;
+			}
+			
+			.tarot-fan::before {
+				content: '';
+				position: absolute;
+				left: -2%;
+				right: -2%;
+				top: 150px;
+				bottom: 0;
+				border-radius: 50%;
+				background: radial-gradient(ellipse at 50% 30%, rgba(140, 96, 66, 0.30), rgba(58, 32, 52, 0.78) 46%, rgba(8, 4, 12, 0.96) 82%);
+				border: 1px solid rgba(212, 175, 159, 0.2);
+				box-shadow: inset 0 0 130px rgba(0, 0, 0, 0.8);
+				z-index: 0;
+				pointer-events: none;
+			}
+			
+			.tarot-fan::after {
+				content: '';
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 10px;
+				height: 40%;
+				z-index: 0;
+				pointer-events: none;
+				background:
+					radial-gradient(ellipse at 20% 96%, rgba(200, 190, 205, 0.10), transparent 55%),
+					radial-gradient(ellipse at 80% 98%, rgba(175, 165, 195, 0.10), transparent 55%),
+					radial-gradient(ellipse at 50% 100%, rgba(185, 175, 195, 0.08), transparent 60%);
+				animation: fogDrift 30s ease-in-out infinite alternate;
+			}
+			
+			@keyframes fogDrift {
+				from { transform: translateX(-1.5%); opacity: 0.55; }
+				to { transform: translateX(1.5%); opacity: 0.9; }
+			}
+			
+			.tarot-card {
+				width: 100%;
+				max-width: 116px;
+				justify-self: center;
+				min-height: 152px;
+				transform: translateY(var(--lift, 0px));
+				border-radius: 8px;
+				padding: 10px 8px;
+				background: #1d1122;
+				border: 1px solid rgba(212, 175, 159, 0.5);
+				box-shadow: inset 0 0 0 1px rgba(232, 200, 184, 0.35), inset 0 0 0 6px rgba(232, 200, 184, 0.08), 0 8px 16px rgba(0, 0, 0, 0.5);
+				color: #d4af9f;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 7px;
+				cursor: pointer;
+				z-index: 1;
+				transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+			}
+			
+			.tarot-card:nth-child(2) { --lift: 28px; --i: 0; }
+			.tarot-card:nth-child(3) { --lift: 20px; --i: 1; }
+			.tarot-card:nth-child(4) { --lift: 12px; --i: 2; }
+			.tarot-card:nth-child(5) { --lift: 5px; --i: 3; }
+			.tarot-card:nth-child(6) { --lift: -1px; --i: 4; }
+			.tarot-card:nth-child(7) { --lift: -4px; --i: 5; }
+			.tarot-card:nth-child(8) { --lift: -1px; --i: 6; }
+			.tarot-card:nth-child(9) { --lift: 5px; --i: 7; }
+			.tarot-card:nth-child(10) { --lift: 12px; --i: 8; }
+			.tarot-card:nth-child(11) { --lift: 20px; --i: 9; }
+			.tarot-card:nth-child(12) { --lift: 28px; --i: 10; }
+			
+			.tarot-card img {
+				margin: 0;
+				animation: none;
+			}
+			
+			.tarot-card span {
+				font-size: 0.6rem;
+				line-height: 1.15;
+				font-weight: 600;
+				color: #e8c8b8;
+				text-align: center;
+			}
+			
+			.tarot-card .arcana-num {
+				flex: 1 1 auto;
+				display: flex;
+				align-items: center;
+				font-family: Georgia, "Times New Roman", serif;
+				font-size: 0.95rem;
+				font-weight: 400;
+				letter-spacing: 0.06em;
+				color: rgba(255, 215, 0, 0.45);
+			}
+			
+			.tarot-card:hover, .tarot-card:focus-visible, .tarot-card.chosen {
+				transform: translateY(-18px);
+				z-index: 20;
+				border-color: #FFD700;
+				box-shadow: inset 0 0 0 1px #FFD700, inset 0 0 0 6px rgba(255, 215, 0, 0.15), 0 12px 26px rgba(0, 0, 0, 0.6), 0 0 16px rgba(255, 215, 0, 0.35);
+				outline: none;
+			}
+			
+			.tarot-card.fool {
+				position: absolute;
+				left: 50%;
+				top: 6px;
+				transform: translateX(-50%);
+				width: 124px;
+				max-width: 124px;
+				min-height: 180px;
+				border-color: #FFD700;
+				background: #241316;
+				color: #FFC300;
+				z-index: 2;
+				animation: foolPulse 4s ease-in-out infinite;
+			}
+			
+			.tarot-card.fool span {
+				color: #FFC300;
+				font-size: 0.68rem;
+			}
+			
+			.tarot-card.fool:hover, .tarot-card.fool:focus-visible, .tarot-card.fool.chosen {
+				transform: translateX(-50%) translateY(-8px);
+			}
+			
+			@keyframes foolPulse {
+				0%, 100% { box-shadow: inset 0 0 0 1px #FFD700, inset 0 0 0 7px rgba(255, 215, 0, 0.12), 0 0 10px rgba(255, 215, 0, 0.35); }
+				50% { box-shadow: inset 0 0 0 1px #FFD700, inset 0 0 0 7px rgba(255, 215, 0, 0.2), 0 0 24px rgba(255, 215, 0, 0.7); }
+			}
+			
+			.tarot-fan.seated .tarot-card:not(.fool) {
+				animation: dealInMember 0.5s ease-out backwards;
+				animation-delay: calc(var(--i) * 0.06s);
+			}
+			
+			.tarot-fan.seated .tarot-card.fool {
+				animation: dealInFool 0.5s ease-out backwards, foolPulse 4s ease-in-out infinite;
+				animation-delay: 0s, 0s;
+			}
+			
+			@keyframes dealInMember {
+				from { opacity: 0; transform: translateY(34px); }
+				to { opacity: 1; transform: translateY(var(--lift, 0px)); }
+			}
+			
+			@keyframes dealInFool {
+				from { opacity: 0; transform: translateX(-50%) translateY(26px); }
+				to { opacity: 1; transform: translateX(-50%) translateY(0); }
+			}
+			
+			.tarot-caption {
+				min-height: 1.7em;
+				color: #FFD700;
+				font-size: 1.05rem;
+				font-weight: 600;
+				text-align: center;
+				margin: 30px 0 10px;
+			}
+			
+			.participant-chip {
+				display: inline-flex;
+				align-items: center;
+				gap: 5px;
+				border: 1px solid rgba(212, 175, 159, 0.4);
+				background-color: rgba(212, 175, 159, 0.12);
+				border-radius: 999px;
+				padding: 2px 9px;
+				margin: 2px 2px;
+				font-weight: 500;
+				white-space: nowrap;
+			}
+			
+			.participant-chip img {
+				vertical-align: middle;
+				margin: 0;
+				animation: none;
+			}
+			
+			@media (max-width: 800px) {
+				.tarot-fan {
+					grid-template-columns: repeat(4, minmax(0, 1fr));
+					padding-top: 196px;
+				}
+				.tarot-card {
+					--lift: 0px;
+					min-height: 134px;
+				}
+			}
+			
+			@media (max-width: 520px) {
+				.tarot-fan {
+					grid-template-columns: repeat(2, minmax(0, 1fr));
+					padding-top: 196px;
+				}
+				.tarot-fan::before {
+					display: none;
+				}
+				.tarot-card.fool {
+					width: 106px;
+					max-width: 106px;
+					min-height: 156px;
+				}
+			}
+			
+			@media (prefers-reduced-motion: reduce) {
+				.tarot-fan .tarot-card {
+					animation: none !important;
+					transition: none;
+				}
+				.tarot-fan::after {
+					animation: none;
+					opacity: 0.6;
+				}
+			}
