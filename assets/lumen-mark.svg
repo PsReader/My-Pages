@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-labelledby="lumenTitle lumenDesc">
+  <title id="lumenTitle">Lumen, WCAG contrast checker</title>
+  <desc id="lumenDesc">Two color orbs on a dark measurement stage joined by a warm light beam, with a contrast ratio readout showing 11.46 to 1, a passing verdict, and a sample paragraph rendered in that pair.</desc>
+  <defs>
+    <linearGradient id="lmStage" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1c2833"/>
+      <stop offset="100%" stop-color="#101a21"/>
+    </linearGradient>
+    <linearGradient id="lmBeam" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#dbe5e7"/>
+      <stop offset="52%" stop-color="#dcb276"/>
+      <stop offset="100%" stop-color="#fffdf8"/>
+    </linearGradient>
+    <radialGradient id="lmGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#dcb276" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#dcb276" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="lmBlur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+  </defs>
+
+  <rect width="480" height="360" fill="url(#lmStage)"/>
+  <ellipse cx="240" cy="150" rx="190" ry="110" fill="url(#lmGlow)"/>
+
+  <rect x="20" y="18" width="440" height="324" rx="14" fill="none" stroke="#dcb276" stroke-opacity="0.35" stroke-width="1.2"/>
+
+  <text x="240" y="58" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="17" font-weight="600" letter-spacing="3" fill="#f5f2eb">LUMEN</text>
+  <line x1="196" y1="70" x2="284" y2="70" stroke="#dcb276" stroke-opacity="0.6" stroke-width="1.2"/>
+
+  <line x1="120" y1="140" x2="360" y2="140" stroke="url(#lmBeam)" stroke-width="3" stroke-linecap="round" filter="url(#lmBlur)" opacity="0.75"/>
+  <line x1="120" y1="140" x2="360" y2="140" stroke="url(#lmBeam)" stroke-width="2" stroke-linecap="round"/>
+
+  <circle cx="120" cy="140" r="30" fill="#b8d2f0" fill-opacity="0.18"/>
+  <circle cx="120" cy="140" r="17" fill="#b8d2f0" stroke="#fffdf8" stroke-width="2"/>
+  <circle cx="360" cy="140" r="30" fill="#0c182a" fill-opacity="0.55" stroke="#0c182a" stroke-width="1.5"/>
+  <circle cx="360" cy="140" r="30" fill="none" stroke="#dbe5e7" stroke-opacity="0.4" stroke-width="1"/>
+  <circle cx="240" cy="140" r="5" fill="#dcb276"/>
+
+  <g font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+    <text x="120" y="192" text-anchor="middle" font-size="10" fill="#aab9bf">#b8d2f0</text>
+    <text x="360" y="192" text-anchor="middle" font-size="10" fill="#aab9bf">#0c182a</text>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+    <text x="240" y="228" text-anchor="middle" font-size="34" font-weight="600" fill="#fffdf8">11.46:1</text>
+  </g>
+  <g font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+    <text x="240" y="250" text-anchor="middle" font-size="12" font-weight="600" fill="#8fd0af">PASS AA</text>
+    <text x="240" y="266" text-anchor="middle" font-size="10" fill="#aab9bf">normal text</text>
+  </g>
+
+  <rect x="40" y="282" width="400" height="42" rx="6" fill="#0c182a" stroke="#b8d2f0" stroke-opacity="0.35" stroke-width="1"/>
+  <g font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+    <text x="240" y="308" text-anchor="middle" font-size="13" fill="#b8d2f0">A failing paragraph is harder to misread than a number.</text>
+  </g>
+</svg>

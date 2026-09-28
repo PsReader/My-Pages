@@ -9,3 +9,7 @@ desktop.ini
 .opencode/
 AGENTS.md
 Deploy/
+anti-slop/
+
+# Standalone repo with its own remote, tracked separately
+Lumen/

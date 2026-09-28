@@ -92,15 +92,29 @@ A browser typing challenge with local scoring, analytics, optional Supabase clou
 - peer-to-peer WebRTC race mode
 - folder: `TypeBound` · repo: [github.com/PsReader/TypeBound](https://github.com/PsReader/TypeBound) · live: `typebound.site.je`
 
+### Lumen
+
+A WCAG contrast ratio checker for text and background colors.
+
+- ratio and AA, AAA, and non-text verdicts from the raw value, rounded for display only
+- HEX, RGB, HSL, and OKLCH input, with a color wheel and shade bar
+- palette contrast matrix, saved palettes of up to 12, and 10-pair local history
+- component previews, plus protanopia, deuteranopia, tritanopia, and achromatopsia simulation
+- shareable `?fg=...&bg=...` links and a browser-console self-check
+- no build step, no dependencies, works offline
+- deploy bundle: `Deploy/deploy-Lumen-root.zip`
+- folder: `Lumen` · repo: [github.com/PsReader/Lumen](https://github.com/PsReader/Lumen) · live: `lumens.site.je`
+
 ---
 
 ## Root files & folders
 
-- `index.html` — portfolio landing page with the Live Demos carousel (project cards with view-live links)
-- `portfolio.html` — polished personal portfolio page
-- `ghost-cursor.js` — Three.js ES module cursor-trail effect used by the portfolio
-- `assets/` — shared card images and logo SVGs (e.g. `TarotDraw.png`, `MysticCoinLogo.svg`)
-- `robots.txt`, `sitemap.xml`, `site.webmanifest` — site metadata
+- `index.html`: portfolio landing page with the Live Demos carousel (project cards with view-live links)
+- `portfolio.html`: polished personal portfolio page
+- `ghost-cursor.js`: Three.js ES module cursor-trail effect used by the portfolio
+- `assets/`: shared card images and logo SVGs (e.g. `TarotDraw.png`, `MysticCoinLogo.svg`, `lumen-mark.svg`)
+- `robots.txt`, `sitemap.xml`, `site.webmanifest`: site metadata
+- `Deploy/`: publish-ready ZIP bundles, one per project, flat at archive root
 
 ---
 
