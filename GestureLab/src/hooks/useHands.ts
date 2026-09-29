@@ -71,7 +71,6 @@ export function useHands(
   >([[], []]);
   const lastDetectTimeRef = useRef<number | null>(null);
   const pendingFramesRef = useRef(0);
-  const workerInitTimedOutRef = useRef(false);
 
   const normalizeHandedness = (value: string | undefined) => {
     const normalized = value?.toLowerCase() ?? "";
@@ -319,7 +318,6 @@ export function useHands(
     // Timeout: if worker doesn't signal ready within 10s, fall back
     const initTimeout = setTimeout(() => {
       if (!workerRef.current) return;
-      workerInitTimedOutRef.current = true;
       fallback();
     }, 10000);
 

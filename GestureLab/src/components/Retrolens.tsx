@@ -216,8 +216,8 @@ export function Retrolens({
 
     const hand0 = landmarks[0];
     const hand1 = landmarks[1];
-    const both = hand0?.length >= 21 && hand1?.length >= 21;
-    const targets = both
+    const targets =
+      hand0?.length >= 21 && hand1?.length >= 21
       ? [
           { x: hand0[4].x, y: hand0[4].y },
           { x: hand0[8].x, y: hand0[8].y },
@@ -226,9 +226,8 @@ export function Retrolens({
         ]
       : null;
 
-    const visible = both && !!targets;
-    if (!visible) hadHandsRef.current = false;
-    if (!visible || !targets) {
+    if (!targets) {
+      hadHandsRef.current = false;
       group.visible = false;
       return;
     }

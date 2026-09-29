@@ -3,7 +3,6 @@ import * as THREE from "three";
 function mkShader(vertexShader: string, fragmentShader: string, extras: Record<string, { value: number }> = {}) {
   const base = {
     u_time: { value: 0 },
-    u_resolution: { value: new THREE.Vector2(1, 1) },
     u_velocity: { value: new THREE.Vector2(0, 0) },
   };
   return new THREE.ShaderMaterial({

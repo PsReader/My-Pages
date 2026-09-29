@@ -10,7 +10,7 @@ import { useHands } from "./hooks/useHands";
 import { useWebcam } from "./hooks/useWebcam";
 import { HandScene } from "./scene/HandScene";
 import { shaderRegistry } from "./shaders/shaderRegistry";
-import { useFingerCount, useRingFingerFolded } from "./hooks/useFingerCount";
+import { fingerCount, ringFingerFolded } from "./hooks/useFingerCount";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 
 import { defaultCentralParams, MODE_INFO, type CentralParams } from "./components/centralParams";
@@ -93,8 +93,8 @@ function App() {
   const palmCenter = firstHand ? computePalmCenter(firstHand) : null;
   const handAngle = firstHand ? computeHandAngle(firstHand) : 0;
 
-  const fCount0 = useFingerCount(landmarks[0] || [])
-  const fCount1 = useFingerCount(landmarks[1] || [])
+  const fCount0 = fingerCount(landmarks[0] || [])
+  const fCount1 = fingerCount(landmarks[1] || [])
   // Commit a mode only after the same finger count holds for MODE_HOLD_FRAMES
   // consecutive frames, so transient flicker through in-between counts never
   // snaps the sphere across modes.
@@ -118,7 +118,7 @@ function App() {
   }
   const modeHandIndex = committedIdxRef.current
   const activeMode = committedCountRef.current
-  const ringFolded = useRingFingerFolded(landmarks)
+  const ringFolded = ringFingerFolded(landmarks)
 
   const handleCentralChange = useCallback((update: Partial<CentralParams>) => {
     setCentralParams(prev => ({ ...prev, ...update }))

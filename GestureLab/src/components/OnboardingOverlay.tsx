@@ -13,7 +13,6 @@ interface Step {
   id: StepId
   title: string
   body: string
-  highlight?: string
 }
 
 const steps: Step[] = [
@@ -26,13 +25,11 @@ const steps: Step[] = [
     id: "joint",
     title: "Pick an Interactive",
     body: "Open the panel at the top to switch between Sphere & Halo, Retrolens, and AirGlow. In Sphere & Halo, raise fingers to drive the sphere: one finger moves it, two scale it, three change color, four rotate it.",
-    highlight: "Joint",
   },
   {
     id: "shader",
     title: "Gesture Shortcuts",
     body: "In Retrolens, pinch your index fingertips or fold a pinkie to cycle through 10 video filters. In AirGlow, trace the air with your index fingertip. Fold a pinkie to open the color wheel.",
-    highlight: "Shader",
   },
 ]
 
