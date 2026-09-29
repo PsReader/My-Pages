@@ -1,0 +1,13 @@
+{
+  "name": "Lumen — Visual WCAG Contrast Checker",
+  "short_name": "Lumen",
+  "description": "Test colors, compare accessible palettes, and preview WCAG contrast in context.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3f4ef",
+  "theme_color": "#f3f4ef",
+  "icons": [
+    { "src": "/logo-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

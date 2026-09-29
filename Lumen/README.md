@@ -4,21 +4,7 @@ Lumen is a visual WCAG contrast checker for text and background colors. Enter or
 
 ## Status
 
-**Built and deployed.** Open `index.html` directly in a browser, or visit [lumens.site.je](https://lumens.site.je). No build step, dependencies, or network calls are required.
-
-## Self-check
-
-Open the console on the deployed page or on `index.html` and run:
-
-```js
-selfCheck()
-```
-
-It logs `lumen self-check passed` when the luminance formula and the boundary fixtures are intact, and throws with a reason when they are not. Known values it verifies: `#767676` on white is `4.54`, `#777777` on white is `4.48`, and `4.499` fails a `4.5:1` threshold while exactly `4.5` passes.
-
-## Deploy
-
-`Deploy/deploy-Lumen-root.zip` in the parent workspace holds the 9 files needed on a host, flat at archive root. Upload and extract into the document root. `plan.md` and `sitemap.md` are not part of the bundle, and nothing in the site links to them.
+**Built and usable.** Open `index.html` directly in a browser. No build step, dependencies, or network calls are required.
 
 ## What it does
 
@@ -74,12 +60,6 @@ Threshold comparison happens against the raw floating-point ratio. Rounding is o
 - `palette-matrix.html`: supporting accessible palette workflow page
 - `color-formats.html`: supporting color notation reference page
 - `seo-pages.css`: shared styles for the supporting pages
-
-## Notes
-
-- Contrast is compared against the raw ratio. A displayed `4.50:1` can still fail AA, so the verdict is the value to trust, not the rounded number.
-- Color-vision simulation is illustrative. It helps you catch problems, it does not replace testing with people.
-- `sitemap.md` documents the intended structure. It is not served and not in the deploy bundle.
 
 ## Author
 
