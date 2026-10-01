@@ -949,8 +949,10 @@
         );
         pointer-events: none;
         z-index: 0;
-        transition: background 300ms var(--ease);
+        transition: background 300ms var(--ease), opacity 400ms var(--ease);
+        opacity: 0;
       }
+      .hero-spotlight.active { opacity: 1; }
 
       .hero > * {
         position: relative;
@@ -2217,7 +2219,7 @@
       .ghost-cursor {
         position: fixed;
         inset: 0;
-        z-index: 2;
+        z-index: 0;
         pointer-events: none;
       }
 
@@ -3462,16 +3464,25 @@
 
         // ===== Hero spotlight cursor follower =====
         const spotlight = document.querySelector(".hero-spotlight");
-        if (spotlight) {
-          document
-            .querySelector(".hero")
-            ?.addEventListener("pointermove", (e) => {
-              const rect = e.currentTarget.getBoundingClientRect();
-              const x = ((e.clientX - rect.left) / rect.width) * 100;
-              const y = ((e.clientY - rect.top) / rect.height) * 100;
-              spotlight.style.setProperty("--spot-x", x + "%");
-              spotlight.style.setProperty("--spot-y", y + "%");
-            });
+        const heroEl = document.querySelector(".hero");
+        if (spotlight && heroEl) {
+          heroEl.addEventListener("pointermove", (e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            spotlight.style.setProperty("--spot-x", x + "%");
+            spotlight.style.setProperty("--spot-y", y + "%");
+          });
+          // Leaving the hero froze the gradient at its last position. Combined
+          // with overflow: clip on .hero that drew a hard seam at the boundary.
+          heroEl.addEventListener("pointerleave", () => {
+            spotlight.style.setProperty("--spot-x", "50%");
+            spotlight.style.setProperty("--spot-y", "50%");
+            spotlight.classList.remove("active");
+          });
+          heroEl.addEventListener("pointerenter", () => {
+            spotlight.classList.add("active");
+          });
         }
 
         // ===== Hero subtitle typewriter animation =====

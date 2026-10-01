@@ -439,6 +439,11 @@ export function initGhostCursor(el, opts = {}) {
     renderFrame(performance.now());
 
     if (!pointerActive && fadeOpacity <= 0.001) {
+      // Render one empty frame before halting. Stopping with content still in
+      // the buffer left a frozen glow on screen until the next pointer move.
+      material.uniforms.iOpacity.value = 0;
+      composer.render();
+      renderer.clear();
       running = false;
       raf = null;
       return;
