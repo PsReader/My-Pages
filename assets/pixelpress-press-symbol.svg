@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Pixelpress press symbol</title>
+  <desc id="desc">A minimal press head above a sheet of paper and one output pixel</desc>
+  <path d="M13 51h38M19 51V25h26v26M16 25h32" fill="none" stroke="#172522" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="21" y="13" width="22" height="12" rx="2" fill="#c85c35" stroke="#172522" stroke-width="3"/>
+  <path d="M32 13V7M26 7h12" fill="none" stroke="#172522" stroke-width="3" stroke-linecap="round"/>
+  <rect x="23" y="31" width="18" height="14" rx="1" fill="#fbfaf6" stroke="#172522" stroke-width="2"/>
+  <path d="m26 42 5-5 3 3 3-3 3 4" fill="none" stroke="#172522" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="46" y="40" width="7" height="7" fill="#d5b56c"/>
+</svg>

@@ -8,6 +8,19 @@
       content="PsReader - Frontend dev showcasing live projects: Lord of the Mysteries fan wiki, Pudding Paradise dessert ordering site, GestureLab hand-tracking 3D app, Tarot Draw &amp; Tarot Memory tarot games, and Scratchpad workspace. Built with HTML, CSS, JavaScript, React, Three.js."
     />
     <link rel="canonical" href="https://psreader.site.je/index.html" />
+    <meta name="author" content="PsReader" />
+    <meta name="theme-color" content="#0b0d13" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#eceff5" media="(prefers-color-scheme: light)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PsReader" />
+    <meta property="og:title" content="PsReader - Live Demos: LOTM Wiki, Pudding Paradise, GestureLab & More" />
+    <meta property="og:description" content="PsReader - Frontend dev showcasing live projects: Lord of the Mysteries fan wiki, Pudding Paradise dessert ordering site, GestureLab hand-tracking 3D app, and tarot games. Built with HTML, CSS, JavaScript, React, Three.js." />
+    <meta property="og:url" content="https://psreader.site.je/index.html" />
+    <meta property="og:image" content="https://psreader.site.je/assets/og-banner.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PsReader - Live Demos: LOTM Wiki, Pudding Paradise, GestureLab & More" />
+    <meta name="twitter:description" content="PsReader - Frontend dev showcasing live projects: LOTM fan wiki, Pudding Paradise, GestureLab hand-tracking 3D app, and tarot games." />
+    <meta name="twitter:image" content="https://psreader.site.je/assets/og-banner.png" />
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -18,7 +31,37 @@
   "inLanguage": "en"
 }
     </script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "PsReader Live Demos",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Lord of the Mysteries Fan Wiki", "url": "https://psreader.site.je/index.html#project-lotm" },
+    { "@type": "ListItem", "position": 2, "name": "Tarot Draw", "url": "https://psreader.site.je/index.html#project-tarotdraw" },
+    { "@type": "ListItem", "position": 3, "name": "Tarot Memory", "url": "https://psreader.site.je/index.html#project-tarotmemory" },
+    { "@type": "ListItem", "position": 4, "name": "Mystic Coin", "url": "https://psreader.site.je/index.html#project-mysticcoin" },
+    { "@type": "ListItem", "position": 5, "name": "Pudding Paradise", "url": "https://psreader.site.je/index.html#project-pudding" },
+    { "@type": "ListItem", "position": 6, "name": "GestureLab", "url": "https://psreader.site.je/index.html#project-gesturelab" },
+    { "@type": "ListItem", "position": 7, "name": "Typebound", "url": "https://psreader.site.je/index.html#project-typebound" },
+    { "@type": "ListItem", "position": 8, "name": "Scratchpad", "url": "https://psreader.site.je/index.html#project-scratchpad" },
+    { "@type": "ListItem", "position": 9, "name": "Lumen", "url": "https://psreader.site.je/index.html#project-lumen" },
+    { "@type": "ListItem", "position": 10, "name": "Pixelpress", "url": "https://psreader.site.je/index.html#project-pixelpress" }
+  ]
+}
+    </script>
     <link rel="manifest" href="site.webmanifest" />
+    <script>
+      // Apply the saved scheme before first paint: :root holds dark tokens and
+      // the light block is html:not(.dark), so an unclassed html renders light.
+      (function () {
+        try {
+          if (localStorage.getItem("ps-theme") === "dark") {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (e) {}
+      })();
+    </script>
     <title>PsReader - LOTM Wiki, Pudding Paradise, GestureLab & More | Live Demos</title>
     <link rel="icon" type="image/svg+xml" id="favicon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%230077b6'/%3E%3Cstop offset='50%25' stop-color='%2300b4d8'/%3E%3Cstop offset='100%25' stop-color='%2390cdf4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23g)'/%3E%3Cg fill='white'%3E%3Crect x='6.4' y='6.7' width='4.8' height='18.7' rx='0.5'/%3E%3Cpath d='M11.2 6.7h6.9a5.9 5.9 0 0 1 0 11.2h-6.9v-4.8h6.9a1.1 1.1 0 0 0 0-1.6h-6.9z'/%3E%3Cpath d='M15.5 19.7l5.6 5.6h6.9l-5.6-5.6z'/%3E%3C/g%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -34,6 +77,7 @@
     <!-- Lenis smooth scroll -->
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.26/dist/lenis.css" media="print" onload="this.media='all'" />
     <style>
+      html { overflow-x: clip; }
       .hero-subtitle {
         font-size: 0.95rem;
         font-weight: 600;
@@ -654,6 +698,33 @@
         color: white;
         transition: all 200ms var(--ease);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+      .carousel-nav-pause {
+        position: static;
+        display: inline-flex;
+        width: 36px;
+        height: 36px;
+        box-shadow: none;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        color: var(--text-secondary);
+      }
+      .carousel-nav-pause:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--border-hover);
+        color: var(--text-primary);
+      }
+      .carousel-nav-pause svg {
+        width: 15px;
+        height: 15px;
+      }
+      #carousel {
+        outline: none;
+      }
+      #carousel:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 6px;
+        border-radius: var(--radius);
       }
       .carousel-nav:hover {
         background: var(--accent-hover);
@@ -2216,6 +2287,196 @@
       }
       @keyframes wipe-out { to { transform: translateX(-100%); } }
       @keyframes wipe-in  { from { transform: translateX(100%); } }
+      /* =================================================================
+         PAGE TRANSITIONS - shared with portfolio.html
+         ================================================================= */
+      body {
+        opacity: 1;
+        transition: opacity 280ms var(--ease-premium), transform 280ms var(--ease-premium);
+      }
+      body.page-enter {
+        animation: pageEnter 360ms var(--ease-premium) both;
+      }
+      body.page-exit {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      @keyframes pageEnter {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        body,
+        body.page-enter,
+        body.page-exit {
+          animation: none !important;
+          transition: none !important;
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      }
+    
+
+      /* The live-demo page is a practical, searchable directory, not a second portfolio. */
+.demo-intro {
+  max-width: 68ch;
+  margin: -20px 0 24px;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+.demo-intro a, .demo-story-link a {
+  color: var(--accent-hover);
+  text-underline-offset: 3px;
+}
+.demo-controls {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(180px, 220px);
+  align-items: end;
+  gap: 14px;
+  margin: 0 0 16px;
+}
+.demo-control { display: grid; gap: 7px; }
+.demo-control label {
+  color: var(--text-tertiary);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.demo-search, .demo-sort {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 13px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font: inherit;
+}
+.demo-search::placeholder { color: var(--text-tertiary); }
+.demo-search:focus-visible, .demo-sort:focus-visible, .demo-filter:focus-visible {
+  outline: 2px solid var(--accent-hover);
+  outline-offset: 3px;
+}
+.demo-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 15px;
+}
+.demo-filter {
+  min-height: 36px;
+  padding: 7px 13px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: .8rem;
+  cursor: pointer;
+  transition: color .16s ease, background .16s ease, border-color .16s ease;
+}
+.demo-filter:hover { border-color: var(--border-hover); color: var(--text-primary); }
+.demo-filter[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  background: var(--accent-muted);
+  color: var(--accent-hover);
+}
+.demo-results {
+  min-height: 1.5em;
+  margin: 0 0 12px;
+  color: var(--text-tertiary);
+  font-size: .8rem;
+}
+.demo-project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 16px;
+}
+.demo-project-grid > .project-card {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  min-height: 260px;
+  flex: initial;
+  transform-style: flat;
+  perspective: none;
+  border-color: var(--border);
+  border-radius: var(--radius-xl);
+  background: var(--bg-card);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
+  transition: border-color .18s ease, background .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+.demo-project-grid > .project-card::after,
+.demo-project-grid .project-card-glow,
+.demo-project-grid .project-chrome,
+.demo-project-grid .project-viewport { display: none; }
+.demo-project-grid > .project-card::before { box-shadow: none; opacity: 0; }
+.demo-project-grid > .project-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .12);
+}
+.demo-project-grid > .project-card[hidden] { display: none !important; }
+.demo-project-grid .project-body {
+  display: flex;
+  width: 100%;
+  min-height: 260px;
+  flex-direction: column;
+  padding: 24px;
+}
+.demo-card-category {
+  width: fit-content;
+  margin: 0 0 11px;
+  padding: 5px 9px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--accent-hover);
+  font-size: .67rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+.demo-project-grid .project-name { margin-bottom: 7px; }
+.demo-project-grid .project-tech {
+  margin: 0 0 12px;
+  color: var(--text-tertiary);
+  font-size: .72rem;
+}
+.demo-project-grid .project-body > p:not(.project-tech):not(.demo-card-category) {
+  margin: 0 0 20px;
+  color: var(--text-secondary);
+  font-size: .9rem;
+  line-height: 1.65;
+}
+.demo-project-grid .project-cta { margin-top: auto; }
+.demo-project-grid .project-cta .btn { min-height: 40px; }
+.demo-story-link { margin: 11px 0 0; font-size: .79rem; }
+.demo-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 26px;
+  border: 1px dashed var(--border-hover);
+  border-radius: var(--radius-xl);
+  color: var(--text-secondary);
+  text-align: center;
+}
+@media (max-width: 760px) {
+  .demo-controls { grid-template-columns: 1fr; }
+  .demo-project-grid { grid-template-columns: 1fr; }
+  .demo-project-grid > .project-card,
+  .demo-project-grid .project-body { min-height: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-filter, .demo-project-grid > .project-card { transition: none; }
+  .demo-project-grid > .project-card:hover { transform: none; }
+}
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
@@ -2279,9 +2540,9 @@
           </div>
           <nav class="desktop-nav" aria-label="Primary navigation">
             <a href="#work">Work</a>
-            <a href="#about">About</a>
+            <a href="#stack">Tech Stack</a>
             <a href="#contact">Contact</a>
-            <a href="portfolio.html">Portfolio</a>
+            <a href="portfolio.html">Portfolio stories</a>
           </nav>
           <button
             class="mobile-menu-toggle"
@@ -2304,9 +2565,9 @@
           </button>
           <nav class="header-nav" aria-label="Main navigation">
             <a href="#work">Work</a>
-            <a href="#about">About</a>
+            <a href="#stack">Tech Stack</a>
             <a href="#contact">Contact</a>
-            <a href="portfolio.html">Portfolio</a>
+            <a href="portfolio.html">Portfolio stories</a>
             <div class="color-picker" aria-label="Accent color">
               <button class="color-dot active" data-accent="default" style="background:#0077b6" aria-label="Blue"></button>
               <button class="color-dot" data-accent="ocean" style="background:#0077b6" aria-label="Ocean"></button>
@@ -2346,9 +2607,10 @@
         <canvas class="hero-grain" aria-hidden="true" width="256" height="256"></canvas>
         <div class="hero-orb" aria-hidden="true"></div>
         <div class="hero-content">
+          <span class="hero-eyebrow hero-animate">Live Demos</span>
           <h1 class="hero-d1">
-            <span class="hero-line">I Build Things</span>
-            <span class="hero-line">That <span class="hero-accent-word">Move</span> on Screen</span>
+            <span class="hero-line">Ten Projects,</span>
+            <span class="hero-line">All <span class="hero-accent-word">Live</span> and Deployed</span>
           </h1>
           <span
             class="hero-underline hero-animate hero-d1"
@@ -2356,12 +2618,11 @@
           ></span>
           <p class="hero-subtitle hero-animate hero-d2" aria-live="polite"></p>
           <p class="hero-desc hero-animate hero-d2">
-            Projects I actually built and deployed. Each one starts with
-            semantic HTML and goes from there. No copy-paste templates.
+            Every project here is live on its own domain. Pick the one you’re curious about, then use the directory below to filter by type or technology.
           </p>
           <div class="hero-cta hero-animate hero-d4">
             <a href="#work" class="btn btn--primary">
-              View Live Demos
+              Browse the demos
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -2409,12 +2670,12 @@
       <div class="stats-strip">
         <div class="stats-strip-inner">
           <div class="stats-strip-item">
-            <span class="stats-strip-num">8</span>
-            <span class="stats-strip-label">Projects Shipped</span>
+            <span class="stats-strip-num">10</span>
+            <span class="stats-strip-label">Projects Built</span>
           </div>
           <div class="stats-strip-item">
             <span class="stats-strip-num">20+</span>
-            <span class="stats-strip-label">HTML Pages Built</span>
+            <span class="stats-strip-label">HTML Pages</span>
           </div>
           <div class="stats-strip-item">
             <span class="stats-strip-num">3</span>
@@ -2426,7 +2687,7 @@
           </div>
           <div class="stats-strip-item">
             <span class="stats-strip-num">100%</span>
-            <span class="stats-strip-label">Hand-Written Code</span>
+            <span class="stats-strip-label">Hand-Coded</span>
           </div>
         </div>
       </div>
@@ -2434,706 +2695,235 @@
       <!-- ============================================================
          CTA
          ============================================================ -->
-      <section class="section" id="work">
-        <p class="section-label reveal">Live Demos</p>
-        <h2 class="section-heading">Projects</h2>
+<section class="section" id="work" aria-labelledby="demos-heading">
+  <p class="section-label reveal">Live demo directory</p>
+  <h2 class="section-heading" id="demos-heading">Choose something to try</h2>
+  <p class="demo-intro reveal">All 10 projects live here. The <a href="portfolio.html#projects">portfolio tells the story</a>; this page is for trying things. Search by name or technology, or filter by the kind of project you want to explore.</p>
 
-        <div class="carousel-container">
-          <div class="project-list" id="carousel">
-            <div class="carousel-track">
-              <!-- LOTM -->
-              <article class="project-card reveal stagger-1" id="project-lotm">
-                <div class="project-card-glow" aria-hidden="true"></div>
-                <div class="project-chrome">
-                  <span class="dot dot--close"></span>
-                  <span class="dot dot--min"></span>
-                  <span class="dot dot--max"></span>
-                  <div class="chrome-address">
-                    <a class="chrome-url" href="https://lotm-fan-wiki.site.je" target="_blank" rel="noopener noreferrer"
-                      >lotm-fan-wiki.site.je</a
-                    >
-                  </div>
-                </div>
-                <div class="project-viewport">
-                  <img
-                    src="assets/Fool_2.webp"
-                    alt="Lord of the Mysteries companion site, The Fool character illustration"
-                    loading="lazy"
-                  />
-                </div>
-                <div class="project-body">
-                  <h3 class="project-name">Lord of the Mysteries Fan Wiki</h3>
-                  <p class="project-tech">HTML · CSS · JavaScript</p>
-                  <p>
-                    A fan wiki for a novel I love. 20+ pages covering characters,
-                    volumes, and story pathways, all sharing one stylesheet and
-                    navigation system. The biggest static site I've built so far.
-                  </p>
-                  <div class="project-cta">
-                    <a href="https://lotm-fan-wiki.site.je" class="btn btn--primary">
-                      View Live Demo
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                        />
-                        <polyline points="15 3 21 3 21 9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
-                    </a>
-                    <a
-                      href="https://github.com/PsReader"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="btn btn--ghost"
-                    >
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                        />
-                      </svg>
-                      Source Code
-                    </a>
-                  </div>
-                </div>
-              </article>
+  <div class="demo-controls reveal">
+    <div class="demo-control">
+      <label for="demoSearch">Search demos</label>
+      <input class="demo-search" id="demoSearch" type="search" placeholder="Try “image”, “Three.js”, or “tarot”" autocomplete="off" />
+    </div>
+    <div class="demo-control">
+      <label for="demoSort">Sort by</label>
+      <select class="demo-sort" id="demoSort">
+        <option value="featured">Featured order</option>
+        <option value="name-asc">Name: A to Z</option>
+        <option value="name-desc">Name: Z to A</option>
+      </select>
+    </div>
+  </div>
 
-              <!-- Tarot Draw -->
-              <article
-                class="project-card reveal stagger-2"
-                id="project-tarotdraw"
-              >
-                <div class="project-card-glow" aria-hidden="true"></div>
-                <div class="project-chrome">
-                  <span class="dot dot--close"></span>
-                  <span class="dot dot--min"></span>
-                  <span class="dot dot--max"></span>
-                  <div class="chrome-address">
-                    <a class="chrome-url" href="https://tarotdraw.site.je" target="_blank" rel="noopener noreferrer"
-                      >https://tarotdraw.site.je</a
-                    >
-                  </div>
-                </div>
-                <div class="project-viewport">
-                  <img
-                    src="assets/TarotDraw.png"
-                    alt="Tarot Draw, Major Arcana divination and tarot card reading app"
-                    loading="lazy"
-                  />
-                </div>
-                <div class="project-body">
-                  <h3 class="project-name">Tarot Draw</h3>
-                  <p class="project-tech">HTML · CSS · JavaScript</p>
-                  <p>
-                    A single-file tarot reader for the 22 Major Arcana, delivered
-                    behind an open-book veil. Choose a spread, flip the sigil
-                    cards, or just draw today's card - readings are shareable.
-                  </p>
-                  <div class="project-cta">
-                    <a href="https://tarotdraw.site.je" class="btn btn--primary">
-                      View Live Demo
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                        />
-                        <polyline points="15 3 21 3 21 9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
-                    </a>
-                    <a
-                      href="https://github.com/PsReader"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="btn btn--ghost"
-                    >
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                        />
-                      </svg>
-                      Source Code
-                    </a>
-                  </div>
-                </div>
-              </article>
+  <div class="demo-filter-row" role="group" aria-label="Filter demos by type">
+  <button class="demo-filter" type="button" data-demo-filter="all" aria-pressed="true">All 10</button>
+  <button class="demo-filter" type="button" data-demo-filter="sites" aria-pressed="false">Websites</button>
+  <button class="demo-filter" type="button" data-demo-filter="games" aria-pressed="false">Games</button>
+  <button class="demo-filter" type="button" data-demo-filter="tools" aria-pressed="false">Tools</button>
+  <button class="demo-filter" type="button" data-demo-filter="experiments" aria-pressed="false">Experiments</button>
+</div>
 
-              <!-- Tarot Memory -->
-              <article
-                class="project-card reveal stagger-3"
-                id="project-tarotmemory"
-              >
-                <div class="project-card-glow" aria-hidden="true"></div>
-                <div class="project-chrome">
-                  <span class="dot dot--close"></span>
-                  <span class="dot dot--min"></span>
-                  <span class="dot dot--max"></span>
-                  <div class="chrome-address">
-                    <a class="chrome-url" href="https://tarotmemory.site.je" target="_blank" rel="noopener noreferrer"
-                      >https://tarotmemory.site.je</a
-                    >
-                  </div>
-                </div>
-                <div class="project-viewport">
-                  <img
-                    src="assets/TarotMemory.svg"
-                    alt="Tarot Memory, the Arcana memory rite tarot card game"
-                    loading="lazy"
-                  />
-                </div>
-                <div class="project-body">
-                  <h3 class="project-name">Tarot Memory</h3>
-                  <p class="project-tech">HTML · CSS · JavaScript</p>
-                  <p>
-                    Memory of the Tarot Club - a flip-and-match rite on the 22
-                    Major Arcana sigils from Tarot Draw. Three rites with
-                    5&ndash;10 levels, three themes, and a Pattern Safe mode.
-                  </p>
-                  <div class="project-cta">
-                    <a href="https://tarotmemory.site.je" class="btn btn--primary">
-                      View Live Demo
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                        />
-                        <polyline points="15 3 21 3 21 9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
-                    </a>
-                    <a
-                      href="https://github.com/PsReader"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="btn btn--ghost"
-                    >
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                        />
-                      </svg>
-                      Source Code
-                    </a>
-                  </div>
-                </div>
-              </article>
+  <p class="demo-results" id="demoResults" aria-live="polite">Showing 10 of 10 demos</p>
+  <div class="demo-project-grid" id="demoProjectGrid" aria-label="All live demo projects">
+      <article class="project-card reveal stagger-1" data-category="sites" data-name="Lord of the Mysteries Fan Wiki" data-order="0" id="project-lotm">
 
-              <!-- Mystic Coin -->
-              <article
-                class="project-card reveal stagger-3"
-                id="project-mysticcoin"
-              >
-                <div class="project-card-glow" aria-hidden="true"></div>
-                <div class="project-chrome">
-                  <span class="dot dot--close"></span>
-                  <span class="dot dot--min"></span>
-                  <span class="dot dot--max"></span>
-                  <div class="chrome-address">
-                    <a class="chrome-url" href="https://mystic-coin.site.je" target="_blank" rel="noopener noreferrer"
-                      >mystic-coin.site.je</a
-                    >
-                  </div>
-                </div>
-                <div class="project-viewport">
-                  <img
-                    src="assets/MysticCoinLogo.svg"
-                    alt="Mystic Coin, digital yes-no divination coin"
-                    loading="lazy"
-                  />
-                </div>
-                <div class="project-body">
-                  <h3 class="project-name">Mystic Coin</h3>
-                  <p class="project-tech">HTML · CSS · JavaScript</p>
-                  <p>
-                    A small digital divination tool. Ask a question, flip the
-                    gilded coin, and receive a symbolic Yes, No, or Again answer
-                    with a running history.
-                  </p>
-                  <div class="project-cta">
-                    <a href="https://mystic-coin.site.je" class="btn btn--primary">
-                      View Live Demo
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                        />
-                        <polyline points="15 3 21 3 21 9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
-                    </a>
-                    <a
-                      href="https://github.com/PsReader"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="btn btn--ghost"
-                    >
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                        />
-                      </svg>
-                      Source Code
-                    </a>
-                  </div>
-                </div>
-              </article>
 
-              <!-- Pudding Paradise -->
-              <article
-                class="project-card reveal stagger-4"
-                id="project-pudding"
-              >
-                <div class="project-card-glow" aria-hidden="true"></div>
-                <div class="project-chrome">
-                  <span class="dot dot--close"></span>
-                  <span class="dot dot--min"></span>
-                  <span class="dot dot--max"></span>
-                  <div class="chrome-address">
-                    <a class="chrome-url" href="https://psreader.github.io/My-Pages/Pudding-Paradise/" target="_blank" rel="noopener noreferrer"
-                      >psreader.github.io/My-Pages/Pudding-Paradise/</a
-                    >
-                  </div>
-                </div>
-                <div class="project-viewport">
-                  <img
-                    src="assets/PuddingLogo.png"
-                    alt="Pudding Paradise, dessert shop branding logo"
-                    loading="lazy"
-                  />
-                </div>
-                <div class="project-body">
-                  <h3 class="project-name">Pudding Paradise</h3>
-                  <p class="project-tech">HTML · CSS · JavaScript</p>
-                  <p>
-                    A themed restaurant landing page with menu browser, image gallery,
-                    and customer review section. Built to practice CSS Grid layouts
-                    and consistent visual branding across multiple sections.
-                  </p>
-                  <div class="project-cta">
-                    <a
-                      href="https://pudding-paradise.site.je"
-                      class="btn btn--primary"
-                    >
-                      View Live Demo
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                        />
-                        <polyline points="15 3 21 3 21 9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
-                    </a>
-                    <a
-                      href="https://github.com/PsReader"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="btn btn--ghost"
-                    >
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                        />
-                      </svg>
-                      Source Code
-                    </a>
-                  </div>
-                </div>
-              </article>
 
-              <!-- GestureLab -->
-              <article
-                class="project-card project-card--featured reveal stagger-5"
-                id="project-gesturelab"
-              >
-                <div class="project-card-glow" aria-hidden="true"></div>
-                <div class="project-chrome">
-                  <span class="dot dot--close"></span>
-                  <span class="dot dot--min"></span>
-                  <span class="dot dot--max"></span>
-                  <div class="chrome-address">
-                    <a class="chrome-url" href="https://gesturelab.site.je" target="_blank" rel="noopener noreferrer">GestureLab / Live Prototype</a>
-                  </div>
-                </div>
-                <div class="project-viewport project-viewport--gesturelab">
-                  <img
-                    src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20400%20320%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20role%3D%22img%22%20aria-label%3D%22GestureLab%20%E2%80%94%20open%20palm%20with%20AR%20tracking%20reticle%22%3E%3Ctitle%3EGestureLab%3C%2Ftitle%3E%3Cdefs%3E%3CradialGradient%20id%3D%22bgGrad%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2275%25%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23202A52%22%2F%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%230B0E1C%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22glowGrad%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2245%25%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%232DD4BF%22%20stop-opacity%3D%220.16%22%2F%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%232DD4BF%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3ClinearGradient%20id%3D%22handGrad%22%20gradientUnits%3D%22userSpaceOnUse%22%20x1%3D%22110%22%20y1%3D%2260%22%20x2%3D%22272%22%20y2%3D%22250%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%232DD4BF%22%2F%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%236EB0FF%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22400%22%20height%3D%22320%22%20fill%3D%22url(%23bgGrad)%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22400%22%20height%3D%22320%22%20fill%3D%22url(%23glowGrad)%22%2F%3E%3Cg%20stroke%3D%22%232DD4BF%22%20stroke-opacity%3D%220.35%22%20stroke-width%3D%224%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M%20124%2070%20L%20124%20100%20L%20154%20100%22%2F%3E%3Cpath%20d%3D%22M%20246%20100%20L%20276%20100%20L%20276%2070%22%2F%3E%3Cpath%20d%3D%22M%20276%20250%20L%20276%20220%20L%20246%20220%22%2F%3E%3Cpath%20d%3D%22M%20154%20220%20L%20124%20220%20L%20124%20250%22%2F%3E%3C%2Fg%3E%3Cg%20id%3D%22mark%22%20transform%3D%22translate(8.75%2C%205)%22%3E%3Crect%20x%3D%22128%22%20y%3D%22150%22%20width%3D%22144%22%20height%3D%22100%22%20rx%3D%2220%22%20fill%3D%22url(%23handGrad)%22%2F%3E%3Crect%20x%3D%22244%22%20y%3D%2274%22%20width%3D%2224%22%20height%3D%22104%22%20rx%3D%2212%22%20fill%3D%22url(%23handGrad)%22%2F%3E%3Crect%20x%3D%22212%22%20y%3D%2260%22%20width%3D%2224%22%20height%3D%22118%22%20rx%3D%2212%22%20fill%3D%22url(%23handGrad)%22%2F%3E%3Crect%20x%3D%22180%22%20y%3D%2268%22%20width%3D%2224%22%20height%3D%22110%22%20rx%3D%2212%22%20fill%3D%22url(%23handGrad)%22%2F%3E%3Crect%20x%3D%22148%22%20y%3D%2278%22%20width%3D%2224%22%20height%3D%22100%22%20rx%3D%2212%22%20fill%3D%22url(%23handGrad)%22%2F%3E%3Crect%20x%3D%22124%22%20y%3D%2282%22%20width%3D%2226%22%20height%3D%2298%22%20rx%3D%2213%22%20transform%3D%22rotate(-8%20138%20180)%22%20fill%3D%22url(%23handGrad)%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%3E%3Ccircle%20cx%3D%22200%22%20cy%3D%22200%22%20r%3D%2234%22%20stroke%3D%22%23FFFFFF%22%20stroke-opacity%3D%220.8%22%20stroke-width%3D%223%22%2F%3E%3Ccircle%20cx%3D%22200%22%20cy%3D%22200%22%20r%3D%2222%22%20stroke%3D%22%235EEAD4%22%20stroke-opacity%3D%220.95%22%20stroke-width%3D%222.5%22%2F%3E%3Cline%20x1%3D%22200%22%20y1%3D%22156%22%20x2%3D%22200%22%20y2%3D%22166%22%20stroke%3D%22%23FFFFFF%22%20stroke-opacity%3D%220.85%22%20stroke-width%3D%223%22%2F%3E%3Cline%20x1%3D%22200%22%20y1%3D%22234%22%20x2%3D%22200%22%20y2%3D%22244%22%20stroke%3D%22%23FFFFFF%22%20stroke-opacity%3D%220.85%22%20stroke-width%3D%223%22%2F%3E%3Cline%20x1%3D%22156%22%20y1%3D%22200%22%20x2%3D%22166%22%20y2%3D%22200%22%20stroke%3D%22%23FFFFFF%22%20stroke-opacity%3D%220.85%22%20stroke-width%3D%223%22%2F%3E%3Cline%20x1%3D%22234%22%20y1%3D%22200%22%20x2%3D%22244%22%20y2%3D%22200%22%20stroke%3D%22%23FFFFFF%22%20stroke-opacity%3D%220.85%22%20stroke-width%3D%223%22%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%22200%22%20cy%3D%22200%22%20r%3D%224%22%20fill%3D%22%235EEAD4%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"
-                    alt="GestureLab, augmented reality prototype preview"
-                    loading="lazy"
-                  />
-                </div>
-                <div class="project-body">
-                  <h3 class="project-name">GestureLab</h3>
-                  <p class="project-tech">
-                    React · Vite · Three.js · MediaPipe
-                  </p>
-                  <p>
-                    The most technical project here. A React app that tracks your
-                    hand through the webcam using MediaPipe, then renders interactive
-                    3D objects with Three.js shaders. Dark-glass UI.
-                  </p>
-                  <div class="project-cta">
-                    <a
-                      href="https://gesturelab.site.je"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="btn btn--primary"
-                    >
-                      View Live Demo
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                        />
-                        <polyline points="15 3 21 3 21 9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
-                    </a>
-                    <a
-                      href="https://github.com/PsReader"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="btn btn--ghost"
-                    >
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                        />
-                      </svg>
-                      Source Code
-                    </a>
-                  </div>
-                </div>
-              </article>
+      <div class="project-body">
+      <h3 class="project-name">Lord of the Mysteries Fan Wiki</h3><p class="demo-card-category">Website</p>
+      <p class="project-tech">HTML · CSS · JavaScript</p>
+      <p>Browse character profiles, story guides, quotes, and volume pages in a fan wiki for Lord of the Mysteries.</p>
+      <div class="project-cta">
+      <a class="btn btn--primary" href="https://lotm-fan-wiki.site.je" rel="noopener noreferrer" target="_blank">Open demo <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+      <polyline points="15 3 21 3 21 9"></polyline>
+      <line x1="10" x2="21" y1="14" y2="3"></line>
+      </svg></a>
 
-              <!-- Typebound -->
-              <article
-                class="project-card project-card--featured reveal stagger-5"
-                id="project-typebound"
-              >
-                <div class="project-card-glow" aria-hidden="true"></div>
-                <div class="project-chrome">
-                  <span class="dot dot--close"></span>
-                  <span class="dot dot--min"></span>
-                  <span class="dot dot--max"></span>
-                  <div class="chrome-address">
-                    <a class="chrome-url" href="https://typebound.site.je/#home" target="_blank" rel="noopener noreferrer">typebound.site.je</a>
-                  </div>
-                </div>
-                <div class="project-viewport">
-                  <img
-                    src="assets/typebound.svg"
-                    alt="Typebound typing speed and accuracy trainer preview"
-                    loading="lazy"
-                  />
-                </div>
-                <div class="project-body">
-                  <h3 class="project-name">Typebound</h3>
-                  <p class="project-tech">HTML · CSS · JavaScript</p>
-                  <p>
-                    A typing trainer and peer-to-peer race room for building speed
-                    without sacrificing accuracy. Choose pressure levels, take daily
-                    challenges, track your progress offline, and improve through
-                    milestones, custom text, and mistake drills.
-                  </p>
-                  <div class="project-cta">
-                    <a
-                      href="https://typebound.site.je/#home"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="btn btn--primary"
-                    >
-                      View Live Demo
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                        <polyline points="15 3 21 3 21 9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
-                    </a>
-                    <a
-                      href="https://github.com/PsReader"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="btn btn--ghost"
-                    >
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                        />
-                      </svg>
-                      Source Code
-                    </a>
-                  </div>
-                </div>
-              </article>
+      </div><p class="demo-story-link"><a href="portfolio.html#case-lotm">How I built it</a></p>
+      </div>
+      </article>
 
-              <!-- Scratchpad -->
-              <article
-                class="project-card reveal stagger-5"
-                id="project-scratchpad"
-              >
-                <div class="project-card-glow" aria-hidden="true"></div>
-                <div class="project-chrome">
-                  <span class="dot dot--close"></span>
-                  <span class="dot dot--min"></span>
-                  <span class="dot dot--max"></span>
-                  <div class="chrome-address">
-                    <a class="chrome-url" href="https://scratchpad.site.je" target="_blank" rel="noopener noreferrer">Scratchpad Workspace</a>
-                  </div>
-                </div>
-                <div class="project-viewport">
-                  <img
-                    src="assets/scratchpad-logo.svg"
-                    alt="Scratchpad, personal workspace preview"
-                    loading="lazy"
-                  />
-                </div>
-                <div class="project-body">
-                  <h3 class="project-name">Scratchpad</h3>
-                  <p class="project-tech">HTML · CSS · JavaScript</p>
-                  <p>
-                    My personal workspace for quick experiments. A compact hub with
-                    notes, standalone pages, and easy access to ongoing projects.
-                    Nothing fancy, just a place to prototype fast.
-                  </p>
-                  <div class="project-cta">
-                    <a
-                      href="https://scratchpad.site.je"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="btn btn--primary"
-                    >
-                      View Live Demo
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                        />
-                        <polyline points="15 3 21 3 21 9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
-                    </a>
-                    <a
-                      href="https://github.com/PsReader"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="btn btn--ghost"
-                    >
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                        />
-                      </svg>
-                      Source Code
-                    </a>
-                  </div>
-                </div>
-              </article>
+      <article class="project-card reveal stagger-2" data-category="tools" data-name="Tarot Draw" data-order="1" id="project-tarotdraw">
 
-              <!-- Lumen -->
-              <article class="project-card reveal stagger-5" id="project-lumen">
-                <div class="project-card-glow" aria-hidden="true"></div>
-                <div class="project-chrome">
-                  <span class="dot dot--close"></span>
-                  <span class="dot dot--min"></span>
-                  <span class="dot dot--max"></span>
-                  <div class="chrome-address">
-                    <a class="chrome-url" href="https://lumens.site.je" target="_blank" rel="noopener noreferrer">lumens.site.je</a>
-                  </div>
-                </div>
-                <div class="project-viewport">
-                  <img
-                    src="assets/lumen-mark.svg"
-                    alt="Lumen contrast checker showing two color orbs on a dark stage joined by a light beam, a ratio of 11.46 to 1 with a passing verdict, and a sample paragraph in that pair"
-                    loading="lazy"
-                  />
-                </div>
-                <div class="project-body">
-                  <h3 class="project-name">Lumen</h3>
-                  <p class="project-tech">HTML · CSS · JavaScript</p>
-                  <p>
-                    A WCAG contrast ratio checker for text and background colors.
-                    Enter a pair in HEX, RGB, HSL, or OKLCH, read the AA, AAA, and
-                    non-text verdicts, and see the pair applied to real interface
-                    components. Runs offline, nothing leaves the browser.
-                  </p>
-                  <div class="project-cta">
-                    <a
-                      href="https://lumens.site.je"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="btn btn--primary"
-                    >
-                      View Live Demo
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                        />
-                        <polyline points="15 3 21 3 21 9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
-                    </a>
-                    <a
-                      href="https://github.com/PsReader/Lumen"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="btn btn--ghost"
-                    >
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                        />
-                      </svg>
-                      Source Code
-                    </a>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </div>
 
-          <!-- Carousel Navigation -->
-          <button
-            class="carousel-nav carousel-nav-prev"
-            aria-label="Previous project"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-          </button>
-          <button
-            class="carousel-nav carousel-nav-next"
-            aria-label="Next project"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
 
-          <!-- Carousel Indicators -->
-          <div class="carousel-indicators" id="carousel-indicators"></div>
-        </div>
-      </section>
+      <div class="project-body">
+      <h3 class="project-name">Tarot Draw</h3><p class="demo-card-category">Interactive tool</p>
+      <p class="project-tech">HTML · CSS · JavaScript</p>
+      <p>Draw from the 22 Major Arcana in a daily reading or a multi-card spread, then share the result.</p>
+      <div class="project-cta">
+      <a class="btn btn--primary" href="https://tarotdraw.site.je" rel="noopener noreferrer" target="_blank">Open demo <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+      <polyline points="15 3 21 3 21 9"></polyline>
+      <line x1="10" x2="21" y1="14" y2="3"></line>
+      </svg></a>
+
+      </div>
+      </div>
+      </article>
+
+      <article class="project-card reveal stagger-3" data-category="games" data-name="Tarot Memory" data-order="2" id="project-tarotmemory">
+
+
+
+      <div class="project-body">
+      <h3 class="project-name">Tarot Memory</h3><p class="demo-card-category">Game</p>
+      <p class="project-tech">HTML · CSS · JavaScript</p>
+      <p>Match Major Arcana cards in a memory game with its own ritual-like visual treatment.</p>
+      <div class="project-cta">
+      <a class="btn btn--primary" href="https://tarotmemory.site.je" rel="noopener noreferrer" target="_blank">Open demo <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+      <polyline points="15 3 21 3 21 9"></polyline>
+      <line x1="10" x2="21" y1="14" y2="3"></line>
+      </svg></a>
+
+      </div>
+      </div>
+      </article>
+
+      <article class="project-card reveal stagger-3" data-category="games" data-name="Mystic Coin" data-order="3" id="project-mysticcoin">
+
+
+
+      <div class="project-body">
+      <h3 class="project-name">Mystic Coin</h3><p class="demo-card-category">Game</p>
+      <p class="project-tech">HTML · CSS · JavaScript</p>
+      <p>Flip a small digital yes-or-no coin and keep the answer simple.</p>
+      <div class="project-cta">
+      <a class="btn btn--primary" href="https://mystic-coin.site.je" rel="noopener noreferrer" target="_blank">Open demo <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+      <polyline points="15 3 21 3 21 9"></polyline>
+      <line x1="10" x2="21" y1="14" y2="3"></line>
+      </svg></a>
+
+      </div>
+      </div>
+      </article>
+
+      <article class="project-card reveal stagger-4" data-category="sites" data-name="Pudding Paradise" data-order="4" id="project-pudding">
+
+
+
+      <div class="project-body">
+      <h3 class="project-name">Pudding Paradise</h3><p class="demo-card-category">Website</p>
+      <p class="project-tech">HTML · CSS · JavaScript</p>
+      <p>Explore a fictional dessert shop through its menu, gallery, and customer reviews.</p>
+      <div class="project-cta">
+      <a class="btn btn--primary" href="https://pudding-paradise.site.je" rel="noopener noreferrer" target="_blank">Open demo <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+      <polyline points="15 3 21 3 21 9"></polyline>
+      <line x1="10" x2="21" y1="14" y2="3"></line>
+      </svg></a>
+
+      </div>
+      </div>
+      </article>
+
+      <article class="project-card project-card--featured reveal stagger-5" data-category="experiments" data-name="GestureLab" data-order="5" id="project-gesturelab">
+
+
+
+      <div class="project-body">
+      <h3 class="project-name">GestureLab</h3><p class="demo-card-category">Experiment</p>
+      <p class="project-tech">
+                          React · Vite · Three.js · MediaPipe
+                        </p>
+      <p>Explore three visual modes driven by hand tracking, Three.js, and MediaPipe. Camera permission is required to try the interaction.</p>
+      <div class="project-cta">
+      <a class="btn btn--primary" href="https://gesturelab.site.je" rel="noopener noreferrer" target="_blank">Open demo <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+      <polyline points="15 3 21 3 21 9"></polyline>
+      <line x1="10" x2="21" y1="14" y2="3"></line>
+      </svg></a>
+
+      </div><p class="demo-story-link"><a href="portfolio.html#case-gesturelab">How I built it</a></p>
+      </div>
+      </article>
+
+      <article class="project-card project-card--featured reveal stagger-5" data-category="tools" data-name="Typebound" data-order="6" id="project-typebound">
+
+
+
+      <div class="project-body">
+      <h3 class="project-name">Typebound</h3><p class="demo-card-category">Practice tool</p>
+      <p class="project-tech">HTML · CSS · JavaScript</p>
+      <p>Practice typing with accuracy feedback, or try a peer-to-peer race room.</p>
+      <div class="project-cta">
+      <a class="btn btn--primary" href="https://typebound.site.je/#home" rel="noopener noreferrer" target="_blank">Open demo <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+      <polyline points="15 3 21 3 21 9"></polyline>
+      <line x1="10" x2="21" y1="14" y2="3"></line>
+      </svg></a>
+
+      </div>
+      </div>
+      </article>
+
+      <article class="project-card reveal stagger-5" data-category="tools" data-name="Scratchpad" data-order="7" id="project-scratchpad">
+
+
+
+      <div class="project-body">
+      <h3 class="project-name">Scratchpad</h3><p class="demo-card-category">Workspace</p>
+      <p class="project-tech">HTML · CSS · JavaScript</p>
+      <p>A lightweight personal workspace for notes and small standalone experiments.</p>
+      <div class="project-cta">
+      <a class="btn btn--primary" href="https://scratchpad.site.je" rel="noopener noreferrer" target="_blank">Open demo <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+      <polyline points="15 3 21 3 21 9"></polyline>
+      <line x1="10" x2="21" y1="14" y2="3"></line>
+      </svg></a>
+
+      </div>
+      </div>
+      </article>
+
+      <article class="project-card reveal stagger-5" data-category="tools" data-name="Lumen" data-order="8" id="project-lumen">
+
+
+
+      <div class="project-body">
+      <h3 class="project-name">Lumen</h3><p class="demo-card-category">Accessibility tool</p>
+      <p class="project-tech">HTML · CSS · JavaScript</p>
+      <p>Check color contrast against WCAG guidance and preview the chosen colors in context.</p>
+      <div class="project-cta">
+      <a class="btn btn--primary" href="https://lumens.site.je" rel="noopener noreferrer" target="_blank">Open demo <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+      <polyline points="15 3 21 3 21 9"></polyline>
+      <line x1="10" x2="21" y1="14" y2="3"></line>
+      </svg></a>
+
+      </div>
+      </div>
+      </article>
+
+      <article class="project-card reveal stagger-6" data-category="tools" data-name="Pixelpress" data-order="9" id="project-pixelpress">
+
+
+
+      <div class="project-body">
+      <h3 class="project-name">Pixelpress</h3><p class="demo-card-category">Image tool</p>
+      <p class="project-tech">HTML · CSS · JavaScript</p>
+      <p>Compress, resize, crop, and convert images in the browser; files stay on your device.</p>
+      <div class="project-cta">
+      <a class="btn btn--primary" href="https://pixelpress.site.je/" rel="noopener noreferrer" target="_blank">Open demo <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+      <polyline points="15 3 21 3 21 9"></polyline>
+      <line x1="10" x2="21" y1="14" y2="3"></line>
+      </svg></a>
+
+      </div><p class="demo-story-link"><a href="portfolio.html#case-pixelpress">How I built it</a></p>
+      </div>
+      </article>
+    <p class="demo-empty" id="demoEmpty" hidden>No demos match that search. Try another term or choose “All 10”.</p>
+  </div>
+</section>
 
       <!-- ============================================================
          TECH STACK - showcasing technologies used
          ============================================================ -->
-      <section class="section" id="about">
+      <section class="section" id="stack">
         <p class="section-label reveal">Tech Stack</p>
         <h2 class="section-heading">How They Were Built</h2>
         <div class="about-body">
@@ -3381,8 +3171,8 @@
           <div class="footer-divider"></div>
           <nav class="footer-nav" aria-label="Footer navigation">
             <a href="#work" class="footer-pill">Demos</a>
-            <a href="#about" class="footer-pill">Tech Stack</a>
-            <a href="portfolio.html" class="footer-pill">Portfolio</a>
+            <a href="#stack" class="footer-pill">Tech Stack</a>
+            <a href="portfolio.html" class="footer-pill">Portfolio stories</a>
             <a href="mailto:simanjuntakpedrosa@gmail.com" class="footer-pill">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
               Email
@@ -3403,6 +3193,8 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
               LinkedIn
             </a>
+            <a href="privacy.html" class="footer-pill">Privacy Policy</a>
+            <a href="terms.html" class="footer-pill">Terms of Use</a>
           </nav>
           <p class="footer-copy">&copy; 2026 &middot; Educational &amp; portfolio purposes</p>
         </div>
@@ -3424,11 +3216,18 @@
         const iconSun = themeToggle?.querySelector(".icon-sun");
         const iconMoon = themeToggle?.querySelector(".icon-moon");
         const savedTheme = localStorage.getItem("ps-theme");
+        const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        // No stored choice: follow the OS. The head script already applied a
+        // stored "dark", so only add the class here when it is missing.
         if (savedTheme === "light") {
           document.documentElement.classList.remove("dark");
-          if (iconSun) iconSun.style.display = "none";
-          if (iconMoon) iconMoon.style.display = "";
+        } else if (!savedTheme) {
+          document.documentElement.classList.toggle("dark", prefersDark);
+          localStorage.setItem("ps-theme", prefersDark ? "dark" : "light");
         }
+        const isDarkNow = document.documentElement.classList.contains("dark");
+        if (iconSun) iconSun.style.display = isDarkNow ? "" : "none";
+        if (iconMoon) iconMoon.style.display = isDarkNow ? "none" : "";
         themeToggle?.addEventListener("click", () => {
           const isDark = document.documentElement.classList.toggle("dark");
           localStorage.setItem("ps-theme", isDark ? "dark" : "light");
@@ -3819,267 +3618,6 @@
           });
         }
 
-        // ===== Infinite carousel - node-shifting with GSAP =====
-        const carousel = document.getElementById("carousel");
-        const track = carousel?.querySelector(".carousel-track");
-        const indicatorsEl = document.getElementById("carousel-indicators");
-        const prevBtn = document.querySelector(".carousel-nav-prev");
-        const nextBtn = document.querySelector(".carousel-nav-next");
-
-        if (carousel && track && indicatorsEl && typeof gsap !== "undefined") {
-          const cards = Array.from(track.children);
-          const N = cards.length;
-          let logicalIdx = 0;
-          let isAnimating = false;
-          let autoTimer;
-
-          const gap = () => parseFloat(getComputedStyle(track).gap) || 0;
-          const cardWidth = () => cards[0].offsetWidth + gap();
-
-          const updateDots = () => {
-            indicatorsEl
-              .querySelectorAll(".carousel-indicator")
-              .forEach((dot, i) => {
-                dot.classList.toggle("active", i === logicalIdx);
-              });
-          };
-
-          const goNext = () =>
-            new Promise((resolve) => {
-              if (isAnimating) return resolve();
-              isAnimating = true;
-              const w = cardWidth();
-
-              gsap.to(track, {
-                x: -w,
-                duration: 0.6,
-                ease: "power3.inOut",
-                onComplete: () => {
-                  track.appendChild(track.children[0]);
-                  gsap.set(track, { x: 0 });
-                  logicalIdx = (logicalIdx + 1) % N;
-                  isAnimating = false;
-                  updateDots();
-                  resolve();
-                },
-              });
-            });
-
-          const goPrev = () =>
-            new Promise((resolve) => {
-              if (isAnimating) return resolve();
-              isAnimating = true;
-              const w = cardWidth();
-
-              track.prepend(track.lastElementChild);
-              gsap.set(track, { x: -w });
-
-              gsap.to(track, {
-                x: 0,
-                duration: 0.6,
-                ease: "power3.inOut",
-                onComplete: () => {
-                  logicalIdx = (logicalIdx - 1 + N) % N;
-                  isAnimating = false;
-                  updateDots();
-                  resolve();
-                },
-              });
-            });
-
-          const startAuto = () => {
-            clearInterval(autoTimer);
-            autoTimer = setInterval(goNext, 6000);
-          };
-
-          const pauseAuto = () => clearInterval(autoTimer);
-
-          // Dots
-          cards.forEach((_, i) => {
-            const dot = document.createElement("button");
-            dot.className = "carousel-indicator";
-            if (i === 0) dot.classList.add("active");
-            dot.setAttribute("aria-label", `Go to project ${i + 1}`);
-            dot.addEventListener("click", async () => {
-              const delta = (i - logicalIdx + N) % N;
-              const steps = Math.min(delta, N - delta);
-              if (steps === 0 || isAnimating) return;
-              const dir = delta <= N / 2 ? 1 : -1;
-              const fn = dir === 1 ? goNext : goPrev;
-              for (let s = 0; s < steps; s++) await fn();
-            });
-            indicatorsEl.appendChild(dot);
-          });
-
-          prevBtn?.addEventListener("click", goPrev);
-          nextBtn?.addEventListener("click", goNext);
-
-          gsap.set(track, { x: 0 });
-          startAuto();
-
-          document.addEventListener("visibilitychange", () => {
-            clearInterval(autoTimer);
-            if (!document.hidden) startAuto();
-          });
-
-          carousel.addEventListener("mouseenter", pauseAuto);
-          carousel.addEventListener("mouseleave", startAuto);
-
-          let rt;
-          window.addEventListener("resize", () => {
-            clearTimeout(rt);
-            rt = setTimeout(() => {
-              if (isAnimating) return;
-              gsap.set(track, { x: 0 });
-            }, 150);
-          });
-
-          // ===== Touch / pointer drag-to-swipe =====
-          track.style.touchAction = "pan-y";
-          let drag = null;
-          let suppressClick = false;
-          let suppressClickTimer;
-
-          const settleBack = () =>
-            gsap.to(track, { x: 0, duration: 0.35, ease: "power2.out" });
-
-          track.addEventListener("pointerdown", (e) => {
-            if (isAnimating || drag) return;
-            if (e.target.closest("a, button, input, textarea, select")) return;
-            drag = { startX: e.clientX, startY: e.clientY, moved: false, id: e.pointerId };
-            track.classList.add("is-dragging");
-            pauseAuto();
-          });
-
-          const moveDrag = (e) => {
-            if (!drag || e.pointerId !== drag.id) return;
-            const dx = e.clientX - drag.startX;
-            const dy = Math.abs(e.clientY - drag.startY);
-            if (!drag.moved) {
-              if (dy > Math.abs(dx)) {
-                drag = null;
-                track.classList.remove("is-dragging");
-                track.releasePointerCapture?.(e.pointerId);
-                startAuto();
-                return;
-              } // vertical scroll wins
-              if (Math.abs(dx) > 6) {
-                drag.moved = true;
-                suppressClick = true;
-                clearTimeout(suppressClickTimer);
-                suppressClickTimer = setTimeout(() => {
-                  suppressClick = false;
-                }, 500);
-                track.setPointerCapture?.(e.pointerId);
-                gsap.killTweensOf(track); // kill any auto-advance tween mid-flight
-                e.preventDefault();
-              }
-            }
-            if (drag && drag.moved) {
-              e.preventDefault();
-              gsap.set(track, { x: dx });
-            }
-          };
-
-          const endDrag = (e) => {
-            if (!drag || e.pointerId !== drag.id) return;
-            const dx = e.clientX - drag.startX;
-            const wasMoved = drag.moved;
-            drag = null;
-            track.classList.remove("is-dragging");
-            track.releasePointerCapture?.(e.pointerId);
-            startAuto();
-            if (wasMoved) {
-              if (dx < -30) { goNext(); return; }
-              if (dx > 30) { goPrev(); return; }
-            }
-            settleBack();
-          };
-
-          const cancelDrag = (e) => {
-            if (!drag || e.pointerId !== drag.id) return;
-            drag = null;
-            track.classList.remove("is-dragging");
-            track.releasePointerCapture?.(e.pointerId);
-            startAuto();
-            settleBack();
-          };
-
-          track.addEventListener("pointermove", moveDrag);
-          track.addEventListener("pointerup", endDrag);
-          track.addEventListener("pointercancel", cancelDrag);
-          track.addEventListener("click", (e) => {
-            if (!suppressClick) return;
-            e.preventDefault();
-            e.stopPropagation();
-            clearTimeout(suppressClickTimer);
-            suppressClick = false;
-          }, true);
-          // Listen for move/up on window so the drag keeps tracking even if the
-          // pointer leaves the track bounds mid-swipe.
-          window.addEventListener("pointermove", moveDrag);
-          window.addEventListener("pointerup", endDrag);
-          window.addEventListener("pointercancel", cancelDrag);
-          carousel.dataset.swipeReady = "true";
-        }
-
-        // Native fallback: keep swiping functional even when GSAP is unavailable.
-        if (carousel && track && !carousel.dataset.swipeReady) {
-          let fallbackStartX = null;
-          let fallbackStartY = 0;
-          let fallbackDragging = false;
-
-          const fallbackNext = () => {
-            if (track.children.length > 1) track.appendChild(track.firstElementChild);
-          };
-          const fallbackPrev = () => {
-            if (track.children.length > 1) track.prepend(track.lastElementChild);
-          };
-
-          track.addEventListener("mousedown", (e) => {
-            if (e.button !== 0) return;
-            fallbackStartX = e.clientX;
-            fallbackStartY = e.clientY;
-            fallbackDragging = false;
-            track.classList.add("is-dragging");
-          });
-          window.addEventListener("mousemove", (e) => {
-            if (fallbackStartX === null) return;
-            const dx = e.clientX - fallbackStartX;
-            const dy = Math.abs(e.clientY - fallbackStartY);
-            if (dy > Math.abs(dx)) {
-              fallbackStartX = null;
-              track.classList.remove("is-dragging");
-              return;
-            }
-            if (Math.abs(dx) > 8) fallbackDragging = true;
-          });
-          window.addEventListener("mouseup", (e) => {
-            if (fallbackStartX === null) return;
-            const dx = e.clientX - fallbackStartX;
-            track.classList.remove("is-dragging");
-            fallbackStartX = null;
-            if (!fallbackDragging) return;
-            if (dx < -30) fallbackNext();
-            if (dx > 30) fallbackPrev();
-            fallbackDragging = false;
-          });
-
-          track.addEventListener("touchstart", (e) => {
-            const touch = e.touches[0];
-            fallbackStartX = touch.clientX;
-            fallbackStartY = touch.clientY;
-            fallbackDragging = false;
-          }, { passive: true });
-          track.addEventListener("touchend", (e) => {
-            if (fallbackStartX === null) return;
-            const touch = e.changedTouches[0];
-            const dx = touch.clientX - fallbackStartX;
-            fallbackStartX = null;
-            if (Math.abs(dx) > 30) dx < 0 ? fallbackNext() : fallbackPrev();
-          }, { passive: true });
-        }
-
         // ===== Scroll progress bar =====
         const scrollProgress = document.getElementById("scrollProgress");
         if (scrollProgress && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -4128,7 +3666,7 @@
         }
 
         // ===== Lenis smooth scroll =====
-        if (!("ontouchstart" in window || navigator.maxTouchPoints > 0)) {
+        if (typeof Lenis === "function" && !("ontouchstart" in window || navigator.maxTouchPoints > 0)) {
           const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -4140,12 +3678,9 @@
           }
           requestAnimationFrame(raf);
 
-          lenis.on("scroll", ScrollTrigger.update);
-          gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
-          });
+          if (hasGsap) lenis.on("scroll", ScrollTrigger.update);
         }
-        gsap.ticker.lagSmoothing(0);
+        if (hasGsap) gsap.ticker.lagSmoothing(0);
 
 
 
@@ -4732,5 +4267,78 @@
       </script>
       <script type="module" src="ghost-cursor.js"></script>
     </div>
+    <script>
+      // Fade between the two site surfaces without hijacking hash links,
+      // external links, new-tab links, or users who prefer reduced motion.
+      (() => {
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        document.body.classList.add("page-enter");
+        window.addEventListener("pageshow", () => document.body.classList.remove("page-exit"));
+        if (reduceMotion) return;
+
+        document.addEventListener("click", (event) => {
+          const link = event.target.closest("a[href]");
+          if (!link || event.defaultPrevented || link.target === "_blank" || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+          const url = new URL(link.href, window.location.href);
+          if (url.origin !== window.location.origin || !/\/(?:index|portfolio)\.html$/.test(url.pathname) || url.pathname === window.location.pathname) return;
+          event.preventDefault();
+          document.body.classList.add("page-exit");
+          window.setTimeout(() => window.location.assign(url.href), 280);
+        });
+      })();
+    </script>
+  
+    <script>
+  (() => {
+    const grid = document.getElementById("demoProjectGrid");
+    if (!grid) return;
+    const cards = Array.from(grid.querySelectorAll(".project-card"));
+    const search = document.getElementById("demoSearch");
+    const sort = document.getElementById("demoSort");
+    const result = document.getElementById("demoResults");
+    const empty = document.getElementById("demoEmpty");
+    const filters = Array.from(document.querySelectorAll(".demo-filter"));
+    let activeCategory = "all";
+
+    cards.forEach((card, index) => {
+      card.dataset.order = String(index);
+      card.dataset.name = card.querySelector(".project-name")?.textContent.trim() || "";
+    });
+
+    function updateDirectory() {
+      const query = (search?.value || "").trim().toLocaleLowerCase();
+      const mode = sort?.value || "featured";
+      const ordered = [...cards].sort((a, b) => {
+        if (mode === "name-asc") return a.dataset.name.localeCompare(b.dataset.name);
+        if (mode === "name-desc") return b.dataset.name.localeCompare(a.dataset.name);
+        return Number(a.dataset.order) - Number(b.dataset.order);
+      });
+      let visibleCount = 0;
+      ordered.forEach((card) => {
+        const categoryMatch = activeCategory === "all" || card.dataset.category === activeCategory;
+        const queryMatch = !query || `${card.dataset.name} ${card.dataset.category} ${card.textContent}`.toLocaleLowerCase().includes(query);
+        card.hidden = !(categoryMatch && queryMatch);
+        if (!card.hidden) visibleCount += 1;
+        grid.appendChild(card);
+      });
+      if (empty) {
+        empty.hidden = visibleCount !== 0;
+        grid.appendChild(empty);
+      }
+      if (result) result.textContent = `Showing ${visibleCount} of ${cards.length} ${cards.length === 1 ? "demo" : "demos"}`;
+    }
+
+    filters.forEach((button) => {
+      button.addEventListener("click", () => {
+        activeCategory = button.dataset.demoFilter || "all";
+        filters.forEach((filter) => filter.setAttribute("aria-pressed", String(filter === button)));
+        updateDirectory();
+      });
+    });
+    search?.addEventListener("input", updateDirectory);
+    sort?.addEventListener("change", updateDirectory);
+    updateDirectory();
+  })();
+</script>
   </body>
 </html>

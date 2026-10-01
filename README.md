@@ -1,4 +1,4 @@
-# My Projects
+﻿# My Projects
 
 A portfolio workspace of creative web experiments, themed mini-projects, and interactive front-end builds.
 
@@ -104,6 +104,17 @@ A WCAG contrast ratio checker for text and background colors.
 - no build step, no dependencies, works offline
 - deploy bundle: `Deploy/deploy-Lumen-root.zip`
 - folder: `Lumen` · repo: [github.com/PsReader/Lumen](https://github.com/PsReader/Lumen) · live: `lumens.site.je`
+
+### Pixelpress
+
+A browser-only image utility that compresses, resizes, crops, and converts images.
+
+- JPG, PNG, WebP, and feature-detected AVIF output with a quality slider
+- fit-to-bounds, custom width, custom height, and original-size modes
+- numeric crop controls with center-crop presets
+- original vs processed preview with file size and savings comparison
+- processing stays in the browser, no upload, no build step
+- folder: `PixelPress` · repo: [github.com/PsReader/PixelPress](https://github.com/PsReader/PixelPress) · live: `pixelpress.site.je`
 
 ---
 
