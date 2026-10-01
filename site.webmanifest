@@ -1,8 +1,17 @@
 {
   "name": "PsReader",
   "short_name": "PsReader",
+  "description": "A portfolio workspace of creative web experiments, themed mini-projects, and interactive front-end builds.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0b0d13",
-  "theme_color": "#0b0d13"
+  "theme_color": "#0b0d13",
+  "icons": [
+    {
+      "src": "assets/psreader-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
 }
