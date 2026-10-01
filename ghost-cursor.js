@@ -639,6 +639,7 @@ export function initGhostCursor(el, opts = {}) {
 function init() {
   if ("ontouchstart" in window || navigator.maxTouchPoints > 0) return;
 
+  let any = false;
   document.querySelectorAll("#ghostCursor, .ghost-cursor").forEach((el) => {
     if (el.__ghostCursorInit) return;
     el.__ghostCursorInit = true;
@@ -647,10 +648,16 @@ function init() {
       el.__ghostCursorInstance = instance;
       if (!window.__ghostCursors) window.__ghostCursors = [];
       window.__ghostCursors.push(instance);
+      any = true;
     } catch (err) {
       console.warn("[GhostCursor] failed to initialize:", err);
     }
   });
+
+  // Only hide the native cursor once a custom one actually exists. If this
+  // module fails to load, `html.cursor-ready` is never set and the native
+  // cursor stays visible instead of leaving the page with no pointer at all.
+  if (any) document.documentElement.classList.add("cursor-ready");
 }
 
 if (document.readyState === "loading") {

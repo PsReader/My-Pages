@@ -469,7 +469,7 @@
          CUSTOM CURSOR - accent-colored, context-morphing
          ================================================================= */
       @media (hover: hover) and (pointer: fine) {
-        * { cursor: none !important; }
+        html.cursor-ready * { cursor: none !important; }
       }
       .cursor-dot, .cursor-ring {
         position: fixed;
@@ -959,39 +959,6 @@
         z-index: 1;
       }
 
-      /* Ambient glow. Single focal accent behind the hero headline.
-         R-31: this is the page's one focal point; everything below stays flat. */
-      .hero-orb {
-        position: absolute;
-        top: 14%;
-        right: 8%;
-        width: 340px;
-        height: 340px;
-        background: radial-gradient(
-          circle,
-          color-mix(in srgb, var(--accent) 16%, transparent) 0%,
-          color-mix(in srgb, var(--accent) 5%, transparent) 40%,
-          transparent 70%
-        );
-        filter: blur(2px);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 0;
-        animation: orbPulse 7s ease-in-out infinite;
-      }
-
-      @keyframes orbPulse {
-        0%,
-        100% {
-          transform: translate(0, 0) scale(1);
-          opacity: 0.7;
-        }
-        50% {
-          transform: translate(-24px, 20px) scale(1.12);
-          opacity: 1;
-        }
-      }
-
       /* Highlighted hero word */
       .hero-word {
         font-style: normal;
@@ -1113,113 +1080,6 @@
 
       body.scrolled .hero-scroll-fade {
         opacity: 0;
-      }
-
-      /* =================================================================
-         MARQUEE
-         ================================================================= */
-      .marquee {
-        max-width: 100%;
-        overflow: hidden;
-        padding: 48px 0;
-        margin-bottom: 24px;
-        border-top: 1px solid color-mix(in srgb, var(--accent) 12%, transparent);
-        border-bottom: 1px solid color-mix(in srgb, var(--accent) 12%, transparent);
-        background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 8%, transparent), transparent);
-      }
-      .marquee-track {
-        display: flex;
-        gap: 480px;
-        width: max-content;
-        animation: marquee-scroll 20s linear infinite;
-      }
-      .marquee-group {
-        display: flex;
-        width: max-content;
-      }
-      .marquee-item {
-        flex-shrink: 0;
-        white-space: nowrap;
-        padding: 0 240px;
-        font-family: var(--font-display);
-        font-size: clamp(2rem, 5vw, 3.25rem);
-        font-weight: 700;
-        color: var(--text-primary);
-        letter-spacing: -0.02em;
-        line-height: 1.2;
-      }
-      .marquee-item em {
-        color: var(--accent);
-        font-style: italic;
-      }
-      @keyframes marquee-scroll {
-        to { transform: translateX(-50%); }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .marquee-track { animation-play-state: paused; }
-      }
-
-      /* =================================================================
-         STATS STRIP
-         ================================================================= */
-      .stats-strip {
-        max-width: var(--max-w);
-        margin: 0 auto;
-        padding: 0 24px 64px;
-      }
-      .stats-strip-inner {
-        display: flex;
-        gap: 0;
-        border-radius: var(--radius-lg);
-        border: 1px solid var(--border);
-        overflow: hidden;
-      }
-      .stats-strip-item {
-        flex: 1;
-        background: var(--bg-card);
-        padding: 28px 24px;
-        text-align: center;
-        transition: background 0.2s var(--ease);
-        border-right: 1px solid var(--border);
-      }
-      .stats-strip-item:last-child {
-        border-right: none;
-      }
-      .stats-strip-item:hover {
-        background: var(--bg-card-hover);
-      }
-      .stats-strip-num {
-        display: block;
-        font-family: var(--font-display);
-        font-size: 1.75rem;
-        font-weight: 800;
-        color: var(--text-primary);
-        letter-spacing: -0.03em;
-      }
-      .stats-strip-label {
-        display: block;
-        margin-top: 4px;
-        font-size: 0.75rem;
-        color: var(--text-tertiary);
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-      }
-      @media (max-width: 640px) {
-        .stats-strip-inner {
-          flex-wrap: wrap;
-        }
-        .stats-strip-item {
-          flex: 1 1 calc(50% - 1px);
-        }
-        .stats-strip-item:last-child {
-          flex: 1 1 calc(50% - 1px);
-        }
-        .stats-strip-item:nth-child(even) {
-          border-right: none;
-        }
-        .stats-strip-item:nth-child(n + 3) {
-          border-top: 1px solid var(--border);
-        }
       }
 
       /* =================================================================
@@ -2247,7 +2107,6 @@
         .hero-animate,
         .hero-scroll-fade,
         .chip,
-        .hero-orb,
         .hero-underline,
         .highlight-pill,
         .hero-line,
@@ -2426,7 +2285,7 @@
 .demo-results {
   min-height: 1.5em;
   margin: 0 0 12px;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   font-size: .8rem;
 }
 .demo-project-grid {
@@ -2437,10 +2296,11 @@
 }
 .demo-project-grid > .project-card {
   display: flex;
+  flex-direction: column;
   width: 100%;
   min-width: 0;
   max-width: none;
-  min-height: 260px;
+  min-height: 0;
   flex: initial;
   transform-style: flat;
   perspective: none;
@@ -2451,9 +2311,7 @@
   transition: border-color .18s ease, background .18s ease, transform .18s ease, box-shadow .18s ease;
 }
 .demo-project-grid > .project-card::after,
-.demo-project-grid .project-card-glow,
-.demo-project-grid .project-chrome,
-.demo-project-grid .project-viewport { display: none; }
+.demo-project-grid .project-card-glow { display: none; }
 .demo-project-grid > .project-card::before { box-shadow: none; opacity: 0; }
 .demo-project-grid > .project-card:hover {
   transform: translateY(-3px);
@@ -2462,10 +2320,43 @@
   box-shadow: 0 14px 30px rgba(0, 0, 0, .12);
 }
 .demo-project-grid > .project-card[hidden] { display: none !important; }
+/* Real screenshots of each live site. Cover crops the tall capture to fill
+   the frame; the hover/focus drift peeks at what sits just below it. Focus is
+   included so the motion is not mouse-only. */
+.demo-project-grid .project-viewport {
+  max-height: 210px;
+  background: var(--bg-surface);
+}
+.demo-project-grid .project-viewport img {
+  object-fit: cover;
+  object-position: top center;
+  transform: translateY(0);
+  transition: transform 900ms var(--ease);
+}
+.demo-project-grid .project-card:hover .project-viewport img,
+.demo-project-grid .project-card:focus-within .project-viewport img {
+  transform: translateY(-13%);
+}
+/* The featured card is full width, so show the whole site rather than a slice. */
+.demo-project-grid .project-card--featured .project-viewport {
+  max-height: 300px;
+}
+.demo-project-grid .project-card--featured .project-viewport img {
+  object-fit: contain;
+  transform: scale(1);
+}
+.demo-project-grid .project-card--featured:hover .project-viewport img,
+.demo-project-grid .project-card--featured:focus-within .project-viewport img {
+  transform: scale(1.03);
+}
+@media (min-width: 761px) {
+  .demo-project-grid > .project-card--featured { grid-column: 1 / -1; }
+}
 .demo-project-grid .project-body {
   display: flex;
   width: 100%;
-  min-height: 260px;
+  min-height: 0;
+  flex: 1;
   flex-direction: column;
   padding: 24px;
 }
@@ -2475,17 +2366,17 @@
   padding: 5px 9px;
   border: 1px solid var(--border);
   border-radius: 999px;
-  color: var(--accent-hover);
-  font-size: .67rem;
+color: var(--text-secondary);
+  font-size: 0.67rem;
   font-weight: 700;
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
   line-height: 1.3;
   text-transform: uppercase;
 }
 .demo-project-grid .project-name { margin-bottom: 7px; }
 .demo-project-grid .project-tech {
   margin: 0 0 12px;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   font-size: .72rem;
 }
 .demo-project-grid .project-body > p:not(.project-tech):not(.demo-card-category) {
@@ -2495,7 +2386,7 @@
   line-height: 1.65;
 }
 .demo-project-grid .project-cta { margin-top: auto; }
-.demo-project-grid .project-cta .btn { min-height: 40px; }
+.demo-project-grid .project-cta .btn { min-height: 44px; }
 .demo-story-link { margin: 11px 0 0; font-size: .79rem; }
 .demo-empty {
   grid-column: 1 / -1;
@@ -2515,6 +2406,13 @@
 @media (prefers-reduced-motion: reduce) {
   .demo-filter, .demo-project-grid > .project-card { transition: none; }
   .demo-project-grid > .project-card:hover { transform: none; }
+  .demo-project-grid .project-viewport img { transition: none; }
+  .demo-project-grid .project-card:hover .project-viewport img,
+  .demo-project-grid .project-card:focus-within .project-viewport img,
+  .demo-project-grid .project-card--featured:hover .project-viewport img,
+  .demo-project-grid .project-card--featured:focus-within .project-viewport img {
+    transform: none;
+  }
 }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
@@ -2644,11 +2542,10 @@
          ============================================================ -->
       <section class="hero" aria-label="Introduction">
         <canvas class="hero-grain" aria-hidden="true" width="256" height="256"></canvas>
-        <div class="hero-orb" aria-hidden="true"></div>
         <div class="hero-content">
           <span class="hero-eyebrow hero-animate">Live Demos</span>
           <h1 class="hero-d1">
-            <span class="hero-line">Ten Projects,</span>
+            <span class="hero-line">Eleven Projects,</span>
             <span class="hero-line">All <span class="hero-accent-word">Live</span> and Deployed</span>
           </h1>
           <span
@@ -2695,49 +2592,13 @@
         <div class="hero-spotlight" aria-hidden="true"></div>
       </section>
 
-      <div class="marquee" aria-label="Statement">
-        <div class="marquee-track">
-          <span class="marquee-group">
-            <span class="marquee-item">I build interfaces that feel <em>alive</em>.</span>
-          </span>
-          <span class="marquee-group" aria-hidden="true">
-            <span class="marquee-item">I build interfaces that feel <em>alive</em>.</span>
-          </span>
-        </div>
-      </div>
-
-      <div class="stats-strip">
-        <div class="stats-strip-inner">
-          <div class="stats-strip-item">
-            <span class="stats-strip-num">10</span>
-            <span class="stats-strip-label">Projects Built</span>
-          </div>
-          <div class="stats-strip-item">
-            <span class="stats-strip-num">20+</span>
-            <span class="stats-strip-label">HTML Pages</span>
-          </div>
-          <div class="stats-strip-item">
-            <span class="stats-strip-num">3</span>
-            <span class="stats-strip-label">Core Languages</span>
-          </div>
-          <div class="stats-strip-item">
-            <span class="stats-strip-num">1</span>
-            <span class="stats-strip-label">React App</span>
-          </div>
-          <div class="stats-strip-item">
-            <span class="stats-strip-num">100%</span>
-            <span class="stats-strip-label">Hand-Coded</span>
-          </div>
-        </div>
-      </div>
-
       <!-- ============================================================
-         CTA
+         DEMO DIRECTORY
          ============================================================ -->
 <section class="section" id="work" aria-labelledby="demos-heading">
   <p class="section-label reveal">Live demo directory</p>
   <h2 class="section-heading" id="demos-heading">Choose something to try</h2>
-  <p class="demo-intro reveal">All 10 projects live here. The <a href="portfolio.html#projects">portfolio tells the story</a>; this page is for trying things. Search by name or technology, or filter by the kind of project you want to explore.</p>
+  <p class="demo-intro reveal">All 11 projects live here. The <a href="portfolio.html#projects">portfolio tells the story</a>; this page is for trying things. Search by name or technology, or filter by the kind of project you want to explore.</p>
 
   <div class="demo-controls reveal">
     <div class="demo-control">
@@ -2755,16 +2616,23 @@
   </div>
 
   <div class="demo-filter-row" role="group" aria-label="Filter demos by type">
-  <button class="demo-filter" type="button" data-demo-filter="all" aria-pressed="true">All 10</button>
+  <button class="demo-filter" type="button" data-demo-filter="all" aria-pressed="true">All 11</button>
   <button class="demo-filter" type="button" data-demo-filter="sites" aria-pressed="false">Websites</button>
   <button class="demo-filter" type="button" data-demo-filter="games" aria-pressed="false">Games</button>
   <button class="demo-filter" type="button" data-demo-filter="tools" aria-pressed="false">Tools</button>
   <button class="demo-filter" type="button" data-demo-filter="experiments" aria-pressed="false">Experiments</button>
 </div>
 
-  <p class="demo-results" id="demoResults" aria-live="polite">Showing 10 of 10 demos</p>
+  <p class="demo-results" id="demoResults" aria-live="polite">Showing 11 of 11 demos</p>
   <div class="demo-project-grid" id="demoProjectGrid" aria-label="All live demo projects">
       <article class="project-card reveal stagger-1" data-category="sites" data-name="Lord of the Mysteries Fan Wiki" data-order="0" id="project-lotm">
+        <div class="project-chrome" aria-hidden="true">
+          <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
+          <span class="chrome-address"><span class="chrome-url">lotm-fan-wiki.site.je</span></span>
+        </div>
+        <div class="project-viewport">
+          <img src="assets/thumb-lotm.webp" alt="Homepage of the Lord of the Mysteries fan wiki" width="1000" height="800" loading="lazy" decoding="async" />
+        </div>
 
 
 
@@ -2784,6 +2652,13 @@
       </article>
 
       <article class="project-card reveal stagger-2" data-category="tools" data-name="Tarot Draw" data-order="1" id="project-tarotdraw">
+        <div class="project-chrome" aria-hidden="true">
+          <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
+          <span class="chrome-address"><span class="chrome-url">tarotdraw.site.je</span></span>
+        </div>
+        <div class="project-viewport">
+          <img src="assets/thumb-tarot-draw.webp" alt="Tarot Draw card spread interface" width="1000" height="800" loading="lazy" decoding="async" />
+        </div>
 
 
 
@@ -2803,6 +2678,13 @@
       </article>
 
       <article class="project-card reveal stagger-3" data-category="games" data-name="Tarot Memory" data-order="2" id="project-tarotmemory">
+        <div class="project-chrome" aria-hidden="true">
+          <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
+          <span class="chrome-address"><span class="chrome-url">tarotmemory.site.je</span></span>
+        </div>
+        <div class="project-viewport">
+          <img src="assets/thumb-tarot-memory.webp" alt="Tarot Memory card matching grid" width="1000" height="800" loading="lazy" decoding="async" />
+        </div>
 
 
 
@@ -2822,6 +2704,13 @@
       </article>
 
       <article class="project-card reveal stagger-3" data-category="games" data-name="Mystic Coin" data-order="3" id="project-mysticcoin">
+        <div class="project-chrome" aria-hidden="true">
+          <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
+          <span class="chrome-address"><span class="chrome-url">mystic-coin.site.je</span></span>
+        </div>
+        <div class="project-viewport">
+          <img src="assets/thumb-mystic-coin.webp" alt="Mystic Coin flip interface" width="1000" height="800" loading="lazy" decoding="async" />
+        </div>
 
 
 
@@ -2841,6 +2730,13 @@
       </article>
 
       <article class="project-card reveal stagger-4" data-category="sites" data-name="Pudding Paradise" data-order="4" id="project-pudding">
+        <div class="project-chrome" aria-hidden="true">
+          <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
+          <span class="chrome-address"><span class="chrome-url">pudding-paradise.site.je</span></span>
+        </div>
+        <div class="project-viewport">
+          <img src="assets/thumb-pudding.webp" alt="Pudding Paradise dessert shop homepage" width="1000" height="800" loading="lazy" decoding="async" />
+        </div>
 
 
 
@@ -2860,6 +2756,13 @@
       </article>
 
       <article class="project-card project-card--featured reveal stagger-5" data-category="experiments" data-name="GestureLab" data-order="5" id="project-gesturelab">
+        <div class="project-chrome" aria-hidden="true">
+          <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
+          <span class="chrome-address"><span class="chrome-url">gesturelab.site.je</span></span>
+        </div>
+        <div class="project-viewport project-viewport--gesturelab">
+          <img src="assets/thumb-gesturelab.webp" alt="GestureLab hand tracking scene with a particle sphere" width="1000" height="800" loading="lazy" decoding="async" />
+        </div>
 
 
 
@@ -2880,7 +2783,14 @@
       </div>
       </article>
 
-      <article class="project-card project-card--featured reveal stagger-5" data-category="tools" data-name="Typebound" data-order="6" id="project-typebound">
+      <article class="project-card reveal stagger-5" data-category="tools" data-name="Typebound" data-order="6" id="project-typebound">
+        <div class="project-chrome" aria-hidden="true">
+          <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
+          <span class="chrome-address"><span class="chrome-url">typebound.site.je</span></span>
+        </div>
+        <div class="project-viewport">
+          <img src="assets/thumb-typebound.webp" alt="TypeBound typing practice screen" width="1000" height="800" loading="lazy" decoding="async" />
+        </div>
 
 
 
@@ -2900,6 +2810,13 @@
       </article>
 
       <article class="project-card reveal stagger-5" data-category="tools" data-name="Scratchpad" data-order="7" id="project-scratchpad">
+        <div class="project-chrome" aria-hidden="true">
+          <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
+          <span class="chrome-address"><span class="chrome-url">scratchpad.site.je</span></span>
+        </div>
+        <div class="project-viewport">
+          <img src="assets/thumb-scratchpad.webp" alt="Scratchpad workspace interface" width="1000" height="800" loading="lazy" decoding="async" />
+        </div>
 
 
 
@@ -2919,6 +2836,13 @@
       </article>
 
       <article class="project-card reveal stagger-5" data-category="tools" data-name="Lumen" data-order="8" id="project-lumen">
+        <div class="project-chrome" aria-hidden="true">
+          <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
+          <span class="chrome-address"><span class="chrome-url">lumens.site.je</span></span>
+        </div>
+        <div class="project-viewport">
+          <img src="assets/thumb-lumens.webp" alt="Lumen contrast checker with colour swatches" width="1000" height="800" loading="lazy" decoding="async" />
+        </div>
 
 
 
@@ -2938,6 +2862,13 @@
       </article>
 
       <article class="project-card reveal stagger-6" data-category="tools" data-name="Pixelpress" data-order="9" id="project-pixelpress">
+        <div class="project-chrome" aria-hidden="true">
+          <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
+          <span class="chrome-address"><span class="chrome-url">pixelpress.site.je</span></span>
+        </div>
+        <div class="project-viewport">
+          <img src="assets/thumb-pixelpress.webp" alt="Pixelpress image compressor interface" width="1000" height="800" loading="lazy" decoding="async" />
+        </div>
 
 
 
@@ -2955,7 +2886,33 @@
       </div><p class="demo-story-link"><a href="portfolio.html#case-pixelpress">How I built it</a></p>
       </div>
       </article>
-    <p class="demo-empty" id="demoEmpty" hidden>No demos match that search. Try another term or choose “All 10”.</p>
+
+      <article class="project-card reveal stagger-6" data-category="sites" data-name="Fandom Fate" data-order="10" id="project-fandom-fate">
+        <div class="project-chrome" aria-hidden="true">
+          <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
+          <span class="chrome-address"><span class="chrome-url">fandomfate.site.je</span></span>
+        </div>
+        <div class="project-viewport">
+          <img src="assets/thumb-fandom-fate.webp" alt="Fandom Fate home page showing the fandom reading list with Harry Potter, Lord of the Rings, and Lord of the Mysteries cards" width="1000" height="800" loading="lazy" decoding="async" />
+        </div>
+
+
+
+      <div class="project-body">
+      <h3 class="project-name">Fandom Fate</h3><p class="demo-card-category">Website</p>
+      <p class="project-tech">HTML · CSS · JavaScript</p>
+      <p>Take fandom personality quizzes across eight fandoms, then share a themed result card.</p>
+      <div class="project-cta">
+      <a class="btn btn--primary" href="https://fandomfate.site.je/" rel="noopener noreferrer" target="_blank">Open demo <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+      <polyline points="15 3 21 3 21 9"></polyline>
+      <line x1="10" x2="21" y1="14" y2="3"></line>
+      </svg></a>
+
+      </div><p class="demo-story-link"><a href="portfolio.html#case-fandom-fate">How I built it</a></p>
+      </div>
+      </article>
+    <p class="demo-empty" id="demoEmpty" hidden>No demos match that search. Try another term or choose “All 11”.</p>
   </div>
 
   <nav class="demo-pager" id="demoPager" aria-label="Demo pages" hidden></nav>
@@ -3493,6 +3450,7 @@
             "Pudding Paradise restaurant site",
             "Tarot Memory rite game",
             "Scratchpad idea workspace",
+            "Fandom Fate with 17 quizzes",
         ];
         let phraseIndex = 0;
         let charIndex = 0;
@@ -3785,10 +3743,10 @@
 
         
 
-        document.querySelectorAll("a, button, .project-card, .stats-strip-item").forEach((el) => {
+        document.querySelectorAll("a, button, .project-card").forEach((el) => {
           el.addEventListener("mouseenter", () => sfx.hover());
         });
-        document.querySelectorAll("a, button, .project-card, .stats-strip-item").forEach((el) => {
+        document.querySelectorAll("a, button, .project-card").forEach((el) => {
           el.addEventListener("click", () => sfx.click());
         });
 
@@ -3876,20 +3834,7 @@
             cursorRing.classList.add(cls);
           }
 
-          document.querySelectorAll("a, button, .btn, .wordmark").forEach((el) => {
-            el.addEventListener("mouseenter", () => addMorph("hover-link"));
-            el.addEventListener("mouseleave", clearMorph);
-          });
-          document.querySelectorAll(".project-card").forEach((el) => {
-            el.addEventListener("mouseenter", () => addMorph("hover-card"));
-            el.addEventListener("mouseleave", clearMorph);
-          });
-          document.querySelectorAll("h1, h2, h3, p, .section-heading, .about-body").forEach((el) => {
-            el.addEventListener("mouseenter", () => addMorph("hover-text"));
-            el.addEventListener("mouseleave", clearMorph);
-          });
-
-          document.querySelectorAll("a, button, .btn").forEach((el) => {
+          function wireCursorDistort(el) {
             el.addEventListener("mouseenter", () => {
               cursorRing.classList.add("distorted");
               if (distortMap) {
@@ -3909,7 +3854,28 @@
               cursorRing.classList.remove("distorted");
               if (distortMap) distortMap.setAttribute("scale", "0");
             });
-          });
+          }
+
+          // Wired by selector so anything added after load (the demo pager
+          // rebuilds its buttons on every page change) gets the same cursor
+          // treatment as the elements present at load time.
+          function wireCursorTargets(root = document) {
+            root.querySelectorAll("a, button, .btn, .wordmark").forEach((el) => {
+              el.addEventListener("mouseenter", () => addMorph("hover-link"));
+              el.addEventListener("mouseleave", clearMorph);
+              if (el.matches("a, button, .btn")) wireCursorDistort(el);
+            });
+            root.querySelectorAll(".project-card").forEach((el) => {
+              el.addEventListener("mouseenter", () => addMorph("hover-card"));
+              el.addEventListener("mouseleave", clearMorph);
+            });
+            root.querySelectorAll("h1, h2, h3, p, .section-heading, .about-body").forEach((el) => {
+              el.addEventListener("mouseenter", () => addMorph("hover-text"));
+              el.addEventListener("mouseleave", clearMorph);
+            });
+          }
+          wireCursorTargets();
+          window.__wireCursorTargets = wireCursorTargets;
 
           document.querySelectorAll(".btn").forEach((el) => {
             el.addEventListener("mousemove", (e) => {
@@ -4323,6 +4289,9 @@
       (() => {
         const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         document.body.classList.add("page-enter");
+        document.body.addEventListener("animationend", (e) => {
+          if (e.animationName === "pageEnter") document.body.classList.remove("page-enter");
+        });
         window.addEventListener("pageshow", () => document.body.classList.remove("page-exit"));
         if (reduceMotion) return;
 
@@ -4388,6 +4357,7 @@
         pager.appendChild(button);
       }
       pager.appendChild(go(currentPage + 1, "Next", currentPage >= pages - 1));
+      if (window.__wireCursorTargets) window.__wireCursorTargets(pager);
     }
 
     function updateDirectory() {

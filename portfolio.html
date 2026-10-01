@@ -108,7 +108,7 @@
 
         --text-primary: #e8eaf0;
         --text-secondary: #8b95ad;
-        --text-tertiary: #505872;
+        --text-tertiary: #8089a6;
 
         --radius-sm: 6px;
         --radius: 8px;
@@ -1752,7 +1752,7 @@
         --bg-frosted: rgba(255, 255, 255, 0.72);
         --text-primary: #1a1a2e;
         --text-secondary: #4a4a6a;
-        --text-tertiary: #7a7a9a;
+        --text-tertiary: #6b6b8a;
         --border: #e2e4e8;
         --border-hover: #c2c4c8;
         --border-muted: #e2e4e8;
@@ -1794,7 +1794,7 @@
          CUSTOM CURSOR - accent-colored, context-morphing
          ================================================================= */
       @media (hover: hover) and (pointer: fine) {
-        * { cursor: none !important; }
+        html.cursor-ready * { cursor: none !important; }
       }
       .cursor-dot, .cursor-ring {
         position: fixed;
@@ -2285,10 +2285,15 @@
   line-height: 1.5;
 }
 .case-study-copy { min-width: 0; }
-.case-study-kicker {
-  margin: 0 0 10px;
-  color: var(--accent-hover);
-  font-size: .72rem;
+/* R-25: kicker is small text, so light mode darkens the accent to clear
+         4.5:1. --accent-hover is 2.34:1 on a light background and fails. */
+      html:not(.dark) .case-study-kicker {
+        color: color-mix(in srgb, var(--accent) 78%, #000);
+      }
+      .case-study-kicker {
+      margin: 0 0 10px;
+      color: var(--accent-hover);
+      font-size: .72rem;
   font-weight: 700;
   letter-spacing: .09em;
   text-transform: uppercase;
@@ -2587,7 +2592,7 @@
                 <polyline points="15 3 21 3 21 9" />
                 <line x1="10" y1="14" x2="21" y2="3" />
               </svg>
-              See the 10 live demos
+              See the 11 live demos
             </a>
           </div>
         </div>
@@ -2614,7 +2619,7 @@
       <section class="section" id="projects" aria-labelledby="projects-heading">
   <p class="section-label">Selected work</p>
   <h2 class="section-heading" id="projects-heading">A few projects I care about</h2>
-  <p class="project-library-intro">Three different reasons to build: a fan archive for a story I love, a playful browser experiment, and a practical tool. Each one has a small decision behind the interface, not just a list of technologies.</p>
+  <p class="project-library-intro">Four different reasons to build: a fan archive for a story I love, a playful browser experiment, a practical tool, and a quiz site with a print-zine look. Each one has a small decision behind the interface, not just a list of technologies.</p>
 
   <div class="case-study-list">
     <article class="case-study" id="case-lotm">
@@ -2679,6 +2684,27 @@
         </div>
       </div>
     </article>
+
+    <article class="case-study" id="case-fandom-fate">
+      <figure class="case-study-media">
+        <img src="assets/case-fandom-fate.webp" alt="Fandom Fate home page showing the fandom reading list with Harry Potter, Lord of the Rings, and Lord of the Mysteries cards" width="1440" height="1000" loading="lazy" decoding="async" />
+        <figcaption>Live site · fandom list and print-zine cover direction</figcaption>
+      </figure>
+      <div class="case-study-copy">
+        <p class="case-study-kicker">Quiz site · 8 fandoms</p>
+        <h3>Fandom Fate</h3>
+        <p class="case-study-lede">I wanted a quiz site with the feel of a handmade fan-club zine. Fandom Fate asks which part of a story you belong to, then hands back a result card styled for that fandom.</p>
+        <dl class="case-study-notes">
+          <div><dt>What it does</dt><dd>Eight fandom hubs, 17 playable quizzes, and 182 questions in total. Each fandom carries its own palette and cover illustration, and results render as a shareable image. Ambience and answer cues are synthesized with Web Audio, so there are no audio files to download.</dd></div>
+          <div><dt>Build decision</dt><dd>No build step and no dependencies at all: system fonts and original inline SVG, with no runtime requests for images or fonts. Scoring is deterministic with a fixed tie-break, so the same answers always land on the same result.</dd></div>
+        </dl>
+        <p class="case-study-tech">HTML · CSS · JavaScript · Web Audio</p>
+        <div class="case-study-links">
+          <a class="btn btn--primary" href="https://fandomfate.site.je/" target="_blank" rel="noopener noreferrer">Try the live demo</a>
+          <a class="btn btn--ghost" href="index.html#project-fandom-fate">Find it in all demos</a>
+        </div>
+      </div>
+    </article>
   </div>
 
   <div class="selected-more">
@@ -2691,8 +2717,8 @@
   </div>
 
   <div class="project-library-more">
-    <p>That’s the edited selection. The live-demo directory has all 10 projects, with search and filters if you already know what you want to try.</p>
-    <a class="btn btn--ghost" href="index.html#work">Browse all 10 live demos <span aria-hidden="true">↗</span></a>
+    <p>That’s the edited selection. The live-demo directory has all 11 projects, with search and filters if you already know what you want to try.</p>
+    <a class="btn btn--ghost" href="index.html#work">Browse all 11 live demos <span aria-hidden="true">↗</span></a>
   </div>
 </section>
 
@@ -2725,7 +2751,7 @@
           <div class="stats-strip">
             <div class="stats-strip-inner">
               <div class="stats-strip-item">
-                <span class="stats-strip-num">10</span>
+                <span class="stats-strip-num">11</span>
                 <span class="stats-strip-label">Projects Built</span>
               </div>
               <div class="stats-strip-item">
@@ -4125,6 +4151,9 @@
       (() => {
         const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         document.body.classList.add("page-enter");
+        document.body.addEventListener("animationend", (e) => {
+          if (e.animationName === "pageEnter") document.body.classList.remove("page-enter");
+        });
         window.addEventListener("pageshow", () => document.body.classList.remove("page-exit"));
         if (reduceMotion) return;
 
