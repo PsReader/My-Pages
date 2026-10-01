@@ -41,7 +41,8 @@ export type HandednessLabel = "Left" | "Right" | "unknown";
 function canUseWorker(): boolean {
   return (
     typeof Worker !== "undefined" &&
-    typeof createImageBitmap !== "undefined"
+    typeof createImageBitmap !== "undefined" &&
+    typeof OffscreenCanvas !== "undefined"
   );
 }
 

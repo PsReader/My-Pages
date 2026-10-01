@@ -6,7 +6,7 @@
   --surface-2: #16253a;
   --text: #f3f7ff;
   --muted: #7d8ca8;
-  --accent: #6ec5ff;
+  --accent: #6ec5ff; /* fallback */
   --accent-2: #4cc9f0;
   --accent-rgb: 110, 197, 255;
   --border: rgba(255, 255, 255, 0.12);
@@ -79,6 +79,7 @@ body[data-theme="midnight-studio"] {
   --text: #eaf2ff;
   --muted: #7c8ba3;
   --accent: #4fdcff;
+  --accent-ink: #002b36;
   --accent-2: #7de6ff;
   --accent-rgb: 79, 220, 255;
   --border: rgba(79, 220, 255, 0.14);
@@ -113,6 +114,7 @@ body[data-theme="forest-quiet"] {
   --text: #2b3a28;
   --muted: #667056;
   --accent: #506b3f;
+  --accent-ink: #ffffff;
   --accent-2: #8a8a61;
   --accent-rgb: 80, 107, 63;
   --border: rgba(80, 107, 63, 0.2);
@@ -182,6 +184,7 @@ body[data-theme="ink-paper"] {
   --text: #2f2b26;
   --muted: #7a6f5f;
   --accent: #37507a;
+  --accent-ink: #ffffff;
   --accent-2: #8a7a5c;
   --accent-rgb: 55, 80, 122;
   --border: rgba(55, 80, 122, 0.2);
@@ -226,6 +229,7 @@ body[data-theme="moonlit-library"] {
   --text: #f2e9f8;
   --muted: #a08aab;
   --accent: #d9b87a;
+  --accent-ink: #3d2a08;
   --accent-2: #d6bdf6;
   --accent-rgb: 217, 184, 122;
   --border: rgba(217, 184, 122, 0.2);
@@ -269,6 +273,7 @@ body[data-theme="minimal-zen"] {
   --text: #20221e;
   --muted: #71746c;
   --accent: #4c5b48;
+  --accent-ink: #ffffff;
   --accent-2: #8a9478;
   --accent-rgb: 76, 91, 72;
   --border: rgba(32, 34, 30, 0.12);
@@ -302,6 +307,7 @@ body[data-theme="retro-typewriter"] {
   --text: #33302a;
   --muted: #7c6d56;
   --accent: #4d4030;
+  --accent-ink: #ffffff;
   --accent-2: #8f7450;
   --accent-rgb: 77, 64, 48;
   --border: rgba(77, 64, 48, 0.22);
@@ -350,6 +356,7 @@ body[data-theme="solar-desk"] {
   --text: #4d3317;
   --muted: #8f6f40;
   --accent: #c68724;
+  --accent-ink: #3a2a08;
   --accent-2: #e0ad4f;
   --accent-rgb: 198, 135, 36;
   --border: rgba(198, 135, 36, 0.16);
@@ -379,6 +386,7 @@ body[data-theme="cosmic-notes"] {
   --text: #ece4fb;
   --muted: #7b86a8;
   --accent: #8b6ff6;
+  --accent-ink: #0d0918;
   --accent-2: #00d1ff;
   --accent-rgb: 139, 111, 246;
   --border: rgba(139, 111, 246, 0.2);
@@ -581,10 +589,12 @@ header {
   overflow: hidden;
   overflow-y: auto;
   pointer-events: none;
+  visibility: hidden;
   transition:
     opacity 220ms ease,
     transform 220ms ease,
-    max-height 220ms ease;
+    max-height 220ms ease,
+    visibility 220ms ease;
   z-index: 20;
 }
 
@@ -611,6 +621,7 @@ header {
   transform: translateY(0) scale(1);
   max-height: 320px;
   pointer-events: auto;
+  visibility: visible;
 }
 
 .theme-option {
@@ -1220,8 +1231,12 @@ body[data-theme="cosmic-notes"] .note-card::before {
 
 .add-note-btn {
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: white;
+  color: var(--accent-ink);
   border-color: transparent;
+}
+
+.confirm-yes {
+  color: var(--accent-ink);
 }
 
 .dashboard-sections {

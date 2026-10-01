@@ -18,7 +18,8 @@ function setupAccordions() {
   const accordionHeaders = document.querySelectorAll('[data-accordion-header]');
 
   accordionHeaders.forEach(header => {
-    const toggle = function() {
+    const toggle = function(event) {
+      if (event && event.target.closest && event.target.closest('a')) return
       const content = this.nextElementSibling;
 
       // Close all other accordions
@@ -33,9 +34,11 @@ function setupAccordions() {
       this.classList.toggle('active');
       content.style.display =
         content.style.display === 'block' ? 'none' : 'block';
+      this.setAttribute('aria-expanded', this.classList.contains('active') ? 'true' : 'false');
     };
 
     header.addEventListener('click', toggle);
+    header.setAttribute('aria-expanded', 'false');
 
     // Keyboard support for role="button" headers
     header.addEventListener('keydown', function(e) {

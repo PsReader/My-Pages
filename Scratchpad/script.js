@@ -236,7 +236,11 @@ function loadTheme() {
 function loadNotes() {
   try {
     const savedNotes = localStorage.getItem(notesStorageKey);
-    return savedNotes ? JSON.parse(savedNotes) : [];
+    if (!savedNotes) return [];
+    const parsed = JSON.parse(savedNotes);
+    return Array.isArray(parsed)
+      ? parsed.filter((note) => note && typeof note === "object")
+      : [];
   } catch (error) {
     console.error("Unable to load notes", error);
     return [];
@@ -308,8 +312,9 @@ function getVisibleNotes() {
   return [...notes]
     .filter((note) => {
       if (!query) return true;
+      const noteTagsArray = Array.isArray(note.tags) ? note.tags : [];
       const searchable =
-        `${note.title} ${note.content} ${(note.tags || []).join(" ")} ${note.section}`.toLowerCase();
+        `${note.title} ${note.content} ${noteTagsArray.join(" ")} ${note.section}`.toLowerCase();
       return searchable.includes(query);
     })
     .sort((a, b) => {
@@ -356,8 +361,9 @@ function renderNotes() {
 }
 
 function renderNoteCard(note) {
-  const tags = (note.tags || []).length
-    ? `<div class="note-tags">${note.tags.map((tag) => `<span class="note-tag">${escapeHtml(tag)}</span>`).join("")}</div>`
+  const noteTags = Array.isArray(note.tags) ? note.tags : [];
+  const tags = noteTags.length
+    ? `<div class="note-tags">${noteTags.map((tag) => `<span class="note-tag">${escapeHtml(tag)}</span>`).join("")}</div>`
     : "";
 
   return `
@@ -370,14 +376,14 @@ function renderNoteCard(note) {
           </div>
           <p class="note-card__meta">${escapeHtml(note.section)} • ${formatDate(note.createdAt)}</p>
         </div>
-        <button class="icon-button" type="button" data-action="toggle-pin" data-id="${note.id}">
+        <button class="icon-button" type="button" data-action="toggle-pin" data-id="${escapeHtml(note.id)}">
           ${note.pinned ? "Unpin" : "Pin"}
         </button>
       </div>
       <p class="note-card__content">${escapeHtml(note.content || "")}</p>
       ${tags}
       <div class="note-card__footer">
-        <button class="icon-button danger" type="button" data-action="delete" data-id="${note.id}">Delete</button>
+        <button class="icon-button danger" type="button" data-action="delete" data-id="${escapeHtml(note.id)}">Delete</button>
       </div>
     </article>
   `;
@@ -570,30 +576,54 @@ if (searchNotes) {
 if (clearBtn) {
   clearBtn.addEventListener("click", () => {
     const existing = document.querySelector(".confirm-dialog");
-    if (existing) { existing.remove(); return; }
+    if (existing) {
+      existing.remove();
+      clearBtn.focus();
+      return;
+    }
+
+    const removeDialog = (dialog) => {
+      dialog.remove();
+      clearBtn.focus();
+    };
 
     const dialog = document.createElement("div");
     dialog.className = "confirm-dialog";
+    dialog.setAttribute("role", "alertdialog");
+    dialog.setAttribute("aria-modal", "true");
+    dialog.setAttribute("aria-label", "Clear all notes?");
     dialog.style.cssText =
       "position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);";
     dialog.innerHTML =
       '<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:24px;max-width:320px;width:90%;text-align:center;">' +
       '<p style="margin:0 0 16px;color:var(--text);font-weight:600;">Clear all notes?</p>' +
       '<div style="display:flex;gap:10px;justify-content:center;">' +
-      '<button class="confirm-yes" style="padding:10px 20px;border-radius:999px;border:none;background:var(--accent);color:#fff;font-weight:700;cursor:pointer;">Yes, clear</button>' +
+      '<button class="confirm-yes" style="padding:10px 20px;border-radius:999px;border:none;background:var(--accent);font-weight:700;cursor:pointer;">Yes, clear</button>' +
       '<button class="confirm-no" style="padding:10px 20px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-weight:700;cursor:pointer;">Cancel</button>' +
-      '</div></div>';
+      "</div></div>";
     document.body.appendChild(dialog);
+
+    dialog.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        event.stopPropagation();
+        removeDialog(dialog);
+      }
+    });
 
     dialog.querySelector(".confirm-yes").addEventListener("click", () => {
       pushHistory(notes);
       notes = [];
       saveNotes();
       renderNotes();
-      dialog.remove();
+      removeDialog(dialog);
     });
-    dialog.querySelector(".confirm-no").addEventListener("click", () => dialog.remove());
-    dialog.addEventListener("click", (e) => { if (e.target === dialog) dialog.remove(); });
+    dialog
+      .querySelector(".confirm-no")
+      .addEventListener("click", () => removeDialog(dialog));
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) removeDialog(dialog);
+    });
+    dialog.querySelector(".confirm-no").focus();
   });
 }
 

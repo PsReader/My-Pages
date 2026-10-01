@@ -310,7 +310,6 @@ export function CentralSphere({
           Math.min(MAX_SCALE, gScale.current * (1 + dClamped)),
         );
         sScale.current += (gScale.current - sScale.current) * SCALE_LERP;
-        onParamsChange({ sphereScale: gScale.current, autoScale: false });
       }
     } else {
       sScale.current += (gScale.current - sScale.current) * SCALE_LERP;
@@ -323,7 +322,7 @@ export function CentralSphere({
         gHue.current = ((1 - idx.x) * 0.83 + 1) % 1;
         sHue.current = gHue.current;
         sSat.current = 1;
-        onParamsChange({ hue: gHue.current, autoColor: false });
+        if (p.autoColor) onParamsChange({ hue: gHue.current, autoColor: false });
       }
     } else if (curMode !== 3) {
       let hueT = p.hue;
@@ -343,7 +342,7 @@ export function CentralSphere({
       hasCustomRot.current = true;
       gRot.current += dAngle;
       sRotY.current += (gRot.current - sRotY.current) * 0.35;
-      onParamsChange({ spinSpeed: 0, autoRotation: false });
+      if (p.autoRotation) onParamsChange({ spinSpeed: 0, autoRotation: false });
     } else if (curMode !== 4) {
       if (curMode === 0 && p.autoRotation && !hasCustomRot.current) {
         sRotY.current +=

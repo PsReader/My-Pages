@@ -1372,6 +1372,11 @@
   var customNotes = {};
   var revealed = [];
   var currentOracle = null;
+  var pendingFlipTimers = [];
+  function clearPendingFlips() {
+    pendingFlipTimers.forEach(function (id) { clearTimeout(id); });
+    pendingFlipTimers = [];
+  }
   var quillTrail = document.getElementById("quill-trail");
   var lastTrailAt = 0;
   var lastHoverCard = null;
@@ -2059,6 +2064,7 @@
     customNotes = Object.assign({}, notes || {});
     revealed = [];
     currentOracle = null;
+    clearPendingFlips();
     seedFrom(seed);
 
     var deck = shuffle();
@@ -2095,14 +2101,14 @@
     }
 
     if (settings.revealAll && !restoreState) {
-      Array.prototype.forEach.call(arena.querySelectorAll(".card"), function (card, idx) { setTimeout(function () { flip(idx, card); }, settings.motion ? 20 : settings.delay); });
+      Array.prototype.forEach.call(arena.querySelectorAll(".card"), function (card, idx) { pendingFlipTimers.push(setTimeout(function () { flip(idx, card); }, settings.motion ? 20 : settings.delay)); });
     } else if (settings.autoReveal && !restoreState) {
-      Array.prototype.forEach.call(arena.querySelectorAll(".card"), function (card, idx) { setTimeout(function () { flip(idx, card); }, settings.delay * (idx + 1)); });
+      Array.prototype.forEach.call(arena.querySelectorAll(".card"), function (card, idx) { pendingFlipTimers.push(setTimeout(function () { flip(idx, card); }, settings.delay * (idx + 1))); });
     } else if (spreadId === "daily") {
-      setTimeout(function () {
+      pendingFlipTimers.push(setTimeout(function () {
         var c = arena.querySelector(".card");
         if (c) flip(0, c);
-      }, settings.delay);
+      }, settings.delay));
     }
   }
 
@@ -2229,6 +2235,7 @@
 
   function reset() {
     if (!detailModal.classList.contains("hidden")) closeDetails();
+    clearPendingFlips();
     arena.className = "";
     arena.classList.add("hidden");
     arena.innerHTML = "";

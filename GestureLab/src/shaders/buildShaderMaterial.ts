@@ -44,6 +44,10 @@ export function buildShaderMaterial(shaderId: string, overrides?: Record<string,
       return mkShader(vs,
         `uniform float u_time; uniform vec2 u_velocity; uniform float u_density; uniform float u_speed; uniform float u_contrast; varying vec2 vUv; void main(){ vec2 uv=vUv*2.0-1.0; float value=sin(uv.x*u_density+u_time*u_speed+u_velocity.x)*0.5+cos(uv.y*u_density-u_time*0.7+u_velocity.y)*0.5; vec3 col=mix(vec3(0.04,0.06,0.12),vec3(0.6,0.95,1.0),u_contrast+0.5*value); gl_FragColor=vec4(col,1.0); }`,
         u);
+    case "thermal-vision":
+      return mkShader(vs,
+        `uniform float u_time; uniform vec2 u_velocity; uniform float u_speed; varying vec2 vUv; void main(){ vec2 uv=vUv*2.0-1.0; float wave=sin(uv.y*3.0+u_time*u_speed-u_velocity.x*6.0); vec3 hot=vec3(1.0,0.28,0.05); vec3 warm=vec3(0.9,0.12,0.4); float t=smoothstep(-0.6,0.6,uv.y+wave); vec3 col=mix(warm,hot,t)*smoothstep(1.4,0.3,length(uv)); gl_FragColor=vec4(col,1.0); }`,
+        u);
     default:
       return mkShader(vs,
         `uniform float u_time; uniform vec2 u_velocity; uniform float u_speed; varying vec2 vUv; void main(){ vec3 col=vec3(0.12,0.22,0.36)+u_speed*sin(vec3(0.22,0.5,0.92)+u_time+u_velocity.x); gl_FragColor=vec4(col,1.0); }`,
@@ -57,4 +61,5 @@ export const shaderDefaults: Record<string, Record<string, number>> = {
   "scanline-pulse":        { u_density: 180.0, u_speed: 8.0, u_brightness: 1.0 },
   "neon-scattering":       { u_glow: 2.0, u_scatter: 6.0 },
   "topographic-matrix":    { u_density: 10.0, u_speed: 1.0, u_contrast: 0.5 },
+  "thermal-vision":        { u_speed: 4.0 },
 };

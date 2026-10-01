@@ -65,6 +65,27 @@
   transform: rotate(180deg);
 }
 
+.accordion-header .accordion-link {
+  color: #d4af9f;
+  text-decoration: none;
+  font-size: 0.85em;
+  font-weight: 400;
+  border: 1px solid rgba(212, 175, 159, 0.4);
+  border-radius: 4px;
+  padding: 4px 10px;
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+.accordion-header .accordion-link:hover {
+  background-color: rgba(212, 175, 159, 0.12);
+}
+
+.accordion-header:focus-visible {
+  outline: 2px solid #ffc300;
+  outline-offset: 2px;
+}
+
 .accordion-content {
   display: none;
   padding: 20px;

@@ -65,6 +65,21 @@
   var seconds = 0;
   var totalTime = 0;
   var timerId = null;
+  var timeoutIds = [];
+  function post(fn, ms) {
+    var id = setTimeout(function () {
+      var i = timeoutIds.indexOf(id);
+      if (i >= 0) timeoutIds.splice(i, 1);
+      fn();
+    }, ms);
+    timeoutIds.push(id);
+    return id;
+  }
+  function clearAllTimers() {
+    clearInterval(timerId);
+    timeoutIds.forEach(function (id) { clearTimeout(id); });
+    timeoutIds = [];
+  }
   var locked = false;
   var dealing = true;
   var level = 1;
@@ -171,7 +186,7 @@
   }
 
   function beginLevel() {
-    clearInterval(timerId);
+    clearAllTimers();
     var c = cfg();
     totalTime = c.time;
     seconds = c.time;
@@ -220,7 +235,7 @@
     locked = true;
     var a = picked[0];
     var b = picked[1];
-    setTimeout(function () {
+    post(function () {
       if (cards[a].id === cards[b].id) {
         cards[a].matched = cards[b].matched = true;
         matched++;
@@ -232,14 +247,14 @@
         render();
         if (matched === cfg().pairs) {
           clearInterval(timerId);
-          setTimeout(function () { end(true); }, 650);
+          post(function () { end(true); }, 650);
         }
       } else {
         cards[a].mismatch = cards[b].mismatch = true;
         score = Math.max(0, score - 10);
         $("#score").textContent = score + " ✦";
         render();
-        setTimeout(function () {
+        post(function () {
           cards[a].flipped = false;
           cards[b].flipped = false;
           cards[a].mismatch = false;
@@ -300,7 +315,7 @@
     if (pair) {
       cards.forEach(function (c) { if (c.id === pair.id && !c.matched) c.hint = true; });
       render();
-      setTimeout(function () {
+      post(function () {
         cards.forEach(function (c) { c.hint = false; });
         render();
       }, 1800);
@@ -312,7 +327,7 @@
     tools.freeze = 0;
     $("#freezeCount").textContent = "0";
     clearInterval(timerId);
-    setTimeout(function () {
+    post(function () {
       if (seconds <= 0) return;
       timerId = setInterval(function () {
         seconds--;
@@ -354,8 +369,8 @@
 
   $("#startBtn").addEventListener("click", start);
   $("#restartBtn").addEventListener("click", start);
-  $("#backBtn").addEventListener("click", function () { clearInterval(timerId); show("#homeScreen"); });
-  $("#homeBtn").addEventListener("click", function () { clearInterval(timerId); show("#homeScreen"); });
+  $("#backBtn").addEventListener("click", function () { clearAllTimers(); show("#homeScreen"); });
+  $("#homeBtn").addEventListener("click", function () { clearAllTimers(); show("#homeScreen"); });
   $("#helpBtn").addEventListener("click", help);
   $("#helpCardBtn").addEventListener("click", help);
   $("#closeModal").addEventListener("click", closeModal);

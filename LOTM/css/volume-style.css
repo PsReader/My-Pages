@@ -36,7 +36,7 @@
             rgba(20, 10, 25, 0.95),
             rgba(40, 20, 50, 0.95)
           ),
-          url("images/crimson moon.webp");
+          url("../images/crimson moon.webp");
         background-attachment: fixed;
         color: #d4af9f;
         font-family: "Libre Baskerville", "Merriweather", Georgia, serif;

@@ -186,9 +186,10 @@
   .picker-head span { color: var(--ink-soft); font-size: .72rem; }
   .picker-note { margin: -3px 0 11px; color: var(--ink-soft); font-size: .76rem; }
   .picker-targets { display: flex; gap: 6px; margin-bottom: 13px; }
-  .picker-target { min-height: 32px; padding: 5px 10px; border: 1px solid var(--line-strong); border-radius: 999px; color: var(--ink-soft); background: transparent; font-size: .75rem; font-weight: 750; }
+  .picker-target { min-height: 44px; padding: 5px 10px; border: 1px solid var(--line-strong); border-radius: 999px; color: var(--ink-soft); background: transparent; font-size: .75rem; font-weight: 750; }
   .picker-target.active { border-color: var(--ink); color: var(--surface); background: var(--ink); }
   .wheel-wrap { display: grid; place-items: center; }
+  .wheel-wrap canvas { width: 100%; max-width: 260px; height: auto; }
   #color-wheel { display: block; width: min(100%, 220px); height: auto; border-radius: 50%; cursor: crosshair; touch-action: none; }
   .shade-wrap { margin-top: 13px; }
   .shade-bar { position: relative; height: 24px; overflow: hidden; border: 1px solid rgba(23,33,43,.24); border-radius: 999px; background: linear-gradient(90deg, #fff, #ece8df 22%, #8b8b87 56%, #252a2d 82%, #050607); }
@@ -770,10 +771,30 @@
     .nav-preview { grid-column: auto; }
   }
 
+  /* Three-color role bench: dominant, secondary, accent. */
+  .role-fields { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .role-bench { display: grid; gap: 16px; margin-top: 20px; }
+  .role-stage { --role-dominant: #f5f2eb; --role-secondary: #2f7164; --role-accent: #5c3317; display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr) minmax(148px, .42fr); }
+  .role-stage-main { padding: 16px; border-radius: 12px; color: var(--role-secondary); background: var(--role-dominant); }
+  .role-stage-caption { margin: 0 0 8px; font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
+  .role-stage-body { margin: 0; font-size: .95rem; }
+  .role-stage-side { display: grid; gap: 12px; align-content: start; }
+  .role-band { padding: 12px; border-radius: 12px; color: var(--role-dominant); background: var(--role-secondary); }
+  .role-band strong { display: block; font-size: .95rem; }
+  .role-band span { font-size: .78rem; opacity: .88; }
+  .role-accent-cta { min-height: 44px; padding: 11px 14px; border: 0; border-radius: 10px; color: var(--role-dominant); background: var(--role-accent); font: inherit; font-weight: 750; cursor: pointer; }
+  .role-accent-cta:focus-visible { outline: 3px solid var(--role-accent); outline-offset: 3px; }
+  .role-readout { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .role-readout li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 11px; background: var(--surface); font-family: var(--mono); font-size: .72rem; }
+  .role-readout .pairing-name { font-family: inherit; font-weight: 700; }
+  .role-readout .pairing-ratio { color: var(--ink-soft); }
+  .role-picker { margin-top: 20px; padding: 16px; border: 1px solid var(--line); border-radius: 16px; }
+  @media (max-width: 640px) { .role-stage { grid-template-columns: 1fr; } }
+
 </style>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"Lumen","url":"https://lumens.site.je/","description":"A visual WCAG contrast checker for accessible interface colors.","applicationCategory":"DesignApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","featureList":["WCAG contrast ratio calculation","HEX, RGB, HSL and OKLCH color input","Palette contrast matrix","Live interface preview","Color vision simulation"]}
+{"@context":"https://schema.org","@type":"WebApplication","name":"Lumen","url":"https://lumens.site.je/","description":"A visual WCAG contrast checker for accessible interface colors.","applicationCategory":"DesignApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","featureList":["WCAG contrast ratio calculation","HEX, RGB, HSL and OKLCH color input","Palette contrast matrix","Live interface preview","Dominant, secondary and accent role check","Color vision simulation"]}
 </script>
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/png">
 <meta name="twitter:image:alt" content="Lumen visual WCAG contrast checker">
@@ -792,39 +813,37 @@
   <header class="topbar">
     <a class="brand" href="#top" aria-label="Lumen home"><img class="brand-mark" src="lumen-mark.svg" alt=""> <span>Lumen</span></a>
     <div class="topbar-actions">
-      <nav aria-label="Page navigation"><a href="#preview">Preview</a><a href="#matrix">Matrix</a><a href="#history">History</a><a href="#about">How it works</a></nav>
+      <button class="toggle" type="button" id="sound-toggle" aria-pressed="false"><span class="toggle-dot" aria-hidden="true">⌁</span><span class="toggle-label">Sound off</span></button>
       <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false"><span class="theme-icon" aria-hidden="true">☼</span><span class="theme-light-label">Light</span><span class="theme-dark-label">Dark</span></button>
     </div>
   </header>
 
   <main id="top">
-    <p class="eyebrow">A visual accessibility instrument</p>
     <h1>Check whether your colors are readable.</h1>
     <p class="lede">Test a text color against a background and see exactly where the pair passes or fails WCAG contrast thresholds.</p>
-    <div class="hero-actions" aria-label="Get started">
-      <a class="button" href="#colors-heading">Start with the example</a>
-      <a class="hero-link" href="#preview">See the live preview ↓</a>
+
+    <div class="toolbar">
+      <div class="tablist" role="tablist" aria-label="Tools">
+        <button type="button" role="tab" id="tab-pair" aria-controls="panel-pair" aria-selected="true" tabindex="0">Pair</button>
+        <button type="button" role="tab" id="tab-roles" aria-controls="panel-roles" aria-selected="false" tabindex="-1">Roles</button>
+        <button type="button" role="tab" id="tab-matrix" aria-controls="panel-matrix" aria-selected="false" tabindex="-1">Matrix</button>
+        <button type="button" role="tab" id="tab-history" aria-controls="panel-history" aria-selected="false" tabindex="-1">History</button>
+      </div>
+      <p class="live-status" id="live-status" role="status" aria-live="polite"></p>
     </div>
 
-    <section class="light-stage" aria-label="Visual relationship between the selected text and background colors">
-      <div class="stage-top"><span>Color relationship / 01</span><span>Live signal</span></div>
-      <div class="light-field" id="light-field" style="--field-fg:#767676;--field-bg:#ffffff">
-        <span class="orb orb-text" id="orb-fg" role="button" tabindex="0" aria-label="Focus text color field"></span>
-        <span class="beam" aria-hidden="true"></span>
-        <span class="orb orb-bg" id="orb-bg" role="button" tabindex="0" aria-label="Focus background color field"></span>
-      </div>
-      <div class="stage-bottom"><span>Text <strong id="stage-fg">#767676</strong></span><span class="stage-center">Contrast <strong id="stage-ratio">4.54:1</strong></span><span>Field <strong id="stage-bg">#ffffff</strong></span></div>
-    </section>
+    <div class="tool-panel" id="panel-pair" role="tabpanel" aria-labelledby="tab-pair" tabindex="0">
+    <div class="workbench">
 
     <section class="experience" aria-label="Experience controls">
       <div class="experience-copy"><span aria-hidden="true">◌</span><div><strong>Sound cues</strong><span> · Theme, orb, and action feedback.</span></div></div>
-      <button class="sound-toggle" type="button" id="sound-toggle" aria-pressed="false"><span class="toggle-dot" aria-hidden="true">⌁</span><span class="toggle-label">Sound off</span></button>
+      <button class="sound-toggle" type="button" id="sound-toggle-2" aria-pressed="false"><span class="toggle-dot" aria-hidden="true">⌁</span><span class="toggle-label">Sound off</span></button>
     </section>
 
     <div class="workbench">
       <section class="panel controls" aria-labelledby="colors-heading">
         <div class="section-kicker">
-          <h2 id="colors-heading"><span class="section-index" aria-hidden="true">01</span>Choose your colors</h2>
+          <h2 id="colors-heading">Choose your colors</h2>
           <span>Updates as you type</span>
         </div>
         <div class="color-fields">
@@ -853,46 +872,49 @@
           </div>
           <p class="tool-note">Switching changes both editable color fields. HEX, RGB, HSL, and OKLCH values are converted locally.</p>
         </section>
-        <details class="picker-lab picker-details" aria-labelledby="picker-heading">
-          <summary class="picker-summary"><span>Fine-tune a color</span><span id="picker-readout">Text color</span></summary>
+        <div class="actions"><button class="button" type="button" id="copy" aria-keyshortcuts="c">Copy CSS</button><button class="button secondary" type="button" id="copy-link">Copy link</button><button class="button secondary" type="button" id="reset" aria-keyshortcuts="r">Reset example</button></div>
+
+        <details class="picker-lab picker-details" id="pair-picker">
+          <summary class="picker-summary"><span>More color tools</span><span class="picker-readout" id="picker-readout">Text color</span></summary>
           <div class="picker-content">
             <div class="picker-head"><h3 id="picker-heading">Explore the pair</h3><span>Wheel + shade</span></div>
             <p class="picker-note">Use the wheel for ideas, or type an exact value above.</p>
             <div class="picker-targets" role="group" aria-label="Choose which color to edit"><button class="picker-target active" type="button" data-target="fg" aria-pressed="true">Text</button><button class="picker-target" type="button" data-target="bg" aria-pressed="false">Background</button></div>
-            <div class="wheel-wrap"><canvas id="color-wheel" width="260" height="260" aria-label="Choose hue and saturation" role="slider" tabindex="0" aria-valuetext="Text color"></canvas></div>
-            <div class="shade-wrap"><div class="shade-bar"><input id="shade-range" type="range" min="0" max="100" value="50" aria-label="Choose shade from white to dark"><span class="shade-marker" id="shade-marker"></span></div><div class="shade-labels"><span>White</span><span>Dark</span></div></div>
+            <div class="wheel-wrap"><canvas class="wheel-canvas" id="color-wheel" width="260" height="260" aria-label="Choose hue and saturation" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="359" aria-valuenow="0" aria-valuetext="Text color"></canvas></div>
+            <div class="shade-wrap"><div class="shade-bar"><input class="shade-range" id="shade-range" type="range" min="0" max="100" value="50" aria-label="Choose shade from white to dark"><span class="shade-marker" id="shade-marker"></span></div><div class="shade-labels"><span>White</span><span>Dark</span></div></div>
+            <section class="palette-lab" aria-labelledby="palette-heading">
+              <div class="palette-head"><h3 id="palette-heading">Start with a palette</h3><span>Curated pairs</span></div>
+              <div class="palette-grid" id="palette-grid" role="group" aria-label="Preset color palettes"></div>
+              <div class="saved-palette-tools"><label class="sr-only" for="saved-palette-name">Name this palette</label><input id="saved-palette-name" type="text" maxlength="28" placeholder="Name this palette" autocomplete="off"><button id="save-palette" type="button">Save current</button></div>
+              <div class="saved-palette-list" id="saved-palette-list" aria-live="polite"></div>
+            </section>
           </div>
         </details>
 
-        <section class="palette-lab" aria-labelledby="palette-heading">
-          <div class="palette-head"><h3 id="palette-heading">Start with a palette</h3><span>Curated pairs</span></div>
-          <div class="palette-grid" id="palette-grid" role="group" aria-label="Preset color palettes"></div>
-          <div class="saved-palette-tools"><label class="sr-only" for="saved-palette-name">Name this palette</label><input id="saved-palette-name" type="text" maxlength="28" placeholder="Name this palette" autocomplete="off"><button id="save-palette" type="button">Save current</button></div>
-          <div class="saved-palette-list" id="saved-palette-list" aria-live="polite"></div>
-        </section>
-        <div class="actions"><button class="button" type="button" id="copy" aria-keyshortcuts="c">Copy CSS</button><button class="button secondary" type="button" id="copy-link">Copy link</button><button class="button secondary" type="button" id="reset" aria-keyshortcuts="r">Reset example</button></div>
         <p class="hint">Supports 3 or 6 hexadecimal digits, with or without <code>#</code>. <span class="shortcut-hint">S swap · R reset · C copy</span></p>
-        <p class="live-status" id="live-status" role="status" aria-live="polite"></p>
       </section>
 
-      <section class="panel result-panel" aria-labelledby="result-heading" aria-live="polite" aria-atomic="false">
-        <div class="section-kicker"><h2 id="result-heading"><span class="section-index" aria-hidden="true">02</span>Your result</h2><span id="result-label">Live calculation</span></div>
+      <section class="panel result-panel" aria-labelledby="result-heading">
+        <div class="section-kicker"><h2 id="result-heading">Your result</h2><span id="result-label">Live calculation</span></div>
         <div class="ratio-wrap"><p class="ratio" id="ratio">4.54</p><span class="ratio-unit">contrast ratio</span></div>
         <p class="summary" id="summary"><strong>Passes AA normal text.</strong> This pair has strong enough contrast for most body copy.</p>
-        <section class="fix-options" aria-label="Make this pass options">
-          <label>Goal <select id="fix-goal"><option value="4.5">AA · 4.5:1</option><option value="7">AAA · 7:1</option></select></label>
-          <label>Adjustment <select id="fix-strategy"><option value="closest">Smallest perceptual change</option><option value="hue">Preserve hue</option><option value="saturation">Preserve saturation</option><option value="text">Adjust text only</option><option value="background">Adjust background only</option></select></label>
-        </section>
-        <p class="fix-explanation" id="fix-explanation">Choose a target and adjustment approach. Lumen shows the exact color change before applying it.</p>
-        <button class="make-pass" id="make-pass" type="button"><span>Make this pair pass AA</span><small>Apply closest fix</small></button>
-        <p class="fix-result" id="fix-result" aria-live="polite"></p>
+        <p class="pair" id="pair">#767676 text on #ffffff background</p>
+        <div class="verdicts" id="verdicts"></div>
         <section class="result-guidance" id="result-guidance" aria-label="Pair guidance">
           <div class="result-guidance-head"><strong id="guidance-title">Good for body text</strong><span id="guidance-status">AA + AAA</span></div>
           <div class="result-scale" aria-hidden="true"><div class="result-scale-marker" id="result-scale-marker"></div></div>
           <div class="result-scale-labels"><span>1:1</span><span>4.5 AA</span><span>7 AAA</span><span>21:1</span></div>
         </section>
-        <p class="pair" id="pair">#767676 text on #ffffff background</p>
-        <div class="verdicts" id="verdicts"></div>
+        <details class="fix-details">
+          <summary>Target and adjustment</summary>
+          <section class="fix-options" aria-label="Make this pass options">
+            <label>Goal <select id="fix-goal"><option value="4.5">AA · 4.5:1</option><option value="7">AAA · 7:1</option></select></label>
+            <label>Adjustment <select id="fix-strategy"><option value="closest">Smallest perceptual change</option><option value="hue">Preserve hue</option><option value="saturation">Preserve saturation</option><option value="text">Adjust text only</option><option value="background">Adjust background only</option></select></label>
+          </section>
+          <p class="fix-explanation" id="fix-explanation">Lumen shows the exact color change before applying it.</p>
+        </details>
+        <button class="make-pass" id="make-pass" type="button"><span>Make this pair pass AA</span><small>Apply closest fix</small></button>
+        <p class="fix-result" id="fix-result" aria-live="polite"></p>
         <section class="suggestions" id="suggestions" aria-labelledby="suggestions-heading">
           <h3 id="suggestions-heading">Need more separation?</h3>
           <p>Try nearby text colors that preserve the same hue while meeting AA for normal text.</p>
@@ -902,7 +924,7 @@
     </div>
 
     <section class="panel preview-panel" id="preview" aria-labelledby="preview-heading">
-      <div class="preview-heading"><h2 id="preview-heading"><span class="section-index" aria-hidden="true">03</span>Live preview</h2><span>See the result, not just the number</span></div>
+      <div class="preview-heading"><h2 id="preview-heading">Live preview</h2><span>See the result, not just the number</span></div>
       <div class="preview-tools">
         <label for="vision-mode">Color blindness preview</label>
         <select id="vision-mode"><option value="none">Normal vision</option><option value="protanopia">Protanopia</option><option value="deuteranopia">Deuteranopia</option><option value="tritanopia">Tritanopia</option><option value="achromatopsia">Achromatopsia</option></select>
@@ -924,8 +946,65 @@
         <nav class="component-card nav-preview" aria-label="Sample navigation"><span class="component-caption">Navigation</span><a href="#preview">Overview</a><a href="#matrix">Accessibility</a><a href="#history">History</a></nav>
       </div>
     </section>
+    </div>
+
+    <div class="tool-panel" id="panel-roles" role="tabpanel" aria-labelledby="tab-roles" tabindex="0" hidden>
+    <section class="panel utility-panel" id="roles" aria-labelledby="roles-heading">
+      <div class="utility-heading"><div><p class="eyebrow">Three colors</p><h2 id="roles-heading">Dominant, secondary, accent</h2><p>Give your largest area, your supporting structure, and your interactive points a role. Every pairing below is measured with the same WCAG formula.</p></div></div>
+      <div class="role-fields">
+        <div class="color-field">
+          <label class="swatch" id="dominant-swatch" for="dominant-picker" title="Choose dominant color"><input type="color" id="dominant-picker" value="#f5f2eb" aria-label="Choose dominant color"></label>
+          <div>
+            <label class="field-label" for="dominant">Dominant <span class="format-label">(HEX)</span></label>
+            <div class="text-row"><input class="hex-input" type="text" id="dominant" value="#f5f2eb" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="dominant-err dominant-help"><span class="sr-only" id="dominant-help">Enter a valid color in the selected color format. The dominant color fills the largest area of the mock interface.</span></div>
+            <p class="error" id="dominant-err" role="alert"></p>
+          </div>
+        </div>
+        <div class="color-field">
+          <label class="swatch" id="secondary-swatch" for="secondary-picker" title="Choose secondary color"><input type="color" id="secondary-picker" value="#2f7164" aria-label="Choose secondary color"></label>
+          <div>
+            <label class="field-label" for="secondary">Secondary <span class="format-label">(HEX)</span></label>
+            <div class="text-row"><input class="hex-input" type="text" id="secondary" value="#2f7164" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="secondary-err secondary-help"><span class="sr-only" id="secondary-help">Enter a valid color in the selected color format. The secondary color carries body text and structural bands.</span></div>
+            <p class="error" id="secondary-err" role="alert"></p>
+          </div>
+        </div>
+        <div class="color-field">
+          <label class="swatch" id="accent-swatch" for="accent-picker" title="Choose accent color"><input type="color" id="accent-picker" value="#5c3317" aria-label="Choose accent color"></label>
+          <div>
+            <label class="field-label" for="accent">Accent <span class="format-label">(HEX)</span></label>
+            <div class="text-row"><input class="hex-input" type="text" id="accent" value="#5c3317" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="accent-err accent-help"><span class="sr-only" id="accent-help">Enter a valid color in the selected color format. The accent color is spent on interactive points such as the button.</span></div>
+            <p class="error" id="accent-err" role="alert"></p>
+          </div>
+        </div>
+      </div>
+      <p class="tool-note">The 60/30/10 split is a composition guideline about area, not contrast. Lumen measures the color pairings, not the proportions.</p>
+      <div class="role-bench">
+        <div class="role-stage" id="role-stage">
+          <div class="role-stage-main">
+            <p class="role-stage-caption">Dominant page</p>
+            <p class="role-stage-body">Body text reads on the dominant color, so this pairing decides whether your copy survives.</p>
+          </div>
+          <div class="role-stage-side">
+            <div class="role-band"><strong>Secondary band</strong><span>Headings and structure</span></div>
+            <button type="button" class="role-accent-cta" id="role-cta">Accent button</button>
+          </div>
+        </div>
+        <ul class="role-readout" id="role-verdicts" role="status" aria-live="polite"></ul>
+      </div>
+      <div class="role-picker" id="role-picker">
+        <div class="picker-head"><h3>Fine-tune a role</h3><span class="picker-readout">Dominant color</span></div>
+        <div class="picker-targets" role="group" aria-label="Choose which role color to edit"><button class="picker-target active" type="button" data-target="dominant" aria-pressed="true">Dominant</button><button class="picker-target" type="button" data-target="secondary" aria-pressed="false">Secondary</button><button class="picker-target" type="button" data-target="accent" aria-pressed="false">Accent</button></div>
+        <div class="wheel-wrap"><canvas class="wheel-canvas" id="role-wheel" width="260" height="260" aria-label="Choose hue and saturation for the role color" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="359" aria-valuenow="0" aria-valuetext="Dominant color"></canvas></div>
+        <div class="shade-wrap"><div class="shade-bar"><input class="shade-range" id="role-shade" type="range" min="0" max="100" value="50" aria-label="Choose role shade from white to dark"><span class="shade-marker"></span></div><div class="shade-labels"><span>White</span><span>Dark</span></div></div>
+      </div>
+      <div class="matrix-wrap" id="role-matrix" aria-live="polite"></div>
+      <div class="actions"><button class="button secondary" type="button" id="reset-roles">Reset roles</button></div>
+    </section>
+    </div>
+
+    <div class="tool-panel" id="panel-matrix" role="tabpanel" aria-labelledby="tab-matrix" tabindex="0" hidden>
     <section class="panel utility-panel" id="matrix" aria-labelledby="matrix-heading">
-      <div class="utility-heading"><div><p class="eyebrow">Batch check / 04</p><h2 id="matrix-heading">Palette contrast matrix</h2><p>Enter several text and background colors. Each cell checks normal-text WCAG thresholds.</p></div><span class="section-index" aria-hidden="true">04</span></div>
+      <div class="utility-heading"><div><p class="eyebrow">Batch check</p><h2 id="matrix-heading">Palette contrast matrix</h2><p>Enter several text and background colors. Each cell checks normal-text WCAG thresholds.</p></div></div>
       <div class="matrix-inputs">
         <label>Text colors<textarea id="matrix-text" rows="3" spellcheck="false">#17212b
 #767676
@@ -938,11 +1017,15 @@
       <p class="matrix-error" id="matrix-error" role="alert"></p>
       <div class="matrix-wrap" id="matrix-result" aria-live="polite"><p class="tool-note">Generate a matrix to compare every text/background combination.</p></div>
     </section>
+    </div>
+
+    <div class="tool-panel" id="panel-history" role="tabpanel" aria-labelledby="tab-history" tabindex="0" hidden>
     <section class="panel utility-panel" id="history" aria-labelledby="history-heading">
-      <div class="utility-heading"><div><p class="eyebrow">Stored on this device / 05</p><h2 id="history-heading">Recent checks</h2><p>Your last 10 tested pairs stay in this browser only.</p></div><button type="button" id="clear-history" class="button secondary">Clear history</button></div>
+      <div class="utility-heading"><div><p class="eyebrow">Stored on this device</p><h2 id="history-heading">Recent checks</h2><p>Your last 10 tested pairs stay in this browser only.</p></div><button type="button" id="clear-history" class="button secondary">Clear history</button></div>
       <div class="history-list" id="history-list" aria-live="polite"></div>
       <div class="history-compare" id="history-compare" aria-live="polite"></div>
     </section>
+    </div>
 
     <details id="about">
       <summary>How to read the results</summary>
@@ -961,7 +1044,7 @@
   const hexToRgb = (hex) => { const n = parseInt(hex.slice(1), 16); return { r: n >> 16 & 255, g: n >> 8 & 255, b: n & 255 } }
   const rgbToOklch = ({r,g,b}) => { const toLinear = (v) => { v /= 255; return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4 }; const R=toLinear(r), G=toLinear(g), B=toLinear(b); const l=Math.cbrt(.4122214708*R+.5363325363*G+.0514459929*B), m=Math.cbrt(.2119034982*R+.6806995451*G+.1073969566*B), ss=Math.cbrt(.0883024619*R+.2817188376*G+.6299787005*B); const L=.2104542553*l+.793617785*m-.0040720468*ss, a=1.9779984951*l-2.428592205*m+.4505937099*ss, bb=.0259040371*l+.7827717662*m-.808675766*ss; return {L,C:Math.hypot(a,bb),h:(Math.atan2(bb,a)*180/Math.PI+360)%360} }
   const oklchToHex = (L,C,h) => { const angle=h*Math.PI/180, a=C*Math.cos(angle), b=C*Math.sin(angle), l=(L+.3963377774*a+.2158037573*b)**3, m=(L-.1055613458*a-.0638541728*b)**3, ss=(L-.0894841775*a-1.291485548*b)**3; const enc=(v)=>{ const x=Math.max(0,Math.min(1,v)); return 255*(x<=.0031308?12.92*x:1.055*x**(1/2.4)-.055) }; return rgbToHex({r:enc(4.0767416621*l-3.3077115913*m+.2309699292*ss),g:enc(-1.2684380046*l+2.6097574011*m-.3413193965*ss),b:enc(-.0041960863*l-.7034186147*m+1.707614701*ss)}) }
-  const parseColor = (value, format) => { if(format==='HEX') return normalizeHex(value); let m, rgb; if(format==='RGB'){ m=value.trim().match(/^rgba?\(\s*(\d{1,3})\s*[, ]\s*(\d{1,3})\s*[, ]\s*(\d{1,3})\s*\)?$/i); if(!m) return null; rgb={r:+m[1],g:+m[2],b:+m[3]}; if(Object.values(rgb).some(v=>v>255)) return null; return rgbToHex(rgb) } if(format==='HSL'){ m=value.trim().match(/^hsla?\(\s*(-?\d+(?:\.\d+)?)\s*(?:deg)?[, ]\s*(\d+(?:\.\d+)?)%[, ]\s*(\d+(?:\.\d+)?)%\s*\)?$/i); if(!m||+m[2]>100||+m[3]>100) return null; return hslToHex(((+m[1]%360)+360)%360,+m[2]/100,+m[3]/100) } if(format==='OKLCH'){ m=value.trim().match(/^oklch\(\s*(\d+(?:\.\d+)?)%?\s+([\d.]+)\s+(-?[\d.]+)(?:deg)?\s*\)$/i); if(!m) return null; let L=+m[1]; if(L>1) L/=100; const C=+m[2], h=+m[3]; if(L>1||C>.5||C<0) return null; return oklchToHex(L,C,((h%360)+360)%360) } return null }
+  const parseColor = (value, format) => { if(format==='HEX') return normalizeHex(value); let m, rgb; if(format==='RGB'){ m=value.trim().match(/^rgba?\(\s*(\d{1,3})\s*[, ]\s*(\d{1,3})\s*[, ]\s*(\d{1,3})\s*\)?$/i); if(!m) return null; rgb={r:+m[1],g:+m[2],b:+m[3]}; if(Object.values(rgb).some(v=>v>255)) return null; return rgbToHex(rgb) } if(format==='HSL'){ m=value.trim().match(/^hsla?\(\s*(-?\d+(?:\.\d+)?)\s*(?:deg)?[, ]\s*(\d+(?:\.\d+)?)%[, ]\s*(\d+(?:\.\d+)?)%\s*\)?$/i); if(!m||+m[2]>100||+m[3]>100) return null; return hslToHex(((+m[1]%360)+360)%360,+m[2]/100,+m[3]/100) } if(format==='OKLCH'){ m=value.trim().match(/^oklch\(\s*(\d+(?:\.\d+)?)%?\s+([\d.]+)\s+(-?[\d.]+)(?:deg)?\s*\)$/i); if(!m) return null; let L=+m[1]; if(L>1) L/=100; const C=+m[2], h=+m[3]; if(!Number.isFinite(L)||!Number.isFinite(C)||!Number.isFinite(h)||L>1||C>.5||C<0) return null; return oklchToHex(L,C,((h%360)+360)%360) } return null }
   const formatColor = (hex, format) => { const rgb=hexToRgb(hex), hsl=rgbToHsl(rgb), ok=rgbToOklch(rgb); if(format==='HEX') return hex; if(format==='RGB') return `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`; if(format==='HSL') return `hsl(${hsl.h.toFixed(4)} ${((hsl.s*100).toFixed(6))}% ${((hsl.l*100).toFixed(6))}%)`; return `oklch(${(ok.L*100).toFixed(7)}% ${ok.C.toFixed(8)} ${ok.h.toFixed(5)})` }
   const setPairInputs = (fg,bg) => { fgInput.value=formatColor(fg,formatMode); bgInput.value=formatColor(bg,formatMode) }
   const setInputColor = (input,hex) => { input.value=formatColor(hex,formatMode) }
@@ -977,7 +1060,7 @@
   ]
   const $ = (id) => document.getElementById(id)
   const fgInput = $('fg'), bgInput = $('bg'), fgPicker = $('fg-picker'), bgPicker = $('bg-picker'), copyLinkBtn = $('copy-link')
-  const lightStage = document.querySelector('.light-stage'), soundToggle = $('sound-toggle'), themeToggle = $('theme-toggle')
+  const soundToggle = $('sound-toggle'), secondSoundToggle = $('sound-toggle-2'), themeToggle = $('theme-toggle')
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   const announce = (message) => { const status = $('live-status'); status.textContent = message; clearTimeout(statusTimer); statusTimer = window.setTimeout(() => { status.textContent = '' }, 2600) }
   const applyTheme = (theme, animate = false) => { const dark = theme === 'dark'; document.documentElement.classList.toggle('theme-animating', animate); document.documentElement.dataset.theme = dark ? 'dark' : 'light'; themeToggle.setAttribute('aria-pressed', String(dark)); themeToggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode'); themeToggle.querySelector('.theme-icon').textContent = dark ? '☾' : '☼'; if (animate) window.setTimeout(() => document.documentElement.classList.remove('theme-animating'), 260) }
@@ -985,6 +1068,10 @@
   applyTheme(preferredTheme)
   themeToggle.addEventListener('click', () => { const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; applyTheme(next, true); try { localStorage.setItem('lumen-theme', next) } catch (e) {}; playTone('theme'); announce(next === 'dark' ? 'Dark mode on' : 'Light mode on') })
   let lastValid = { fg: '#767676', bg: '#ffffff' }
+  const ROLE_KEYS = ['dominant', 'secondary', 'accent']
+  const ROLE_DEFAULTS = { dominant: '#f5f2eb', secondary: '#2f7164', accent: '#5c3317' }
+  const ROLE_LABELS = { dominant: 'Dominant color', secondary: 'Secondary color', accent: 'Accent color' }
+  let lastValidRoles = { ...ROLE_DEFAULTS }
   let formatMode = 'HEX'
   let copyTimer = 0
   let statusTimer = 0
@@ -993,30 +1080,44 @@
   let signalTimer = 0
   let audioContext = null
   let soundEnabled = false
-  const wheel = $('color-wheel'), wheelContext = wheel.getContext('2d'), shadeRange = $('shade-range'), shadeMarker = $('shade-marker'), pickerReadout = $('picker-readout')
-  let pickerTarget = 'fg', pickerHue = 0, pickerSaturation = .5
-  const drawWheel = () => {
-    if (!wheelContext) return
-    const size = wheel.width, center = size / 2, radius = size / 2 - 2
-    wheelContext.clearRect(0, 0, size, size)
-    if (!wheelContext.createConicGradient) { wheel.style.background = 'conic-gradient(#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000)'; return }
-    const hue = wheelContext.createConicGradient(-Math.PI / 2, center, center)
-    ;['#ff0000','#ffff00','#00ff00','#00ffff','#0000ff','#ff00ff','#ff0000'].forEach((color, index, colors) => hue.addColorStop(index / (colors.length - 1), color))
-    wheelContext.fillStyle = hue; wheelContext.beginPath(); wheelContext.arc(center, center, radius, 0, Math.PI * 2); wheelContext.fill()
-    const white = wheelContext.createRadialGradient(center, center, 0, center, center, radius); white.addColorStop(0, 'rgba(255,255,255,1)'); white.addColorStop(1, 'rgba(255,255,255,0)')
-    wheelContext.fillStyle = white; wheelContext.fill()
-    const angle = (pickerHue - 90) * Math.PI / 180, x = center + Math.cos(angle) * pickerSaturation * radius, y = center + Math.sin(angle) * pickerSaturation * radius
-    wheelContext.beginPath(); wheelContext.arc(x, y, 7, 0, Math.PI * 2); wheelContext.fillStyle = '#fff'; wheelContext.fill(); wheelContext.lineWidth = 3; wheelContext.strokeStyle = '#17212b'; wheelContext.stroke()
+  const createPicker = (root) => {
+    const canvas = root.querySelector('.wheel-canvas'), shade = root.querySelector('.shade-range'), marker = root.querySelector('.shade-marker'), readout = root.querySelector('.picker-readout'), buttons = [...root.querySelectorAll('.picker-target')]
+    const context = canvas.getContext('2d')
+    let target = buttons[0].dataset.target, hue = 0, sat = .5
+    const isRole = () => ROLE_KEYS.includes(target)
+    const field = () => $(target)
+    const draw = () => {
+      if (!context) return
+      const size = canvas.width, center = size / 2, radius = size / 2 - 2
+      context.clearRect(0, 0, size, size)
+      if (!context.createConicGradient) { canvas.style.background = 'conic-gradient(#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000)'; return }
+      const ring = context.createConicGradient(-Math.PI / 2, center, center)
+      ;['#ff0000','#ffff00','#00ff00','#00ffff','#0000ff','#ff00ff','#ff0000'].forEach((color, index, colors) => ring.addColorStop(index / (colors.length - 1), color))
+      context.fillStyle = ring; context.beginPath(); context.arc(center, center, radius, 0, Math.PI * 2); context.fill()
+      const white = context.createRadialGradient(center, center, 0, center, center, radius); white.addColorStop(0, 'rgba(255,255,255,1)'); white.addColorStop(1, 'rgba(255,255,255,0)')
+      context.fillStyle = white; context.fill()
+      const angle = (hue - 90) * Math.PI / 180, x = center + Math.cos(angle) * sat * radius, y = center + Math.sin(angle) * sat * radius
+      context.beginPath(); context.arc(x, y, 7, 0, Math.PI * 2); context.fillStyle = '#fff'; context.fill(); context.lineWidth = 3; context.strokeStyle = '#17212b'; context.stroke()
+    }
+    const apply = () => { setInputColor(field(), hslToHex(hue, sat, .94 - (Number(shade.value) / 100) * .88)); marker.style.left = shade.value + '%'; (isRole() ? renderRoles : render)(); playTone('click') }
+    const sync = () => {
+      const hex = parseColor(field().value, formatMode) || (isRole() ? lastValidRoles[target] : lastValid[target]); if (!hex) return
+      const hsl = rgbToHsl(hexToRgb(hex)); hue = hsl.h; sat = hsl.s
+      shade.value = Math.round((.94 - hsl.l) / .88 * 100); marker.style.left = shade.value + '%'
+      canvas.setAttribute('aria-valuenow', String(Math.round(hue))); canvas.setAttribute('aria-valuetext', readout.textContent + ', hue ' + Math.round(hue) + ' degrees, saturation ' + Math.round(sat * 100) + '%')
+      draw()
+    }
+    const set = (next) => { target = next; buttons.forEach((button) => { const active = button.dataset.target === next; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)) }); readout.textContent = isRole() ? ROLE_LABELS[target] : (target === 'fg' ? 'Text color' : 'Background color'); sync() }
+    const fromWheel = (event) => { const rect = canvas.getBoundingClientRect(), scale = canvas.width / rect.width, x = (event.clientX - rect.left) * scale - canvas.width / 2, y = (event.clientY - rect.top) * scale - canvas.height / 2, radius = canvas.width / 2 - 2, distance = Math.min(radius, Math.hypot(x, y)); if (distance > radius) return; hue = (Math.atan2(y, x) * 180 / Math.PI + 90 + 360) % 360; sat = distance / radius; apply() }
+    canvas.addEventListener('pointerdown', (event) => { canvas.setPointerCapture(event.pointerId); fromWheel(event) })
+    canvas.addEventListener('pointermove', (event) => { if (event.buttons) fromWheel(event) })
+    canvas.addEventListener('keydown', (event) => { if (!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)) return; event.preventDefault(); hue = (hue + (event.key === 'ArrowLeft' || event.key === 'ArrowDown' ? -4 : 4) + 360) % 360; const delta = event.key === 'ArrowUp' ? .03 : event.key === 'ArrowDown' ? -.03 : 0; sat = Math.max(0, Math.min(1, sat + delta)); apply() })
+    shade.addEventListener('input', apply)
+    buttons.forEach((button) => button.addEventListener('click', () => set(button.dataset.target)))
+    set(target)
+    return { set, sync }
   }
-  const syncWheelToHex = (hex) => { const hsl = rgbToHsl(hexToRgb(hex)); pickerHue = hsl.h; pickerSaturation = hsl.s; shadeRange.value = Math.round((.94 - hsl.l) / .88 * 100); shadeMarker.style.left = shadeRange.value + '%'; wheel.setAttribute('aria-valuenow', String(Math.round(pickerHue))); wheel.setAttribute('aria-valuetext', pickerReadout.textContent + ', hue ' + Math.round(pickerHue) + ' degrees, saturation ' + Math.round(pickerSaturation * 100) + '%'); drawWheel() }
-  const setPickerTarget = (target) => { pickerTarget = target; document.querySelectorAll('.picker-target').forEach((button) => { const active = button.dataset.target === target; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)) }); pickerReadout.textContent = target === 'fg' ? 'Text color' : 'Background color'; syncWheelToHex(parseColor($(target).value, formatMode) || (target === 'fg' ? lastValid.fg : lastValid.bg)) }
-  const updateFromWheel = (event) => { const rect = wheel.getBoundingClientRect(), scale = wheel.width / rect.width, x = (event.clientX - rect.left) * scale - wheel.width / 2, y = (event.clientY - rect.top) * scale - wheel.height / 2, radius = wheel.width / 2 - 2, distance = Math.min(radius, Math.hypot(x, y)), saturation = Math.min(1, distance / radius); if (distance > radius) return; pickerHue = (Math.atan2(y, x) * 180 / Math.PI + 90 + 360) % 360; pickerSaturation = saturation; applyPickerColor() }
-  const applyPickerColor = () => { const lightness = .94 - (Number(shadeRange.value) / 100) * .88, hex = hslToHex(pickerHue, pickerSaturation, lightness); setInputColor($(pickerTarget), hex); shadeMarker.style.left = shadeRange.value + '%'; render(); playTone('click') }
-  wheel.addEventListener('pointerdown', (event) => { wheel.setPointerCapture(event.pointerId); updateFromWheel(event) }); wheel.addEventListener('pointermove', (event) => { if (event.buttons) updateFromWheel(event) })
-  wheel.addEventListener('keydown', (event) => { if (!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)) return; event.preventDefault(); pickerHue = (pickerHue + (event.key === 'ArrowLeft' || event.key === 'ArrowDown' ? -4 : 4) + 360) % 360; const delta = event.key === 'ArrowUp' ? .03 : event.key === 'ArrowDown' ? -.03 : 0; pickerSaturation = Math.max(0, Math.min(1, pickerSaturation + delta)); applyPickerColor() })
-  document.querySelectorAll('.picker-target').forEach((button) => button.addEventListener('click', () => setPickerTarget(button.dataset.target)))
-  shadeRange.addEventListener('input', applyPickerColor)
-  drawWheel(); shadeMarker.style.left = shadeRange.value + '%'
+  const pairPicker = createPicker($('pair-picker')), rolePicker = createPicker($('role-picker'))
   const setError = (input, errId, message) => { $(errId).textContent = message; if (message) input.setAttribute('aria-invalid', 'true'); else input.removeAttribute('aria-invalid') }
   const syncPicker = (picker, value) => { if (value) picker.value = value }
   const shareUrl = () => { const url = new URL(window.location.href); url.search = ''; url.hash = ''; url.searchParams.set('fg', lastValid.fg.slice(1)); url.searchParams.set('bg', lastValid.bg.slice(1)); return url.toString() }
@@ -1060,6 +1161,44 @@
     } catch (e) {}
   }
   const focusField = (field, soundKind = 'click') => { field.focus({ preventScroll: true }); field.select(); field.closest('.color-field')?.scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'nearest' }); playTone(soundKind) }
+  const rolePairings = (v) => [['Body text on dominant', v.secondary, v.dominant], ['Heading on secondary band', v.dominant, v.secondary], ['Button label on accent', v.dominant, v.accent]]
+  const verdictChips = (r) => { const wrap = document.createElement('span'); wrap.className = 'matrix-verdicts'; [['AA', 4.5], ['AAA', 7]].forEach(([name, threshold]) => { const chip = document.createElement('span'); chip.className = 'matrix-verdict ' + (meets(r, threshold) ? 'pass' : 'fail'); chip.textContent = name + (meets(r, threshold) ? ' · Pass' : ' · Fail'); wrap.append(chip) }); return wrap }
+  const renderRoleMatrix = (v) => {
+    const host = $('role-matrix'); host.textContent = ''
+    const table = document.createElement('table'); table.className = 'matrix-table'
+    const head = document.createElement('thead'), hr = document.createElement('tr'), corner = document.createElement('th')
+    corner.textContent = 'Text ↓ / Background →'; hr.append(corner)
+    ROLE_KEYS.forEach((key) => { const th = document.createElement('th'); th.className = 'matrix-color-heading'; const chip = document.createElement('span'); chip.className = 'matrix-heading-chip'; chip.style.backgroundColor = v[key]; const label = document.createElement('span'); label.textContent = v[key]; th.append(chip, label); hr.append(th) })
+    head.append(hr); table.append(head)
+    const body = document.createElement('tbody')
+    ROLE_KEYS.forEach((key) => {
+      const row = document.createElement('tr'), th = document.createElement('th'); th.className = 'matrix-color-heading'
+      const chip = document.createElement('span'); chip.className = 'matrix-heading-chip'; chip.style.backgroundColor = v[key]
+      const label = document.createElement('span'); label.textContent = v[key]; th.append(chip, label); row.append(th)
+      ROLE_KEYS.forEach((bgKey) => { const r = ratioBetween(v[key], v[bgKey]), td = document.createElement('td'); td.className = 'matrix-cell'; const sample = document.createElement('span'); sample.className = 'matrix-pair-sample'; sample.textContent = 'Aa'; sample.style.color = v[key]; sample.style.backgroundColor = v[bgKey]; const ratio = document.createElement('strong'); ratio.textContent = r.toFixed(2) + ':1'; td.append(sample, ratio, verdictChips(r)); row.append(td) })
+      body.append(row)
+    })
+    table.append(body); host.append(table)
+  }
+  const renderRoles = () => {
+    const v = { ...lastValidRoles }
+    ROLE_KEYS.forEach((key) => { const input = $(key), hex = parseColor(input.value, formatMode); setError(input, key + '-err', input.value.trim() && !hex ? 'Enter a valid ' + formatMode + ' color.' : ''); if (hex) v[key] = hex })
+    lastValidRoles = v
+    const stage = $('role-stage')
+    stage.style.setProperty('--role-dominant', v.dominant); stage.style.setProperty('--role-secondary', v.secondary); stage.style.setProperty('--role-accent', v.accent)
+    ROLE_KEYS.forEach((key) => { $(key + '-swatch').style.backgroundColor = v[key]; $(key + '-picker').value = v[key] })
+    const host = $('role-verdicts'); host.textContent = ''
+    rolePairings(v).forEach(([name, fg, bg]) => { const r = ratioBetween(fg, bg), row = document.createElement('li'), title = document.createElement('span'); title.className = 'pairing-name'; title.textContent = name; const ratio = document.createElement('span'); ratio.className = 'pairing-ratio'; ratio.textContent = r.toFixed(2) + ':1'; row.append(title, ratio, verdictChips(r)); host.append(row) })
+    renderRoleMatrix(v)
+    rolePicker.sync()
+  }
+  $('role-cta').addEventListener('click', () => { const r = ratioBetween(lastValidRoles.dominant, lastValidRoles.accent); playTone('pass'); announce('Accent button label ' + lastValidRoles.dominant + ' on ' + lastValidRoles.accent + ', ' + r.toFixed(2) + ':1') })
+  $('reset-roles').addEventListener('click', () => { ROLE_KEYS.forEach((key) => setInputColor($(key), ROLE_DEFAULTS[key])); renderRoles(); playTone('reset'); announce('Example roles restored') })
+  ROLE_KEYS.forEach((key) => {
+    $(key).addEventListener('input', renderRoles)
+    $(key).addEventListener('focus', () => rolePicker.set(key))
+    $(key + '-picker').addEventListener('input', () => { rolePicker.set(key); setInputColor($(key), $(key + '-picker').value); renderRoles() })
+  })
   const render = () => {
     const fg = parseColor(fgInput.value, formatMode), bg = parseColor(bgInput.value, formatMode)
     setError(fgInput, 'fg-err', fgInput.value.trim() && !fg ? 'Enter a valid ' + formatMode + ' color.' : '')
@@ -1076,13 +1215,6 @@
     $('summary').innerHTML = summaryFor(r)
     renderGuidance(r)
     renderSuggestions(fg, bg, r)
-    $('stage-fg').textContent = fg
-    $('stage-bg').textContent = bg
-    $('stage-ratio').textContent = r.toFixed(2) + ':1'
-    $('light-field').style.setProperty('--field-fg', fg)
-    $('light-field').style.setProperty('--field-bg', bg)
-    $('orb-fg').style.setProperty('--orb', fg)
-    $('orb-bg').style.setProperty('--orb', bg)
     $('verdicts').textContent = ''
     const verdictState = []
     for (const [label, threshold, sc] of CRITERIA) {
@@ -1094,14 +1226,11 @@
       if (previousVerdicts && previousVerdicts[verdictState.length - 1] !== ok) { card.classList.add('updated'); playTone(ok ? 'pass' : 'fail') }
     }
     previousVerdicts = verdictState
-    lightStage.classList.remove('signal-low', 'signal-mid', 'signal-high')
-    lightStage.classList.add(r < 3 ? 'signal-low' : r >= 7 ? 'signal-high' : 'signal-mid')
-    clearTimeout(signalTimer); lightStage.classList.add('calibrating'); signalTimer = setTimeout(() => lightStage.classList.remove('calibrating'), reducedMotion.matches ? 0 : 850)
     $('sample').style.color = fg; $('sample').style.backgroundColor = bg; document.querySelectorAll('.component-card').forEach((card)=>{card.style.setProperty('--fg-color',fg);card.style.setProperty('--bg-color',bg);card.style.color=fg;card.style.backgroundColor=bg}); $('sample-badge').style.setProperty('--fg-color',fg); $('sample-badge').style.setProperty('--bg-color',bg); if(typeof renderFormatReadout==='function') renderFormatReadout(fg,bg); if(typeof updateVisionReadout==='function') updateVisionReadout(fg,bg); if(pairChanged&&typeof recordHistory==='function') recordHistory(fg,bg,r)
     $('fg-swatch').style.backgroundColor = fg; $('bg-swatch').style.backgroundColor = bg
     syncPicker(fgPicker, fg); syncPicker(bgPicker, bg)
     syncPalettes(fg, bg)
-    syncWheelToHex(pickerTarget === 'fg' ? fg : bg)
+    pairPicker.sync()
   }
 
   const PALETTES = [
@@ -1151,16 +1280,13 @@
   copyLinkBtn.addEventListener('click', async () => { const ok = await copyText(shareUrl()); const label = copyLinkBtn.textContent; copyLinkBtn.textContent = ok ? 'Link copied' : 'Copy failed'; playTone('copy'); announce(ok ? 'Share link copied to clipboard' : 'Copy failed'); clearTimeout(copyTimer); copyTimer = setTimeout(() => { copyLinkBtn.textContent = label }, 2000) })
   $('reset').addEventListener('click', () => { setPairInputs('#767676','#ffffff'); render(); fgInput.focus(); playTone('reset'); announce('Example colors restored') })
   $('swap').addEventListener('click', () => { const fg = fgInput.value, bg = bgInput.value; fgInput.value = bg; bgInput.value = fg; render(); fgInput.focus(); playTone('swap'); announce('Text and background colors swapped') })
-  fgInput.addEventListener('focus', () => setPickerTarget('fg')); bgInput.addEventListener('focus', () => setPickerTarget('bg'))
+  fgInput.addEventListener('focus', () => pairPicker.set('fg')); bgInput.addEventListener('focus', () => pairPicker.set('bg'))
   fgInput.addEventListener('input', render); bgInput.addEventListener('input', render)
-  fgPicker.addEventListener('input', () => { setPickerTarget('fg'); setInputColor(fgInput,fgPicker.value); render() }); bgPicker.addEventListener('input', () => { setPickerTarget('bg'); setInputColor(bgInput,bgPicker.value); render() })
-  $('orb-fg').addEventListener('click', () => focusField(fgInput, 'orb')); $('orb-bg').addEventListener('click', () => focusField(bgInput, 'orb'))
-  $('orb-fg').addEventListener('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); focusField(fgInput, 'orb') } })
-  $('orb-bg').addEventListener('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); focusField(bgInput, 'orb') } })
+  fgPicker.addEventListener('input', () => { pairPicker.set('fg'); setInputColor(fgInput,fgPicker.value); render() }); bgPicker.addEventListener('input', () => { pairPicker.set('bg'); setInputColor(bgInput,bgPicker.value); render() })
 
   document.addEventListener('keydown', (event) => {
     if (event.metaKey || event.ctrlKey || event.altKey) return
-    const target = event.target; if (target.matches('input, textarea, select, [contenteditable="true"]')) return
+    const target = event.target; if (target.matches('input, textarea, select, [contenteditable="true"], [role="slider"]')) return
     const key = event.key.toLowerCase()
     if (key === 's') { event.preventDefault(); $('swap').click() }
     else if (key === 'r') { event.preventDefault(); $('reset').click() }
@@ -1168,13 +1294,26 @@
     else if (/^[1-6]$/.test(key)) { const palette = document.querySelectorAll('.palette-card')[Number(key) - 1]; if (palette) { event.preventDefault(); palette.click() } }
   })
   const storedSound = (() => { try { return localStorage.getItem('lumen-sound') === 'soft-lab' } catch (e) { return false } })()
-  const updateSoundLabel = () => { soundToggle.classList.toggle('on', soundEnabled); soundToggle.setAttribute('aria-pressed', String(soundEnabled)); soundToggle.querySelector('.toggle-label').textContent = soundEnabled ? 'Sound' : 'Sound off' }
+  const updateSoundLabel = () => { [soundToggle, secondSoundToggle].forEach((button) => { button.classList.toggle('on', soundEnabled); button.setAttribute('aria-pressed', String(soundEnabled)); button.querySelector('.toggle-label').textContent = soundEnabled ? 'Sound' : 'Sound off' }) }
   soundEnabled = storedSound; updateSoundLabel()
-  soundToggle.addEventListener('click', () => { soundEnabled = !soundEnabled; try { localStorage.setItem('lumen-sound', soundEnabled ? 'soft-lab' : 'silent') } catch (e) {}; updateSoundLabel(); if (soundEnabled) { playTone('click'); lightStage.classList.add('calibrating'); setTimeout(() => lightStage.classList.remove('calibrating'), 850) } })
+  soundToggle.addEventListener('click', () => { soundEnabled = !soundEnabled; try { localStorage.setItem('lumen-sound', soundEnabled ? 'soft-lab' : 'silent') } catch (e) {}; updateSoundLabel(); if (soundEnabled) playTone('click') })
+  secondSoundToggle.addEventListener('click', () => soundToggle.click())
   const formatReadout = $('format-switcher')
   const renderFormatReadout = () => { document.querySelectorAll('.format-label').forEach((el)=>el.textContent='('+formatMode+')'); document.querySelectorAll('.format-switch button').forEach((button)=>button.setAttribute('aria-pressed',String(button.dataset.format===formatMode))) }
-  const switchFormat = (format) => { formatMode=format; fgInput.value=formatColor(lastValid.fg,format); bgInput.value=formatColor(lastValid.bg,format); renderFormatReadout(); setError(fgInput,'fg-err',''); setError(bgInput,'bg-err',''); render() }
+  const switchFormat = (format) => { formatMode=format; fgInput.value=formatColor(lastValid.fg,format); bgInput.value=formatColor(lastValid.bg,format); ROLE_KEYS.forEach((key)=>{$(key).value=formatColor(lastValidRoles[key],format)}); renderFormatReadout(); setError(fgInput,'fg-err',''); setError(bgInput,'bg-err',''); render(); renderRoles() }
   document.querySelectorAll('.format-switch button').forEach((button)=>button.addEventListener('click',()=>switchFormat(button.dataset.format)))
+  const tabs = Array.from(document.querySelectorAll('[role="tab"]'))
+  const activateTab = (tab) => { tabs.forEach((t) => { const on = t === tab; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; const panel = document.getElementById(t.getAttribute('aria-controls')); if (panel) panel.hidden = !on }) }
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => activateTab(tab))
+    tab.addEventListener('keydown', (event) => {
+      const prev = tabs[Math.max(0, index - 1)], next = tabs[Math.min(tabs.length - 1, index + 1)]
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') { event.preventDefault(); activateTab(next); next.focus() }
+      else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') { event.preventDefault(); activateTab(prev); prev.focus() }
+      else if (event.key === 'Home') { event.preventDefault(); activateTab(tabs[0]); tabs[0].focus() }
+      else if (event.key === 'End') { event.preventDefault(); activateTab(tabs[tabs.length - 1]); tabs[tabs.length - 1].focus() }
+    })
+  })
   const okLab = (hex) => { const c=hexToRgb(hex); const f=(v)=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4}; const r=f(c.r),g=f(c.g),b=f(c.b),l=Math.cbrt(.4122214708*r+.5363325363*g+.0514459929*b),m=Math.cbrt(.2119034982*r+.6806995451*g+.1073969566*b),ss=Math.cbrt(.0883024619*r+.2817188376*g+.6299787005*b); return [.2104542553*l+.793617785*m-.0040720468*ss,1.9779984951*l-2.428592205*m+.4505937099*ss,.0259040371*l+.7827717662*m-.808675766*ss] }
   const perceptualDistance = (a,b) => { const x=okLab(a),y=okLab(b); return Math.hypot(x[0]-y[0],x[1]-y[1],x[2]-y[2]) }
   const seekLightness = (base, other, role, target, preserveHue=true) => { const hsl=rgbToHsl(hexToRgb(base)), ok=rgbToOklch(hexToRgb(base)); const make=(L)=>preserveHue?hslToHex(hsl.h,hsl.s,L):oklchToHex(L,ok.C,ok.h); let best=null; for(const end of [0,1]){const extreme=make(end), pair=role==='text'?[extreme,other]:[other,extreme]; if(ratioBetween(...pair)<target) continue; let lo=Math.min(hsl.l,end),hi=Math.max(hsl.l,end); for(let i=0;i<24;i++){const mid=(lo+hi)/2, test=make(mid), testPair=role==='text'?[test,other]:[other,test], passes=ratioBetween(...testPair)>=target; if(end<hsl.l){if(passes)lo=mid;else hi=mid}else{if(passes)hi=mid;else lo=mid}} const L=end<hsl.l?lo:hi, color=make(L), d=perceptualDistance(base,color); if(!best||d<best.distance)best={color,distance:d,role} } return best }
@@ -1193,9 +1332,9 @@
   const recordHistory=(fg,bg,r)=>{const items=readHistory().filter(p=>p.fg!==fg||p.bg!==bg);items.unshift({fg,bg,ratio:r,at:Date.now()});try{localStorage.setItem('lumen-recent-pairs',JSON.stringify(items.slice(0,10)))}catch(e){};renderHistory()}
   const renderHistory=()=>{const host=$('history-list'),items=readHistory();host.textContent='';if(!items.length){const p=document.createElement('p');p.className='tool-note';p.textContent='No recent checks yet. Valid color pairs you test will appear here.';host.append(p);return}items.forEach((item,index)=>{const row=document.createElement('div');row.className='history-row';const pair=document.createElement('span');pair.className='history-pair';const sw=document.createElement('span');sw.className='history-swatches';sw.innerHTML=`<span style="background:${item.fg}"></span><span style="background:${item.bg}"></span>`;const txt=document.createElement('span');txt.textContent=`${item.fg} on ${item.bg} · ${(item.ratio||ratioBetween(item.fg,item.bg)).toFixed(2)}:1`;pair.append(sw,txt);const restore=document.createElement('button');restore.type='button';restore.textContent='Restore';restore.addEventListener('click',()=>{setPairInputs(item.fg,item.bg);render();announce('Previous color pair restored')});const compare=document.createElement('button');compare.type='button';compare.className='compare-history';compare.textContent='Compare';compare.addEventListener('click',()=>{const now=ratioBetween(lastValid.fg,lastValid.bg),then=ratioBetween(item.fg,item.bg),delta=now-then;$('history-compare').innerHTML=`<strong>Current ${now.toFixed(2)}:1</strong> (${lastValid.fg} on ${lastValid.bg}) vs <strong>saved ${then.toFixed(2)}:1</strong> (${item.fg} on ${item.bg}), ${Math.abs(delta).toFixed(2)} ratio points ${delta>0?'higher':delta<0?'lower':'apart'}.`});row.append(pair,restore,compare);host.append(row)})}
   $('clear-history').addEventListener('click',()=>{try{localStorage.removeItem('lumen-recent-pairs')}catch(e){};renderHistory();$('history-compare').textContent='';announce('Recent checks cleared')})
-  renderHistory(); renderFormatReadout(); updateVisionReadout()
+  renderHistory(); renderFormatReadout(); updateVisionReadout(); renderRoles()
   const assert = (name, actual, expected) => { const failed = typeof actual === 'number' && typeof expected === 'number' ? Math.abs(actual - expected) > 0.005 : actual !== expected; if (failed) throw new Error(name + ': got ' + actual + ', want ' + expected) }
-  const selfCheck = () => { const rows = [['black on white', '#000000', '#ffffff', 21], ['white on white', '#ffffff', '#ffffff', 1], ['the boundary pair', '#767676', '#ffffff', 4.54], ['one digit lower', '#777777', '#ffffff', 4.48], ['exact AAA', '#595959', '#ffffff', 7], ['large text only', '#949494', '#ffffff', 3.03]]; for (const [name, a, b, want] of rows) assert(name, ratioBetween(a, b), want); assert('3-digit expands', normalizeHex('f0a'), '#ff00aa'); assert('hash is optional', normalizeHex('FFF'), '#ffffff'); assert('RGB parse',parseColor('rgb(118, 118, 118)','RGB'),'#767676'); assert('HSL parse',parseColor('hsl(0 0% 46%)','HSL'),'#757575'); assert('OKLCH round trip',perceptualDistance(parseColor(formatColor('#3b82f6','OKLCH'),'OKLCH'),'#3b82f6')<.005,true); for(const color of ['#767676','#123456','#ff00aa','#10b981','#80a2c0','#f5f2eb']){assert(color+' HSL preserves sRGB',parseColor(formatColor(color,'HSL'),'HSL'),color);assert(color+' OKLCH preserves sRGB',parseColor(formatColor(color,'OKLCH'),'OKLCH'),color)} if (!meets(ratioBetween('#767676', '#ffffff'), 4.5)) throw new Error('boundary pass failed'); if (meets(ratioBetween('#777777', '#ffffff'), 4.5)) throw new Error('boundary fail failed'); if (!meets(7, 7) || meets(4.499, 4.5) || !meets(4.5, 4.5)) throw new Error('threshold comparison failed') }
+  const selfCheck = () => { const rows = [['black on white', '#000000', '#ffffff', 21], ['white on white', '#ffffff', '#ffffff', 1], ['the boundary pair', '#767676', '#ffffff', 4.54], ['one digit lower', '#777777', '#ffffff', 4.48], ['exact AAA', '#595959', '#ffffff', 7], ['large text only', '#949494', '#ffffff', 3.03]]; for (const [name, a, b, want] of rows) assert(name, ratioBetween(a, b), want); assert('3-digit expands', normalizeHex('f0a'), '#ff00aa'); assert('hash is optional', normalizeHex('FFF'), '#ffffff'); assert('RGB parse',parseColor('rgb(118, 118, 118)','RGB'),'#767676'); assert('HSL parse',parseColor('hsl(0 0% 46%)','HSL'),'#757575'); assert('OKLCH round trip',perceptualDistance(parseColor(formatColor('#3b82f6','OKLCH'),'OKLCH'),'#3b82f6')<.005,true); assert('malformed OKLCH rejected',parseColor('oklch(50% 0.2.1 200)','OKLCH'),null); for(const color of ['#767676','#123456','#ff00aa','#10b981','#80a2c0','#f5f2eb']){assert(color+' HSL preserves sRGB',parseColor(formatColor(color,'HSL'),'HSL'),color);assert(color+' OKLCH preserves sRGB',parseColor(formatColor(color,'OKLCH'),'OKLCH'),color)} if (!meets(ratioBetween('#767676', '#ffffff'), 4.5)) throw new Error('boundary pass failed'); if (meets(ratioBetween('#777777', '#ffffff'), 4.5)) throw new Error('boundary fail failed'); if (!meets(7, 7) || meets(4.499, 4.5) || !meets(4.5, 4.5)) throw new Error('threshold comparison failed'); for (const key of ROLE_KEYS) assert('role diagonal ' + key, ratioBetween(ROLE_DEFAULTS[key], ROLE_DEFAULTS[key]), 1); assert('ratio is symmetric', ratioBetween(ROLE_DEFAULTS.secondary, ROLE_DEFAULTS.dominant), ratioBetween(ROLE_DEFAULTS.dominant, ROLE_DEFAULTS.secondary)); assert('default body text passes AA', meets(ratioBetween(ROLE_DEFAULTS.secondary, ROLE_DEFAULTS.dominant), 4.5), true); assert('default button label passes AAA', meets(ratioBetween(ROLE_DEFAULTS.dominant, ROLE_DEFAULTS.accent), 7), true) }
   try { selfCheck(); console.log('lumen self-check passed') } catch (e) { console.error('lumen self-check failed:', e.message) }
   const shared = new URLSearchParams(window.location.search), sharedFg = normalizeHex(shared.get('fg') || ''), sharedBg = normalizeHex(shared.get('bg') || '')
   if (sharedFg && sharedBg) { fgInput.value = sharedFg; bgInput.value = sharedBg }

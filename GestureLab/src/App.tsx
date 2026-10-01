@@ -35,7 +35,7 @@ const MODE_HOLD_FRAMES = 5;
 function App() {
   const { videoRef, isReady, error } = useWebcam();
   const isLowPerf = isLowPerfDevice();
-  const { landmarks, handedness, isTracking } = useHands(videoRef, { lowPerf: isLowPerf });
+  const { landmarks, handedness, isTracking, error: trackingError } = useHands(videoRef, { lowPerf: isLowPerf });
 
   const [onboardingDone, setOnboardingDone] = useState(() => localStorage.getItem("gesturelab-onboarded") === "true");
 
@@ -103,10 +103,16 @@ function App() {
   const stableFramesRef = useRef(0)
   const committedIdxRef = useRef(-1)
   const committedCountRef = useRef(0)
+  // Debounce on detection frames, not renders. Gesture-driven param writes
+  // re-render this component faster than the camera produces frames and would
+  // otherwise collapse the hold window to a few milliseconds.
+  const lastLandmarksRef = useRef(landmarks)
+  const detectionFrame = landmarks !== lastLandmarksRef.current
+  lastLandmarksRef.current = landmarks
   const rawIdx = fCount0 >= 1 && fCount0 <= 4 ? 0 : fCount1 >= 1 && fCount1 <= 4 ? 1 : -1
   const rawCount = rawIdx >= 0 ? (rawIdx === 0 ? fCount0 : fCount1) : 0
   if (rawIdx === pendingIdxRef.current && rawCount === pendingCountRef.current) {
-    stableFramesRef.current++
+    if (detectionFrame) stableFramesRef.current++
     if (stableFramesRef.current >= MODE_HOLD_FRAMES) {
       committedIdxRef.current = rawIdx
       committedCountRef.current = rawCount
@@ -196,7 +202,7 @@ function App() {
             isReady={isReady}
             isTracking={isTracking}
             hasDetectedHand={hasDetectedHand}
-            error={error}
+            error={error ?? trackingError}
             onScreenshot={takeScreenshot}
             onNavToggle={() => setNavOpen(p => !p)}
             onReset={handleReset}

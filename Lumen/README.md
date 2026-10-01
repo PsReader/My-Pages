@@ -16,7 +16,9 @@ Lumen is a visual WCAG contrast checker for text and background colors. Enter or
 - Supports 3-digit and 6-digit HEX values, with or without `#`; RGB, HSL, and OKLCH inputs are validated inline
 - Provides inline validation without clearing the last valid result
 - Includes native color swatches, swap colors, reset, and copy-as-CSS controls that use the selected notation
-- Includes an interactive hue/saturation color wheel with a white-to-dark shade bar for either the text or background color
+- Includes an interactive hue/saturation color wheel with a white-to-dark shade bar, for either the text or background color and for each of the three roles
+- Assigns dominant, secondary, and accent roles with a mock interface, a per-element verdict list, and a three-by-three contrast matrix
+- Treats the 60/30/10 split as an area guideline, not a contrast measurement; the note in the role panel says so explicitly
 - Includes shareable query links (`?fg=...&bg=...`) that reopen a specific color pair
 - Generates every text/background combination in a palette contrast matrix, with AA and AAA verdicts
 - Offers AA or AAA fixes using smallest perceptual change, preserve-hue, preserve-saturation, text-only, or background-only strategies; displays the exact adjustment and OKLab distance

@@ -51,7 +51,7 @@ const fragmentShader = `
 
     float smoke = fbm(p * iScale + r * 0.8);
     float radius = 0.35 + 0.2 * (1.0 / iScale);
-    float distFactor = 1.0 - smoothstep(0.0, radius * activity, length(p - mousePos));
+    float distFactor = 1.0 - smoothstep(0.0, max(radius * activity, 0.0001), length(p - mousePos));
     float alpha = pow(smoke, 2.5) * distFactor * 0.45;
 
     vec3 c1 = tint1(iBaseColor);
@@ -570,7 +570,9 @@ export function initGhostCursor(el, opts = {}) {
   window.addEventListener("pointermove", onPointerMove, { passive: true });
   window.addEventListener("pointerenter", onPointerEnter, { passive: true });
   window.addEventListener("pointerleave", onPointerLeave, { passive: true });
-  host.addEventListener("pointerdown", onPointerDown, { passive: true });
+  window.addEventListener("pointercancel", onPointerLeave, { passive: true });
+  window.addEventListener("blur", onPointerLeave, { passive: true });
+  window.addEventListener("pointerdown", onPointerDown, { passive: true });
 
   const setColor = (hex) => {
     if (!hex) return;
@@ -610,7 +612,9 @@ export function initGhostCursor(el, opts = {}) {
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("pointerenter", onPointerEnter);
       window.removeEventListener("pointerleave", onPointerLeave);
-      host.removeEventListener("pointerdown", onPointerDown);
+      window.removeEventListener("pointercancel", onPointerLeave);
+      window.removeEventListener("blur", onPointerLeave);
+      window.removeEventListener("pointerdown", onPointerDown);
       ro.disconnect();
 
       scene.clear();

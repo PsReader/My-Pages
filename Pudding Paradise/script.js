@@ -16,16 +16,39 @@ function showToast(message, type) {
   requestAnimationFrame(function () {
     toast.classList.add("show");
   });
-  setTimeout(function () {
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function () {
     toast.classList.remove("show");
   }, 3000);
 }
 
+var toastTimer = null;
+
 // --- Menu Toggle ---
+function syncMenuAria() {
+  var dropdown = document.getElementById("dropdownMenu");
+  var menuIcon = document.querySelector(".menu-icon");
+  if (menuIcon) {
+    menuIcon.setAttribute(
+      "aria-expanded",
+      dropdown && dropdown.classList.contains("active") ? "true" : "false"
+    );
+  }
+}
+
 function toggleMenu() {
   var dropdown = document.getElementById("dropdownMenu");
   if (dropdown) dropdown.classList.toggle("active");
+  syncMenuAria();
 }
+
+document.addEventListener("keydown", function (event) {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  if (event.target.classList && event.target.classList.contains("menu-icon")) {
+    event.preventDefault();
+    toggleMenu();
+  }
+});
 
 document.addEventListener("click", function (event) {
   var dropdown = document.getElementById("dropdownMenu");
@@ -37,6 +60,7 @@ document.addEventListener("click", function (event) {
     !menuIcon.contains(event.target)
   ) {
     dropdown.classList.remove("active");
+    syncMenuAria();
   }
 });
 
@@ -46,7 +70,10 @@ function scrollToSection(sectionId) {
   if (section) {
     section.scrollIntoView({ behavior: "smooth" });
     var dd = document.getElementById("dropdownMenu");
-    if (dd) dd.classList.remove("active");
+    if (dd) {
+      dd.classList.remove("active");
+      syncMenuAria();
+    }
   }
 }
 
@@ -97,7 +124,7 @@ if (document.querySelector(".menu-grid") || document.querySelector(".menu-items"
 }
 
 // --- Review System (Review page only) ---
-if (document.querySelector(".review-list")) {
+if (document.getElementById("reviewStarFilter")) {
   var STORAGE_KEY = "puddingParadiseReviews";
   var selectedFeedbackRating = 0;
   var reviews = [];

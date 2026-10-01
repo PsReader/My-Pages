@@ -271,6 +271,7 @@
     petViewState = null;
     stopTimer(false);
     saveState();
+    closeSettings();
     renderApp();
     announce("Progress reset to start fresh.");
   }
@@ -1190,6 +1191,10 @@
 
     updateLevel(state);
     fillTimerOnMode(false);
+    if (!state.timer.isRunning) {
+      state.timer.remainingSeconds = getModeDurationSeconds(state, state.timer.mode);
+      state.timer.endTime = null;
+    }
     saveState();
     renderApp();
     announce("Settings saved.");
@@ -1481,6 +1486,7 @@
       dialDrag = null;
       dialRuler.classList.remove("is-dragging");
       settleDial();
+      window.setTimeout(() => { dialSuppressClick = false; }, 0);
     };
     dialRuler.addEventListener("pointerup", endDialDrag);
     dialRuler.addEventListener("pointercancel", endDialDrag);
@@ -1590,8 +1596,15 @@
     qs("#ob-skip").addEventListener("click", skipOnboarding);
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && qs("#settings-dialog").hidden === false) {
-        closeSettings();
+      if (e.key === "Escape") {
+        if (qs("#settings-dialog").hidden === false) {
+          closeSettings();
+          return;
+        }
+        if (qs("#onboarding").hidden === false) {
+          skipOnboarding();
+          return;
+        }
       }
       if (e.key === " " && qs("#timer-primary") === document.activeElement) {
         e.preventDefault();
@@ -1652,9 +1665,22 @@
   }
 
   document.addEventListener("visibilitychange", () => {
-    if (!document.hidden && state.timer && state.timer.isRunning) {
+    if (document.hidden) return;
+    reconcileDailyFields();
+    if (state.timer && state.timer.isRunning) {
       tickTimer();
+    } else {
+      renderApp();
     }
+  });
+
+  window.addEventListener("storage", (e) => {
+    if (e.key !== STORAGE_KEY || document.hidden) return;
+    if (state.timer && state.timer.isRunning) return;
+    state = loadState();
+    syncMotion();
+    syncTheme();
+    renderApp();
   });
 
   document.addEventListener("pointerdown", () => {

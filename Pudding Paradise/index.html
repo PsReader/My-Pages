@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
@@ -21,7 +21,7 @@
 
     <div class="mobile-container">
       <header>
-        <div class="menu-icon" onclick="toggleMenu()">
+        <div class="menu-icon" role="button" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-label="Buka menu" onclick="toggleMenu()">
           <svg
             viewBox="0 0 24 24"
             fill="none"
@@ -47,7 +47,7 @@
 
 
         <div class="dropdown-menu" id="dropdownMenu">
-          <a href="#" class="dropdown-item" onclick="scrollToSection('hero')"
+          <a href="#" class="dropdown-item" onclick="scrollToSection('hero'); return false;"
             >Beranda</a
           >
           <a href="menu.html" class="dropdown-item">Menu</a>
@@ -266,7 +266,7 @@
           <div class="contact-text">SMKN 1 Kota Bekasi, Ruang D11</div>
         </div>
 
-        <a href="#" onclick="processOrder()" class="contact-item">
+        <a href="#" onclick="processOrder(); return false;" class="contact-item">
           <div class="icon-circle">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path
@@ -279,7 +279,7 @@
 
         <a
           href="https://www.instagram.com/p.sreader?igsh=MWNsdmZycGIyd2gzMg=="
-          target="_blank"
+          target="_blank" rel="noopener"
           rel="noreferrer noopener"
           class="contact-item"
         >
@@ -314,7 +314,7 @@
             height="44"
           />
           <span class="footer-name">Pudding Paradise</span>
-          <p class="footer-tagline">Dibuat dengan 💜</p>
+          <p class="footer-tagline">Dibuat dengan ðŸ’œ</p>
         </div>
         <div class="footer-links">
           <a href="index.html" class="footer-link">
@@ -333,7 +333,7 @@
         <div class="footer-social">
           <a
             href="https://wa.me/6288290295374"
-            target="_blank"
+            target="_blank" rel="noopener"
             rel="noreferrer noopener"
             class="social-icon"
             title="WhatsApp"
@@ -342,7 +342,7 @@
           </a>
           <a
             href="https://www.instagram.com/p.sreader?igsh=MWNsdmZycGIyd2gzMg=="
-            target="_blank"
+            target="_blank" rel="noopener"
             rel="noreferrer noopener"
             class="social-icon"
             title="Instagram"
