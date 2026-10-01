@@ -2384,6 +2384,43 @@
   background: var(--accent-muted);
   color: var(--accent-hover);
 }
+.demo-pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 22px 0 0;
+}
+.demo-page-btn {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: .85rem;
+  cursor: pointer;
+  transition: color .16s ease, background .16s ease, border-color .16s ease;
+}
+.demo-page-btn:hover:not(:disabled) { border-color: var(--border-hover); color: var(--text-primary); }
+.demo-page-btn:focus-visible {
+  outline: 2px solid var(--accent-hover);
+  outline-offset: 3px;
+}
+.demo-page-btn[aria-current="page"] {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  background: var(--accent-muted);
+  color: var(--accent-hover);
+  font-weight: 600;
+}
+.demo-page-btn:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+.demo-pager[hidden] { display: none; }
 .demo-results {
   min-height: 1.5em;
   margin: 0 0 12px;
@@ -2918,6 +2955,8 @@
       </article>
     <p class="demo-empty" id="demoEmpty" hidden>No demos match that search. Try another term or choose “All 10”.</p>
   </div>
+
+  <nav class="demo-pager" id="demoPager" aria-label="Demo pages" hidden></nav>
 </section>
 
       <!-- ============================================================
@@ -4297,13 +4336,48 @@
     const sort = document.getElementById("demoSort");
     const result = document.getElementById("demoResults");
     const empty = document.getElementById("demoEmpty");
+    const pager = document.getElementById("demoPager");
     const filters = Array.from(document.querySelectorAll(".demo-filter"));
+    const PAGE_SIZE = 4;
     let activeCategory = "all";
+    let currentPage = 0;
 
     cards.forEach((card, index) => {
       card.dataset.order = String(index);
       card.dataset.name = card.querySelector(".project-name")?.textContent.trim() || "";
     });
+
+    // ponytail: fixed 4-per-page window. Swap for a cursor/offset scheme if the
+    // list ever needs to page without re-slicing all cards on every keystroke.
+    function pageCountFor(total) {
+      return Math.max(1, Math.ceil(total / PAGE_SIZE));
+    }
+
+    function renderPager(total) {
+      if (!pager) return;
+      const pages = pageCountFor(total);
+      pager.hidden = pages < 2;
+      pager.textContent = "";
+      if (pages < 2) return;
+
+      const go = (target, label, disabled) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "demo-page-btn";
+        button.textContent = label;
+        button.disabled = disabled;
+        if (!disabled) button.addEventListener("click", () => { currentPage = target; updateDirectory(); });
+        return button;
+      };
+
+      pager.appendChild(go(currentPage - 1, "Previous", currentPage === 0));
+      for (let i = 0; i < pages; i += 1) {
+        const button = go(i, String(i + 1), false);
+        if (i === currentPage) button.setAttribute("aria-current", "page");
+        pager.appendChild(button);
+      }
+      pager.appendChild(go(currentPage + 1, "Next", currentPage >= pages - 1));
+    }
 
     function updateDirectory() {
       const query = (search?.value || "").trim().toLocaleLowerCase();
@@ -4313,31 +4387,93 @@
         if (mode === "name-desc") return b.dataset.name.localeCompare(a.dataset.name);
         return Number(a.dataset.order) - Number(b.dataset.order);
       });
-      let visibleCount = 0;
-      ordered.forEach((card) => {
+      const matches = ordered.filter((card) => {
         const categoryMatch = activeCategory === "all" || card.dataset.category === activeCategory;
         const queryMatch = !query || `${card.dataset.name} ${card.dataset.category} ${card.textContent}`.toLocaleLowerCase().includes(query);
-        card.hidden = !(categoryMatch && queryMatch);
-        if (!card.hidden) visibleCount += 1;
+        return categoryMatch && queryMatch;
+      });
+
+      const pages = pageCountFor(matches.length);
+      if (currentPage > pages - 1) currentPage = pages - 1;
+      if (currentPage < 0) currentPage = 0;
+      const sliceStart = currentPage * PAGE_SIZE;
+      const onPage = new Set(matches.slice(sliceStart, sliceStart + PAGE_SIZE));
+
+      ordered.forEach((card) => {
+        card.hidden = !onPage.has(card);
+        if (!card.hidden) {
+          // Reveal wiring runs once at load, so a card that started hidden never
+          // got an observer callback. Show it directly instead of staying at
+          // opacity 0. Flags clear as it goes, so page 1 keeps its scroll reveal.
+          if (card.dataset.deferredReveal) {
+            delete card.dataset.deferredReveal;
+            card.classList.add("visible");
+          }
+        } else if (!card.classList.contains("visible")) {
+          card.dataset.deferredReveal = "";
+        }
         grid.appendChild(card);
       });
       if (empty) {
-        empty.hidden = visibleCount !== 0;
+        empty.hidden = matches.length !== 0;
         grid.appendChild(empty);
       }
-      if (result) result.textContent = `Showing ${visibleCount} of ${cards.length} ${cards.length === 1 ? "demo" : "demos"}`;
+      if (result) {
+        const noun = cards.length === 1 ? "demo" : "demos";
+        const pageNote = pages > 1 ? ` · Page ${currentPage + 1} of ${pages}` : "";
+        result.textContent = `Showing ${matches.length} of ${cards.length} ${noun}${pageNote}`;
+      }
+      renderPager(matches.length);
+    }
+
+    function revealHashTarget() {
+      const id = location.hash.replace(/^#/, "");
+      if (!id) return;
+      const target = document.getElementById(id);
+      if (!target || !cards.includes(target)) return;
+
+      const query = (search?.value || "").trim().toLocaleLowerCase();
+      const mode = sort?.value || "featured";
+      const ordered = [...cards].sort((a, b) => {
+        if (mode === "name-asc") return a.dataset.name.localeCompare(b.dataset.name);
+        if (mode === "name-desc") return b.dataset.name.localeCompare(a.dataset.name);
+        return Number(a.dataset.order) - Number(b.dataset.order);
+      });
+      const position = ordered.indexOf(target);
+      if (position < 0) return;
+      currentPage = Math.floor(position / PAGE_SIZE);
+      updateDirectory();
+      target.scrollIntoView({ block: "center" });
     }
 
     filters.forEach((button) => {
       button.addEventListener("click", () => {
         activeCategory = button.dataset.demoFilter || "all";
+        currentPage = 0;
         filters.forEach((filter) => filter.setAttribute("aria-pressed", String(filter === button)));
         updateDirectory();
       });
     });
-    search?.addEventListener("input", updateDirectory);
-    sort?.addEventListener("change", updateDirectory);
+    search?.addEventListener("input", () => { currentPage = 0; updateDirectory(); });
+    sort?.addEventListener("change", () => { currentPage = 0; updateDirectory(); });
+    window.addEventListener("hashchange", revealHashTarget);
     updateDirectory();
+    revealHashTarget();
+
+    // ponytail: paging math self-check. Run `demoPagerCheck()` in the console to
+    // re-verify; delete both it and pageCountFor if the page size ever goes fixed.
+    function demoPagerCheck() {
+      const assert = (label, got, want) => {
+        if (got !== want) throw new Error(`${label}: got ${got}, want ${want}`);
+      };
+      assert("10 cards at 4/page", pageCountFor(10), 3);
+      assert("5 tools at 4/page", pageCountFor(5), 2);
+      assert("2 games at 4/page", pageCountFor(2), 1);
+      assert("0 matches", pageCountFor(0), 1);
+      assert("clamp past end", Math.min(4, pageCountFor(2) - 1), 0);
+      return "demo paging ok";
+    }
+    window.demoPagerCheck = demoPagerCheck;
   })();
 </script>
   </body>
