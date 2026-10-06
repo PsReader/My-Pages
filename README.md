@@ -116,6 +116,16 @@ A browser-only image utility that compresses, resizes, crops, and converts image
 - processing stays in the browser, no upload, no build step
 - folder: `PixelPress` · repo: [github.com/PsReader/PixelPress](https://github.com/PsReader/PixelPress) · live: `pixelpress.site.je`
 
+### Hexfall
+
+A tactical hex dungeon crawler that runs entirely in the browser.
+
+- seeded rooms, a sub-boss every fifth room, a full boss every tenth
+- 1,000 floors across ten prestige bands, ending at a named Big Bad
+- permanent meta-tree progression, 21 relics, and six playable classes
+- versioned localStorage saves with JSON export and import
+- folder: `HexFall` · repo: [github.com/PsReader/Hexfall](https://github.com/PsReader/Hexfall) · live: `hexfall.site.je`
+
 ---
 
 ## Root files & folders

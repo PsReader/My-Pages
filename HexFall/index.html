@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101418" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="description" content="Lead a party through 1,000 floors in this turn-based hex dungeon crawler. Master ten classes, face rising bosses, and upgrade relics between rooms." />
+    <meta name="keywords" content="tactical hex game, hex dungeon crawler, turn-based strategy game, fantasy tactics, browser dungeon game" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Hexfall: Hexa Battle" />
+    <meta property="og:title" content="Hexfall: Hexa Battle — Tactical Hex Dungeon Crawler" />
+    <meta property="og:description" content="Lead a party through 1,000 floors in this turn-based hex dungeon crawler. Master ten classes, face rising bosses, and upgrade relics between rooms." />
+    <meta property="og:url" content="https://hexfall.site.je/" />
+    <meta property="og:image" content="https://hexfall.site.je/public/images/dungeon-hall.jpg" />
+    <meta property="og:image:secure_url" content="https://hexfall.site.je/public/images/dungeon-hall.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="2560" />
+    <meta property="og:image:height" content="1440" />
+    <meta property="og:image:alt" content="A torchlit stone hall in the Hexfall dungeon" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Hexfall: Hexa Battle — Tactical Hex Dungeon Crawler" />
+    <meta name="twitter:description" content="Lead a party through 1,000 floors in this turn-based hex dungeon crawler. Master ten classes, face rising bosses, and upgrade relics between rooms." />
+    <meta name="twitter:image" content="https://hexfall.site.je/public/images/dungeon-hall.jpg" />
+    <link rel="canonical" href="https://hexfall.site.je/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230b0d0e'/%3E%3Cpath d='M32 5 55 18v28L32 59 9 46V18L32 5Z' fill='none' stroke='%23d2a85d' stroke-width='3'/%3E%3Cpath d='M18 49V27c0-8 6-14 14-14s14 6 14 14v22M24 49V28c0-4 3-7 8-7s8 3 8 7v21' fill='none' stroke='%23d66a38' stroke-width='3'/%3E%3Ccircle cx='32' cy='29' r='3' fill='%23eadfc7'/%3E%3C/svg%3E" />
+    <title>Hexfall: Hexa Battle — Tactical Hex Dungeon Crawler</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "Hexfall: Hexa Battle",
+        "description": "A turn-based tactical hex dungeon crawler with ten distinct Main Classes, party progression, relic upgrades, and a 1,000-floor descent.",
+        "url": "https://hexfall.site.je/",
+        "image": "https://hexfall.site.je/public/images/dungeon-hall.jpg",
+        "genre": ["Turn-Based Strategy", "Dungeon Crawler", "Fantasy Tactics"],
+        "gamePlatform": "Web browser",
+        "operatingSystem": "Any",
+        "playMode": "https://schema.org/SinglePlayer",
+        "applicationCategory": "GameApplication"
+      }
+    </script>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <button class="brand" id="brand-home" aria-label="Return to expedition map">
+        <svg class="brand-mark" viewBox="0 0 52 52" role="img" aria-label="Hexfall dungeon gate sigil">
+          <path class="mark-shell" d="M26 3 45 13.5v25L26 49 7 38.5v-25L26 3Z" />
+          <path class="mark-rib" d="M7 13.5 26 24l19-10.5M26 24v25M13 17l13 7 13-7" />
+          <path class="mark-break" d="M16 40V25c0-5.7 4.5-10 10-10s10 4.3 10 10v15M20 40V26c0-3.2 2.7-5.7 6-5.7s6 2.5 6 5.7v14" />
+          <path class="mark-notch" d="M11 19h5M36 19h5M13 33h5M34 33h5" />
+          <path class="mark-orbit" d="M11 43h30" />
+          <circle class="mark-core" cx="26" cy="26" r="2.8" />
+          <path class="mark-tick" d="M2 27h7M43 27h7" />
+        </svg>
+        <span class="brand-copy"><span class="brand-name">HEXFALL</span><span class="brand-sub">DUNGEON LEDGER / 01</span></span>
+      </button>
+      <div class="topbar-meta">
+        <span class="save-state" id="save-state"><i class="status-dot"></i> WARD SAVE READY</span>
+        <button class="icon-button help-button" id="help-button" title="How to play" aria-label="Open the Field Guide" aria-haspopup="dialog"><span aria-hidden="true">?</span></button>
+        <button class="icon-button" id="settings-button" title="Settings" aria-label="Open settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1-2.1"/><circle cx="12" cy="12" r="4.2"/></svg></button>
+      </div>
+    </header>
+
+    <div id="app" aria-live="polite">
+      <main class="screen-shell seo-fallback">
+        <p class="eyebrow">Turn-based fantasy strategy · browser game</p>
+        <h1 class="display-title">Hexfall: Hexa Battle<em>TACTICAL HEX DUNGEON CRAWLER</em></h1>
+        <p class="lede">Lead a growing party through a thousand-floor descent. Read enemy intent, claim the safest hexes, and decide when to strike, guard, or save a signature move.</p>
+        <section class="seo-fallback-grid" aria-label="Game overview">
+          <article><h2>Plan each turn</h2><p>Move across a tactical hex battlefield, coordinate a team of distinct Main Classes, and counter telegraphed enemy attacks.</p></article>
+          <article><h2>Build your formation</h2><p>Master ten leaders, recruit companions, improve class ranks, and equip relics that change how each run unfolds.</p></article>
+          <article><h2>Descend through 1,000 floors</h2><p>Clear the standard floors, enter nine Prestige bands, face sub-bosses and bosses, and prepare for a Big Bad every hundred floors.</p></article>
+        </section>
+        <p class="seo-fallback-note"><noscript>JavaScript is required to play the interactive battle. The game saves expedition progress in this browser.</noscript></p>
+      </main>
+    </div>
+
+    <div class="toast-region" id="toast-region" aria-live="assertive" aria-atomic="true"></div>
+    <input id="import-input" type="file" accept="application/json,.json" hidden />
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

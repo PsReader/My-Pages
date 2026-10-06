@@ -1,0 +1,16 @@
+{
+  "name": "Hexfall: Hexa Battle",
+  "short_name": "Hexfall",
+  "description": "Hexfall. A pocket-sized tactical expedition for players who like to think one turn ahead.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0a0d10",
+  "theme_color": "#101418",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

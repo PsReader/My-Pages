@@ -1,0 +1,10 @@
+{
+  "name": "hexfall-hexa-battle",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hexfall. A pocket-sized tactical expedition for the browser.",
+  "scripts": {
+    "start": "python3 -m http.server 3000",
+    "serve": "python3 -m http.server 3000"
+  }
+}
