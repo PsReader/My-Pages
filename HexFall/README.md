@@ -109,7 +109,7 @@ The battle board uses a custom top-down stone crypt backdrop with restrained tor
 
 ## SEO and production deployment
 
-- The single indexable route is `/`; `manus-routes.json` and `public/manus-routes.json` both declare it.
+- The single indexable route is `/`.
 - The initial HTML contains a descriptive game overview and VideoGame JSON-LD. Title, description, keywords, robots directives, Open Graph and Twitter metadata are configured for `https://hexfall.site.je/`.
 - `robots.txt` allows public crawling and links to the root `sitemap.xml`; the sitemap lists only the canonical home route. The dungeon-hall JPEG is the social preview image and the in-battle backdrop.
 - Publish the project root at `https://hexfall.site.je/` so the homepage, `/robots.txt`, `/sitemap.xml`, and `/public/images/dungeon-hall.jpg` all serve this project over HTTPS. The sandbox Preview URL is temporary and is not canonical. Read-only checks on 2026-10-06 were inconsistent: one returned 200 for `/`, 404 for `/robots.txt`, and HTML rather than XML at `/sitemap.xml`; a later check returned 502 for the site paths. The live host is not confirmed to serve this build, so verify those exact URLs before submitting for indexing.
