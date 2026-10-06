@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tarotdraw.site.je/sitemap.xml

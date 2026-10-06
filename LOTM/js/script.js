@@ -200,19 +200,19 @@ function setupParticipantChips() {
 const FEATURED_QUOTES = [
   {
     text: 'Free things cost the most.',
-    attr: '— Klein Moretti on Lord of Mysteries, Chapter 5'
+    attr: 'Klein Moretti on Lord of Mysteries, Chapter 5'
   },
   {
     text: 'The oldest and strongest emotion of mankind is fear, and the oldest and strongest fear is the fear of the unknown.',
-    attr: '— Klein Moretti on Lord of Mysteries, Chapter 9'
+    attr: 'Klein Moretti on Lord of Mysteries, Chapter 9'
   },
   {
     text: 'A true professor can communicate with people gently and politely.',
-    attr: '— Klein to Melissa on Lord of Mysteries, Chapter 98'
+    attr: 'Klein to Melissa on Lord of Mysteries, Chapter 98'
   },
   {
     text: 'Fate never repeats itself indefinitely. It always brings us some surprises.',
-    attr: '— Klein Moretti on Lord of Mysteries, Chapter 153'
+    attr: 'Klein Moretti on Lord of Mysteries, Chapter 153'
   }
 ];
 

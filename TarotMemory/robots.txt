@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tarotmemory.site.je/sitemap.xml

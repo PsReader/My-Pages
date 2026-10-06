@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://pudding-paradise.site.je/sitemap.xml

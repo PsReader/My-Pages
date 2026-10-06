@@ -326,6 +326,7 @@
   .live-status { min-height: 1.2em; margin: 8px 0 0; color: var(--pass); font-size: .76rem; font-weight: 750; }
   footer { display: flex; justify-content: space-between; gap: 20px; margin-top: 28px; color: var(--ink-soft); font-size: .82rem; }
   footer a { color: inherit; }
+  .footer-guides { display: flex; flex-wrap: wrap; gap: 6px 18px; text-align: center; }
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
 
@@ -483,6 +484,7 @@
     details { margin-top: 16px; }
     footer { display: block; }
     footer p + p { margin-top: 6px; }
+    .footer-guides { justify-content: flex-start; margin-top: 10px; }
   }
   @media (max-width: 380px) {
     .topbar nav { display: flex; overflow-x: auto; justify-content: flex-start; scrollbar-width: none; }
@@ -1033,7 +1035,7 @@
     </details>
   </main>
 
-  <footer><p>Built around the WCAG relative luminance formula. Compare raw values; round only for display.</p><p><a href="https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html">WCAG reference</a></p></footer>
+  <footer><p>Built around the WCAG relative luminance formula. Compare raw values; round only for display.</p><nav class="footer-guides" aria-label="Guides"><a href="wcag-guide.html">WCAG contrast guide</a><a href="palette-matrix.html">Palette contrast matrix</a><a href="color-formats.html">HEX, RGB, HSL, and OKLCH formats</a></nav><p><a href="https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html">WCAG reference</a></p></footer>
 </div>
 <script>
   const lin = (c) => { const x = c / 255; return x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4 }
@@ -1298,7 +1300,6 @@
   soundEnabled = storedSound; updateSoundLabel()
   soundToggle.addEventListener('click', () => { soundEnabled = !soundEnabled; try { localStorage.setItem('lumen-sound', soundEnabled ? 'soft-lab' : 'silent') } catch (e) {}; updateSoundLabel(); if (soundEnabled) playTone('click') })
   secondSoundToggle.addEventListener('click', () => soundToggle.click())
-  const formatReadout = $('format-switcher')
   const renderFormatReadout = () => { document.querySelectorAll('.format-label').forEach((el)=>el.textContent='('+formatMode+')'); document.querySelectorAll('.format-switch button').forEach((button)=>button.setAttribute('aria-pressed',String(button.dataset.format===formatMode))) }
   const switchFormat = (format) => { formatMode=format; fgInput.value=formatColor(lastValid.fg,format); bgInput.value=formatColor(lastValid.bg,format); ROLE_KEYS.forEach((key)=>{$(key).value=formatColor(lastValidRoles[key],format)}); renderFormatReadout(); setError(fgInput,'fg-err',''); setError(bgInput,'bg-err',''); render(); renderRoles() }
   document.querySelectorAll('.format-switch button').forEach((button)=>button.addEventListener('click',()=>switchFormat(button.dataset.format)))

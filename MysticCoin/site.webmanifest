@@ -1,0 +1,15 @@
+{
+  "name": "Mystic Coin",
+  "short_name": "Mystic Coin",
+  "description": "A small digital divination tool. Ask a question, flip the coin, and receive a symbolic answer.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#120e0a",
+  "theme_color": "#16130f",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "Scratchpad",
+  "short_name": "Scratchpad",
+  "description": "A local thought dashboard. Notes, links, and tasks stored in your browser.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#07111f",
+  "icons": [
+    { "src": "images/scratchpad-logo.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "images/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

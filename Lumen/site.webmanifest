@@ -1,5 +1,5 @@
 {
-  "name": "Lumen — Visual WCAG Contrast Checker",
+  "name": "Lumen: Visual WCAG Contrast Checker",
   "short_name": "Lumen",
   "description": "Test colors, compare accessible palettes, and preview WCAG contrast in context.",
   "start_url": "/",

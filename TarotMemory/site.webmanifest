@@ -1,0 +1,14 @@
+{
+  "name": "Memory of the Tarot Club: The Arcana Memory Rite",
+  "short_name": "Tarot Memory",
+  "description": "A memory rite with the 22 Major Arcana of the Tarot Club. Flip the sigil cards, match every pair, and seal the reading before the hourglass runs dry.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b0e14",
+  "theme_color": "#0b0e14",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

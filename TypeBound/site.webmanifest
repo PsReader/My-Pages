@@ -1,0 +1,15 @@
+{
+  "name": "Type Bound",
+  "short_name": "Type Bound",
+  "description": "A local typing speed challenge. Race the clock, track your best runs, and share results.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f15a3a",
+  "theme_color": "#f15a3a",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "favicon-96.png", "sizes": "96x96", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

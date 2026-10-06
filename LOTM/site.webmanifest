@@ -1,16 +1,30 @@
 {
   "name": "Lord of the Mysteries Fan Wiki",
   "short_name": "LOTM Wiki",
-  "start_url": "/",
+  "description": "Sequences, pathways, characters, Tarot Club lore, and a chapter summary for each volume of Lord of the Mysteries.",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#1a1423",
   "theme_color": "#1a1423",
   "icons": [
     {
       "src": "images/favicon.png",
-      "sizes": "any",
+      "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
