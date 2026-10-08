@@ -14,16 +14,16 @@
     <meta property="og:title" content="Hexfall: Hexa Battle — Tactical Hex Dungeon Crawler" />
     <meta property="og:description" content="Lead a party through 1,000 floors in this turn-based hex dungeon crawler. Master ten classes, face rising bosses, and upgrade relics between rooms." />
     <meta property="og:url" content="https://hexfall.site.je/" />
-    <meta property="og:image" content="https://hexfall.site.je/public/images/dungeon-hall.jpg" />
-    <meta property="og:image:secure_url" content="https://hexfall.site.je/public/images/dungeon-hall.jpg" />
+    <meta property="og:image" content="https://hexfall.site.je/public/images/dungeon-hall-social.jpg" />
+    <meta property="og:image:secure_url" content="https://hexfall.site.je/public/images/dungeon-hall-social.jpg" />
     <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:width" content="2560" />
-    <meta property="og:image:height" content="1440" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="675" />
     <meta property="og:image:alt" content="A torchlit stone hall in the Hexfall dungeon" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Hexfall: Hexa Battle — Tactical Hex Dungeon Crawler" />
     <meta name="twitter:description" content="Lead a party through 1,000 floors in this turn-based hex dungeon crawler. Master ten classes, face rising bosses, and upgrade relics between rooms." />
-    <meta name="twitter:image" content="https://hexfall.site.je/public/images/dungeon-hall.jpg" />
+    <meta name="twitter:image" content="https://hexfall.site.je/public/images/dungeon-hall-social.jpg" />
     <link rel="canonical" href="https://hexfall.site.je/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -36,7 +36,7 @@
         "name": "Hexfall: Hexa Battle",
         "description": "A turn-based tactical hex dungeon crawler with ten distinct Main Classes, party progression, relic upgrades, and a 1,000-floor descent.",
         "url": "https://hexfall.site.je/",
-        "image": "https://hexfall.site.je/public/images/dungeon-hall.jpg",
+        "image": "https://hexfall.site.je/public/images/dungeon-hall-social.jpg",
         "genre": ["Turn-Based Strategy", "Dungeon Crawler", "Fantasy Tactics"],
         "gamePlatform": "Web browser",
         "operatingSystem": "Any",
@@ -44,7 +44,8 @@
         "applicationCategory": "GameApplication"
       }
     </script>
-    <link rel="stylesheet" href="./src/styles.css" />
+    <link rel="preload" as="image" href="./public/images/dungeon-hall-1280.webp" type="image/webp" fetchpriority="low" />
+    <link rel="stylesheet" href="./src/styles.css?v=20261007-balance-1" />
   </head>
   <body>
     <header class="topbar">
@@ -63,11 +64,12 @@
       <div class="topbar-meta">
         <span class="save-state" id="save-state"><i class="status-dot"></i> WARD SAVE READY</span>
         <button class="icon-button help-button" id="help-button" title="How to play" aria-label="Open the Field Guide" aria-haspopup="dialog"><span aria-hidden="true">?</span></button>
-        <button class="icon-button" id="settings-button" title="Settings" aria-label="Open settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1-2.1"/><circle cx="12" cy="12" r="4.2"/></svg></button>
+        <button class="icon-button sound-toggle" id="sound-toggle" title="Mute sound" aria-label="Mute sound" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path class="sound-wave" d="M4 10v4h3l4 3V7l-4 3H4Z"/><path class="sound-wave" d="M15 9.5a4 4 0 0 1 0 5"/><path class="sound-wave" d="M17.5 7a7.5 7.5 0 0 1 0 10"/><path class="sound-muted-mark" d="m15 9 6 6m0-6-6 6"/></svg></button>
+        <button class="icon-button" id="settings-button" title="Settings" aria-label="Open settings"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.6 3.2h4.8l.6 2.1a7.4 7.4 0 0 1 1.5.9l2.1-.6 2.4 4.1-1.5 1.5a7.5 7.5 0 0 1 0 1.8l1.5 1.5-2.4 4.1-2.1-.6a7.4 7.4 0 0 1-1.5.9l-.6 2.1H9.6L9 18.9a7.4 7.4 0 0 1-1.5-.9l-2.1.6L3 14.5 4.5 13a7.5 7.5 0 0 1 0-1.8L3 9.7l2.4-4.1 2.1.6A7.4 7.4 0 0 1 9 5.3l.6-2.1Z"/><circle cx="12" cy="12" r="2.8"/></svg></button>
       </div>
     </header>
 
-    <div id="app" aria-live="polite">
+    <div id="app">
       <main class="screen-shell seo-fallback">
         <p class="eyebrow">Turn-based fantasy strategy · browser game</p>
         <h1 class="display-title">Hexfall: Hexa Battle<em>TACTICAL HEX DUNGEON CRAWLER</em></h1>
@@ -83,6 +85,6 @@
 
     <div class="toast-region" id="toast-region" aria-live="assertive" aria-atomic="true"></div>
     <input id="import-input" type="file" accept="application/json,.json" hidden />
-    <script type="module" src="./src/main.js"></script>
+    <script defer src="./src/main.js?v=20261007-balance-1"></script>
   </body>
 </html>
