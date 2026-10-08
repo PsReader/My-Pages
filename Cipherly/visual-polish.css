@@ -24,3 +24,5 @@
 @media(max-width:760px){.output-tools{gap:3px}.output-tools #mode-note{max-width:calc(100vw - 300px)}.preset-tools{gap:8px}.separator-control{margin-top:14px}}
 
 @media(max-width:340px){.output-actions .button{min-width:0;justify-content:center;padding-inline:10px}.output-actions #copy-button span{display:none}}
+
+@media (pointer: coarse) { .output-tool-button { width: 44px; height: 44px; } }

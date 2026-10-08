@@ -15,13 +15,13 @@
 - **Core principles:** private by default, obvious at a glance, tactile controls, and restrained motion.
 - **Color philosophy:** preserve Cipherly's green/gold identity while shifting the page background, panels, borders, and text through semantic CSS variables for comfortable contrast in either theme.
 - **Layout paradigm:** keep the result dominant and place the new controls in the settings rail, where intent is chosen before configuration.
-- **Signature elements:** the rotated lock mark, mono utility labels, and gold action surfaces remain consistent across themes.
+- **Signature elements:** the cipher dial and keyway mark, mono utility labels, and gold action surfaces remain consistent across themes.
 - **Interaction philosophy:** presets are quick-start decisions; manual settings remain available and take over naturally after selection.
 - **Animation:** use the existing short hover transitions only; respect reduced-motion preferences.
 - **Typography:** DM Sans for controls, DM Mono for security values and metadata, Playfair Display for editorial headings.
 - **Brand essence:** a private, browser-local key maker for people who want strong secrets without ceremony. Personality: calm, precise, discreet.
 - **Brand voice:** direct and reassuring. Example lines: “Pick a job. We’ll shape the key.” and “Nothing leaves this device.”
-- **Wordmark & logo:** existing rotated lock mark plus lowercase wordmark.
+- **Wordmark & logo:** cipher dial and keyway mark beside the lowercase wordmark.
 - **Signature brand color:** Cipherly gold (`#e7bb70`) used for action and trust cues.
 
 ## Project structure
@@ -30,4 +30,3 @@
 - `app.js` — local generator state, preset application, theme persistence, generation, copy, and download behavior.
 - `styles.css` — semantic theme variables, toggle/preset styling, responsive layout, and existing design system.
 - `index.html` — unchanged promotional entry point.
-- `manus-routes.json` — static route manifest for the two HTML pages.

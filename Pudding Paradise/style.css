@@ -1582,3 +1582,5 @@ header {
     width: 100%;
   }
 }
+
+@media (pointer: coarse) { .back-button { min-width: 44px; min-height: 44px; } }

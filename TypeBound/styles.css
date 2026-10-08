@@ -474,3 +474,5 @@ body.session-live .mode-focus strong + span { flex-basis:auto; }
 .race-comparison h3 { margin: 4px 0 9px; font-size: 22px; }
 .race-comparison p { margin: 5px 0; font: 11px 'DM Mono',monospace; }
 .race-comparison-delta { color: var(--blue); font-weight: 700; }
+
+@media (pointer: coarse) { .nav-button, .help-button, .copy-signal-button { min-width: 44px; min-height: 44px; } }

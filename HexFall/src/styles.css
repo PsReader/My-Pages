@@ -2986,3 +2986,5 @@ input, select { border-radius: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .screen-shell.codex-screen::after { animation: none; opacity: .58; } }
 html[data-performance="lite"] .screen-shell.codex-screen::after { display: none; }
+
+@media (pointer: coarse) { .training-ultimate-card .secondary-button, .training-preset-controls .secondary-button { min-height: 44px; } }

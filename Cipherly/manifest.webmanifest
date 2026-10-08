@@ -7,5 +7,5 @@
   "display": "standalone",
   "background_color": "#f2eee5",
   "theme_color": "#1b2924",
-  "icons": [{"src":"brand-mark.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+  "icons": [{"src":"favicon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"},{"src":"brand-mark.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
 }

@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png" />
 <meta
       name="description"
-      content="PsReader - Frontend dev showcasing live projects: Lord of the Mysteries fan wiki, Pudding Paradise dessert ordering site, GestureLab hand-tracking 3D app, Tarot Draw &amp; Tarot Memory tarot games, and Scratchpad workspace. Built with HTML, CSS, JavaScript, React, Three.js."
+      content="PsReader - Frontend dev showcasing live projects including Cipherly, a browser-based password generator, GestureLab, and a Lord of the Mysteries fan wiki. Built with HTML, CSS, JavaScript, React, and Three.js."
     />
     <link rel="canonical" href="https://psreader.site.je/index.html" />
     <meta name="author" content="PsReader" />
@@ -28,7 +28,7 @@
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "PsReader",
-  "description": "PsReader - Frontend dev showcasing live projects: Lord of the Mysteries fan wiki, Pudding Paradise dessert ordering site, GestureLab hand-tracking 3D app, Tarot Draw &amp; Tarot Memory tarot games, and Scratchpad workspace. Built with HTML, CSS, JavaScript, React, Three.js.",
+  "description": "PsReader - Frontend dev showcasing live projects including Cipherly, a browser-based password generator, GestureLab, and a Lord of the Mysteries fan wiki. Built with HTML, CSS, JavaScript, React, and Three.js.",
   "url": "https://psreader.site.je/index.html",
   "inLanguage": "en"
 }
@@ -48,7 +48,10 @@
     { "@type": "ListItem", "position": 7, "name": "Typebound", "url": "https://psreader.site.je/index.html#project-typebound" },
     { "@type": "ListItem", "position": 8, "name": "Scratchpad", "url": "https://psreader.site.je/index.html#project-scratchpad" },
     { "@type": "ListItem", "position": 9, "name": "Lumen", "url": "https://psreader.site.je/index.html#project-lumen" },
-    { "@type": "ListItem", "position": 10, "name": "Pixelpress", "url": "https://psreader.site.je/index.html#project-pixelpress" }
+    { "@type": "ListItem", "position": 10, "name": "Pixelpress", "url": "https://psreader.site.je/index.html#project-pixelpress" },
+    { "@type": "ListItem", "position": 11, "name": "Cipherly", "url": "https://psreader.site.je/index.html#project-cipherly" },
+    { "@type": "ListItem", "position": 12, "name": "Fandom Fate", "url": "https://psreader.site.je/index.html#project-fandom-fate" },
+    { "@type": "ListItem", "position": 13, "name": "Hexfall", "url": "https://psreader.site.je/index.html#project-hexfall" }
   ]
 }
     </script>
@@ -401,7 +404,7 @@
       [data-theme="sunset"] .music-player iframe { filter: hue-rotate(-121deg); }
       [data-theme="lavender"] .music-player iframe { filter: hue-rotate(121deg); }
 
-      [data-theme="ocean"] { --accent: #0077b6; --accent-hover: #00b4d8; --accent-muted: rgba(0,119,182,0.12); --accent-light: #90cdf4; --logo-c1: #0077b6; --logo-c2: #00b4d8; --logo-c3: #90cdf4; }
+      [data-theme="ocean"] { --accent: #e11d48; --accent-hover: #fb7185; --accent-muted: rgba(225,29,72,0.12); --accent-light: #fda4af; --logo-c1: #e11d48; --logo-c2: #fb7185; --logo-c3: #fda4af; }
       [data-theme="emerald"] { --accent: #059669; --accent-hover: #34d399; --accent-muted: rgba(5,150,105,0.12); --accent-light: #6ee7b7; --logo-c1: #059669; --logo-c2: #34d399; --logo-c3: #6ee7b7; }
       [data-theme="sunset"] { --accent: #ea580c; --accent-hover: #fb923c; --accent-muted: rgba(234,88,12,0.12); --accent-light: #fdba74; --logo-c1: #ea580c; --logo-c2: #fb923c; --logo-c3: #fdba74; }
       [data-theme="lavender"] { --accent: #7c3aed; --accent-hover: #a78bfa; --accent-muted: rgba(124,58,237,0.12); --accent-light: #c4b5fd; --logo-c1: #7c3aed; --logo-c2: #a78bfa; --logo-c3: #c4b5fd; }
@@ -2419,7 +2422,8 @@ color: var(--text-secondary);
   }
 }
     </style>
-  </head>
+  <style>@media (pointer: coarse) { .carousel-nav { min-width: 44px; min-height: 44px; } }</style>
+</head>
   <body>
     <!-- Scroll progress bar -->
     <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
@@ -2507,7 +2511,7 @@ color: var(--text-secondary);
             <a href="portfolio.html">Portfolio</a>
             <div class="color-picker" aria-label="Accent color">
               <button class="color-dot active" data-accent="default" style="background:#0077b6" aria-label="Blue"></button>
-              <button class="color-dot" data-accent="ocean" style="background:#0077b6" aria-label="Ocean"></button>
+              <button class="color-dot" data-accent="ocean" style="background:#e11d48" aria-label="Rose"></button>
               <button class="color-dot" data-accent="emerald" style="background:#059669" aria-label="Emerald"></button>
               <button class="color-dot" data-accent="sunset" style="background:#ea580c" aria-label="Sunset"></button>
               <button class="color-dot" data-accent="lavender" style="background:#7c3aed" aria-label="Lavender"></button>
@@ -2545,7 +2549,7 @@ color: var(--text-secondary);
         <div class="hero-content">
           <span class="hero-eyebrow hero-animate">Live Demos</span>
           <h1 class="hero-d1">
-            <span class="hero-line">Twelve Projects,</span>
+            <span class="hero-line">Thirteen Projects,</span>
             <span class="hero-line">All <span class="hero-accent-word">Live</span> and Deployed</span>
           </h1>
           <span
@@ -2598,7 +2602,7 @@ color: var(--text-secondary);
 <section class="section" id="work" aria-labelledby="demos-heading">
   <p class="section-label reveal">Live demo directory</p>
   <h2 class="section-heading" id="demos-heading">Choose something to try</h2>
-  <p class="demo-intro reveal">All 12 projects live here. The <a href="portfolio.html#projects">portfolio tells the story</a>; this page is for trying things. Search by name or technology, or filter by the kind of project you want to explore.</p>
+  <p class="demo-intro reveal">All 13 projects live here. The <a href="portfolio.html#projects">portfolio tells the story</a>; this page is for trying things. Search by name or technology, or filter by the kind of project you want to explore.</p>
 
   <div class="demo-controls reveal">
     <div class="demo-control">
@@ -2616,14 +2620,14 @@ color: var(--text-secondary);
   </div>
 
   <div class="demo-filter-row" role="group" aria-label="Filter demos by type">
-  <button class="demo-filter" type="button" data-demo-filter="all" aria-pressed="true">All 12</button>
+  <button class="demo-filter" type="button" data-demo-filter="all" aria-pressed="true">All 13</button>
   <button class="demo-filter" type="button" data-demo-filter="sites" aria-pressed="false">Websites</button>
   <button class="demo-filter" type="button" data-demo-filter="games" aria-pressed="false">Games</button>
   <button class="demo-filter" type="button" data-demo-filter="tools" aria-pressed="false">Tools</button>
   <button class="demo-filter" type="button" data-demo-filter="experiments" aria-pressed="false">Experiments</button>
 </div>
 
-  <p class="demo-results" id="demoResults" aria-live="polite">Showing 12 of 12 demos</p>
+  <p class="demo-results" id="demoResults" aria-live="polite">Showing 13 of 13 demos</p>
   <div class="demo-project-grid" id="demoProjectGrid" aria-label="All live demo projects">
       <article class="project-card reveal stagger-1" data-category="sites" data-name="Lord of the Mysteries Fan Wiki" data-order="0" id="project-lotm">
         <div class="project-chrome" aria-hidden="true">
@@ -2703,7 +2707,7 @@ color: var(--text-secondary);
       </div>
       </article>
 
-      <article class="project-card reveal stagger-3" data-category="games" data-name="Mystic Coin" data-order="3" id="project-mysticcoin">
+      <article class="project-card reveal stagger-3" data-category="tools games" data-name="Mystic Coin" data-order="3" id="project-mysticcoin">
         <div class="project-chrome" aria-hidden="true">
           <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
           <span class="chrome-address"><span class="chrome-url">mystic-coin.site.je</span></span>
@@ -2715,7 +2719,7 @@ color: var(--text-secondary);
 
 
       <div class="project-body">
-      <h3 class="project-name">Mystic Coin</h3><p class="demo-card-category">Game</p>
+      <h3 class="project-name">Mystic Coin</h3><p class="demo-card-category">Interactive tool</p>
       <p class="project-tech">HTML · CSS · JavaScript</p>
       <p>Flip a small digital yes-or-no coin and keep the answer simple.</p>
       <div class="project-cta">
@@ -2755,7 +2759,7 @@ color: var(--text-secondary);
       </div>
       </article>
 
-      <article class="project-card reveal stagger-5" data-category="experiments" data-name="GestureLab" data-order="5" id="project-gesturelab">
+      <article class="project-card reveal stagger-5" data-category="experiments games" data-name="GestureLab" data-order="5" id="project-gesturelab">
         <div class="project-chrome" aria-hidden="true">
           <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
           <span class="chrome-address"><span class="chrome-url">gesturelab.site.je</span></span>
@@ -2783,7 +2787,7 @@ color: var(--text-secondary);
       </div>
       </article>
 
-      <article class="project-card reveal stagger-5" data-category="tools" data-name="Typebound" data-order="6" id="project-typebound">
+      <article class="project-card reveal stagger-5" data-category="tools games" data-name="TypeBound" data-order="6" id="project-typebound">
         <div class="project-chrome" aria-hidden="true">
           <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
           <span class="chrome-address"><span class="chrome-url">typebound.site.je</span></span>
@@ -2795,7 +2799,7 @@ color: var(--text-secondary);
 
 
       <div class="project-body">
-      <h3 class="project-name">Typebound</h3><p class="demo-card-category">Practice tool</p>
+      <h3 class="project-name">TypeBound</h3><p class="demo-card-category">Practice tool</p>
       <p class="project-tech">HTML · CSS · JavaScript</p>
       <p>Practice typing with accuracy feedback, or try a peer-to-peer race room.</p>
       <div class="project-cta">
@@ -2887,7 +2891,25 @@ color: var(--text-secondary);
       </div>
       </article>
 
-      <article class="project-card reveal stagger-6" data-category="sites" data-name="Fandom Fate" data-order="10" id="project-fandom-fate">
+      <article class="project-card reveal stagger-6" data-category="tools" data-name="Cipherly" data-order="10" id="project-cipherly">
+        <div class="project-chrome" aria-hidden="true">
+          <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
+          <span class="chrome-address"><span class="chrome-url">cipherly.site.je</span></span>
+        </div>
+        <div class="project-viewport">
+          <img src="assets/thumb-cipherly.svg" alt="Cipherly password generator preview with password settings and a generated password" width="1000" height="800" loading="lazy" decoding="async" />
+        </div>
+        <div class="project-body">
+          <h3 class="project-name">Cipherly</h3><p class="demo-card-category">Password tool</p>
+          <p class="project-tech">HTML · CSS · JavaScript · Web Crypto</p>
+          <p>Generate passwords, passphrases, and batches in your browser without sending the generated values to a server.</p>
+          <div class="project-cta">
+            <a class="btn btn--primary" href="https://cipherly.site.je/" rel="noopener noreferrer" target="_blank">Open demo <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" x2="21" y1="14" y2="3"></line></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card reveal stagger-6" data-category="sites games" data-name="Fandom Fate" data-order="11" id="project-fandom-fate">
         <div class="project-chrome" aria-hidden="true">
           <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
           <span class="chrome-address"><span class="chrome-url">fandomfate.site.je</span></span>
@@ -2913,7 +2935,7 @@ color: var(--text-secondary);
       </div>
       </article>
 
-      <article class="project-card reveal stagger-6" data-category="games" data-name="Hexfall" data-order="11" id="project-hexfall">
+      <article class="project-card reveal stagger-6" data-category="games" data-name="Hexfall" data-order="12" id="project-hexfall">
         <div class="project-chrome" aria-hidden="true">
           <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
           <span class="chrome-address"><span class="chrome-url">hexfall.site.je</span></span>
@@ -2938,7 +2960,7 @@ color: var(--text-secondary);
       </div>
       </div>
       </article>
-    <p class="demo-empty" id="demoEmpty" hidden>No demos match that search. Try another term or choose “All 12”.</p>
+    <p class="demo-empty" id="demoEmpty" hidden>No demos match that search. Try another term or choose “All 13”.</p>
   </div>
 
   <nav class="demo-pager" id="demoPager" aria-label="Demo pages" hidden></nav>
@@ -3299,15 +3321,20 @@ color: var(--text-secondary);
 
         // ===== Dynamic Favicon (PR Logo) =====
         const faviconAccentMap = {
-          default: ["%230077b6", "%2300b4d8", "%2390cdf4"],
-          ocean: ["%230077b6", "%2300b4d8", "%2390cdf4"],
-          emerald: ["%23059669", "%2334d399", "%236ee7b7"],
-          sunset: ["%23ea580c", "%23fb923c", "%23fdba74"],
-          lavender: ["%237c3aed", "%23a78bfa", "%23c4b5fd"],
+          default: "#0077b6",
+          ocean: "#e11d48",
+          emerald: "#059669",
+          sunset: "#ea580c",
+          lavender: "#7c3aed",
         };
         function updateFavicon() {
           const favicon = document.getElementById("favicon");
-          if (favicon) favicon.href = "/favicon.ico";
+          if (!favicon) return;
+          const theme = document.documentElement.getAttribute("data-theme") || "default";
+          const background = faviconAccentMap[theme] || faviconAccentMap.default;
+          const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" rx="22" fill="${background}"/><g fill="#fff"><rect x="24" y="25" width="18" height="70"/><path d="M42 25h26a22 22 0 010 44H42V51h26a4 4 0 000-8H42z"/><path d="M58 74l21 21h26L84 74z"/></g></svg>`;
+          favicon.type = "image/svg+xml";
+          favicon.href = `data:image/svg+xml,${encodeURIComponent(icon)}`;
         }
         updateFavicon();
 
@@ -3801,7 +3828,7 @@ color: var(--text-secondary);
 
           const accentMap = {
             default: getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#0077b6",
-            ocean: "#0077b6", emerald: "#059669", sunset: "#ea580c", lavender: "#7c3aed",
+            ocean: "#e11d48", emerald: "#059669", sunset: "#ea580c", lavender: "#7c3aed",
           };
           function syncAccentColor() {
             const theme = document.documentElement.getAttribute("data-theme") || "default";
@@ -4409,7 +4436,8 @@ color: var(--text-secondary);
         return Number(a.dataset.order) - Number(b.dataset.order);
       });
       const matches = ordered.filter((card) => {
-        const categoryMatch = activeCategory === "all" || card.dataset.category === activeCategory;
+        const categories = (card.dataset.category || "").split(/\s+/).filter(Boolean);
+        const categoryMatch = activeCategory === "all" || categories.includes(activeCategory);
         const queryMatch = !query || `${card.dataset.name} ${card.dataset.category} ${card.textContent}`.toLocaleLowerCase().includes(query);
         return categoryMatch && queryMatch;
       });

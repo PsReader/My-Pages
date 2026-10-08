@@ -595,3 +595,4 @@ body {
 .airglow-hand-btn:hover {
   background: rgba(104, 230, 255, 0.08);
 }
+@media (pointer: coarse) { .onboarding-btn, .airglow-hand-btn { min-height: 44px; } .nav-grip { height: 44px; } .drawer-action-btn { width: 44px; height: 44px; } .drawer-handle { min-height: 44px; } }

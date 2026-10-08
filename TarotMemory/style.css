@@ -495,3 +495,4 @@ footer span { color: var(--rose); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
+@media (pointer: coarse) { button { min-height: 44px; } .small-btn, .close { min-width: 44px; min-height: 44px; } .psreader-back { min-width: 44px; min-height: 44px; } .text-btn, .tool { min-height: 44px; } }

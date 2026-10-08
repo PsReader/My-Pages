@@ -1,5 +1,5 @@
-const CACHE = 'cipherly-v4';
-const ASSETS = ['./', './index.html', './generator.html', './offline.html', './styles.css', './fonts.css', './visual-polish.css', './app.js', './theme.js', './brand-mark.svg', './manifest.webmanifest', './fonts/dm-mono-400.woff2', './fonts/dm-mono-500.woff2', './fonts/dm-sans-variable.woff2', './fonts/playfair-display-variable.woff2', './fonts/playfair-display-italic-variable.woff2', './errors/400.html', './errors/401.html', './errors/403.html', './errors/404.html', './errors/500.html', './errors/503.html'];
+const CACHE = 'cipherly-v6';
+const ASSETS = ['./', './index.html', './generator.html', './offline.html', './styles.css', './fonts.css', './visual-polish.css', './app.js', './theme.js', './brand-mark.svg', './favicon-512.png', './manifest.webmanifest', './fonts/dm-mono-400.woff2', './fonts/dm-mono-500.woff2', './fonts/dm-sans-variable.woff2', './fonts/playfair-display-variable.woff2', './fonts/playfair-display-italic-variable.woff2', './errors/400.html', './errors/401.html', './errors/403.html', './errors/404.html', './errors/500.html', './errors/503.html'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));

@@ -2117,3 +2117,4 @@ html[data-motion="reduced"] .pet[data-state] .pet-aura {
   animation: none !important;
   transition: none !important;
 }
+@media (pointer: coarse) { .mode-btn, .shop-card__btn { min-height: 44px; } }
