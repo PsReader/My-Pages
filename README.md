@@ -1,12 +1,26 @@
 ﻿# My Projects
 
-A portfolio workspace of creative web experiments, themed mini-projects, and interactive front-end builds.
+A portfolio workspace of creative web projects and interactive front-end builds. The group repository is [PsReader/My-Pages](https://github.com/PsReader/My-Pages).
 
-This collection brings together different directions in web development practice: immersive motion experiences, storytelling-driven pages, playful storefront designs, and lightweight utility apps. Each project lives in its own folder and reflects a different style of interface design and front-end problem solving. Most projects are also published in their own dedicated GitHub repository.
+Each project lives in its own folder. Cipherly, FandomFate, HexFall, and PixelPress also have standalone GitHub repositories.
 
 ---
 
 ## Projects
+
+### Cipherly
+
+A browser-based password utility for single and batch generation, with password and passphrase modes.
+
+- Runs in the browser and includes an offline fallback
+- Folder: `Cipherly` · repo: [github.com/PsReader/Cipherly](https://github.com/PsReader/Cipherly)
+
+### FandomFate
+
+An unofficial fandom personality quiz site with 17 playable quizzes across eight fandoms.
+
+- Quiz content and result cards are customized for each fandom
+- Folder: `FandomFate` · repo: [github.com/PsReader/Fandom-Fate](https://github.com/PsReader/Fandom-Fate) · live: `fandomfate.site.je`
 
 ### GestureLab
 
@@ -22,7 +36,7 @@ The only build-managed project. A webcam-powered interaction sandbox built with 
 
 A fan-made lore archive and storytelling website for _Lord of the Mysteries_.
 
-- 20-page content structure with shared CSS/JS
+- 24-page content structure with shared CSS and JavaScript
 - dark fantasy aesthetic
 - lore, pathways, character references, volumes, and galleries
 - static HTML/CSS/JavaScript implementation
@@ -59,7 +73,7 @@ A small digital divination tool in a mystical gold-and-dark theme.
 
 A thought-dashboard for lightweight, browser-based note organization.
 
-- local localStorage persistence
+- localStorage persistence
 - theme switching
 - searchable and organized notes
 - folder: `Scratchpad` · repo: [github.com/PsReader/Scratchpad](https://github.com/PsReader/Scratchpad)
@@ -105,7 +119,7 @@ A WCAG contrast ratio checker for text and background colors.
 - deploy bundle: `Deploy/deploy-Lumen-root.zip`
 - folder: `Lumen` · repo: [github.com/PsReader/Lumen](https://github.com/PsReader/Lumen) · live: `lumens.site.je`
 
-### Pixelpress
+### PixelPress
 
 A browser-only image utility that compresses, resizes, crops, and converts images.
 
@@ -116,7 +130,7 @@ A browser-only image utility that compresses, resizes, crops, and converts image
 - processing stays in the browser, no upload, no build step
 - folder: `PixelPress` · repo: [github.com/PsReader/PixelPress](https://github.com/PsReader/PixelPress) · live: `pixelpress.site.je`
 
-### Hexfall
+### HexFall
 
 A tactical hex dungeon crawler that runs entirely in the browser.
 
@@ -130,12 +144,13 @@ A tactical hex dungeon crawler that runs entirely in the browser.
 
 ## Root files & folders
 
-- `index.html`: portfolio landing page with the Live Demos carousel (project cards with view-live links)
-- `portfolio.html`: polished personal portfolio page
+- `index.html`: portfolio landing page with the Live Demos carousel
+- `portfolio.html`: personal portfolio page
 - `ghost-cursor.js`: Three.js ES module cursor-trail effect used by the portfolio
-- `assets/`: shared card images and logo SVGs (e.g. `TarotDraw.png`, `MysticCoinLogo.svg`, `lumen-mark.svg`)
+- `assets/`: shared card images and branding assets
 - `robots.txt`, `sitemap.xml`, `site.webmanifest`: site metadata
-- `Deploy/`: publish-ready ZIP bundles, one per project, flat at archive root
+- `404.html` and `errors/`: root not-found page and status-specific error pages
+- `Deploy/`: local publish-ready ZIP bundles, one per project, flat at archive root
 
 ---
 
@@ -154,13 +169,9 @@ npm run dev
 
 ## Notes
 
-This workspace is a combination of learning projects, creative prototypes, and personal experiments. It reflects a growing range of skills across:
+Most projects are static websites without a build step; GestureLab uses React and Vite, and TypeBound supports optional Supabase accounts.
 
-- responsive front-end design
-- interactive UI and motion
-- storytelling-driven content pages
-- JavaScript behavior and browser APIs
-- React and 3D web experiences
+Static project error pages live in each project's `errors/` folder. GestureLab keeps them in `GestureLab/public/errors/` so Vite copies them into the build output. Hosting setup notes are in each folder's `errors/README.md`.
 
 ---
 
