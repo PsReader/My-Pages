@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
+    <link rel="icon" type="image/x-icon" id="favicon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png" />
+<meta
       name="description"
       content="PsReader - Frontend dev showcasing live projects: Lord of the Mysteries fan wiki, Pudding Paradise dessert ordering site, GestureLab hand-tracking 3D app, Tarot Draw &amp; Tarot Memory tarot games, and Scratchpad workspace. Built with HTML, CSS, JavaScript, React, Three.js."
     />
@@ -63,21 +65,24 @@
       })();
     </script>
     <title>PsReader - LOTM Wiki, Pudding Paradise, GestureLab & More | Live Demos</title>
-    <link rel="icon" type="image/svg+xml" id="favicon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%230077b6'/%3E%3Cstop offset='50%25' stop-color='%2300b4d8'/%3E%3Cstop offset='100%25' stop-color='%2390cdf4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23g)'/%3E%3Cg fill='white'%3E%3Crect x='6.4' y='6.7' width='4.8' height='18.7' rx='0.5'/%3E%3Cpath d='M11.2 6.7h6.9a5.9 5.9 0 0 1 0 11.2h-6.9v-4.8h6.9a1.1 1.1 0 0 0 0-1.6h-6.9z'/%3E%3Cpath d='M15.5 19.7l5.6 5.6h6.9l-5.6-5.6z'/%3E%3C/g%3E%3C/svg%3E" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
-    />
-    <!-- Satoshi font -->
-    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <!-- Lenis smooth scroll -->
-    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.26/dist/lenis.css" media="print" onload="this.media='all'" />
     <style>
       html { overflow-x: clip; }
+      html:not(.dark) .demo-filter { color: #006b91; }
+      html:not(.dark) .footer-pill { color: #4f586b; }
+
+      /* Keep offscreen sections cheap and remove desktop-only effects from touch devices. */
+      @media (hover: none), (pointer: coarse) {
+        .ghost-cursor, .cursor-spotlight, .cursor-dot, .cursor-ring, .cursor-svg-defs { display: none !important; }
+        .hero-grain { display: none !important; }
+      }
+      @media (max-width: 768px) {
+        #skillsCanvas { display: none !important; }
+        .music-player iframe { min-height: 152px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      }
+
       .hero-subtitle {
         font-size: 0.95rem;
         font-weight: 600;
@@ -153,7 +158,7 @@
         --max-w: 960px;
 
         /* Display font */
-        --font-display: 'Bricolage Grotesque', sans-serif;
+        --font-display: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
         /* Motion */
         --ease: cubic-bezier(0.4, 0, 0.2, 1);
@@ -172,7 +177,6 @@
 
       body {
         font-family:
-          "Satoshi",
           -apple-system,
           BlinkMacSystemFont,
           "Segoe UI",
@@ -2415,10 +2419,6 @@ color: var(--text-secondary);
   }
 }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollToPlugin.min.js"></script>
-    <script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"></script>
   </head>
   <body>
     <!-- Scroll progress bar -->
@@ -2479,7 +2479,7 @@ color: var(--text-secondary);
             <a href="#work">Work</a>
             <a href="#stack">Tech Stack</a>
             <a href="#contact">Contact</a>
-            <a href="portfolio.html">Portfolio stories</a>
+            <a href="portfolio.html">Portfolio</a>
           </nav>
           <button
             class="mobile-menu-toggle"
@@ -2504,7 +2504,7 @@ color: var(--text-secondary);
             <a href="#work">Work</a>
             <a href="#stack">Tech Stack</a>
             <a href="#contact">Contact</a>
-            <a href="portfolio.html">Portfolio stories</a>
+            <a href="portfolio.html">Portfolio</a>
             <div class="color-picker" aria-label="Accent color">
               <button class="color-dot active" data-accent="default" style="background:#0077b6" aria-label="Blue"></button>
               <button class="color-dot" data-accent="ocean" style="background:#0077b6" aria-label="Ocean"></button>
@@ -2516,7 +2516,7 @@ color: var(--text-secondary);
             <!-- Music Player Widget -->
             <div class="music-player">
               <iframe
-                src="https://open.spotify.com/embed/playlist/0vvXsWCC9xrXsKd4FyS8kM?utm_source=generator&theme=0"
+                src="about:blank" data-src="https://open.spotify.com/embed/playlist/0vvXsWCC9xrXsKd4FyS8kM?utm_source=generator&theme=0"
                 title="Lofi focus playlist on Spotify"
                 width="100%" height="152" frameBorder="0"
                 loading="lazy" style="border:0; border-radius:12px; display:block;"
@@ -2525,10 +2525,10 @@ color: var(--text-secondary);
             </div>
             <!-- End Music Player -->
 
-            <button class="theme-toggle" id="soundToggle" aria-label="Enable sounds" style="position:relative">
+            <button class="theme-toggle" id="soundToggle" aria-label="Enable sounds" aria-pressed="false" style="position:relative">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
             </button>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" aria-pressed="false">
               <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
               <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
             </button>
@@ -2631,7 +2631,7 @@ color: var(--text-secondary);
           <span class="chrome-address"><span class="chrome-url">lotm-fan-wiki.site.je</span></span>
         </div>
         <div class="project-viewport">
-          <img src="assets/thumb-lotm.webp" alt="Homepage of the Lord of the Mysteries fan wiki" width="1000" height="800" loading="lazy" decoding="async" />
+          <img src="assets/thumb-lotm-480.webp" srcset="assets/thumb-lotm-480.webp 480w, assets/thumb-lotm.webp 1000w" sizes="(max-width: 760px) calc(100vw - 42px), 480px" alt="Homepage of the Lord of the Mysteries fan wiki" width="1000" height="800" loading="lazy" decoding="async" />
         </div>
 
 
@@ -2657,7 +2657,7 @@ color: var(--text-secondary);
           <span class="chrome-address"><span class="chrome-url">tarotdraw.site.je</span></span>
         </div>
         <div class="project-viewport">
-          <img src="assets/thumb-tarot-draw.webp" alt="Tarot Draw card spread interface" width="1000" height="800" loading="lazy" decoding="async" />
+          <img src="assets/thumb-tarot-draw-480.webp" srcset="assets/thumb-tarot-draw-480.webp 480w, assets/thumb-tarot-draw.webp 1000w" sizes="(max-width: 760px) calc(100vw - 42px), 480px" alt="Tarot Draw card spread interface" width="1000" height="800" loading="lazy" decoding="async" />
         </div>
 
 
@@ -2683,7 +2683,7 @@ color: var(--text-secondary);
           <span class="chrome-address"><span class="chrome-url">tarotmemory.site.je</span></span>
         </div>
         <div class="project-viewport">
-          <img src="assets/thumb-tarot-memory.webp" alt="Tarot Memory card matching grid" width="1000" height="800" loading="lazy" decoding="async" />
+          <img src="assets/thumb-tarot-memory-480.webp" srcset="assets/thumb-tarot-memory-480.webp 480w, assets/thumb-tarot-memory.webp 1000w" sizes="(max-width: 760px) calc(100vw - 42px), 480px" alt="Tarot Memory card matching grid" width="1000" height="800" loading="lazy" decoding="async" />
         </div>
 
 
@@ -2709,7 +2709,7 @@ color: var(--text-secondary);
           <span class="chrome-address"><span class="chrome-url">mystic-coin.site.je</span></span>
         </div>
         <div class="project-viewport">
-          <img src="assets/thumb-mystic-coin.webp" alt="Mystic Coin flip interface" width="1000" height="800" loading="lazy" decoding="async" />
+          <img src="assets/thumb-mystic-coin-480.webp" srcset="assets/thumb-mystic-coin-480.webp 480w, assets/thumb-mystic-coin.webp 1000w" sizes="(max-width: 760px) calc(100vw - 42px), 480px" alt="Mystic Coin flip interface" width="1000" height="800" loading="lazy" decoding="async" />
         </div>
 
 
@@ -2735,7 +2735,7 @@ color: var(--text-secondary);
           <span class="chrome-address"><span class="chrome-url">pudding-paradise.site.je</span></span>
         </div>
         <div class="project-viewport">
-          <img src="assets/thumb-pudding.webp" alt="Pudding Paradise dessert shop homepage" width="1000" height="800" loading="lazy" decoding="async" />
+          <img src="assets/thumb-pudding-480.webp" srcset="assets/thumb-pudding-480.webp 480w, assets/thumb-pudding.webp 1000w" sizes="(max-width: 760px) calc(100vw - 42px), 480px" alt="Pudding Paradise dessert shop homepage" width="1000" height="800" loading="lazy" decoding="async" />
         </div>
 
 
@@ -2755,13 +2755,13 @@ color: var(--text-secondary);
       </div>
       </article>
 
-      <article class="project-card project-card--featured reveal stagger-5" data-category="experiments" data-name="GestureLab" data-order="5" id="project-gesturelab">
+      <article class="project-card reveal stagger-5" data-category="experiments" data-name="GestureLab" data-order="5" id="project-gesturelab">
         <div class="project-chrome" aria-hidden="true">
           <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
           <span class="chrome-address"><span class="chrome-url">gesturelab.site.je</span></span>
         </div>
         <div class="project-viewport project-viewport--gesturelab">
-          <img src="assets/thumb-gesturelab.webp" alt="GestureLab hand tracking scene with a particle sphere" width="1000" height="800" loading="lazy" decoding="async" />
+          <img src="assets/thumb-gesturelab-480.webp" srcset="assets/thumb-gesturelab-480.webp 480w, assets/thumb-gesturelab.webp 1000w" sizes="(max-width: 760px) calc(100vw - 42px), 480px" alt="GestureLab hand tracking scene with a particle sphere" width="1000" height="800" loading="lazy" decoding="async" />
         </div>
 
 
@@ -2789,7 +2789,7 @@ color: var(--text-secondary);
           <span class="chrome-address"><span class="chrome-url">typebound.site.je</span></span>
         </div>
         <div class="project-viewport">
-          <img src="assets/thumb-typebound.webp" alt="TypeBound typing practice screen" width="1000" height="800" loading="lazy" decoding="async" />
+          <img src="assets/thumb-typebound-480.webp" srcset="assets/thumb-typebound-480.webp 480w, assets/thumb-typebound.webp 1000w" sizes="(max-width: 760px) calc(100vw - 42px), 480px" alt="TypeBound typing practice screen" width="1000" height="800" loading="lazy" decoding="async" />
         </div>
 
 
@@ -2815,7 +2815,7 @@ color: var(--text-secondary);
           <span class="chrome-address"><span class="chrome-url">scratchpad.site.je</span></span>
         </div>
         <div class="project-viewport">
-          <img src="assets/thumb-scratchpad.webp" alt="Scratchpad workspace interface" width="1000" height="800" loading="lazy" decoding="async" />
+          <img src="assets/thumb-scratchpad-480.webp" srcset="assets/thumb-scratchpad-480.webp 480w, assets/thumb-scratchpad.webp 1000w" sizes="(max-width: 760px) calc(100vw - 42px), 480px" alt="Scratchpad workspace interface" width="1000" height="800" loading="lazy" decoding="async" />
         </div>
 
 
@@ -2841,7 +2841,7 @@ color: var(--text-secondary);
           <span class="chrome-address"><span class="chrome-url">lumens.site.je</span></span>
         </div>
         <div class="project-viewport">
-          <img src="assets/thumb-lumens.webp" alt="Lumen contrast checker with colour swatches" width="1000" height="800" loading="lazy" decoding="async" />
+          <img src="assets/thumb-lumens-480.webp" srcset="assets/thumb-lumens-480.webp 480w, assets/thumb-lumens.webp 1000w" sizes="(max-width: 760px) calc(100vw - 42px), 480px" alt="Lumen contrast checker with colour swatches" width="1000" height="800" loading="lazy" decoding="async" />
         </div>
 
 
@@ -2867,7 +2867,7 @@ color: var(--text-secondary);
           <span class="chrome-address"><span class="chrome-url">pixelpress.site.je</span></span>
         </div>
         <div class="project-viewport">
-          <img src="assets/thumb-pixelpress.webp" alt="Pixelpress image compressor interface" width="1000" height="800" loading="lazy" decoding="async" />
+          <img src="assets/thumb-pixelpress-480.webp" srcset="assets/thumb-pixelpress-480.webp 480w, assets/thumb-pixelpress.webp 1000w" sizes="(max-width: 760px) calc(100vw - 42px), 480px" alt="Pixelpress image compressor interface" width="1000" height="800" loading="lazy" decoding="async" />
         </div>
 
 
@@ -2893,7 +2893,7 @@ color: var(--text-secondary);
           <span class="chrome-address"><span class="chrome-url">fandomfate.site.je</span></span>
         </div>
         <div class="project-viewport">
-          <img src="assets/thumb-fandom-fate.webp" alt="Fandom Fate home page showing the fandom reading list with Harry Potter, Lord of the Rings, and Lord of the Mysteries cards" width="1000" height="800" loading="lazy" decoding="async" />
+          <img src="assets/thumb-fandom-fate-480.webp" srcset="assets/thumb-fandom-fate-480.webp 480w, assets/thumb-fandom-fate.webp 1000w" sizes="(max-width: 760px) calc(100vw - 42px), 480px" alt="Fandom Fate home page showing the fandom reading list with Harry Potter, Lord of the Rings, and Lord of the Mysteries cards" width="1000" height="800" loading="lazy" decoding="async" />
         </div>
 
 
@@ -2919,7 +2919,7 @@ color: var(--text-secondary);
           <span class="chrome-address"><span class="chrome-url">hexfall.site.je</span></span>
         </div>
         <div class="project-viewport">
-          <img src="assets/thumb-hexfall.webp" alt="Hexfall expedition hub showing the three-hero team panel, a 9 by 7 hex battlefield, and the formation roster" width="1000" height="800" loading="lazy" decoding="async" />
+          <img src="assets/thumb-hexfall-480.webp" srcset="assets/thumb-hexfall-480.webp 480w, assets/thumb-hexfall.webp 1000w" sizes="(max-width: 760px) calc(100vw - 42px), 480px" alt="Hexfall expedition hub showing the three-hero team panel, a 9 by 7 hex battlefield, and the formation roster" width="1000" height="800" loading="lazy" decoding="async" />
         </div>
 
 
@@ -3196,7 +3196,7 @@ color: var(--text-secondary);
           <nav class="footer-nav" aria-label="Footer navigation">
             <a href="#work" class="footer-pill">Demos</a>
             <a href="#stack" class="footer-pill">Tech Stack</a>
-            <a href="portfolio.html" class="footer-pill">Portfolio stories</a>
+            <a href="portfolio.html" class="footer-pill">Portfolio</a>
             <a href="mailto:simanjuntakpedrosa@gmail.com" class="footer-pill">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
               Email
@@ -3252,11 +3252,13 @@ color: var(--text-secondary);
         const isDarkNow = document.documentElement.classList.contains("dark");
         if (iconSun) iconSun.style.display = isDarkNow ? "" : "none";
         if (iconMoon) iconMoon.style.display = isDarkNow ? "none" : "";
+        themeToggle?.setAttribute("aria-pressed", String(isDarkNow));
         themeToggle?.addEventListener("click", () => {
           const isDark = document.documentElement.classList.toggle("dark");
           localStorage.setItem("ps-theme", isDark ? "dark" : "light");
           if (iconSun) iconSun.style.display = isDark ? "" : "none";
           if (iconMoon) iconMoon.style.display = isDark ? "none" : "";
+          themeToggle?.setAttribute("aria-pressed", String(isDark));
           setSpotifyTheme();
         });
 
@@ -3268,6 +3270,15 @@ color: var(--text-secondary);
             if (next !== fr.src) fr.src = next;
           });
         }
+        function loadSpotifyEmbeds() {
+          document.querySelectorAll(".music-player iframe[data-src]").forEach((fr) => {
+            fr.src = fr.dataset.src;
+            fr.removeAttribute("data-src");
+          });
+          setSpotifyTheme();
+        }
+        // Keep third-party Spotify work off the mobile critical path.
+        if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) loadSpotifyEmbeds();
         setSpotifyTheme();
 
         // ===== Color Picker =====
@@ -3295,10 +3306,8 @@ color: var(--text-secondary);
           lavender: ["%237c3aed", "%23a78bfa", "%23c4b5fd"],
         };
         function updateFavicon() {
-          const theme = document.documentElement.getAttribute("data-theme") || "default";
-          const [c1, c2, c3] = faviconAccentMap[theme] || faviconAccentMap.default;
-          const svg = `%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='${c1}'/%3E%3Cstop offset='50%25' stop-color='${c2}'/%3E%3Cstop offset='100%25' stop-color='${c3}'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23g)'/%3E%3Cg fill='white'%3E%3Crect x='6.4' y='6.7' width='4.8' height='18.7' rx='0.5'/%3E%3Cpath d='M11.2 6.7h6.9a5.9 5.9 0 0 1 0 11.2h-6.9v-4.8h6.9a1.1 1.1 0 0 0 0-1.6h-6.9z'/%3E%3Cpath d='M15.5 19.7l5.6 5.6h6.9l-5.6-5.6z'/%3E%3C/g%3E%3C/svg%3E`;
-          document.getElementById("favicon").href = "data:image/svg+xml," + svg;
+          const favicon = document.getElementById("favicon");
+          if (favicon) favicon.href = "/favicon.ico";
         }
         updateFavicon();
 
@@ -3513,6 +3522,7 @@ color: var(--text-secondary);
         const menuOverlay = document.querySelector(".mobile-menu-overlay");
 
         function openMobileMenu() {
+          loadSpotifyEmbeds();
           headerNav.classList.add("open");
           menuOverlay.classList.add("active");
           menuToggle.setAttribute("aria-expanded", "true");
@@ -3755,6 +3765,7 @@ color: var(--text-secondary);
           if (soundToggle) {
             soundToggle.classList.add("active");
             soundToggle.setAttribute("aria-label", "Mute sounds");
+            soundToggle.setAttribute("aria-pressed", "true");
           }
         }
         if (soundToggle) {
@@ -3763,6 +3774,7 @@ color: var(--text-secondary);
             localStorage.setItem("soundEnabled", soundEnabled);
             soundToggle.classList.toggle("active", soundEnabled);
             soundToggle.setAttribute("aria-label", soundEnabled ? "Mute sounds" : "Enable sounds");
+            soundToggle.setAttribute("aria-pressed", String(soundEnabled));
             if (soundEnabled) sfx.click();
           });
         }
@@ -4087,7 +4099,7 @@ color: var(--text-secondary);
             const el = document.createElement("div");
             el.textContent = node.userData.name;
             el.style.cssText =
-              "position:absolute;font-size:11px;font-family:var(--font-body);" +
+              "position:absolute;font-size:11px;font-family:inherit;" +
               "color:var(--text-primary);pointer-events:none;white-space:nowrap;" +
               "transition:opacity 200ms, font-weight 150ms, color 150ms;" +
               "text-shadow:0 1px 6px rgba(0,0,0,0.7), 0 0 14px rgba(0,0,0,0.4);";
@@ -4307,7 +4319,9 @@ color: var(--text-secondary);
           document.getElementById("ghostCursor")?.remove();
         }
       </script>
-      <script type="module" src="ghost-cursor.js"></script>
+      <script type="module">
+      if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) import("./ghost-cursor.js");
+    </script>
     </div>
     <script>
       // Fade between the two site surfaces without hijacking hash links,
@@ -4483,5 +4497,32 @@ color: var(--text-secondary);
     window.demoPagerCheck = demoPagerCheck;
   })();
 </script>
+    <script>
+      // Lightweight native enhancements: no animation library required.
+      (() => {
+        const progress = document.getElementById("scrollProgress");
+        const updateProgress = () => {
+          if (!progress) return;
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          progress.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+        };
+        window.addEventListener("scroll", updateProgress, { passive: true });
+        window.addEventListener("resize", updateProgress, { passive: true });
+        updateProgress();
+        if ("IntersectionObserver" in window) {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { rootMargin: "120px 0px" });
+          document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+        } else {
+          document.querySelectorAll(".reveal").forEach((el) => el.classList.add("visible"));
+        }
+      })();
+    </script>
   </body>
 </html>

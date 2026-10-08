@@ -9,6 +9,7 @@
 <meta name="author" content="Lumen">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#f3f4ef">
+<meta name="color-scheme" content="light dark">
 <link rel="canonical" href="https://lumens.site.je/">
 <link rel="sitemap" type="application/xml" href="sitemap.xml">
 <meta property="og:type" content="website">
@@ -23,12 +24,20 @@
 <meta name="twitter:title" content="Lumen: Visual WCAG Contrast Checker">
 <meta name="twitter:description" content="Test colors, compare accessible palettes, and preview WCAG contrast in context.">
 <meta name="twitter:image" content="https://lumens.site.je/og-image.png">
+<script>
+  try {
+    const savedTheme = localStorage.getItem('lumen-theme')
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    document.documentElement.dataset.theme = savedTheme || systemTheme
+  } catch (e) {}
+</script>
 <style>
 
   @property --orb { syntax: '<color>'; inherits: false; initial-value: #767676; }
   @property --field-fg { syntax: '<color>'; inherits: true; initial-value: #767676; }
   @property --field-bg { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
   :root {
+    color-scheme: light;
     --ink: #17212b;
     --ink-soft: #56616c;
     --paper: #f5f2eb;
@@ -48,6 +57,7 @@
   }
 
   [data-theme="dark"] {
+    color-scheme: dark;
     --ink: #eef4f3;
     --ink-soft: #aab9bf;
     --paper: #10171d;
@@ -160,6 +170,7 @@
   .sound-toggle.on .toggle-dot { color: #fff; background: var(--pass); }
   .sound-toggle.on .toggle-label::after { content: " · on"; color: var(--pass); }
   .workbench { display: grid; grid-template-columns: minmax(0, .9fr) minmax(380px, 1.1fr); gap: 20px; align-items: stretch; }
+  .preview-panel, .utility-panel, details#about, footer { content-visibility: auto; contain-intrinsic-size: auto 620px; }
   .panel { border: 1px solid var(--line); border-radius: 18px; background: rgba(255, 253, 248, .88); box-shadow: var(--shadow); backdrop-filter: blur(8px); }
   .controls { padding: 24px; display: flex; flex-direction: column; }
 
@@ -503,6 +514,11 @@
     *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
     .orb, .beam::after, .light-stage.calibrating::after, .verdict.updated { animation: none !important; }
   }
+  @media (prefers-reduced-data: reduce) {
+    body { background: var(--paper); }
+    .panel, .light-stage, .result-panel { backdrop-filter: none; box-shadow: none; }
+    .light-stage::before, .orb, .beam::after { display: none; }
+  }
 
   /* Lumen visual refinement: warm paper, precise ink, and a restrained jade signal. */
   :root {
@@ -775,6 +791,12 @@
 
   /* Three-color role bench: dominant, secondary, accent. */
   .role-fields { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .role-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; min-height: 24px; margin-top: 6px; }
+  .role-badges::before { content: "WCAG"; margin-right: 2px; color: var(--ink-soft); font-family: var(--mono); font-size: .58rem; font-weight: 700; letter-spacing: .08em; }
+  .role-badge { display: inline-flex; align-items: center; min-height: 22px; padding: 2px 7px; border: 1px solid transparent; border-radius: 999px; font-family: var(--mono); font-size: .62rem; font-weight: 800; line-height: 1; }
+  .role-badge.pass { border-color: color-mix(in srgb, var(--pass) 38%, var(--line)); color: var(--pass); background: var(--pass-soft); }
+  .role-badge.fail { border-color: color-mix(in srgb, var(--fail) 38%, var(--line)); color: var(--fail); background: var(--fail-soft); }
+  .role-badge[title] { cursor: help; }
   .role-bench { display: grid; gap: 16px; margin-top: 20px; }
   .role-stage { --role-dominant: #f5f2eb; --role-secondary: #2f7164; --role-accent: #5c3317; display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr) minmax(148px, .42fr); }
   .role-stage-main { padding: 16px; border-radius: 12px; color: var(--role-secondary); background: var(--role-dominant); }
@@ -808,6 +830,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="button-theme.css">
 </head>
 <body>
 <svg class="sr-only" aria-hidden="true" focusable="false"><filter id="sim-protanopia"><feColorMatrix type="matrix" values="0.152286 1.052583 -0.204868 0 0  0.114503 0.786281 0.099216 0 0  -0.003882 -0.048116 1.051998 0 0  0 0 0 1 0"/></filter><filter id="sim-deuteranopia"><feColorMatrix type="matrix" values="0.367322 0.860646 -0.227968 0 0  0.280085 0.672501 0.047413 0 0  -0.01182 0.04294 0.968881 0 0  0 0 0 1 0"/></filter><filter id="sim-tritanopia"><feColorMatrix type="matrix" values="1.255528 -0.076749 -0.178779 0 0  -0.078411 0.930809 0.147602 0 0  0.004733 0.691367 0.3039 0 0  0 0 0 1 0"/></filter><filter id="sim-achromatopsia"><feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0 0 0 1 0"/></filter></svg>
@@ -815,7 +838,7 @@
   <header class="topbar">
     <a class="brand" href="#top" aria-label="Lumen home"><img class="brand-mark" src="lumen-mark.svg" alt=""> <span>Lumen</span></a>
     <div class="topbar-actions">
-      <button class="toggle" type="button" id="sound-toggle" aria-pressed="false"><span class="toggle-dot" aria-hidden="true">⌁</span><span class="toggle-label">Sound off</span></button>
+      <button class="sound-toggle" type="button" id="sound-toggle" aria-pressed="false"><span class="toggle-dot" aria-hidden="true">⌁</span><span class="toggle-label">Sound off</span></button>
       <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false"><span class="theme-icon" aria-hidden="true">☼</span><span class="theme-light-label">Light</span><span class="theme-dark-label">Dark</span></button>
     </div>
   </header>
@@ -835,7 +858,6 @@
     </div>
 
     <div class="tool-panel" id="panel-pair" role="tabpanel" aria-labelledby="tab-pair" tabindex="0">
-    <div class="workbench">
 
     <section class="experience" aria-label="Experience controls">
       <div class="experience-copy"><span aria-hidden="true">◌</span><div><strong>Sound cues</strong><span> · Theme, orb, and action feedback.</span></div></div>
@@ -960,6 +982,7 @@
             <label class="field-label" for="dominant">Dominant <span class="format-label">(HEX)</span></label>
             <div class="text-row"><input class="hex-input" type="text" id="dominant" value="#f5f2eb" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="dominant-err dominant-help"><span class="sr-only" id="dominant-help">Enter a valid color in the selected color format. The dominant color fills the largest area of the mock interface.</span></div>
             <p class="error" id="dominant-err" role="alert"></p>
+            <div class="role-badges" id="dominant-badges" aria-label="Body text on dominant color WCAG status"></div>
           </div>
         </div>
         <div class="color-field">
@@ -968,6 +991,7 @@
             <label class="field-label" for="secondary">Secondary <span class="format-label">(HEX)</span></label>
             <div class="text-row"><input class="hex-input" type="text" id="secondary" value="#2f7164" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="secondary-err secondary-help"><span class="sr-only" id="secondary-help">Enter a valid color in the selected color format. The secondary color carries body text and structural bands.</span></div>
             <p class="error" id="secondary-err" role="alert"></p>
+            <div class="role-badges" id="secondary-badges" aria-label="Heading on secondary band WCAG status"></div>
           </div>
         </div>
         <div class="color-field">
@@ -976,6 +1000,7 @@
             <label class="field-label" for="accent">Accent <span class="format-label">(HEX)</span></label>
             <div class="text-row"><input class="hex-input" type="text" id="accent" value="#5c3317" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="accent-err accent-help"><span class="sr-only" id="accent-help">Enter a valid color in the selected color format. The accent color is spent on interactive points such as the button.</span></div>
             <p class="error" id="accent-err" role="alert"></p>
+            <div class="role-badges" id="accent-badges" aria-label="Button label on accent color WCAG status"></div>
           </div>
         </div>
       </div>
@@ -1065,7 +1090,7 @@
   const soundToggle = $('sound-toggle'), secondSoundToggle = $('sound-toggle-2'), themeToggle = $('theme-toggle')
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   const announce = (message) => { const status = $('live-status'); status.textContent = message; clearTimeout(statusTimer); statusTimer = window.setTimeout(() => { status.textContent = '' }, 2600) }
-  const applyTheme = (theme, animate = false) => { const dark = theme === 'dark'; document.documentElement.classList.toggle('theme-animating', animate); document.documentElement.dataset.theme = dark ? 'dark' : 'light'; themeToggle.setAttribute('aria-pressed', String(dark)); themeToggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode'); themeToggle.querySelector('.theme-icon').textContent = dark ? '☾' : '☼'; if (animate) window.setTimeout(() => document.documentElement.classList.remove('theme-animating'), 260) }
+  const applyTheme = (theme, animate = false) => { const dark = theme === 'dark'; document.documentElement.classList.toggle('theme-animating', animate); document.documentElement.dataset.theme = dark ? 'dark' : 'light'; document.querySelector('meta[name="theme-color"]').setAttribute('content', dark ? '#10171d' : '#f3f4ef'); themeToggle.setAttribute('aria-pressed', String(dark)); themeToggle.setAttribute('aria-label', dark ? 'Dark; switch to light mode' : 'Light; switch to dark mode'); themeToggle.querySelector('.theme-icon').textContent = dark ? '☾' : '☼'; if (animate) window.setTimeout(() => document.documentElement.classList.remove('theme-animating'), 260) }
   const preferredTheme = (() => { try { return localStorage.getItem('lumen-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') } catch (e) { return 'light' } })()
   applyTheme(preferredTheme)
   themeToggle.addEventListener('click', () => { const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; applyTheme(next, true); try { localStorage.setItem('lumen-theme', next) } catch (e) {}; playTone('theme'); announce(next === 'dark' ? 'Dark mode on' : 'Light mode on') })
@@ -1164,6 +1189,8 @@
   }
   const focusField = (field, soundKind = 'click') => { field.focus({ preventScroll: true }); field.select(); field.closest('.color-field')?.scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'nearest' }); playTone(soundKind) }
   const rolePairings = (v) => [['Body text on dominant', v.secondary, v.dominant], ['Heading on secondary band', v.dominant, v.secondary], ['Button label on accent', v.dominant, v.accent]]
+  const roleBadgeSpecs = { dominant: ['Body text on dominant', 'secondary', 'dominant'], secondary: ['Heading on secondary band', 'dominant', 'secondary'], accent: ['Button label on accent', 'dominant', 'accent'] }
+  const renderRoleBadges = (key, v) => { const [label, fgKey, bgKey] = roleBadgeSpecs[key], host = $(key + '-badges'), ratio = ratioBetween(v[fgKey], v[bgKey]); host.textContent = ''; host.setAttribute('aria-label', label + ' WCAG status: ' + ratio.toFixed(2) + ' to 1'); [['AA', 4.5], ['AAA', 7]].forEach(([level, threshold]) => { const badge = document.createElement('span'); const pass = meets(ratio, threshold); badge.className = 'role-badge ' + (pass ? 'pass' : 'fail'); badge.textContent = level + ' · ' + (pass ? 'Pass' : 'Needs work'); badge.title = label + ': ' + ratio.toFixed(2) + ':1, ' + level + ' requires ' + threshold + ':1'; host.append(badge) }) }
   const verdictChips = (r) => { const wrap = document.createElement('span'); wrap.className = 'matrix-verdicts'; [['AA', 4.5], ['AAA', 7]].forEach(([name, threshold]) => { const chip = document.createElement('span'); chip.className = 'matrix-verdict ' + (meets(r, threshold) ? 'pass' : 'fail'); chip.textContent = name + (meets(r, threshold) ? ' · Pass' : ' · Fail'); wrap.append(chip) }); return wrap }
   const renderRoleMatrix = (v) => {
     const host = $('role-matrix'); host.textContent = ''
@@ -1188,7 +1215,7 @@
     lastValidRoles = v
     const stage = $('role-stage')
     stage.style.setProperty('--role-dominant', v.dominant); stage.style.setProperty('--role-secondary', v.secondary); stage.style.setProperty('--role-accent', v.accent)
-    ROLE_KEYS.forEach((key) => { $(key + '-swatch').style.backgroundColor = v[key]; $(key + '-picker').value = v[key] })
+    ROLE_KEYS.forEach((key) => { $(key + '-swatch').style.backgroundColor = v[key]; $(key + '-picker').value = v[key]; renderRoleBadges(key, v) })
     const host = $('role-verdicts'); host.textContent = ''
     rolePairings(v).forEach(([name, fg, bg]) => { const r = ratioBetween(fg, bg), row = document.createElement('li'), title = document.createElement('span'); title.className = 'pairing-name'; title.textContent = name; const ratio = document.createElement('span'); ratio.className = 'pairing-ratio'; ratio.textContent = r.toFixed(2) + ':1'; row.append(title, ratio, verdictChips(r)); host.append(row) })
     renderRoleMatrix(v)

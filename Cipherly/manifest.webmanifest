@@ -1,0 +1,11 @@
+{
+  "name": "Cipherly — private password generation",
+  "short_name": "Cipherly",
+  "description": "Private password, passphrase, and secure batch generation in your browser.",
+  "start_url": "generator.html",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#f2eee5",
+  "theme_color": "#1b2924",
+  "icons": [{"src":"brand-mark.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}

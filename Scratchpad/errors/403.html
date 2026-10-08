@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#07111f">
+<title>403 | Forbidden | Scratchpad</title>
+<meta name="description" content="HTTP 403 error page for Scratchpad. The server understood the request, but access to this address is restricted. Check the address or return to the homepage.">
+<link rel="icon" type="image/svg+xml" href="/images/scratchpad-logo.svg">
+<style>
+:root{--bg:#07111f;--surface:#101b2d;--ink:#f3f7ff;--ink-soft:#a4b4cd;--line:#1e2c42;--accent:#4fdcff}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:var(--bg);color:var(--ink);font-family:'Space Grotesk',system-ui,Arial,sans-serif;line-height:1.6}
+main{width:min(100%,560px);padding:38px 32px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.kicker{margin:0 0 10px;color:var(--accent);font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+h1{margin:0 0 12px;font-size:clamp(1.8rem,5.5vw,2.4rem);letter-spacing:-.03em;line-height:1.15}
+p{margin:0 0 26px;color:var(--ink-soft)}
+.links{display:flex;flex-wrap:wrap;gap:10px}
+a{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1px solid var(--line);border-radius:9px;color:var(--ink);background:transparent;font-size:.9rem;font-weight:700;text-decoration:none}
+a.primary{border-color:var(--accent);color:#04121c;background:var(--accent)}
+a:hover{border-color:var(--accent)}
+a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker">Scratchpad / 403</p>
+  <h1>You cannot access this page.</h1>
+  <p>The server understood the request, but access to this address is restricted. Check the address or return to the homepage.</p>
+  <div class="links">
+    <a class="primary" href="/index.html">Back to the dashboard</a>
+  </div>
+</main>
+</body>
+</html>

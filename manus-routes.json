@@ -1,0 +1,9 @@
+{
+  "routes": [
+    {"path":"/","title":"PsReader live demos"},
+    {"path":"/index.html","title":"PsReader live demos"},
+    {"path":"/portfolio.html","title":"PsReader frontend developer portfolio"},
+    {"path":"/privacy.html","title":"PsReader privacy policy"},
+    {"path":"/terms.html","title":"PsReader terms of use"}
+  ]
+}

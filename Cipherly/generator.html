@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Generate strong passwords, passphrases, and secure batches locally with Cipherly.">
+<meta name="theme-color" content="#f2eee5">
+<title>Generator — Cipherly</title>
+<link rel="icon" href="brand-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="fonts.css"><link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="visual-polish.css">
+<link rel="manifest" href="manifest.webmanifest">
+<script>try{if(localStorage.getItem('cipherly-theme')==='dark')document.documentElement.dataset.theme='dark'}catch(e){}</script>
+</head>
+<body class="generator-body">
+<header class="site-header container"><a class="wordmark" href="index.html"><span id="brand-mark" class="mark" aria-hidden="true"><i></i><b></b></span><span>cipherly</span></a><nav class="nav-links"><a href="index.html">← Back to overview</a><span class="local-pill"><i></i> local only</span><button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span class="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Dark mode</span></button></nav></header>
+<main class="generator-main container">
+  <div class="generator-intro"><div><p class="eyebrow">private utility / generator</p><h1>Make a key<br><em>worth keeping.</em></h1><p>Passwords, passphrases, and batches — generated right here in your browser.</p></div><div class="generator-proof" aria-label="Generator benefits"><div><span>01</span><b>Local only</b><small>stays in this tab</small></div><div><span>02</span><b>Fresh every time</b><small>no history kept</small></div><div><span>03</span><b>Ready to use</b><small>copy or download</small></div></div></div>
+  <section class="generator-layout">
+    <div class="tool-panel output-panel">
+      <div class="tool-top"><span id="output-kicker">your new secret</span><div class="output-tools"><span id="mode-note">random password</span><button id="visibility-button" class="output-tool-button" type="button" aria-label="Hide result" title="Hide result" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></button><button id="clear-button" class="output-tool-button" type="button" aria-label="Clear result" title="Clear result"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6m4-6v6M6 7l1 14h12l1-14M9 7V4h6v3"/></svg></button></div></div>
+      <output id="single-output" class="single-output" aria-live="polite">Your result will appear here</output>
+      <div id="single-meta" class="single-meta"><div class="strength-meter"><i></i><i></i><i></i><i></i></div><span id="strength-label">ready</span><span id="entropy-label">— bits</span><span id="generated-time">not generated yet</span></div>
+      <div id="bulk-output" class="bulk-output hidden" aria-live="polite"></div>
+      <div class="output-actions"><button id="copy-button" class="button button-gold" type="button" aria-keyshortcuts="Control+Shift+C Meta+Shift+C">Copy result <span>⌘⇧C</span></button><button id="download-button" class="button button-outline-light" type="button">Download .txt</button></div>
+      <p id="copy-status" class="copy-status" role="status"></p>
+    </div>
+    <aside class="tool-panel settings-panel">
+      <div class="tool-top dark-label"><span>shape your key</span><span>01</span></div>
+      <div class="preset-section"><div class="preset-heading"><span>Start with a template</span><div class="preset-tools"><span id="preset-status" class="preset-hint" aria-live="polite">quick setup</span><button id="reset-settings" class="reset-button" type="button" aria-label="Reset generator settings" title="Restore default generator settings">Reset</button></div></div><div class="preset-list" role="group" aria-label="Generator templates"><button class="preset-button" type="button" data-preset="pin"><span class="preset-icon">#</span><span><b>PIN code</b><small>6 digits</small></span></button><button class="preset-button" type="button" data-preset="wifi"><span class="preset-icon">⌁</span><span><b>Wi-Fi key</b><small>20 characters</small></span></button><button class="preset-button" type="button" data-preset="phrase"><span class="preset-icon">Aa</span><span><b>Memorable phrase</b><small>4 words + number</small></span></button><button class="preset-button" type="button" data-preset="api"><span class="preset-icon">/</span><span><b>API key</b><small>32 URL-safe chars</small></span></button><button class="preset-button" type="button" data-preset="otp"><span class="preset-icon">⌗</span><span><b>One-time code</b><small>8 digits</small></span></button><button class="preset-button" type="button" data-preset="strong-phrase"><span class="preset-icon">✦</span><span><b>Strong phrase</b><small>6 words + number</small></span></button></div></div>
+      <div class="mode-tabs" role="tablist" aria-label="Generator type"><button id="tab-password" class="mode-tab active" data-mode="password" role="tab" aria-controls="password-controls" aria-selected="true" tabindex="0">Password</button><button id="tab-passphrase" class="mode-tab" data-mode="passphrase" role="tab" aria-controls="passphrase-controls" aria-selected="false" tabindex="-1">Passphrase</button><button id="tab-bulk" class="mode-tab" data-mode="bulk" role="tab" aria-controls="bulk-controls" aria-selected="false" tabindex="-1">Bulk</button></div>
+      <div id="password-controls" class="settings-view" role="tabpanel" aria-labelledby="tab-password" tabindex="0">
+        <div class="control-heading"><label for="length">Length</label><output id="length-value">20</output></div><input id="length" type="range" min="6" max="64" value="20"><div class="range-labels"><span>6</span><span>64</span></div>
+        <div class="checks"><label><input id="uppercase" type="checkbox" checked> Uppercase</label><label><input id="lowercase" type="checkbox" checked> Lowercase</label><label><input id="numbers" type="checkbox" checked> Numbers</label><label><input id="symbols" type="checkbox" checked> Symbols</label></div>
+      </div>
+      <div id="passphrase-controls" class="settings-view hidden" role="tabpanel" aria-labelledby="tab-passphrase" tabindex="0"><div class="control-heading"><label for="word-count">Words</label><output id="word-count-value">4</output></div><input id="word-count" type="range" min="3" max="8" value="4"><div class="range-labels"><span>3</span><span>8</span></div><div class="separator-control"><label for="phrase-separator">Word separator</label><select id="phrase-separator"><option value="-">Hyphen (-)</option><option value=" ">Space</option><option value=".">Period (.)</option><option value="_">Underscore (_)</option></select></div><div class="checks one-col"><label><input id="capitalize" type="checkbox" checked> Capitalize words</label><label><input id="phrase-number" type="checkbox" checked> Add a number</label><label><input id="phrase-symbol" type="checkbox"> Add a symbol</label></div></div>
+      <div id="bulk-controls" class="settings-view hidden" role="tabpanel" aria-labelledby="tab-bulk" tabindex="0"><div class="control-heading"><label for="quantity">How many?</label><output id="quantity-value">10</output></div><input id="quantity" type="range" min="2" max="100" value="10"><div class="range-labels"><span>2</span><span>100</span></div><div class="bulk-note">Every line is unique. Copy the whole list or download it as a text file.</div></div>
+      <details class="custom-details"><summary>Custom character set <span>＋</span></summary><div class="custom-body"><label for="custom-charset">Use only these characters</label><textarea id="custom-charset" rows="2" placeholder="Leave empty to use the settings above"></textarea><label class="small-check"><input id="exclude-ambiguous" type="checkbox"> Skip look-alikes (O, 0, l, 1)</label></div></details>
+      <div class="rules-control"><label for="compatibility">Compatibility rules</label><select id="compatibility"><option value="flexible">Flexible password</option><option value="wifi">Router / Wi-Fi safe</option><option value="url">URL-safe / API</option><option value="digits">Digits only</option></select><small>Rules shape the next result without leaving this device.</small></div>
+      <details class="security-details"><summary>Why this is secure <span>＋</span></summary><div><p><strong>Cryptographic randomness.</strong> Cipherly uses your browser’s <code>crypto.getRandomValues()</code>, designed for security-sensitive randomness rather than predictable pseudo-random numbers.</p><p><strong>No memory by design.</strong> Results stay in this tab. Cipherly has no account, analytics, password history, or server upload.</p><p><strong>Best practice.</strong> Use a password manager, keep one password per service, and prefer passphrases when you need something memorable.</p></div></details>
+      <div class="feedback-control"><div><b>Generation feedback</b><small>Optional success cue</small></div><label><input id="sound-feedback" type="checkbox"><span>Sound</span></label><label><input id="haptic-feedback" type="checkbox"><span>Haptic</span></label></div>
+      <button id="generate-button" class="generate-button" type="button" aria-keyshortcuts="Enter">Generate <span>↵</span></button>
+      <div class="crypto-note"><span>⌁</span> Uses <strong>crypto.getRandomValues()</strong><br>Nothing leaves this device.</div>
+    </aside>
+  </section>
+  <section class="generator-foot"><a href="index.html">← What is Cipherly?</a><span>Tip: use a password manager to save your result.</span></section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

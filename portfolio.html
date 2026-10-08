@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
+    <link rel="icon" type="image/x-icon" id="favicon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png" />
+<meta
       name="description"
       content="PsReader - Frontend developer portfolio. Responsive web projects including a hand-tracking 3D app (GestureLab), LOTM fan wiki, and interactive dessert ordering site. Built with semantic HTML, CSS, JavaScript, React, and Three.js."
     />
@@ -49,9 +51,6 @@
     </script>
     <link rel="manifest" href="site.webmanifest" />
     <title>PsReader - Frontend Developer Portfolio | HTML, CSS, JS & Three.js Projects</title>
-    <link rel="icon" type="image/svg+xml" id="favicon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%230077b6'/%3E%3Cstop offset='50%25' stop-color='%2300b4d8'/%3E%3Cstop offset='100%25' stop-color='%2390cdf4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23g)'/%3E%3Cg fill='white'%3E%3Crect x='6.4' y='6.7' width='4.8' height='18.7' rx='0.5'/%3E%3Cpath d='M11.2 6.7h6.9a5.9 5.9 0 0 1 0 11.2h-6.9v-4.8h6.9a1.1 1.1 0 0 0 0-1.6h-6.9z'/%3E%3Cpath d='M15.5 19.7l5.6 5.6h6.9l-5.6-5.6z'/%3E%3C/g%3E%3C/svg%3E" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script>
       // Apply the saved scheme before first paint: :root holds dark tokens and
       // the light block is html:not(.dark), so an unclassed html renders light.
@@ -63,18 +62,21 @@
         } catch (e) {}
       })();
     </script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
-    />
-    <!-- Satoshi font -->
-    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <!-- Lenis smooth scroll -->
-    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.26/dist/lenis.css" media="print" onload="this.media='all'" />
     <style>
       html { overflow-x: clip; }
+      /* Keep offscreen sections cheap and remove desktop-only effects from touch devices. */
+      @media (hover: none), (pointer: coarse) {
+        .ghost-cursor, .cursor-spotlight, .cursor-dot, .cursor-ring, .cursor-svg-defs { display: none !important; }
+        .hero-grain { display: none !important; }
+      }
+      @media (max-width: 768px) {
+        #skillsCanvas { display: none !important; }
+        .music-player iframe { min-height: 152px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      }
+
       /* =================================================================
          RESET
          ================================================================= */
@@ -117,7 +119,7 @@
 
         --max-w: 960px;
 
-        --font-display: 'Bricolage Grotesque', sans-serif;
+        --font-display: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
         --ease: cubic-bezier(0.4, 0, 0.2, 1);
         --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -135,7 +137,6 @@
 
       body {
         font-family:
-          "Satoshi",
           -apple-system,
           BlinkMacSystemFont,
           "Segoe UI",
@@ -2518,7 +2519,7 @@
             <!-- Music Player Widget -->
             <div class="music-player">
               <iframe
-                src="https://open.spotify.com/embed/playlist/0vvXsWCC9xrXsKd4FyS8kM?utm_source=generator&theme=0"
+                src="about:blank" data-src="https://open.spotify.com/embed/playlist/0vvXsWCC9xrXsKd4FyS8kM?utm_source=generator&theme=0"
                 title="Lofi focus playlist on Spotify"
                 width="100%" height="152" frameBorder="0"
                 loading="lazy" style="border:0; border-radius:12px; display:block;"
@@ -2527,10 +2528,10 @@
             </div>
             <!-- End Music Player -->
 
-            <button class="theme-toggle" id="soundToggle" aria-label="Enable sounds" style="position:relative">
+            <button class="theme-toggle" id="soundToggle" aria-label="Enable sounds" aria-pressed="false" style="position:relative">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
             </button>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" aria-pressed="false">
               <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
               <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
             </button>
@@ -2624,7 +2625,7 @@
   <div class="case-study-list">
     <article class="case-study" id="case-lotm">
       <figure class="case-study-media">
-        <img src="assets/case-lotm.webp" alt="The Lord of the Mysteries Fan Wiki home page, showing its volume navigation and novel overview" width="1440" height="1000" loading="lazy" decoding="async" />
+        <img src="assets/case-lotm-720.webp" srcset="assets/case-lotm-720.webp 720w, assets/case-lotm.webp 1440w" sizes="(max-width: 760px) calc(100vw - 34px), 720px" alt="The Lord of the Mysteries Fan Wiki home page, showing its volume navigation and novel overview" width="1440" height="1000" loading="lazy" decoding="async" />
         <figcaption>Live site · home page and volume archive</figcaption>
       </figure>
       <div class="case-study-copy">
@@ -2645,7 +2646,7 @@
 
     <article class="case-study" id="case-gesturelab">
       <figure class="case-study-media">
-        <img src="assets/case-gesturelab.webp" alt="GestureLab live interface showing its animated particle sphere and hand-tracking status" width="893" height="768" loading="lazy" decoding="async" />
+        <img src="assets/case-gesturelab-720.webp" srcset="assets/case-gesturelab-720.webp 720w, assets/case-gesturelab.webp 1440w" sizes="(max-width: 760px) calc(100vw - 34px), 720px" alt="GestureLab live interface showing its animated particle sphere and hand-tracking status" width="893" height="768" loading="lazy" decoding="async" />
         <figcaption>Live page · default scene; try it to enable hand tracking</figcaption>
       </figure>
       <div class="case-study-copy">
@@ -2666,7 +2667,7 @@
 
     <article class="case-study" id="case-pixelpress">
       <figure class="case-study-media">
-        <img src="assets/case-pixelpress.webp" alt="Pixelpress image utility interface with original and processed comparison panels and an image picker" width="1440" height="1000" loading="lazy" decoding="async" />
+        <img src="assets/case-pixelpress-720.webp" srcset="assets/case-pixelpress-720.webp 720w, assets/case-pixelpress.webp 1440w" sizes="(max-width: 760px) calc(100vw - 34px), 720px" alt="Pixelpress image utility interface with original and processed comparison panels and an image picker" width="1440" height="1000" loading="lazy" decoding="async" />
         <figcaption>Live site · image comparison and upload-ready empty state</figcaption>
       </figure>
       <div class="case-study-copy">
@@ -2687,7 +2688,7 @@
 
     <article class="case-study" id="case-fandom-fate">
       <figure class="case-study-media">
-        <img src="assets/case-fandom-fate.webp" alt="Fandom Fate home page showing the fandom reading list with Harry Potter, Lord of the Rings, and Lord of the Mysteries cards" width="1440" height="1000" loading="lazy" decoding="async" />
+        <img src="assets/case-fandom-fate-720.webp" srcset="assets/case-fandom-fate-720.webp 720w, assets/case-fandom-fate.webp 1440w" sizes="(max-width: 760px) calc(100vw - 34px), 720px" alt="Fandom Fate home page showing the fandom reading list with Harry Potter, Lord of the Rings, and Lord of the Mysteries cards" width="1440" height="1000" loading="lazy" decoding="async" />
         <figcaption>Live site · fandom list and print-zine cover direction</figcaption>
       </figure>
       <div class="case-study-copy">
@@ -3033,7 +3034,7 @@
           </div>
           <div class="terminal-input-row">
             <span class="terminal-prompt">/</span>
-            <input class="terminal-input" id="terminalInput" type="text" autofocus autocomplete="off" spellcheck="false" />
+            <input class="terminal-input" id="terminalInput" aria-label="Terminal command" type="text" autofocus autocomplete="off" spellcheck="false" />
           </div>
         </div>
       </div>
@@ -3044,10 +3045,6 @@
       <!-- ============================================================
          SCRIPTS
          ============================================================ -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollToPlugin.min.js"></script>
-      <script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"></script>
       <script>
         // ===== Register GSAP plugins =====
         const hasGsap =
@@ -3097,6 +3094,15 @@
             if (next !== fr.src) fr.src = next;
           });
         }
+        function loadSpotifyEmbeds() {
+          document.querySelectorAll(".music-player iframe[data-src]").forEach((fr) => {
+            fr.src = fr.dataset.src;
+            fr.removeAttribute("data-src");
+          });
+          setSpotifyTheme();
+        }
+        // Keep third-party Spotify work off the mobile critical path.
+        if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) loadSpotifyEmbeds();
         setSpotifyTheme();
 
 
@@ -3126,10 +3132,8 @@
           lavender: ["%237c3aed", "%23a78bfa", "%23c4b5fd"],
         };
         function updateFavicon() {
-          const theme = document.documentElement.getAttribute("data-theme") || "default";
-          const [c1, c2, c3] = faviconAccentMap[theme] || faviconAccentMap.default;
-          const svg = `%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='${c1}'/%3E%3Cstop offset='50%25' stop-color='${c2}'/%3E%3Cstop offset='100%25' stop-color='${c3}'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23g)'/%3E%3Cg fill='white'%3E%3Crect x='6.4' y='6.7' width='4.8' height='18.7' rx='0.5'/%3E%3Cpath d='M11.2 6.7h6.9a5.9 5.9 0 0 1 0 11.2h-6.9v-4.8h6.9a1.1 1.1 0 0 0 0-1.6h-6.9z'/%3E%3Cpath d='M15.5 19.7l5.6 5.6h6.9l-5.6-5.6z'/%3E%3C/g%3E%3C/svg%3E`;
-          document.getElementById("favicon").href = "data:image/svg+xml," + svg;
+          const favicon = document.getElementById("favicon");
+          if (favicon) favicon.href = "/favicon.ico";
         }
         updateFavicon();
 
@@ -3256,6 +3260,7 @@
         const menuOverlay = document.querySelector(".mobile-menu-overlay");
 
         function openMobileMenu() {
+          loadSpotifyEmbeds();
           headerNav.classList.add("open");
           menuOverlay.classList.add("active");
           menuToggle.setAttribute("aria-expanded", "true");
@@ -3624,6 +3629,7 @@
           if (soundToggle) {
             soundToggle.classList.add("active");
             soundToggle.setAttribute("aria-label", "Mute sounds");
+            soundToggle.setAttribute("aria-pressed", "true");
           }
         }
         if (soundToggle) {
@@ -3632,6 +3638,7 @@
             localStorage.setItem("soundEnabled", soundEnabled);
             soundToggle.classList.toggle("active", soundEnabled);
             soundToggle.setAttribute("aria-label", soundEnabled ? "Mute sounds" : "Enable sounds");
+            soundToggle.setAttribute("aria-pressed", String(soundEnabled));
             if (soundEnabled) sfx.click();
           });
         }
@@ -3946,7 +3953,7 @@
           const el = document.createElement("div");
           el.textContent = node.userData.name;
           el.style.cssText =
-            "position:absolute;font-size:11px;font-family:var(--font-body);" +
+            "position:absolute;font-size:11px;font-family:inherit;" +
             "color:var(--text-primary);pointer-events:none;white-space:nowrap;" +
             "transition:opacity 200ms, font-weight 150ms, color 150ms;" +
             "text-shadow:0 1px 6px rgba(0,0,0,0.7), 0 0 14px rgba(0,0,0,0.4);";
@@ -4144,7 +4151,9 @@
           document.getElementById("ghostCursor")?.remove();
         }
       </script>
-      <script type="module" src="ghost-cursor.js"></script>
+      <script type="module">
+      if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) import("./ghost-cursor.js");
+    </script>
     <script>
       // Fade between the two site surfaces without hijacking hash links,
       // external links, new-tab links, or users who prefer reduced motion.
@@ -4166,6 +4175,33 @@
           document.body.classList.add("page-exit");
           window.setTimeout(() => window.location.assign(url.href), 280);
         });
+      })();
+    </script>
+    <script>
+      // Lightweight native enhancements: no animation library required.
+      (() => {
+        const progress = document.getElementById("scrollProgress");
+        const updateProgress = () => {
+          if (!progress) return;
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          progress.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+        };
+        window.addEventListener("scroll", updateProgress, { passive: true });
+        window.addEventListener("resize", updateProgress, { passive: true });
+        updateProgress();
+        if ("IntersectionObserver" in window) {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { rootMargin: "120px 0px" });
+          document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+        } else {
+          document.querySelectorAll(".reveal").forEach((el) => el.classList.add("visible"));
+        }
       })();
     </script>
   </body>

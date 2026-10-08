@@ -1,0 +1,180 @@
+/* Lumen button refresh: warm brass, deep teal, soft-glass surfaces, tactile motion. */
+:root {
+  --btn-gold: #e6b875;
+  --btn-gold-bright: #f1cb91;
+  --btn-gold-deep: #d5a15d;
+  --btn-ink: #172522;
+  --btn-glow: rgba(218, 170, 103, .24);
+}
+
+button:not(.palette-card) {
+  min-height: 44px;
+  padding: 9px 15px;
+  border: 1px solid color-mix(in srgb, var(--btn-gold) 55%, var(--line-strong));
+  border-radius: 14px;
+  color: var(--ink);
+  background: linear-gradient(145deg,
+    color-mix(in srgb, var(--surface) 91%, var(--btn-gold)),
+    color-mix(in srgb, var(--surface) 98%, var(--btn-gold)));
+  box-shadow: 0 5px 14px rgba(11, 25, 25, .12), inset 0 1px 0 rgba(255,255,255,.10);
+  font-weight: 750;
+  transition: transform .18s cubic-bezier(.2,.8,.2,1), box-shadow .2s ease,
+    border-color .2s ease, color .2s ease, background .2s ease;
+}
+button:not(.palette-card):not(:disabled):hover {
+  transform: translateY(-2px);
+  border-color: var(--btn-gold-bright);
+  box-shadow: 0 9px 20px var(--btn-glow), inset 0 1px 0 rgba(255,255,255,.15);
+}
+button:not(.palette-card):not(:disabled):active {
+  transform: translateY(0) scale(.975);
+  box-shadow: 0 3px 9px rgba(11, 25, 25, .15), inset 0 2px 4px rgba(11,25,25,.12);
+}
+button:focus-visible,
+a.cta:focus-visible,
+.links a:focus-visible {
+  outline: 3px solid var(--btn-gold-bright);
+  outline-offset: 3px;
+}
+button:disabled {
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Clear, luminous primary actions. */
+.button:not(.secondary),
+#make-pass,
+#save-palette,
+#run-matrix,
+.cta,
+.links a.primary,
+[role="tab"][aria-selected="true"],
+.picker-target.active,
+.format-switch button[aria-pressed="true"] {
+  border-color: transparent;
+  color: var(--btn-ink);
+  background: linear-gradient(135deg, var(--btn-gold-bright), var(--btn-gold-deep));
+  box-shadow: 0 7px 17px var(--btn-glow), inset 0 1px 0 rgba(255,255,255,.45);
+}
+.button:not(.secondary):hover,
+#make-pass:hover,
+#save-palette:hover,
+#run-matrix:hover,
+.cta:hover,
+.links a.primary:hover,
+[role="tab"][aria-selected="true"]:hover,
+.picker-target.active:hover,
+.format-switch button[aria-pressed="true"]:hover {
+  border-color: transparent;
+  color: var(--btn-ink);
+  background: linear-gradient(135deg, #f5d39e, var(--btn-gold));
+  box-shadow: 0 10px 22px rgba(218,170,103,.32), inset 0 1px 0 rgba(255,255,255,.6);
+}
+.cta,
+.links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 10px 17px;
+  border: 1px solid color-mix(in srgb, var(--btn-gold) 55%, var(--line));
+  border-radius: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform .18s cubic-bezier(.2,.8,.2,1), box-shadow .2s ease,
+    border-color .2s ease, color .2s ease, background .2s ease;
+}
+.cta:hover,
+.links a:hover { transform: translateY(-2px); }
+
+/* Softer tactile surfaces for secondary actions and segmented controls. */
+.button.secondary,
+.saved-palette-actions button,
+.history-row button,
+.suggestion button,
+.format-switch button:not([aria-pressed="true"]),
+.picker-target:not(.active),
+.theme-toggle,
+.sound-toggle,
+[role="tab"][aria-selected="false"] {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--btn-gold) 34%, var(--line-strong));
+  background: linear-gradient(145deg,
+    color-mix(in srgb, var(--surface) 88%, var(--btn-gold)),
+    color-mix(in srgb, var(--surface) 97%, var(--accent)));
+}
+.button.secondary:hover,
+.saved-palette-actions button:hover,
+.history-row button:hover,
+.suggestion button:hover,
+.format-switch button:not([aria-pressed="true"]):hover,
+.picker-target:not(.active):hover,
+.theme-toggle:hover,
+.sound-toggle:hover,
+[role="tab"][aria-selected="false"]:hover {
+  color: var(--ink);
+  border-color: var(--btn-gold);
+  background: color-mix(in srgb, var(--surface) 76%, var(--btn-gold));
+}
+
+/* Small controls become easier to hit without losing their compact silhouettes. */
+.theme-toggle,
+.sound-toggle { min-height: 44px; padding-inline: 12px; border-radius: 999px; }
+.icon-button { width: 44px; height: 44px; min-height: 44px; padding: 0; border-radius: 50%; }
+.format-switch button { min-height: 44px; border-radius: 11px; }
+.saved-palette-tools button,
+.saved-palette-actions button,
+.history-row button,
+.suggestion button { min-height: 44px; border-radius: 12px; }
+.preview-button { min-height: 46px; border: 1px solid transparent; border-radius: 14px; color: var(--btn-ink); background: linear-gradient(135deg, var(--btn-gold-bright), var(--btn-gold-deep)); box-shadow: 0 7px 17px var(--btn-glow); }
+.preview-button:hover { color: var(--btn-ink); background: linear-gradient(135deg, #f5d39e, var(--btn-gold)); }
+.role-accent-cta { min-height: 46px; border-radius: 14px; box-shadow: 0 7px 17px var(--btn-glow); }
+
+/* Keep the component examples truthful: disabled and focus demonstrations retain their states. */
+.disabled-preview button {
+  min-height: 44px;
+  border: 1px dashed currentColor;
+  border-radius: 12px;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+.disabled-preview button:hover { transform: none; box-shadow: none; }
+.focus-preview button { min-height: 44px; border-radius: 12px; outline: 3px solid currentColor; outline-offset: 3px; }
+.palette-card { border-radius: 14px; }
+.palette-card:hover { box-shadow: 0 10px 22px var(--btn-glow); }
+
+/* The informational pages use text links as compact navigation chips. */
+.nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: transform .18s ease, color .18s ease, border-color .18s ease, background .18s ease;
+}
+.nav a:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--btn-gold) 58%, var(--line));
+  color: var(--btn-ink);
+  background: color-mix(in srgb, var(--surface) 72%, var(--btn-gold));
+}
+
+footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 3px 4px;
+  border-radius: 6px;
+  text-underline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button, .cta, .links a, .nav a { transition: none !important; }
+  button:not(.palette-card):not(:disabled):hover,
+  .cta:hover, .links a:hover, .nav a:hover { transform: none; }
+}
