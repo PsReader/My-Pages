@@ -149,7 +149,11 @@ function App() {
             onCreated={(state) => {
               glRef.current = state.gl;
             }}
-            camera={{ position: [0, 0, 3.5], fov: 50 }} dpr={[1, 1.5]} gl={{ preserveDrawingBuffer: true }} style={{ zIndex: 0 }}>
+            camera={{ position: [0, 0, 3.5], fov: 50 }}
+            dpr={isLowPerf ? 1 : [1, 1.5]}
+            gl={{ preserveDrawingBuffer: true }}
+            style={{ zIndex: 0 }}
+          >
             <ambientLight intensity={0.8} />
             <directionalLight position={[2, 2, 4]} intensity={1.2} />
             <AmbientBackground
