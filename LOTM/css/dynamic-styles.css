@@ -16,6 +16,65 @@
   z-index: 90;
 }
 
+/* Character-name summary popups. */
+.character-link {
+  color: #d4af9f;
+  text-decoration: underline;
+  text-decoration-color: rgba(212, 175, 159, .45);
+  text-underline-offset: 2px;
+}
+
+.character-link:hover,
+.character-link:focus-visible {
+  color: #e8c8b8;
+  text-decoration-color: #d4af9f;
+}
+
+.character-tooltip {
+  position: fixed;
+  z-index: 200;
+  display: grid;
+  width: min(300px, calc(100vw - 24px));
+  gap: 6px;
+  padding: 13px 15px;
+  border: 1px solid rgba(255, 215, 0, .48);
+  border-left: 3px solid #ffd700;
+  border-radius: 6px;
+  background: linear-gradient(135deg, rgba(29, 16, 38, .98), rgba(58, 30, 57, .98));
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .42), 0 0 18px rgba(255, 215, 0, .12);
+  color: #d4af9f;
+  font-family: "Libre Baskerville", "Merriweather", Georgia, serif;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition: opacity .16s ease, transform .16s ease;
+}
+
+.character-tooltip.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.character-tooltip strong {
+  color: #ffe6a3;
+  font-family: "Merriweather", Georgia, serif;
+  font-size: .92rem;
+}
+
+.character-tooltip span {
+  color: #d4af9f;
+  font-size: .76rem;
+  line-height: 1.55;
+}
+
+.character-tooltip em {
+  color: #ffc300;
+  font-size: .68rem;
+  font-style: normal;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
 /* ============================================================================= */
 /* ACCORDION COMPONENT */
 /* ============================================================================= */
@@ -157,4 +216,211 @@
     height: 45px;
     font-size: 18px;
   }
+}
+
+/* =============================================================================
+   Archive-wide UI/UX refinement
+   ============================================================================= */
+:root {
+  color-scheme: dark;
+  --ink: #d4af9f;
+  --ink-bright: #f0d6c3;
+  --muted: #b99789;
+  --gold: #ffc300;
+  --panel: rgba(29, 16, 38, .78);
+  --line: rgba(212, 175, 159, .26);
+  --focus: #ffe6a3;
+}
+html { scroll-behavior: smooth; }
+body { min-height: 100vh; overflow-x: hidden; }
+body::selection { background: rgba(255, 195, 0, .32); color: #fff8e7; }
+
+/* Match the compact sticky navigation used on the live reference site. */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  display: block;
+  overflow: hidden;
+  background: rgba(212, 175, 159, 0.1);
+  border: 1px solid rgba(212, 175, 159, 0.3);
+  border-radius: 6px;
+  animation: slideInDown 0.6s ease-out;
+  margin: 20px 0;
+}
+.topnav a {
+  float: left;
+  display: block;
+  color: #d4af9f;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+.topnav a.active-page {
+  background-color: rgba(212, 175, 159, 0.2);
+  border-bottom: 2px solid rgba(212, 175, 159, 0.8);
+  color: #e8c8b8;
+}
+
+/* Consistent interaction affordances. */
+a, button, summary, [role="button"] { -webkit-tap-highlight-color: transparent; }
+a:focus-visible, button:focus-visible, summary:focus-visible, [role="button"]:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+.button1, .button, button { min-height: 42px; }
+.button1 { line-height: 1.2; }
+button:disabled { cursor: not-allowed; opacity: .55; }
+
+/* Improve long-form reading rhythm on legacy pages. */
+body > p.spoiler-note, .spoiler-note[role="note"] { box-sizing: border-box; display: block; width: min(980px, calc(100% - 30px)); margin: 8px auto 18px; padding: 9px 13px; border-left: 3px solid var(--gold); border-radius: 4px; background: rgba(255, 195, 0, .07); color: var(--muted); font-size: .78rem; line-height: 1.55; text-align: center; }
+img { max-width: 100%; }
+
+
+#scrollToTop { backdrop-filter: blur(8px); }
+#scrollToTop:hover { background: rgba(212, 175, 159, .32); color: #fff4df; border-color: var(--focus); transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0, 0, 0, .35); }
+.character-tooltip { max-width: calc(100vw - 24px); }
+
+.novel-related-nav {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  width: min(1000px, calc(100% - 40px));
+  margin: 18px auto 26px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(29, 16, 38, .72);
+}
+.novel-related-nav a {
+  box-sizing: border-box;
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  border: 1px solid rgba(212, 175, 159, .3);
+  border-radius: 6px;
+  background: rgba(212, 175, 159, .08);
+  color: var(--ink-bright);
+  font-size: .86rem;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+}
+.novel-related-nav a:hover {
+  border-color: var(--focus);
+  background: rgba(255, 195, 0, .12);
+  color: #fff1b8;
+  text-decoration: none;
+}
+.novel-hub .novel-related-nav { width: auto; margin: 18px 0 28px; }
+.novel-image-credit {
+  display: block;
+  margin-top: 9px;
+  color: var(--muted);
+  font-size: .66rem;
+  line-height: 1.45;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (max-width: 620px) {
+  body > p.spoiler-note, .spoiler-note[role="note"] { width: min(100% - 20px, 980px); }
+  #scrollToTop { right: 14px; bottom: 14px; width: 44px; height: 44px; padding: 10px; }
+  .novel-related-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); width: calc(100% - 20px); gap: 10px; padding: 12px; }
+  .novel-hub .novel-related-nav { width: auto; }
+  .novel-related-nav a:last-child { grid-column: 1 / -1; width: min(100%, 220px); justify-self: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* Mobile-safe framed artwork and scroll-triggered novel reveals. */
+.image-frame { box-sizing: border-box; max-width: 100%; height: auto; }
+.novel-volume-card.reveal-ready,
+.novel-intro.reveal-ready,
+.novel-chapter-heading.reveal-ready,
+.novel-chapter-copy.reveal-ready {
+  opacity: 0;
+  transform: translateY(14px);
+}
+.novel-volume-card.reveal-ready.is-visible,
+.novel-intro.reveal-ready.is-visible,
+.novel-chapter-heading.reveal-ready.is-visible,
+.novel-chapter-copy.reveal-ready.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity .55s ease var(--reveal-delay, 0ms), transform .55s ease var(--reveal-delay, 0ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .novel-volume-card.reveal-ready,
+  .novel-intro.reveal-ready,
+  .novel-chapter-heading.reveal-ready,
+  .novel-chapter-copy.reveal-ready {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Make wide reference tables feel intentional on narrow screens. */
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-color: rgba(212,175,159,.65) rgba(29,16,38,.75);
+  scrollbar-width: thin;
+}
+
+
+/* Preserve the reference navigation look while keeping all links on one compact mobile row. */
+@media (max-width: 620px) {
+  .topnav {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .topnav a {
+    float: none;
+    display: inline-block;
+    vertical-align: top;
+    padding: 12px 10px;
+    font-size: .82rem;
+  }
+}
+
+
+/* Accordion heading and its separate destination link are sibling controls. */
+.accordion-header-row {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.accordion-header-row .accordion-header {
+  flex: 1 1 auto;
+  width: 100%;
+  margin-bottom: 0;
+  font: inherit;
+  text-align: left;
+}
+.accordion-header-row .accordion-link {
+  align-self: center;
+  flex: 0 0 auto;
+  color: #d4af9f;
+  text-decoration: none;
+  font-size: .85em;
+  font-weight: 400;
+  border: 1px solid rgba(212, 175, 159, .4);
+  border-radius: 4px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+.accordion-header-row .accordion-link:hover {
+  background-color: rgba(212, 175, 159, .12);
 }

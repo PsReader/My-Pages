@@ -24,12 +24,12 @@ const steps: Step[] = [
   {
     id: "joint",
     title: "Pick an Interactive",
-    body: "Open the panel at the top to switch between Sphere & Halo, Retrolens, and AirGlow. In Sphere & Halo, raise fingers to drive the sphere: one finger moves it, two scale it, three change color, four rotate it.",
+    body: "Open the panel at the top to switch between Sphere & Halo, Retrolens, and AirGlow. Keep both hands visible in Sphere & Halo: one hand selects a mode, and the other controls the sphere. One finger moves it, two scale it, three change color, and four rotate it.",
   },
   {
     id: "shader",
     title: "Gesture Shortcuts",
-    body: "In Retrolens, pinch your index fingertips or fold a pinkie to cycle through 10 video filters. In AirGlow, trace the air with your index fingertip. Fold a pinkie to open the color wheel.",
+    body: "Retrolens shortcuts work with one hand. In AirGlow, keep both hands visible: one selects a mode, and the other draws with its index fingertip. Fold a pinkie on the drawing hand to open the color wheel.",
   },
 ]
 

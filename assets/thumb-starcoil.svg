@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" width="1000" height="800" role="img" aria-label="Starcoil title art: Pip the space worm crossing a faded star road against a dark navy sky, with cream star points and a sage green glow">
+  <defs>
+    <radialGradient id="sky" cx="50%" cy="42%" r="78%">
+      <stop offset="0%" stop-color="#171f42"/>
+      <stop offset="58%" stop-color="#0d1229"/>
+      <stop offset="100%" stop-color="#08091b"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#a9c58c" stop-opacity="0.17"/>
+      <stop offset="70%" stop-color="#a9c58c" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#a9c58c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" cx="50%" cy="50%" r="72%">
+      <stop offset="55%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+  </defs>
+  <rect width="1000" height="800" fill="url(#sky)"/>
+  <circle cx="817" cy="774" r="2.5" fill="#f4efd8" opacity="0.44"/>
+  <circle cx="273" cy="261" r="0.8" fill="#f4efd8" opacity="0.62"/>
+  <circle cx="186" cy="390" r="2.2" fill="#f4efd8" opacity="0.68"/>
+  <circle cx="638" cy="332" r="0.8" fill="#f4efd8" opacity="0.68"/>
+  <circle cx="688" cy="707" r="1.6" fill="#f4efd8" opacity="0.26"/>
+  <circle cx="163" cy="590" r="2.7" fill="#f4efd8" opacity="0.21"/>
+  <circle cx="384" cy="641" r="2.3" fill="#f4efd8" opacity="0.38"/>
+  <circle cx="139" cy="41" r="0.8" fill="#f4efd8" opacity="0.44"/>
+  <circle cx="560" cy="431" r="2.7" fill="#f4efd8" opacity="0.56"/>
+  <circle cx="503" cy="620" r="1.5" fill="#f4efd8" opacity="0.72"/>
+  <circle cx="330" cy="418" r="2.3" fill="#f4efd8" opacity="0.72"/>
+  <circle cx="652" cy="174" r="1.1" fill="#f4efd8" opacity="0.69"/>
+  <circle cx="686" cy="695" r="1.0" fill="#f4efd8" opacity="0.41"/>
+  <circle cx="907" cy="569" r="1.2" fill="#f4efd8" opacity="0.37"/>
+  <circle cx="661" cy="693" r="1.4" fill="#f4efd8" opacity="0.31"/>
+  <circle cx="185" cy="280" r="2.4" fill="#f4efd8" opacity="0.26"/>
+  <circle cx="646" cy="320" r="2.0" fill="#f4efd8" opacity="0.42"/>
+  <circle cx="950" cy="386" r="1.2" fill="#f4efd8" opacity="0.62"/>
+  <circle cx="71" cy="592" r="2.3" fill="#f4efd8" opacity="0.27"/>
+  <circle cx="2" cy="769" r="1.6" fill="#f4efd8" opacity="0.41"/>
+  <circle cx="5" cy="777" r="2.2" fill="#f4efd8" opacity="0.52"/>
+  <circle cx="963" cy="181" r="1.6" fill="#f4efd8" opacity="0.67"/>
+  <circle cx="107" cy="114" r="2.3" fill="#f4efd8" opacity="0.22"/>
+  <circle cx="923" cy="264" r="1.4" fill="#f4efd8" opacity="0.44"/>
+  <circle cx="524" cy="582" r="1.7" fill="#f4efd8" opacity="0.63"/>
+  <circle cx="662" cy="603" r="2.2" fill="#f4efd8" opacity="0.60"/>
+  <circle cx="437" cy="220" r="1.9" fill="#f4efd8" opacity="0.65"/>
+  <circle cx="869" cy="494" r="2.2" fill="#f4efd8" opacity="0.21"/>
+  <circle cx="405" cy="662" r="1.9" fill="#f4efd8" opacity="0.18"/>
+  <circle cx="568" cy="568" r="2.7" fill="#f4efd8" opacity="0.60"/>
+  <circle cx="48" cy="225" r="2.1" fill="#f4efd8" opacity="0.61"/>
+  <circle cx="459" cy="198" r="2.7" fill="#f4efd8" opacity="0.55"/>
+  <circle cx="447" cy="771" r="1.9" fill="#f4efd8" opacity="0.28"/>
+  <circle cx="676" cy="281" r="2.5" fill="#f4efd8" opacity="0.72"/>
+  <circle cx="797" cy="781" r="2.8" fill="#f4efd8" opacity="0.27"/>
+  <circle cx="962" cy="686" r="2.4" fill="#f4efd8" opacity="0.35"/>
+  <circle cx="172" cy="538" r="1.0" fill="#f4efd8" opacity="0.60"/>
+  <circle cx="663" cy="262" r="1.4" fill="#f4efd8" opacity="0.71"/>
+  <circle cx="398" cy="499" r="2.6" fill="#f4efd8" opacity="0.41"/>
+  <circle cx="712" cy="67" r="1.5" fill="#f4efd8" opacity="0.38"/>
+  <circle cx="855" cy="29" r="0.9" fill="#f4efd8" opacity="0.40"/>
+  <circle cx="384" cy="658" r="2.0" fill="#f4efd8" opacity="0.71"/>
+  <circle cx="192" cy="532" r="2.8" fill="#f4efd8" opacity="0.53"/>
+  <circle cx="183" cy="304" r="1.7" fill="#f4efd8" opacity="0.46"/>
+  <circle cx="620" cy="665" r="2.5" fill="#f4efd8" opacity="0.64"/>
+  <circle cx="887" cy="279" r="1.1" fill="#f4efd8" opacity="0.59"/>
+  <circle cx="500" cy="400" r="360" fill="none" stroke="#697763" stroke-opacity="0.35" stroke-width="1.5" stroke-dasharray="2 14"/>
+  <ellipse cx="500" cy="400" rx="430" ry="340" fill="url(#halo)"/>
+  <g transform="translate(143 94) scale(1.7)">
+<g fill="none" stroke="#697763" stroke-width="1.3"><path d="M40 272L89 226 126 244 174 184 225 204 267 142 320 164 374 103"/><path d="M40 272l10-17m39-29 13 5m24 13 6-18m42-42 12 10m39 10 3-18m42-44 14 10m39 12 7-17"/></g><g fill="#19241e" stroke="#d2c28e" stroke-width="2"><path d="M41 271l8-15 8 11-6 13zM86 226l9-12 8 13-9 6zM122 245l7-15 10 8-5 13zM170 183l9-14 10 17-10 7zM222 204l7-14 9 11-5 12zM263 142l8-15 11 13-7 13zM317 164l7-15 11 13-9 9zM370 102l7-15 10 13-9 11z"/></g><g transform="rotate(-16 228 170)"><path d="M84 239 C103 183 150 176 188 204 S265 244 294 201 S341 139 366 156" fill="none" stroke="#101714" stroke-width="47" stroke-linecap="round" stroke-linejoin="round"/><path d="M84 239 C103 183 150 176 188 204 S265 244 294 201 S341 139 366 156" fill="none" stroke="#a9c58c" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/><path d="M105 216q10-13 20-11M142 195q10-8 19-3M180 203q9 6 13 14M219 220q11 7 18 1M257 211q9-5 15-16M293 182q5-10 16-17M327 157q10-5 17-2" fill="none" stroke="#6e8e72" stroke-width="3" stroke-linecap="round"/><path d="M356 137q19-6 27 9l5 13q-2 16-17 21l-19-8-5-16z" fill="#b9d99d" stroke="#101714" stroke-width="5"/><ellipse cx="374" cy="158" rx="12" ry="9" fill="#f2e6bd" stroke="#27352b" stroke-width="2"/><circle cx="379" cy="159" r="3.4" fill="#263a2b" stroke="none"/><path d="M367 145q7-8 15-3" fill="none" stroke="#354c3a" stroke-width="3" stroke-linecap="round"/><path d="M367 175q7 3 12-2" fill="none" stroke="#614a3d" stroke-width="2" stroke-linecap="round"/><circle cx="357" cy="168" r="3" fill="#e98778" stroke="none"/></g><g fill="#efd18a" stroke="#101714" stroke-width="2"><path d="M79 93l7-18 7 18 18 7-18 7-7 18-7-18-18-7z"/><path d="M321 274l5-13 5 13 13 5-13 5-5 13-5-13-13-5z"/></g><circle cx="92" cy="318" r="20" fill="#17211d" stroke="#a9c58c" stroke-width="2"/><path d="M73 321a20 20 0 0 0 36-9 17 17 0 0 1-36 9" fill="#a9c58c"/><text x="210" y="327" text-anchor="middle" fill="#b3c0af" font-family="monospace" font-size="10" letter-spacing="2">PIP, LOCAL EXPLORER</text>
+  </g>
+  <rect width="1000" height="800" fill="url(#vignette)"/>
+</svg>

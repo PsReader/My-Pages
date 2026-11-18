@@ -1,0 +1,308 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "title": "Home"
+    },
+    {
+      "path": "/Abilities.html",
+      "title": "Abilities"
+    },
+    {
+      "path": "/Alger%20Wilson.html",
+      "title": "Alger Wilson"
+    },
+    {
+      "path": "/Anthony%20Reid.html",
+      "title": "Anthony Reid"
+    },
+    {
+      "path": "/Audrey%20Hall.html",
+      "title": "Audrey Hall"
+    },
+    {
+      "path": "/Author.html",
+      "title": "Author"
+    },
+    {
+      "path": "/Azik%20Eggers.html",
+      "title": "Azik Eggers"
+    },
+    {
+      "path": "/Cattleya.html",
+      "title": "Cattleya"
+    },
+    {
+      "path": "/Church.html",
+      "title": "Church"
+    },
+    {
+      "path": "/Derrick%20Berg.html",
+      "title": "Derrick Berg"
+    },
+    {
+      "path": "/Emlyn%20White.html",
+      "title": "Emlyn White"
+    },
+    {
+      "path": "/Fors%20Wall.html",
+      "title": "Fors Wall"
+    },
+    {
+      "path": "/Franca%20Roland.html",
+      "title": "Franca Roland"
+    },
+    {
+      "path": "/Gallery.html",
+      "title": "Gallery"
+    },
+    {
+      "path": "/identities.html",
+      "title": "identities"
+    },
+    {
+      "path": "/index.html",
+      "title": "Home"
+    },
+    {
+      "path": "/Jenna.html",
+      "title": "Jenna"
+    },
+    {
+      "path": "/Leonard%20Mitchell.html",
+      "title": "Leonard Mitchell"
+    },
+    {
+      "path": "/Lumian%20Lee.html",
+      "title": "Lumian Lee"
+    },
+    {
+      "path": "/Maric.html",
+      "title": "Maric"
+    },
+    {
+      "path": "/Mc_Profile.html",
+      "title": "Mc Profile"
+    },
+    {
+      "path": "/Novel.html",
+      "title": "Novel"
+    },
+    {
+      "path": "/Pallez%20Zoroast.html",
+      "title": "Pallez Zoroast"
+    },
+    {
+      "path": "/Pathway_abyss.html",
+      "title": "Abyss Pathway"
+    },
+    {
+      "path": "/Pathway_black-emperor.html",
+      "title": "Black Emperor Pathway"
+    },
+    {
+      "path": "/Pathway_chained.html",
+      "title": "Chained Pathway"
+    },
+    {
+      "path": "/Pathway_darkness.html",
+      "title": "Darkness Pathway"
+    },
+    {
+      "path": "/Pathway_death.html",
+      "title": "Death Pathway"
+    },
+    {
+      "path": "/Pathway_demoness.html",
+      "title": "Demoness Pathway"
+    },
+    {
+      "path": "/Pathway_door.html",
+      "title": "Door Pathway"
+    },
+    {
+      "path": "/Pathway_error.html",
+      "title": "Error Pathway"
+    },
+    {
+      "path": "/Pathway_hanged-man.html",
+      "title": "Hanged Man Pathway"
+    },
+    {
+      "path": "/Pathway_hermit.html",
+      "title": "Hermit Pathway"
+    },
+    {
+      "path": "/Pathway_justiciar.html",
+      "title": "Justiciar Pathway"
+    },
+    {
+      "path": "/Pathway_moon.html",
+      "title": "Moon Pathway"
+    },
+    {
+      "path": "/Pathway_mother.html",
+      "title": "Mother Pathway"
+    },
+    {
+      "path": "/Pathway_paragon.html",
+      "title": "Paragon Pathway"
+    },
+    {
+      "path": "/Pathway_red-priest.html",
+      "title": "Red Priest Pathway"
+    },
+    {
+      "path": "/Pathway_sun.html",
+      "title": "Sun Pathway"
+    },
+    {
+      "path": "/Pathway_twilight-giant.html",
+      "title": "Twilight Giant Pathway"
+    },
+    {
+      "path": "/Pathway_tyrant.html",
+      "title": "Tyrant Pathway"
+    },
+    {
+      "path": "/Pathway_visionary.html",
+      "title": "Visionary Pathway"
+    },
+    {
+      "path": "/Pathway_wheel-of-fortune.html",
+      "title": "Wheel of Fortune Pathway"
+    },
+    {
+      "path": "/Pathway_white-tower.html",
+      "title": "White Tower Pathway"
+    },
+    {
+      "path": "/Pathways.html",
+      "title": "Fool Pathway"
+    },
+    {
+      "path": "/Pathways_Index.html",
+      "title": "Pathway Directory"
+    },
+    {
+      "path": "/Quotes.html",
+      "title": "Quotes"
+    },
+    {
+      "path": "/Reinette%20Tinekerr.html",
+      "title": "Reinette Tinekerr"
+    },
+    {
+      "path": "/Sharron.html",
+      "title": "Sharron"
+    },
+    {
+      "path": "/Songs.html",
+      "title": "Songs"
+    },
+    {
+      "path": "/TarotClub.html",
+      "title": "TarotClub"
+    },
+    {
+      "path": "/TarotClub_Achievements.html",
+      "title": "TarotClub Achievements"
+    },
+    {
+      "path": "/TarotClub_Gatherings.html",
+      "title": "TarotClub Gatherings"
+    },
+    {
+      "path": "/TarotClub_Members.html",
+      "title": "TarotClub Members"
+    },
+    {
+      "path": "/TarotClub_Rituals.html",
+      "title": "TarotClub Rituals"
+    },
+    {
+      "path": "/Volume%201.html",
+      "title": "Volume 1"
+    },
+    {
+      "path": "/Volume%202.html",
+      "title": "Volume 2"
+    },
+    {
+      "path": "/Volume%203.html",
+      "title": "Volume 3"
+    },
+    {
+      "path": "/Volume%204.html",
+      "title": "Volume 4"
+    },
+    {
+      "path": "/Volume%205.html",
+      "title": "Volume 5"
+    },
+    {
+      "path": "/Volume%206.html",
+      "title": "Volume 6"
+    },
+    {
+      "path": "/Volume%207.html",
+      "title": "Volume 7"
+    },
+    {
+      "path": "/Volume%208.html",
+      "title": "Volume 8"
+    },
+    {
+      "path": "/Will%20Auceptin.html",
+      "title": "Will Auceptin"
+    },
+    {
+      "path": "/Xio%20Derecha.html",
+      "title": "Xio Derecha"
+    },
+    {
+      "path": "/Pathway_chaos-primogenitor.html",
+      "title": "Chaos Primogenitor Pathway"
+    },
+    {
+      "path": "/Pathway_patriarch.html",
+      "title": "Patriarch Pathway"
+    },
+    {
+      "path": "/Pathway_chaos-mist.html",
+      "title": "Chaos Mist Pathway"
+    },
+    {
+      "path": "/Pathway_tail-devourer.html",
+      "title": "Tail-Devourer Pathway"
+    },
+    {
+      "path": "/Pathway_eternal-aeon.html",
+      "title": "Eternal Aeon Pathway"
+    },
+    {
+      "path": "/Pathway_condenser.html",
+      "title": "Condenser Pathway"
+    },
+    {
+      "path": "/Pathway_everlasting.html",
+      "title": "Everlasting Pathway"
+    },
+    {
+      "path": "/Pathway_second-law.html",
+      "title": "Second Law Pathway"
+    },
+    {
+      "path": "/Pathway_sublunary-eye.html",
+      "title": "Sublunary Eye Pathway"
+    },
+    {
+      "path": "/Pathway_eternal-edict.html",
+      "title": "Eternal Edict Pathway"
+    },
+    {
+      "path": "/Outer_Deities.html",
+      "title": "Outer Deities & Corruption"
+    }
+  ]
+}

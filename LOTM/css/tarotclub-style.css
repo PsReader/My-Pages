@@ -503,6 +503,7 @@
 			}
 			
 			@media (max-width: 800px) {
+				.tarot-fan::before { left: 0; right: 0; }
 				.tarot-fan {
 					grid-template-columns: repeat(4, minmax(0, 1fr));
 					padding-top: 196px;
@@ -538,3 +539,28 @@
 					opacity: 0.6;
 				}
 			}
+
+
+/* Keep information-dense member tables scrollable inside the viewport on phones. */
+@media (max-width: 600px) {
+  .member-table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .member-table {
+    width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+  }
+  .member-table th,
+  .member-table td {
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+}

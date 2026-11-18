@@ -20,9 +20,10 @@ export function useWebcam() {
 
       starting = true;
       attempt++;
+      let stream: MediaStream | null = null;
 
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({
+        stream = await navigator.mediaDevices.getUserMedia({
           video: {
             facingMode: "user",
             width: { ideal: isMobile ? 480 : 1280 },
@@ -45,12 +46,18 @@ export function useWebcam() {
         await video.play();
         if (cancelled) {
           stream.getTracks().forEach((track) => track.stop());
+          if (video.srcObject === stream) video.srcObject = null;
           return;
         }
 
         setIsReady(true);
         setError(null);
       } catch (err) {
+        if (stream) {
+          const video = videoRef.current;
+          if (video?.srcObject === stream) video.srcObject = null;
+          stream.getTracks().forEach((track) => track.stop());
+        }
         if (cancelled) return;
         // "Timeout starting video source" is transient: retry with backoff
         if (attempt < MAX_ATTEMPTS) {
@@ -80,9 +87,11 @@ export function useWebcam() {
       cancelled = true;
       if (retryTimer) clearTimeout(retryTimer);
       document.removeEventListener("visibilitychange", onVisibility);
-      if (videoRef.current?.srcObject) {
-        const stream = videoRef.current.srcObject as MediaStream;
+      const video = videoRef.current;
+      if (video?.srcObject) {
+        const stream = video.srcObject as MediaStream;
         stream.getTracks().forEach((track) => track.stop());
+        video.srcObject = null;
       }
     };
   }, []);

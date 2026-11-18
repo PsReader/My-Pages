@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Witbit</title>
+  <path d="M10 6h33l15 15v35c0 3-2 5-5 5H10c-3 0-5-2-5-5V11c0-3 2-5 5-5Z" fill="#d9cba9"/>
+  <path d="M9 4h35l14 14v37c0 3-2 5-5 5H9c-3 0-5-2-5-5V9c0-3 2-5 5-5Z" fill="#fbf6e8" stroke="#30291f" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M44 4v10c0 3 1 4 4 4h10" fill="#e8dcc0" stroke="#843d32" stroke-width="1.2" stroke-linejoin="round"/>
+  <path d="M10 8h31" fill="none" stroke="#bcae8d" stroke-width=".7"/>
+  <text x="6.5" y="47" fill="#30291f" font-family="Georgia, 'Times New Roman', serif" font-size="45" font-weight="700" letter-spacing="-5">w</text>
+  <circle cx="53.5" cy="44.5" r="3" fill="#b85542"/>
+  <path d="M11 52.2c8.1 1.1 18.4.3 32.5-1.1" fill="none" stroke="#b85542" stroke-width="2.3" stroke-linecap="round"/>
+  <path d="M13 54.6c8.2.4 17.6-.2 27.8-1.1" fill="none" stroke="#d1a14a" stroke-width=".8" stroke-linecap="round" opacity=".8"/>
+</svg>

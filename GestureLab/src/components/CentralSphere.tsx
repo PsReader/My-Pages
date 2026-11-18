@@ -13,6 +13,7 @@ interface Props {
   onParamsChange: (update: Partial<CentralParams>) => void;
   mode: number;
   modeHandIndex: number;
+  interactionEnabled: boolean;
   lowPerf?: boolean;
 }
 
@@ -56,6 +57,7 @@ export function CentralSphere({
   onParamsChange,
   mode,
   modeHandIndex,
+  interactionEnabled,
   lowPerf,
 }: Props) {
   const haloRef = useRef<THREE.Mesh>(null);
@@ -164,38 +166,41 @@ export function CentralSphere({
 
     /* ---- Motion energy from all joints, per hand ---- */
     let energy = 0;
-    landmarks.forEach((hand, handIdx) => {
-      if (hand.length < 21) return;
-      const handPrev = prevJoints.current[handIdx] ?? [];
-      for (let i = 0; i < 21; i++) {
-        const lm = hand[i];
-        if (!lm) continue;
-        _energyVec.set(
-          (lm.x - 0.5) * wX,
-          (0.5 - lm.y) * wY,
-          (lm.z ?? 0) * 0.35,
-        );
-        const prev = handPrev[i];
-        const d = prev ? _energyVec.distanceTo(prev) : 0;
-        energy += d;
-        if (prev) {
-          prev.copy(_energyVec);
-        } else {
-          handPrev[i] = _energyVec.clone();
+    if (interactionEnabled) {
+      landmarks.forEach((hand, handIdx) => {
+        if (hand.length < 21) return;
+        const handPrev = prevJoints.current[handIdx] ?? [];
+        for (let i = 0; i < 21; i++) {
+          const lm = hand[i];
+          if (!lm) continue;
+          _energyVec.set(
+            (lm.x - 0.5) * wX,
+            (0.5 - lm.y) * wY,
+            (lm.z ?? 0) * 0.35,
+          );
+          const prev = handPrev[i];
+          const d = prev ? _energyVec.distanceTo(prev) : 0;
+          energy += d;
+          if (prev) {
+            prev.copy(_energyVec);
+          } else {
+            handPrev[i] = _energyVec.clone();
+          }
         }
-      }
-      prevJoints.current[handIdx] = handPrev;
-    });
-    if (landmarks.length === 0) prevJoints.current = [[], []];
+        prevJoints.current[handIdx] = handPrev;
+      });
+    } else {
+      prevJoints.current = [[], []];
+      draggingRef.current = false;
+    }
     const intensity = Math.min(1, energy / 24);
 
     /* ---- Determine manipulation hand ---- */
-    // The hand showing the finger count declares the mode; the OTHER hand
-    // drives manipulation. This only falls back to the mode hand itself when
-    // no second hand is visible.
+    // The hand showing the finger count declares the mode; the other hand
+    // drives manipulation once both hands are tracked.
     const otherIdx = mhIdx === 0 ? 1 : mhIdx === 1 ? 0 : -1;
-    const modeArm = mhIdx >= 0 ? (landmarks[mhIdx] ?? []) : [];
-    const otherArm = otherIdx >= 0 ? (landmarks[otherIdx] ?? []) : [];
+    const modeArm = interactionEnabled && mhIdx >= 0 ? (landmarks[mhIdx] ?? []) : [];
+    const otherArm = interactionEnabled && otherIdx >= 0 ? (landmarks[otherIdx] ?? []) : [];
     const otherActive = otherIdx >= 0 && otherArm.length >= 21;
     const modeActive = modeArm.length >= 21;
     const manipHand = otherActive ? otherArm : modeActive ? modeArm : [];
@@ -242,7 +247,7 @@ export function CentralSphere({
     const gripReady = reacquireFrames.current >= REACQUIRE_GRACE_FRAMES;
 
     /* ---- Effective center for positioning ---- */
-    const effCenter = propCenter ?? manipPalm;
+    const effCenter = interactionEnabled ? propCenter ?? manipPalm : null;
 
     /* ---- Palm world-space ---- */
     let pX = 0,
@@ -265,26 +270,26 @@ export function CentralSphere({
     }
 
     /* ===== Position ===== */
-    let tx = p.posX,
-      ty = p.posY,
-      tz = p.posZ;
-    if (curMode === 1 && hasManip && manipPalm) {
+    let tx = interactionEnabled ? p.posX : sPos.current.x,
+      ty = interactionEnabled ? p.posY : sPos.current.y,
+      tz = interactionEnabled ? p.posZ : sPos.current.z;
+    if (interactionEnabled && curMode === 1 && hasManip && manipPalm) {
       tx = (manipPalm.x - 0.5) * wX;
       ty = (0.5 - manipPalm.y) * wY;
       tz = 0;
       gPos.current.set(tx, ty, tz);
-    } else if (curMode !== 1 && p.autoPosition && effCenter) {
+    } else if (interactionEnabled && curMode !== 1 && p.autoPosition && effCenter) {
       const a = prox * 0.35;
       tx = pX * a;
       ty = pY * a;
       tz = 0;
-    } else if (!p.autoPosition) {
+    } else if (interactionEnabled && !p.autoPosition) {
       tx = gPos.current.x;
       ty = gPos.current.y;
       tz = gPos.current.z;
     }
 
-    if (draggingRef.current) {
+    if (interactionEnabled && draggingRef.current) {
       _dragNdc.set(pointer.x, pointer.y, 0.5);
       _dragNdc.unproject(camera);
       _dragDir.copy(_dragNdc).sub(camera.position).normalize();
@@ -406,6 +411,7 @@ export function CentralSphere({
 
   /* ---- Pointer handlers ---- */
   const onDown = (e: ThreeEvent<PointerEvent>) => {
+    if (!interactionEnabled) return;
     e.stopPropagation();
     draggingRef.current = true;
     dragOffRef.current.set(
@@ -424,9 +430,9 @@ export function CentralSphere({
       <mesh
         ref={haloRef}
         rotation={[Math.PI / 2, 0, 0]}
-        onPointerDown={onDown}
-        onPointerUp={onUp}
-        onPointerOut={onUp}
+        onPointerDown={interactionEnabled ? onDown : undefined}
+        onPointerUp={interactionEnabled ? onUp : undefined}
+        onPointerOut={interactionEnabled ? onUp : undefined}
       >
         <torusGeometry args={[1.15, 0.01, lowPerf ? 8 : 16, lowPerf ? 40 : 80]} />
         <meshBasicMaterial color="#00ffff" transparent opacity={0.18} />

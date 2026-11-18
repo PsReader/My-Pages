@@ -230,3 +230,29 @@
       h6 {
         font-family: "Merriweather", "Libre Baskerville", Georgia, serif;
       }
+
+
+/* Volume reading layout: readable line lengths and reliable touch sizing. */
+.volume-reading { box-sizing: border-box; width: min(1000px, 100%); margin: 0 auto; padding: 0 20px; text-align: left; }
+@media (max-width: 760px) {
+  body[align="center"] { background-attachment: scroll; background-position: center top; }
+  body[align="center"] > h1 { box-sizing: border-box; max-width: 100%; margin: 22px auto 16px; padding: 0 18px; font-size: clamp(1.8rem, 7vw, 2.5rem) !important; line-height: 1.2; overflow-wrap: anywhere; }
+  body[align="center"] > hr { width: calc(100% - 36px); }
+  .volume-reading { width: 100%; padding: 0 22px; }
+  .volume-reading h2 { margin: 25px 0 12px; padding: 12px 14px; font-size: clamp(1.25rem, 5vw, 1.65rem); line-height: 1.35; overflow-wrap: anywhere; }
+  .volume-reading h2:hover, .volume-reading h3:hover { transform: none; }
+  .volume-reading h3 { margin: 20px 0 8px; font-size: 1.12rem; line-height: 1.4; }
+  .volume-reading p, .volume-reading li { margin: 12px 0 18px; font-size: 1rem; line-height: 1.85; overflow-wrap: break-word; }
+  .novel-related-nav { width: calc(100% - 32px); gap: 9px; padding: 10px; }
+  .novel-related-nav a { min-height: 46px; padding: 10px 8px; font-size: .82rem; line-height: 1.35; }
+  .button1, .button { min-height: 44px; padding: 11px 16px; }
+}
+@media (max-width: 480px) {
+  body[align="center"] > h1 { margin-top: 18px; padding: 0 14px; font-size: clamp(1.65rem, 7.5vw, 2rem) !important; letter-spacing: .2px; }
+  .volume-reading { padding: 0 17px; }
+  .volume-reading h2 { margin-top: 22px; padding: 11px 12px; font-size: 1.25rem; }
+  .volume-reading p, .volume-reading li { font-size: .98rem; line-height: 1.82; }
+  .novel-related-nav { width: calc(100% - 24px); gap: 8px; padding: 9px; }
+  .novel-related-nav a { font-size: .78rem; }
+  #scrollToTop { right: max(14px, env(safe-area-inset-right)); bottom: max(14px, env(safe-area-inset-bottom)); }
+}

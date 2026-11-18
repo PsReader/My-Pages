@@ -2,7 +2,26 @@
 
 A portfolio workspace of creative web projects and interactive front-end builds. The group repository is [PsReader/My-Pages](https://github.com/PsReader/My-Pages).
 
-Each project lives in its own folder. Cipherly, FandomFate, HexFall, and PixelPress also have standalone GitHub repositories.
+Each project lives in its own folder. The group repository contains the workspace, and the standalone project repositories are listed below.
+
+## GitHub repositories
+
+- Group workspace: [PsReader/My-Pages](https://github.com/PsReader/My-Pages)
+- Cipherly: [PsReader/Cipherly](https://github.com/PsReader/Cipherly)
+- FandomFate: [PsReader/Fandom-Fate](https://github.com/PsReader/Fandom-Fate)
+- GestureLab: [PsReader/GestureLab](https://github.com/PsReader/GestureLab)
+- HexFall: [PsReader/Hexfall](https://github.com/PsReader/Hexfall)
+- Lumen: [PsReader/Lumen](https://github.com/PsReader/Lumen)
+- Lord of the Mysteries Fan Wiki: [PsReader/LOTM](https://github.com/PsReader/LOTM)
+- Mystic Coin: [PsReader/MysticCoin](https://github.com/PsReader/MysticCoin)
+- PixelPress: [PsReader/PixelPress](https://github.com/PsReader/PixelPress)
+- Pomodoro Pet: [PsReader/PomodoroPet](https://github.com/PsReader/PomodoroPet)
+- Pudding Paradise: [PsReader/PuddingParadise](https://github.com/PsReader/PuddingParadise)
+- Scratchpad: [PsReader/Scratchpad](https://github.com/PsReader/Scratchpad)
+- Tarot Draw: [PsReader/TarotDraw](https://github.com/PsReader/TarotDraw)
+- Tarot Memory: [PsReader/TarotMemory](https://github.com/PsReader/TarotMemory)
+- TypeBound: [PsReader/TypeBound](https://github.com/PsReader/TypeBound)
+- MoodMatch and Witbit are also in this workspace; no standalone repository is listed here.
 
 ---
 
@@ -36,11 +55,11 @@ The only build-managed project. A webcam-powered interaction sandbox built with 
 
 A fan-made lore archive and storytelling website for _Lord of the Mysteries_.
 
-- 24-page content structure with shared CSS and JavaScript
+- 60+ HTML pages organized with shared CSS and JavaScript
 - dark fantasy aesthetic
 - lore, pathways, character references, volumes, and galleries
 - static HTML/CSS/JavaScript implementation
-- folder: `LOTM` · repo: [github.com/PsReader/LOTM](https://github.com/PsReader/LOTM) · live: `lotm-fan-wiki.site.je`
+- folder: `LOTM` · repo: [github.com/PsReader/LOTM](https://github.com/PsReader/LOTM) · live: `lotm-archive.site.je`
 
 ### Pudding Paradise
 
@@ -140,6 +159,20 @@ A tactical hex dungeon crawler that runs entirely in the browser.
 - versioned localStorage saves with JSON export and import
 - folder: `HexFall` · repo: [github.com/PsReader/Hexfall](https://github.com/PsReader/Hexfall) · live: `hexfall.site.je`
 
+### MoodMatch
+
+A local moodboard generator that pairs a selected mood and intensity with colors, a soundtrack description, and a playful quote.
+
+- Results are generated in the browser and are not saved
+- Folder: `MoodMatch` · live: `moodmatch.site.je`
+
+### Witbit
+
+A small browser-based idea generator for excuses, names, story prompts, and team names.
+
+- Uses local templates and word lists without an account or API
+- Folder: `Witbit` · live: `witbit.site.je`
+
 ---
 
 ## Root files & folders
@@ -149,7 +182,7 @@ A tactical hex dungeon crawler that runs entirely in the browser.
 - `ghost-cursor.js`: Three.js ES module cursor-trail effect used by the portfolio
 - `assets/`: shared card images and branding assets
 - `robots.txt`, `sitemap.xml`, `site.webmanifest`: site metadata
-- `404.html` and `errors/`: root not-found page and status-specific error pages
+- `404.html`, `400.html`, `401.html`, `403.html`, `500.html`, and `503.html`: root status pages
 - `Deploy/`: local publish-ready ZIP bundles, one per project, flat at archive root
 
 ---
@@ -171,7 +204,7 @@ npm run dev
 
 Most projects are static websites without a build step; GestureLab uses React and Vite, and TypeBound supports optional Supabase accounts.
 
-Static project error pages live in each project's `errors/` folder. GestureLab keeps them in `GestureLab/public/errors/` so Vite copies them into the build output. Hosting setup notes are in each folder's `errors/README.md`.
+Static project status pages sit at each project's document root. GestureLab keeps its pages in `GestureLab/public/` so Vite copies them into the build output. Assign the files to HTTP status codes in the hosting configuration when needed.
 
 ---
 

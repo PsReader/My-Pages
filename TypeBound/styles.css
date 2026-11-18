@@ -3,7 +3,7 @@
 :root { --paper:#e9e4d8; --paper-2:#f4f0e7; --ink:#171717; --ink-2:#242424; --line:#3c3b38; --muted:#77736b; --verm:#f15a3a; --blue:#3159d8; --cream:#f7f2e8; --shadow:6px 7px 0 rgba(23,23,23,.94); }
 * { box-sizing:border-box; }
 html { min-width:320px; }
-body { margin:0; min-height:100vh; color:var(--ink); background:var(--paper); font-family:'Space Grotesk',Arial,sans-serif; }
+body { margin:0; min-height:100vh; color:var(--ink); background:var(--paper); font-family:'Space Grotesk',Arial,sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; text-rendering:optimizeSpeed; }
 body.light { --paper:#e9e4d8; --paper-2:#f4f0e7; --ink:#171717; }
 body:not(.light) { --paper:#171717; --paper-2:#242424; --ink:#f4f0e7; --line:#605e59; --muted:#aaa59c; --cream:#f4f0e7; --shadow:6px 7px 0 #080808; }
 button { font:inherit; }
@@ -260,12 +260,19 @@ body.session-live .mode-start { display:none; }
 
 /* Performance tuning for mobile devices */
 @media (max-width:700px) {
-  .ambient { filter:none; opacity:.08; animation:none; }
-  .game-card, .leaderboard-card, .mistakes-card { box-shadow:3px 4px 0 color-mix(in srgb,var(--ink) 80%,transparent); }
-  .phrase .word-faded { animation:none; }
+  .ambient { display:none; }
+  .game-card, .leaderboard-card, .mistakes-card, .results-modal, .auth-modal, .profile-page, .chart-card, .progress-summary, .room-panel, .cloud-panel, .backup-panel { box-shadow:2px 3px 0 color-mix(in srgb,var(--ink) 70%,transparent); }
+  .phrase .word-faded { animation:none; opacity:1; transform:none; }
+  .difficulty-option:hover { transform:none; box-shadow:none; }
+  .nav-button:hover { transform:none; }
+  .primary-button:hover { transform:none; box-shadow:2px 2px 0 var(--ink); }
+  .achievement-card:hover { transform:none; box-shadow:none; }
+  .theme-trigger { box-shadow:2px 2px 0 color-mix(in srgb,var(--ink) 70%,transparent); }
+  .main-nav { box-shadow:2px 2px 0 color-mix(in srgb,var(--ink) 70%,transparent); }
 }
 @media (prefers-reduced-motion:reduce), (max-width:700px) {
   .ambient, .status-dot.live { animation:none; }
+  .difficulty-option, .nav-button, .primary-button, .secondary-button, .theme-trigger { transition:none; }
 }
 
 /* Information architecture: calm primary destinations */

@@ -1,0 +1,27 @@
+{
+  "mcp": {
+    "servers": {
+      "context7": {
+        "type": "local",
+        "command": [
+          "npx",
+          "@upstash/context7-mcp"
+        ]
+      },
+      "playwright": {
+        "type": "local",
+        "command": [
+          "npx",
+          "@playwright/mcp@latest"
+        ]
+      },
+      "sequentialthinking": {
+        "type": "local",
+        "command": [
+          "npx",
+          "@modelcontextprotocol/server-sequential-thinking"
+        ]
+      }
+    }
+  }
+}

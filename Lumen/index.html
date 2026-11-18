@@ -789,6 +789,40 @@
     .nav-preview { grid-column: auto; }
   }
 
+  @media (pointer: coarse) {
+    button, .button, .icon-button, .palette-card, .saved-palette button, .history-row button, .suggestion button, .preview-button, .matrix-inputs .button, .format-switch button, .picker-target, .tablist button, .sound-toggle, .theme-toggle {
+      min-height: 44px;
+    }
+    .icon-button { min-width: 44px; }
+    .color-field { gap: 12px; }
+    .hex-input { min-height: 44px; }
+    .swatch { width: 44px; height: 44px; }
+    button, .button, .palette-card, .component-card, .history-row, .saved-palette {
+      transition: none !important;
+      box-shadow: none !important;
+    }
+    button:active, .button:active, .palette-card:active {
+      transform: none !important;
+    }
+    .palette-card:hover, .component-card:hover, .history-row:hover, .saved-palette:hover {
+      box-shadow: none !important;
+    }
+    .hero-actions .button:hover, .actions .button:hover, .saved-palette-tools button:hover, .matrix-inputs .button:hover {
+      transform: none !important;
+      box-shadow: none !important;
+    }
+    .light-stage { box-shadow: none !important; }
+    .controls, .result-panel, .preview-panel, .utility-panel { box-shadow: none !important; }
+    html.palette-animating .workbench, .theme-animating {
+      transition: none !important;
+    }
+  }
+
+  @media (max-width: 640px) and (pointer: coarse) {
+    .verdicts { grid-template-columns: 1fr 1fr; }
+    .component-preview-grid { grid-template-columns: 1fr 1fr; }
+  }
+
   /* Three-color role bench: dominant, secondary, accent. */
   .role-fields { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
   .role-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; min-height: 24px; margin-top: 6px; }

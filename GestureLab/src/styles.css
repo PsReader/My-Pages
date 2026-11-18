@@ -517,6 +517,25 @@ body {
   user-select: none;
 }
 
+/* Keep the instruction above bottom controls and out of the landmark layer's hit path. */
+.two-hand-prompt {
+  position: fixed;
+  left: 50%;
+  bottom: 60px;
+  z-index: 10004;
+  max-width: calc(100vw - 32px);
+  padding: 9px 14px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(142, 255, 255, 0.3);
+  border-radius: 4px;
+  background: #091426;
+  color: #f4f8ff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  pointer-events: none;
+}
+
 .portal-badge {
   bottom: 50px;
   color: #9ef4ff;

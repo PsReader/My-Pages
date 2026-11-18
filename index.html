@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png" />
 <meta
       name="description"
-      content="PsReader - Frontend dev showcasing live projects including Cipherly, a browser-based password generator, GestureLab, and a Lord of the Mysteries fan wiki. Built with HTML, CSS, JavaScript, React, and Three.js."
+      content="PsReader's live projects include GestureLab, Tarot apps, and a Lord of the Mysteries fan archive with 82 pages. Built with HTML, CSS, JavaScript, React, and Three.js."
     />
     <link rel="canonical" href="https://psreader.site.je/index.html" />
     <meta name="author" content="PsReader" />
@@ -16,19 +16,19 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="PsReader" />
     <meta property="og:title" content="PsReader - Live Demos: LOTM Wiki, Pudding Paradise, GestureLab & More" />
-    <meta property="og:description" content="PsReader - Frontend dev showcasing live projects: Lord of the Mysteries fan wiki, Pudding Paradise dessert ordering site, GestureLab hand-tracking 3D app, and tarot games. Built with HTML, CSS, JavaScript, React, Three.js." />
+    <meta property="og:description" content="PsReader's live projects include a Lord of the Mysteries fan archive with 82 pages, GestureLab, Pudding Paradise, and tarot games." />
     <meta property="og:url" content="https://psreader.site.je/index.html" />
     <meta property="og:image" content="https://psreader.site.je/assets/og-banner.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="PsReader - Live Demos: LOTM Wiki, Pudding Paradise, GestureLab & More" />
-    <meta name="twitter:description" content="PsReader - Frontend dev showcasing live projects: LOTM fan wiki, Pudding Paradise, GestureLab hand-tracking 3D app, and tarot games." />
+    <meta name="twitter:description" content="PsReader's live projects include a Lord of the Mysteries fan archive with 82 pages, GestureLab, Pudding Paradise, and tarot games." />
     <meta name="twitter:image" content="https://psreader.site.je/assets/og-banner.png" />
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "PsReader",
-  "description": "PsReader - Frontend dev showcasing live projects including Cipherly, a browser-based password generator, GestureLab, and a Lord of the Mysteries fan wiki. Built with HTML, CSS, JavaScript, React, and Three.js.",
+  "description": "PsReader's live projects include GestureLab, Tarot apps, and a Lord of the Mysteries fan archive with 82 pages. Built with HTML, CSS, JavaScript, React, and Three.js.",
   "url": "https://psreader.site.je/index.html",
   "inLanguage": "en"
 }
@@ -39,7 +39,7 @@
   "@type": "ItemList",
   "name": "PsReader Live Demos",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Lord of the Mysteries Fan Wiki", "url": "https://psreader.site.je/index.html#project-lotm" },
+    { "@type": "ListItem", "position": 1, "name": "Lord of the Mysteries Fan Archive, 82 pages", "url": "https://psreader.site.je/index.html#project-lotm" },
     { "@type": "ListItem", "position": 2, "name": "Tarot Draw", "url": "https://psreader.site.je/index.html#project-tarotdraw" },
     { "@type": "ListItem", "position": 3, "name": "Tarot Memory", "url": "https://psreader.site.je/index.html#project-tarotmemory" },
     { "@type": "ListItem", "position": 4, "name": "Mystic Coin", "url": "https://psreader.site.je/index.html#project-mysticcoin" },
@@ -52,7 +52,8 @@
     { "@type": "ListItem", "position": 11, "name": "Cipherly", "url": "https://psreader.site.je/index.html#project-cipherly" },
     { "@type": "ListItem", "position": 12, "name": "Fandom Fate", "url": "https://psreader.site.je/index.html#project-fandom-fate" },
     { "@type": "ListItem", "position": 13, "name": "Hexfall", "url": "https://psreader.site.je/index.html#project-hexfall" },
-    { "@type": "ListItem", "position": 14, "name": "Witbit", "url": "https://psreader.site.je/index.html#project-witbit" }
+    { "@type": "ListItem", "position": 14, "name": "Witbit", "url": "https://psreader.site.je/index.html#project-witbit" },
+    { "@type": "ListItem", "position": 15, "name": "Starcoil", "url": "https://psreader.site.je/index.html#project-starcoil" }
   ]
 }
     </script>
@@ -235,9 +236,7 @@
         left: 0;
         right: 0;
         z-index: 100;
-        background: rgba(11, 13, 19, 0.75);
-        backdrop-filter: blur(20px) saturate(1.8);
-        -webkit-backdrop-filter: blur(20px) saturate(1.8);
+        background: rgba(11, 13, 19, 0.92);
         border-bottom: 1px solid var(--border);
         transition: background 300ms var(--ease);
       }
@@ -375,19 +374,29 @@
         margin-left: 8px;
       }
       .color-dot {
+        display: inline-grid;
         width: 14px;
         height: 14px;
+        place-items: center;
         border-radius: 50%;
-        border: 2px solid transparent;
+        border: 0;
+        background: transparent !important;
         cursor: pointer;
         transition: all 200ms var(--ease);
         padding: 0;
       }
+      .color-dot::before {
+        content: "";
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--swatch);
+      }
       .color-dot:hover { transform: scale(1.2); }
       .color-dot.active {
-        border-color: var(--text-primary);
-        box-shadow: 0 0 8px rgba(255,255,255,0.2);
+        box-shadow: none;
       }
+      .color-dot.active::before { outline: 2px solid var(--text-primary); outline-offset: 3px; }
 
       /* ===== Music Player Widget ===== */
       .music-player {
@@ -432,7 +441,7 @@
 
 
       html:not(.dark) .site-header {
-        background: rgba(248, 249, 250, 0.85);
+        background: rgba(248, 249, 250, 0.95);
         border-bottom-color: #e2e4e8;
       }
       html:not(.dark) .project-card {
@@ -454,9 +463,6 @@
         background: rgba(248, 249, 250, 0.88);
         border: 1px solid #e2e4e8;
         box-shadow: 0 12px 32px rgba(0,0,0,0.08);
-      }
-      html:not(.dark) .carousel-nav {
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
       }
       html:not(.dark) .chip:hover {
         box-shadow: 0 6px 18px rgba(0,0,0,0.08);
@@ -569,9 +575,7 @@
       }
       @media (max-width: 768px) {
         .site-header {
-          backdrop-filter: none;
-          -webkit-backdrop-filter: none;
-          background: rgba(11, 13, 19, 0.92);
+          background: rgba(11, 13, 19, 0.96);
         }
         .hero-subtitle {
           white-space: normal;
@@ -596,187 +600,11 @@
       }
       .cursor-spotlight.active { opacity: 1; }
 
-      /* =================================================================
-         TEXT SHIMMER
-         ================================================================= */
+      /* ===================================/* =================================================================
+          TEXT SHIMMER
+          ================================================================= */
 
-      /* =================================================================
-         3D PERSPECTIVE CAROUSEL
-         ================================================================= */
-      .carousel-container {
-        position: relative;
-        overflow: hidden;
-        margin-bottom: 28px;
-        padding-inline: 56px;
-        box-sizing: border-box;
-      }
 
-      .project-list {
-        overflow: hidden;
-        padding-inline: 0;
-      }
-
-      .carousel-track {
-        display: flex;
-        gap: 20px;
-        padding-block-end: 12px;
-        cursor: grab;
-        user-select: none;
-        -webkit-user-select: none;
-        touch-action: pan-y;
-        -webkit-tap-highlight-color: transparent;
-        overscroll-behavior-x: contain;
-      }
-
-      .carousel-track.is-dragging {
-        cursor: grabbing;
-      }
-
-      @media (hover: none), (pointer: coarse) {
-        .carousel-track {
-          cursor: grab;
-        }
-        .carousel-track::after {
-          content: "Swipe to browse projects";
-          position: absolute;
-          left: 50%;
-          bottom: 0;
-          transform: translateX(-50%);
-          color: var(--text-tertiary);
-          font-size: 0.6875rem;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          pointer-events: none;
-          white-space: nowrap;
-        }
-      }
-
-      @media (min-width: 768px) {
-        .project-card {
-          flex: 0 0 calc(50% - 12px);
-          max-width: none;
-        }
-      }
-
-      @media (min-width: 1200px) {
-        .project-card {
-          flex: 0 0 calc(42% - 16px);
-        }
-      }
-
-      @media (min-width: 1600px) {
-        .project-card {
-          flex: 0 0 calc(38% - 16px);
-        }
-      }
-
-      .project-card {
-        flex: 0 0 min(calc(100% - 24px), 460px);
-        max-width: min(100%, 460px);
-        min-width: 0;
-        transform-style: preserve-3d;
-        perspective: 1200px;
-        background: rgba(15, 18, 30, 0.78);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        border-radius: var(--radius-xl);
-        overflow: hidden;
-        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
-        transition:
-          border-color 250ms var(--ease),
-          box-shadow 350ms var(--ease),
-          transform 350ms var(--ease);
-        position: relative;
-      }
-
-      /* Carousel navigation buttons */
-      .carousel-nav {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 10;
-        background: var(--accent);
-        border: none;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        transition: all 200ms var(--ease);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      }
-      .carousel-nav-pause {
-        position: static;
-        display: inline-flex;
-        width: 36px;
-        height: 36px;
-        box-shadow: none;
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        color: var(--text-secondary);
-      }
-      .carousel-nav-pause:hover {
-        background: var(--bg-card-hover);
-        border-color: var(--border-hover);
-        color: var(--text-primary);
-      }
-      .carousel-nav-pause svg {
-        width: 15px;
-        height: 15px;
-      }
-      #carousel {
-        outline: none;
-      }
-      #carousel:focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 6px;
-        border-radius: var(--radius);
-      }
-      .carousel-nav:hover {
-        background: var(--accent-hover);
-        transform: translateY(-50%) scale(1.1);
-      }
-      .carousel-nav:active {
-        transform: translateY(-50%) scale(0.95);
-      }
-      .carousel-nav-prev {
-        left: 8px;
-      }
-
-      .carousel-nav-next {
-        right: 8px;
-      }
-      .carousel-nav svg {
-        width: 20px;
-        height: 20px;
-      }
-
-      /* Carousel indicators */
-      .carousel-indicators {
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        padding: 16px 0 0;
-      }
-      .carousel-indicator {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: var(--border);
-        border: none;
-        cursor: pointer;
-        transition: all 200ms var(--ease);
-      }
-      .carousel-indicator.active {
-        background: var(--accent);
-        width: 24px;
-        border-radius: 4px;
-      }
-      .carousel-indicator:hover {
-        background: var(--accent-hover);
-      }
 
       /* Accent glow on hover - top edge */
       .project-card::before {
@@ -1821,10 +1649,6 @@
          RESPONSIVE - Tablet (≤ 900px)
          ================================================================= */
       @media (max-width: 900px) {
-        .carousel-nav {
-          width: 44px;
-          height: 44px;
-        }
 
         .hero h1 {
           font-size: clamp(2rem, 5vw, 3.5rem);
@@ -1839,6 +1663,34 @@
          RESPONSIVE - Mobile (≤ 640px)
          ================================================================= */
       @media (max-width: 640px) {
+        .project-card:hover {
+          transform: none;
+          box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
+        }
+        .project-card::before,
+        .project-card::after,
+        .project-card-glow {
+          display: none;
+        }
+        .btn--primary:hover {
+          transform: none;
+          box-shadow: none;
+        }
+        .btn--primary:hover::after {
+          left: -75%;
+        }
+        .chip:hover {
+          transform: none;
+          box-shadow: none;
+        }
+        .stack-card:hover {
+          transform: none;
+          box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+        }
+        .stack-card:hover::after {
+          opacity: 0;
+        }
+
         .hero {
           padding: 110px 20px 80px;
           min-height: 100vh;
@@ -1874,26 +1726,6 @@
         .section-heading {
           font-size: 1.25rem;
           margin-bottom: 32px;
-        }
-
-        .carousel-nav {
-          width: 44px;
-          height: 44px;
-        }
-
-        .carousel-nav svg {
-          width: 18px;
-          height: 18px;
-        }
-
-        /* Keep arrow controls available alongside swipe gestures on mobile. */
-        .carousel-nav {
-          display: inline-flex;
-          z-index: 5;
-        }
-
-        .carousel-container {
-          padding-inline: 16px;
         }
 
         .project-viewport {
@@ -1982,6 +1814,9 @@
          RESPONSIVE - Small mobile (≤ 380px)
          ================================================================= */
       @media (max-width: 380px) {
+        .section {
+          padding: 44px 16px;
+        }
         .hero {
           padding: 100px 16px 60px;
         }
@@ -1997,20 +1832,6 @@
 
         .header-inner {
           padding: 0 16px;
-        }
-
-        .carousel-nav {
-          width: 40px;
-          height: 40px;
-        }
-
-        .carousel-nav svg {
-          width: 16px;
-          height: 16px;
-        }
-
-        .carousel-container {
-          padding-inline: 8px;
         }
 
         .section {
@@ -2422,8 +2243,47 @@ color: var(--text-secondary);
     transform: none;
   }
 }
+@media (max-width: 760px) {
+  .theme-toggle,
+  .mobile-menu-toggle,
+  .color-dot,
+  .demo-filter,
+  .btn,
+  .contact-channel,
+  .demo-story-link,
+  .header-nav > a {
+    min-height: 44px;
+  }
+
+  .theme-toggle {
+    width: 44px;
+  }
+
+  .color-dot {
+    width: 44px;
+    height: 44px;
+    transform: none;
+  }
+
+  .color-dot:hover {
+    transform: none;
+  }
+
+  .demo-filter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contact-channel,
+  .demo-story-link,
+  .header-nav > a {
+    display: inline-flex;
+    align-items: center;
+  }
+}
     </style>
-  <style>@media (pointer: coarse) { .carousel-nav { min-width: 44px; min-height: 44px; } }</style>
+
 </head>
   <body>
     <!-- Scroll progress bar -->
@@ -2511,11 +2371,11 @@ color: var(--text-secondary);
             <a href="#contact">Contact</a>
             <a href="portfolio.html">Portfolio</a>
             <div class="color-picker" aria-label="Accent color">
-              <button class="color-dot active" data-accent="default" style="background:#0077b6" aria-label="Blue"></button>
-              <button class="color-dot" data-accent="ocean" style="background:#e11d48" aria-label="Rose"></button>
-              <button class="color-dot" data-accent="emerald" style="background:#059669" aria-label="Emerald"></button>
-              <button class="color-dot" data-accent="sunset" style="background:#ea580c" aria-label="Sunset"></button>
-              <button class="color-dot" data-accent="lavender" style="background:#7c3aed" aria-label="Lavender"></button>
+              <button class="color-dot active" data-accent="default" style="--swatch:#0077b6" aria-label="Blue"></button>
+              <button class="color-dot" data-accent="ocean" style="--swatch:#e11d48" aria-label="Rose"></button>
+              <button class="color-dot" data-accent="emerald" style="--swatch:#059669" aria-label="Emerald"></button>
+              <button class="color-dot" data-accent="sunset" style="--swatch:#ea580c" aria-label="Sunset"></button>
+              <button class="color-dot" data-accent="lavender" style="--swatch:#7c3aed" aria-label="Lavender"></button>
             </div>
 
             <!-- Music Player Widget -->
@@ -2550,7 +2410,7 @@ color: var(--text-secondary);
         <div class="hero-content">
           <span class="hero-eyebrow hero-animate">Live Demos</span>
           <h1 class="hero-d1">
-            <span class="hero-line">Thirteen Projects,</span>
+            <span class="hero-line">Fifteen Projects,</span>
             <span class="hero-line">All <span class="hero-accent-word">Live</span> and Deployed</span>
           </h1>
           <span
@@ -2603,7 +2463,7 @@ color: var(--text-secondary);
 <section class="section" id="work" aria-labelledby="demos-heading">
   <p class="section-label reveal">Live demo directory</p>
   <h2 class="section-heading" id="demos-heading">Choose something to try</h2>
-  <p class="demo-intro reveal">All 14 projects live here. The <a href="portfolio.html#projects">portfolio tells the story</a>; this page is for trying things. Search by name or technology, or filter by the kind of project you want to explore.</p>
+  <p class="demo-intro reveal">All 15 projects live here. The <a href="portfolio.html#projects">portfolio tells the story</a>; this page is for trying things. Search by name or technology, or filter by the kind of project you want to explore.</p>
 
   <div class="demo-controls reveal">
     <div class="demo-control">
@@ -2621,19 +2481,19 @@ color: var(--text-secondary);
   </div>
 
   <div class="demo-filter-row" role="group" aria-label="Filter demos by type">
-  <button class="demo-filter" type="button" data-demo-filter="all" aria-pressed="true">All 14</button>
+  <button class="demo-filter" type="button" data-demo-filter="all" aria-pressed="true">All 15</button>
   <button class="demo-filter" type="button" data-demo-filter="sites" aria-pressed="false">Websites</button>
   <button class="demo-filter" type="button" data-demo-filter="games" aria-pressed="false">Games</button>
   <button class="demo-filter" type="button" data-demo-filter="tools" aria-pressed="false">Tools</button>
   <button class="demo-filter" type="button" data-demo-filter="experiments" aria-pressed="false">Experiments</button>
 </div>
 
-  <p class="demo-results" id="demoResults" aria-live="polite">Showing 14 of 14 demos</p>
+  <p class="demo-results" id="demoResults" aria-live="polite">Showing 15 of 15 demos</p>
   <div class="demo-project-grid" id="demoProjectGrid" aria-label="All live demo projects">
       <article class="project-card reveal stagger-1" data-category="sites" data-name="Lord of the Mysteries Fan Wiki" data-order="0" id="project-lotm">
         <div class="project-chrome" aria-hidden="true">
           <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
-          <span class="chrome-address"><span class="chrome-url">lotm-fan-wiki.site.je</span></span>
+          <span class="chrome-address"><span class="chrome-url">lotm-archive.site.je</span></span>
         </div>
         <div class="project-viewport">
           <img src="assets/thumb-lotm-480.webp" srcset="assets/thumb-lotm-480.webp 480w, assets/thumb-lotm.webp 1000w" sizes="(max-width: 760px) calc(100vw - 42px), 480px" alt="Homepage of the Lord of the Mysteries fan wiki" width="1000" height="800" loading="lazy" decoding="async" />
@@ -2644,9 +2504,9 @@ color: var(--text-secondary);
       <div class="project-body">
       <h3 class="project-name">Lord of the Mysteries Fan Wiki</h3><p class="demo-card-category">Website</p>
       <p class="project-tech">HTML · CSS · JavaScript</p>
-      <p>Browse character profiles, story guides, quotes, and volume pages in a fan wiki for Lord of the Mysteries.</p>
+      <p>Explore 82 pages of character profiles, pathways, quotes, volume guides, and lore from Lord of the Mysteries.</p>
       <div class="project-cta">
-      <a class="btn btn--primary" href="https://lotm-fan-wiki.site.je" rel="noopener noreferrer" target="_blank">Open demo <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+      <a class="btn btn--primary" href="https://lotm-archive.site.je" rel="noopener noreferrer" target="_blank">Open demo <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
       <polyline points="15 3 21 3 21 9"></polyline>
       <line x1="10" x2="21" y1="14" y2="3"></line>
@@ -2776,7 +2636,7 @@ color: var(--text-secondary);
       <p class="project-tech">
                           React · Vite · Three.js · MediaPipe
                         </p>
-      <p>Explore three visual modes driven by hand tracking, Three.js, and MediaPipe. Camera permission is required to try the interaction.</p>
+      <p>Explore three visual modes driven by hand tracking, Three.js, and MediaPipe. Camera permission is required to try the interaction. <strong>Best on desktop/laptop with webcam.</strong></p>
       <div class="project-cta">
       <a class="btn btn--primary" href="https://gesturelab.site.je" rel="noopener noreferrer" target="_blank">Open demo <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
@@ -2978,7 +2838,25 @@ color: var(--text-secondary);
           </div>
         </div>
       </article>
-    <p class="demo-empty" id="demoEmpty" hidden>No demos match that search. Try another term or choose “All 14”.</p>
+
+      <article class="project-card reveal stagger-6" data-category="games" data-name="Starcoil" data-order="14" id="project-starcoil">
+        <div class="project-chrome" aria-hidden="true">
+          <span class="dot dot--close"></span><span class="dot dot--min"></span><span class="dot dot--max"></span>
+          <span class="chrome-address"><span class="chrome-url">starcoil.site.je</span></span>
+        </div>
+        <div class="project-viewport">
+          <img src="assets/thumb-starcoil.svg" alt="Starcoil title art showing Pip the space worm crossing a faded star road under a dark navy sky" width="1000" height="800" loading="lazy" decoding="async" />
+        </div>
+        <div class="project-body">
+          <h3 class="project-name">Starcoil</h3><p class="demo-card-category">Game</p>
+          <p class="project-tech">HTML · CSS · JavaScript</p>
+          <p>Steer Pip along the old star roads, eat the bright things, and keep the coil growing before the hazards catch up.</p>
+          <div class="project-cta">
+            <a class="btn btn--primary" href="https://starcoil.site.je/" rel="noopener noreferrer" target="_blank">Open demo <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" x2="21" y1="14" y2="3"></line></svg></a>
+          </div>
+        </div>
+      </article>
+    <p class="demo-empty" id="demoEmpty" hidden>No demos match that search. Try another term or choose “All 15”.</p>
   </div>
 
   <nav class="demo-pager" id="demoPager" aria-label="Demo pages" hidden></nav>
@@ -3080,7 +2958,7 @@ color: var(--text-secondary);
         </p>
         <div class="contact-channels reveal stagger-2">
           <a
-            href="mailto:simanjuntakpedrosa@gmail.com"
+            href="mailto:Psreader01@gmail.com"
             class="contact-channel"
             title="Email me"
           >
@@ -3237,7 +3115,7 @@ color: var(--text-secondary);
             <a href="#work" class="footer-pill">Demos</a>
             <a href="#stack" class="footer-pill">Tech Stack</a>
             <a href="portfolio.html" class="footer-pill">Portfolio</a>
-            <a href="mailto:simanjuntakpedrosa@gmail.com" class="footer-pill">
+            <a href="mailto:Psreader01@gmail.com" class="footer-pill">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
               Email
             </a>
@@ -3525,7 +3403,7 @@ color: var(--text-secondary);
         // ===== Hero subtitle typewriter animation =====
         const heroSubtitle = document.querySelector(".hero-subtitle");
         const subtitlePhrases = [
-"LOTM wiki with 20+ pages",
+"LOTM fan archive with 82 pages",
             "GestureLab with hand tracking",
             "Pudding Paradise restaurant site",
             "Tarot Memory rite game",

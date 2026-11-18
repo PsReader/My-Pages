@@ -1,0 +1,27 @@
+# TODO
+
+- [x] Add more secret moods at extreme dial-angle ranges.
+  - Add more secret moods that unlock at defined extreme dial-angle ranges.
+  - Preserve Hush Mode and Confetti Emergency as secret moods.
+- [x] Add angle-specific custom sound effects.
+  - Play distinct custom sound effects when users reach the corresponding extreme dial angles.
+  - Preserve reliable angle detection and prevent repeated sound triggering while the dial remains in the same extreme zone.
+  - Confirm that secret moods, sounds, Hush Mode, and Confetti Emergency reset correctly when the dial leaves their trigger ranges.
+- [x] Verify the named extreme-angle triggers in the live browser preview.
+  - Test and verify that Hush Mode activates at its intended trigger condition.
+  - Test and verify that Confetti Emergency activates at its intended trigger condition.
+- [x] Refine the existing editorial visual style and copy without making the site look AI-made.
+  - Preserve MoodMatch’s paper, ink, cobalt, tomato, and yellow collage identity.
+  - Use specific, plainspoken product copy and keep responsive layouts legible.
+- [x] Add an SVG favicon and connect it to browser and web-app metadata.
+  - Serve a square SVG favicon and reference it in the page head and manifest.
+- [x] Make the static landing page SEO-ready in crawler-facing HTML and social metadata.
+  - Keep meaningful page content, a descriptive title and description, canonical URL, Open Graph and Twitter card fields, structured data, and a social preview image in the initial HTML.
+  - Keep the sitemap and robots policy consistent with the intended public route.
+- [x] Update the search title and description and remove the obsolete meta keywords tag.
+  - Set the page title to “Moodboard Generator | MoodMatch”.
+  - Set the meta description to “Create a moodboard from how you feel: choose a mood, set its intensity, and get a color palette, soundtrack idea, and a line for today.”
+  - Remove the `<meta name="keywords">` tag.
+  - Keep Open Graph, Twitter, and structured-data titles/descriptions consistent.
+- [ ] Confirm the intended public origin permits crawler access.
+  - A normal request to the supplied domain returned 200, but a Googlebot-user-agent probe returned 403; the managed project itself is not published or attached to that domain.

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f1ebdc" />
+    <meta name="description" content="Create a moodboard from how you feel: choose a mood, set its intensity, and get a color palette, soundtrack idea, and a line for today." />
+    <meta name="robots" content="index,follow" />
+    <title>Moodboard Generator | MoodMatch</title>
+    <link rel="canonical" href="https://moodmatch.site.je/" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MoodMatch" />
+    <meta property="og:title" content="Moodboard Generator | MoodMatch" />
+    <meta property="og:description" content="Create a moodboard from how you feel: choose a mood, set its intensity, and get a color palette, soundtrack idea, and a line for today." />
+    <meta property="og:url" content="https://moodmatch.site.je/" />
+    <meta property="og:image" content="https://files.manuscdn.com/user_upload_by_module/session_file/310519664000911075/oLbiRBmUlqRUwYbg.png" />
+    <meta property="og:image:secure_url" content="https://files.manuscdn.com/user_upload_by_module/session_file/310519664000911075/oLbiRBmUlqRUwYbg.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="MoodMatch’s paper-and-ink cover with its moodboard question and colorful cut-paper shapes." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Moodboard Generator | MoodMatch" />
+    <meta name="twitter:description" content="Create a moodboard from how you feel: choose a mood, set its intensity, and get a color palette, soundtrack idea, and a line for today." />
+    <meta name="twitter:image" content="https://files.manuscdn.com/user_upload_by_module/session_file/310519664000911075/oLbiRBmUlqRUwYbg.png" />
+    <meta name="twitter:image:alt" content="MoodMatch’s paper-and-ink cover with its moodboard question and colorful cut-paper shapes." />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"WebApplication","name":"MoodMatch","url":"https://moodmatch.site.je/","applicationCategory":"LifestyleApplication","operatingSystem":"Any","description":"Create a moodboard from how you feel: choose a mood, set its intensity, and get a color palette, soundtrack idea, and a line for today."}
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="color-scheme" content="light" />
+    <style>
+      @media (pointer: coarse) {
+        .sound-toggle,
+        .generate-button,
+        .action-button,
+        .again-button,
+        .mood-option,
+        .masthead-link,
+        .field-note-link,
+        .footer-top {
+          min-height: 44px;
+        }
+        .moodboard::before,
+        .moodboard::after {
+          animation: none !important;
+        }
+        .moodboard.is-mood-switching,
+        .board-content.is-result-arriving,
+        .secret-unlock.is-secret-unlocking {
+          animation: none !important;
+        }
+      }
+    </style>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="masthead">
+      <a class="wordmark" href="#top" aria-label="MoodMatch home">mood<span>match</span><b aria-hidden="true">+</b></a>
+      <p class="masthead-note">A pocket-sized read on your right now.</p>
+      <button class="sound-toggle" id="sound-toggle" type="button" aria-pressed="false">Sound off</button>
+      <audio id="background-audio" loop preload="none" aria-hidden="true"></audio>
+      <audio id="mood-audio" loop preload="none" aria-hidden="true"></audio>
+      <a class="masthead-link" href="#mood-picker">Make my moodboard <span aria-hidden="true">↓</span></a>
+    </header>
+
+    <main id="top">
+      <section class="cover" aria-labelledby="page-title">
+        <div class="cover-copy">
+          <p class="kicker"><span class="issue-mark" aria-hidden="true">FIELD NOTE</span> The feeling issue</p>
+          <h1 id="page-title">What does<br />today <em>feel like?</em></h1>
+          <p class="cover-description">Pick the feeling that fits. Get a small palette, a soundtrack idea, and one line for the road.</p>
+        </div>
+        <div class="cover-art" aria-hidden="true">
+          <span class="cover-sun"></span>
+          <span class="cover-paper cover-paper-blue"></span>
+          <span class="cover-paper cover-paper-red"></span>
+          <span class="cover-art-word">RIGHT<br />NOW</span>
+          <span class="cover-art-caption">A FIELD GUIDE TO YOUR FEELINGS</span>
+        </div>
+        <span class="cover-side-note" aria-hidden="true">NO WRONG ANSWERS / NO SERIOUS BUSINESS</span>
+      </section>
+
+      <section class="studio" id="mood-picker" aria-labelledby="studio-title">
+        <div class="studio-heading">
+          <div>
+            <p class="kicker">Your mood, your rules</p>
+            <h2 id="studio-title">Circle the energy.</h2>
+          </div>
+          <p class="heading-note">Pick one. There’s no follow-up questionnaire.</p>
+        </div>
+
+        <div class="studio-grid">
+          <form class="picker" id="mood-form">
+            <fieldset class="mood-fieldset">
+              <legend class="visually-hidden">Choose the mood closest to yours</legend>
+              <div class="mood-options">
+                <label class="mood-option mood-sunny">
+                  <input type="radio" name="mood" value="sunny" checked />
+                  <span class="mood-number">01</span><span class="mood-label">Bright &amp; scattered</span><span class="mood-mark" aria-hidden="true">+</span>
+                </label>
+                <label class="mood-option mood-soft">
+                  <input type="radio" name="mood" value="soft" />
+                  <span class="mood-number">02</span><span class="mood-label">Soft &amp; sleepy</span><span class="mood-mark" aria-hidden="true">~</span>
+                </label>
+                <label class="mood-option mood-restless">
+                  <input type="radio" name="mood" value="restless" />
+                  <span class="mood-number">03</span><span class="mood-label">Restless feet</span><span class="mood-mark" aria-hidden="true">↗</span>
+                </label>
+                <label class="mood-option mood-main">
+                  <input type="radio" name="mood" value="main" />
+                  <span class="mood-number">04</span><span class="mood-label">Main-character hour</span><span class="mood-mark" aria-hidden="true">!!</span>
+                </label>
+                <label class="mood-option mood-low">
+                  <input type="radio" name="mood" value="low" />
+                  <span class="mood-number">05</span><span class="mood-label">Low battery, good taste</span><span class="mood-mark" aria-hidden="true">▰</span>
+                </label>
+                <label class="mood-option mood-hopeful">
+                  <input type="radio" name="mood" value="hopeful" />
+                  <span class="mood-number">06</span><span class="mood-label">Quietly hopeful</span><span class="mood-mark" aria-hidden="true">↗</span>
+                </label>
+                <label class="mood-option mood-social">
+                  <input type="radio" name="mood" value="social" />
+                  <span class="mood-number">07</span><span class="mood-label">Social, but slippery</span><span class="mood-mark" aria-hidden="true">///</span>
+                </label>
+                <label class="mood-option mood-chaos">
+                  <input type="radio" name="mood" value="chaos" />
+                  <span class="mood-number">08</span><span class="mood-label">Chaos, lightly seasoned</span><span class="mood-mark" aria-hidden="true">?!</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <p class="picker-mood-note" id="picker-mood-note" aria-live="polite"></p>
+
+            <div class="intensity-control">
+              <div class="intensity-label-row">
+                <label for="intensity">Turn the dial</label>
+                <output id="intensity-value" for="intensity">3 / 5</output>
+              </div>
+              <input id="intensity" name="intensity" type="range" min="1" max="5" step="1" value="3" />
+              <div class="range-captions" aria-hidden="true"><span id="range-low">A whisper</span><span id="range-high">Full volume</span></div>
+              <div class="secret-unlock" id="secret-unlock" role="status" aria-live="polite" hidden></div>
+            </div>
+            <button class="generate-button" type="submit">Make my moodboard <span aria-hidden="true">↗</span></button>
+          </form>
+
+          <section class="moodboard" aria-labelledby="board-title" aria-describedby="board-intro">
+            <div class="board-topline"><span class="board-stamp">MOOD<br />MATCH</span><p>YOUR CURRENT EDITION</p><span class="board-issue">RIGHT NOW</span></div>
+            <div class="board-content" id="board-content">
+              <p class="board-intro" id="board-intro">FIRST, PICK A FEELING</p>
+              <h3 class="board-title" id="board-title" aria-live="polite" aria-atomic="true">Your day<br />is still loading.</h3>
+              <p class="board-subtitle" id="board-subtitle">Choose a mood and turn the dial. Your board will appear here.</p>
+              <div class="palette-block" id="palette-block" hidden>
+                <p class="board-label">COLORS FOR THE OCCASION</p>
+                <ul class="swatches" id="swatches" aria-label="Mood color palette"></ul>
+              </div>
+              <div class="sound-block" id="sound-block" hidden>
+                <p class="board-label">IF THIS MOMENT HAD A SOUND</p>
+                <p class="soundtrack" id="soundtrack"></p>
+                <p class="track-recommendation" id="track-recommendation"></p>
+              </div>
+              <div class="activity-block" id="activity-block" hidden>
+                <p class="board-label">ONE SMALL THING THAT FITS</p>
+                <p class="activity-action" id="activity-action"></p>
+                <p class="activity-reason" id="activity-reason"></p>
+              </div>
+              <blockquote class="mood-quote" id="mood-quote" hidden></blockquote>
+              <div class="permission-slip" id="permission-slip" hidden>
+                <p class="permission-label">OFFICIAL PERMISSION SLIP</p>
+                <p id="permission-copy"></p>
+              </div>
+            </div>
+            <div class="board-footer">
+              <p class="board-status" id="board-status" role="status" aria-live="polite">Waiting on your mood.</p>
+              <div class="board-actions">
+                <button class="action-button" id="copy-button" type="button" disabled>Copy</button>
+                <button class="action-button share-button" id="share-button" type="button" disabled>Share</button>
+                <button class="again-button" id="again-button" type="button" disabled>Again <span aria-hidden="true">↻</span></button>
+              </div>
+            </div>
+            <span class="board-cut" aria-hidden="true"></span>
+          </section>
+        </div>
+      </section>
+      <section class="field-note" aria-labelledby="field-note-title">
+        <p class="field-note-index"><span>FIELD NOTE / 02</span><span>NO SCORE / NO HISTORY</span></p>
+        <div class="field-note-copy">
+          <h2 id="field-note-title">A moodboard, not a verdict.</h2>
+          <p>Choose what feels close. Change it whenever you like. MoodMatch doesn’t save your picks; a board is shared only if you press Share.</p>
+        </div>
+        <a class="field-note-link" href="#mood-picker">Make another board <span aria-hidden="true">↗</span></a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="wordmark footer-wordmark" href="#top" aria-label="MoodMatch home">mood<span>match</span><b aria-hidden="true">+</b></a>
+      <p>For the feeling of the moment. The moment will pass.</p>
+      <a class="footer-top" href="#top">Back to the cover ↑</a>
+    </footer>
+  </body>
+</html>

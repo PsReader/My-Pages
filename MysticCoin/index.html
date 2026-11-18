@@ -1674,7 +1674,14 @@ body::after {
 }
 
 </style>
-  <style>@media (pointer: coarse) { .icon-button, .back-button { min-width: 44px; min-height: 44px; } }</style>
+  <style>
+    @media (pointer: coarse) {
+      .icon-button, .back-button { min-width: 44px; min-height: 44px; }
+      .coin { touch-action: manipulation; }
+      .cursor-trail-particle, .coin-particle { display: none !important; }
+      .coin.is-flipping { animation-duration: 1.2s !important; }
+    }
+  </style>
 </head>
   <body>
     <div class="mystic-app">
@@ -1901,7 +1908,7 @@ body::after {
     {
       id: "yes",
       label: "YES",
-      weight: 99.5,
+      weight: 49.95,
       title: "The path is open.",
       messages: [
         "You already have enough information to begin. Trust your instinct and take the first step.",
@@ -1912,7 +1919,7 @@ body::after {
     {
       id: "no",
       label: "NO",
-      weight: 99.5,
+      weight: 49.95,
       title: "The signs suggest caution.",
       messages: [
         "This may not be the right moment. Pause, prepare, or reconsider your approach before moving forward.",
@@ -1923,7 +1930,7 @@ body::after {
     {
       id: "again",
       label: "ASK AGAIN",
-      weight: 1,
+      weight: 0.1,
       title: "The answer remains hidden.",
       messages: [
         "The situation is still changing. Give it time and return when you have more clarity.",

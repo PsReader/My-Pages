@@ -6,6 +6,22 @@
  * scroll-to-top.
  */
 
+// Share one search-index request between the homepage browser and navbar suggestions.
+window.loadLOTMSearchIndex = window.loadLOTMSearchIndex || (() => {
+  let request;
+  return () => {
+    if (!request) {
+      request = fetch('search-index.json')
+        .then(response => {
+          if (!response.ok) throw new Error(`Search index request failed: ${response.status}`);
+          return response.json();
+        })
+        .catch(error => { request = null; throw error; });
+    }
+    return request;
+  };
+})();
+
 /* ============================================================================= */
 /* ACCORDION COMPONENT */
 /* ============================================================================= */
@@ -14,39 +30,107 @@
  * Sets up accordion functionality
  * Allows toggling of accordion items with automatic close of others
  */
+function setAccordionContent(content, expanded) {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isVisible = getComputedStyle(content).display !== 'none';
+  const computedHeight = parseFloat(getComputedStyle(content).height) || content.getBoundingClientRect().height;
+  const computedOpacity = parseFloat(getComputedStyle(content).opacity) || 1;
+  if (content.getAnimations) content.getAnimations().forEach(animation => animation.cancel());
+
+  if (reducedMotion || typeof content.animate !== 'function') {
+    content.style.display = expanded ? 'block' : 'none';
+    content.classList.toggle('active', expanded);
+    content.style.height = '';
+    content.style.opacity = '';
+    content.style.overflow = '';
+    return;
+  }
+
+  if (expanded) {
+    content.style.display = 'block';
+    content.classList.add('active');
+    content.style.overflow = 'hidden';
+    content.style.height = 'auto';
+    content.style.opacity = '1';
+    const targetHeight = parseFloat(getComputedStyle(content).height) || content.scrollHeight;
+    content.style.height = '0px';
+    content.style.opacity = '0';
+    void content.offsetHeight;
+    const animation = content.animate(
+      [{ height: '0px', opacity: 0 }, { height: `${targetHeight}px`, opacity: 1 }],
+      { duration: 320, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
+    );
+    animation.onfinish = () => {
+      content.style.height = 'auto';
+      content.style.opacity = '';
+      content.style.overflow = '';
+      animation.cancel();
+    };
+    return;
+  }
+
+  if (!isVisible) return;
+  content.style.display = 'block';
+  content.style.height = `${computedHeight}px`;
+  content.style.opacity = String(computedOpacity);
+  content.style.overflow = 'hidden';
+  void content.offsetHeight;
+  const animation = content.animate(
+    [{ height: `${computedHeight}px`, opacity: computedOpacity }, { height: '0px', opacity: 0 }],
+    { duration: 250, easing: 'cubic-bezier(0.4, 0, 1, 1)' }
+  );
+  animation.onfinish = () => {
+    content.style.display = 'none';
+    content.classList.remove('active');
+    content.style.height = '';
+    content.style.opacity = '';
+    content.style.overflow = '';
+    animation.cancel();
+  };
+}
+
 function setupAccordions() {
   const accordionHeaders = document.querySelectorAll('[data-accordion-header]');
 
   accordionHeaders.forEach(header => {
     const toggle = function(event) {
       if (event && event.target.closest && event.target.closest('a')) return
-      const content = this.nextElementSibling;
+      const headerRow = this.closest('.accordion-header-row');
+      const content = headerRow ? headerRow.nextElementSibling : this.nextElementSibling;
+      if (!content || !content.hasAttribute('data-accordion-content')) return;
+      const expanded = this.getAttribute('aria-expanded') === 'true';
 
       // Close all other accordions
       document.querySelectorAll('[data-accordion-content]').forEach(item => {
         if (item !== content) {
-          item.style.display = 'none';
-          item.previousElementSibling.classList.remove('active');
+          const previousHeader = item.previousElementSibling?.querySelector('[data-accordion-header]') || item.previousElementSibling;
+          if (previousHeader) {
+            previousHeader.classList.remove('active');
+            previousHeader.setAttribute('aria-expanded', 'false');
+          }
+          setAccordionContent(item, false);
         }
       });
 
       // Toggle current accordion
-      this.classList.toggle('active');
-      content.style.display =
-        content.style.display === 'block' ? 'none' : 'block';
-      this.setAttribute('aria-expanded', this.classList.contains('active') ? 'true' : 'false');
+      const willExpand = !expanded;
+      this.classList.toggle('active', willExpand);
+      this.setAttribute('aria-expanded', String(willExpand));
+      setAccordionContent(content, willExpand);
     };
 
     header.addEventListener('click', toggle);
     header.setAttribute('aria-expanded', 'false');
 
-    // Keyboard support for role="button" headers
-    header.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggle.call(this);
-      }
-    });
+    // Native buttons already activate on Enter/Space; keep support for legacy role-buttons.
+    if (header.tagName !== 'BUTTON') {
+      header.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle.call(this);
+        }
+      });
+    }
   });
 }
 
@@ -67,8 +151,7 @@ function setupActiveNavigation() {
     const href = link.getAttribute('href');
     if (href === currentPage || (currentPage === '' && href === 'index.html')) {
       link.classList.add('active-page');
-      link.style.color = '#FFD700';
-      link.style.fontWeight = 'bold';
+      link.setAttribute('aria-current', 'page');
     }
   });
 }
@@ -105,8 +188,34 @@ function setupTarotTable() {
   const caption = document.querySelector('.tarot-caption');
   if (!caption) return;
 
+  const profileUrls = {
+    'Klein Moretti': 'Klein%20Moretti.html',
+    'Audrey Hall': 'Audrey%20Hall.html',
+    'Alger Wilson': 'Alger%20Wilson.html',
+    'Derrick Berg': 'Derrick%20Berg.html',
+    'Fors Wall': 'Fors%20Wall.html',
+    'Emlyn White': 'Emlyn%20White.html',
+    'Cattleya': 'Cattleya.html',
+    'Leonard Mitchell': 'Leonard%20Mitchell.html',
+    'Xio Derecha': 'Xio%20Derecha.html',
+    'Lumian Lee': 'Lumian%20Lee.html',
+    'Sharron': 'Sharron.html',
+    'Franca Roland': 'Franca%20Roland.html'
+  };
+
   const setText = function() {
-    caption.textContent = this.getAttribute('data-name') || '';
+    const label = this.getAttribute('data-name') || '';
+    const character = Object.keys(profileUrls).find(name => label.includes(name));
+    caption.textContent = '';
+    if (character) {
+      const link = document.createElement('a');
+      link.href = profileUrls[character];
+      link.className = 'character-link';
+      link.textContent = label;
+      caption.appendChild(link);
+    } else {
+      caption.textContent = label;
+    }
     this.classList.add('chosen');
   };
   const clearText = function() {
@@ -159,16 +268,16 @@ function setupTarotFanReveal() {
  * text (new-member labels, "and", roles) survives untouched. No data is lost.
  */
 const PART_CARDS = {
-  'Klein Moretti': 'Fool_Symbol2.webp',
-  'The Fool': 'Fool_Symbol2.webp',
-  'Mr. Fool': 'Fool_Symbol2.webp',
-  'Mr. World': 'Fool_Symbol2.webp',
-  'The World': 'Fool_Symbol2.webp',
-  'Gehrman Sparrow': 'Fool_Symbol2.webp',
+  'Klein Moretti': 'Fool_Symbol2_hd.webp',
+  'The Fool': 'Fool_Symbol2_hd.webp',
+  'Mr. Fool': 'Fool_Symbol2_hd.webp',
+  'Mr. World': 'Fool_Symbol2_hd.webp',
+  'The World': 'Fool_Symbol2_hd.webp',
+  'Gehrman Sparrow': 'Fool_Symbol2_hd.webp',
   'Audrey Hall': 'Visionary_Symbol2.webp',
   'Alger Wilson': 'Tyrant_Symbol2.webp',
   'Derrick Berg': 'Sun_Symbol2.webp',
-  'Fors Wall': 'Door_Symbol2.webp',
+  'Fors Wall': 'Door_Symbol2_hd.webp',
   'Emlyn White': 'Moon_Symbol2.webp',
   'Cattleya': 'Hermit_Symbol2.webp',
   'Leonard Mitchell': 'Darkness_Symbol2.webp',
@@ -224,11 +333,16 @@ function setupQuoteRotator() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   let index = 0;
-  setInterval(() => {
+  let timer = null;
+  const rotate = () => {
     index = (index + 1) % FEATURED_QUOTES.length;
     textEl.textContent = '"' + FEATURED_QUOTES[index].text + '"';
     attrEl.textContent = FEATURED_QUOTES[index].attr;
-  }, 6000);
+  };
+  const start = () => { if (!timer && !document.hidden) timer = setInterval(rotate, 6000); };
+  const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
+  document.addEventListener('visibilitychange', () => { document.hidden ? stop() : start(); });
+  start();
 }
 
 /* ============================================================================= */
@@ -243,21 +357,191 @@ function setupScrollToTop() {
   const scrollBtn = document.getElementById('scrollToTop');
 
   if (scrollBtn) {
-    window.addEventListener('scroll', function() {
-      if (window.pageYOffset > 300) {
-        scrollBtn.style.display = 'block';
-      } else {
-        scrollBtn.style.display = 'none';
-      }
-    });
+    scrollBtn.type = 'button';
+    scrollBtn.tabIndex = -1;
+    scrollBtn.setAttribute('aria-hidden', 'true');
+    let framePending = false;
+    const updateVisibility = () => {
+      if (framePending) return;
+      framePending = true;
+      requestAnimationFrame(() => {
+        const visible = window.scrollY > 300;
+        scrollBtn.classList.toggle('is-visible', visible);
+        scrollBtn.tabIndex = visible ? 0 : -1;
+        scrollBtn.setAttribute('aria-hidden', String(!visible));
+        framePending = false;
+      });
+    };
+    updateVisibility();
+    window.addEventListener('scroll', updateVisibility, { passive: true });
+    window.addEventListener('pageshow', updateVisibility);
 
     scrollBtn.addEventListener('click', function() {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: reduceMotion ? 'auto' : 'smooth'
       });
     });
   }
+}
+
+/* ============================================================================= */
+/* MEMBER PROFILE TABS */
+/* ============================================================================= */
+
+/** Keeps the active profile tab synchronized with the URL hash and scroll target. */
+function setupMemberTabs() {
+  const tabs = Array.from(document.querySelectorAll('.member-tabs a[href^="#"]'));
+  if (!tabs.length) return;
+
+  const setActive = function() {
+    const hash = window.location.hash || '#overview';
+    tabs.forEach(tab => tab.classList.toggle('active', tab.getAttribute('href') === hash));
+  };
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      tabs.forEach(item => item.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+  window.addEventListener('hashchange', setActive);
+  setActive();
+}
+
+/* ============================================================================= */
+/* CHARACTER SUMMARY TOOLTIPS */
+/* ============================================================================= */
+
+const CHARACTER_SUMMARIES = {
+  'Klein Moretti': 'The Fool and leader of the Tarot Club, central to Lord of Mysteries.',
+  'Audrey Hall': 'Justice of the Tarot Club and a Beyonder of the Visionary Pathway.',
+  'Alger Wilson': 'The Hanged Man, a veteran sailor and captain of the Blue Avenger.',
+  'Derrick Berg': 'The Sun and a survivor of the City of Silver.',
+  'Fors Wall': 'The Magician, a writer connected to the Abraham Family and Door Pathway.',
+  'Emlyn White': 'The Moon, a Sanguine and Beyonder of the Moon Pathway.',
+  'Cattleya': 'The Hermit and a powerful scholar with ties to the sea and pirates.',
+  'Leonard Mitchell': 'The Star, a poet and Church of the Evernight Goddess member.',
+  'Xio Derecha': 'Judgement, an MI9 operative and Beyonder of the Justiciar Pathway.',
+  'Lumian Lee': 'The Chariot and protagonist of Circle of Inevitability.',
+  'Sharron': 'Temperance, a formidable member tied to the Rose School of Thought.',
+  'Franca Roland': 'The Empress, a Demoness Pathway Beyonder from Book Two.',
+  'Jenna': 'A Minor Arcana member and Demoness Pathway Beyonder active in Trier.',
+  'Anthony Reid': 'A Minor Arcana member associated with the Visionary Pathway.',
+  'Maric': 'A Minor Arcana member connected to Temperance and the Chained Pathway.',
+  'Will Auceptin': 'An auxiliary Tarot Club contact associated with the Wheel of Fortune.',
+  'Pallez Zoroast': 'An ancient Error Pathway figure who advises Leonard Mitchell.',
+  'Azik Eggers': 'A mysterious history professor whose past reaches into death and rebirth.',
+  'Reinette Tinekerr': 'The Fool’s messenger and an ally of the Temperance faction.'
+};
+
+function setupCharacterTooltips() {
+  const links = document.querySelectorAll('a.character-link[data-character]');
+  if (!links.length) return;
+  let tooltip = document.getElementById('characterTooltip');
+  if (!tooltip) {
+    tooltip = document.createElement('div');
+    tooltip.id = 'characterTooltip';
+    tooltip.className = 'character-tooltip';
+    tooltip.setAttribute('role', 'tooltip');
+    tooltip.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(tooltip);
+  }
+
+  let activeLink = null;
+  const hide = () => {
+    tooltip.classList.remove('is-visible');
+    tooltip.setAttribute('aria-hidden', 'true');
+    if (activeLink) activeLink.removeAttribute('aria-describedby');
+    activeLink = null;
+  };
+  const show = link => {
+    if (activeLink && activeLink !== link) activeLink.removeAttribute('aria-describedby');
+    const name = link.getAttribute('data-character');
+    tooltip.innerHTML = '<strong id="characterTooltipName"></strong><span></span><em>Open profile →</em>';
+    tooltip.querySelector('strong').textContent = name;
+    tooltip.querySelector('span').textContent = CHARACTER_SUMMARIES[name] || 'Open this character profile for a concise summary.';
+    tooltip.setAttribute('aria-labelledby', 'characterTooltipName');
+    tooltip.setAttribute('aria-hidden', 'false');
+    link.setAttribute('aria-describedby', 'characterTooltip');
+    activeLink = link;
+    tooltip.classList.add('is-visible');
+    const rect = link.getBoundingClientRect();
+    const gap = 10;
+    const left = Math.max(12, Math.min(rect.left, window.innerWidth - tooltip.offsetWidth - 12));
+    let top = rect.bottom + gap;
+    if (top + tooltip.offsetHeight > window.innerHeight - 12) top = rect.top - tooltip.offsetHeight - gap;
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${Math.max(12, top)}px`;
+  };
+
+  links.forEach(link => {
+    link.addEventListener('mouseenter', () => show(link));
+    link.addEventListener('focus', () => show(link));
+    link.addEventListener('mouseleave', hide);
+    link.addEventListener('blur', hide);
+  });
+  window.addEventListener('scroll', hide, {passive: true});
+  window.addEventListener('resize', hide);
+}
+
+
+function setupImageLoading() {
+  document.querySelectorAll('img').forEach((img, index) => {
+    if (index > 0 && !img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+    if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+  });
+}
+
+
+/* ============================================================================= */
+/* NOVEL REVEALS */
+/* ============================================================================= */
+function setupNovelReveals() {
+  const cards = Array.from(document.querySelectorAll('.novel-volume-card, .novel-intro'));
+  const isVolumePage = /Volume\s+\d+/i.test(document.title);
+  const chapters = isVolumePage ? Array.from(document.querySelectorAll('h3')) : [];
+  chapters.forEach((heading, index) => {
+    heading.classList.add('novel-chapter-heading', 'reveal-ready');
+    heading.style.setProperty('--reveal-delay', `${Math.min(index * 70, 280)}ms`);
+    const copy = heading.nextElementSibling;
+    if (copy && copy.tagName === 'P') {
+      copy.classList.add('novel-chapter-copy', 'reveal-ready');
+      copy.style.setProperty('--reveal-delay', `${Math.min(index * 70 + 60, 340)}ms`);
+    }
+  });
+  const items = [...cards, ...chapters.flatMap(h => [h, h.nextElementSibling]).filter(Boolean)];
+  if (!items.length) return;
+  items.forEach((item, index) => {
+    item.classList.add('reveal-ready');
+    if (!item.style.getPropertyValue('--reveal-delay')) item.style.setProperty('--reveal-delay', `${Math.min(index * 65, 420)}ms`);
+  });
+  const show = item => item.classList.add('is-visible');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+    items.forEach(show);
+    return;
+  }
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { show(entry.target); observer.unobserve(entry.target); }
+    });
+  }, { threshold: .08, rootMargin: '0px 0px -30px' });
+  items.forEach(item => observer.observe(item));
+}
+
+
+function setupResponsiveTables() {
+  document.querySelectorAll('table').forEach(table => {
+    const wrapper = table.parentElement;
+    if (!wrapper) return;
+    if (table.scrollWidth > wrapper.clientWidth || ['auto', 'scroll'].includes(getComputedStyle(wrapper).overflowX)) {
+      wrapper.classList.add('table-scroll');
+      if (!wrapper.hasAttribute('role')) wrapper.setAttribute('role', 'region');
+      if (!wrapper.hasAttribute('aria-label')) wrapper.setAttribute('aria-label', 'Scrollable reference table');
+      if (!wrapper.hasAttribute('tabindex')) wrapper.setAttribute('tabindex', '0');
+    }
+  });
 }
 
 /* ============================================================================= */
@@ -276,4 +560,9 @@ document.addEventListener('DOMContentLoaded', function() {
   setupTarotFanReveal();
   setupParticipantChips();
   setupQuoteRotator();
+  setupMemberTabs();
+  setupCharacterTooltips();
+  setupImageLoading();
+  setupNovelReveals();
+  setupResponsiveTables();
 });

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">MoodMatch plus</title>
+  <rect width="512" height="512" rx="92" fill="#f1ebdc"/>
+  <circle cx="256" cy="256" r="174" fill="#f1cf4d" stroke="#191919" stroke-width="12"/>
+  <path d="M102 349 208 243l76 74 56-56 70 70" fill="none" stroke="#315bc6" stroke-width="27" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M121 144h85v85h-85z" fill="#e75a3b" stroke="#191919" stroke-width="10" transform="rotate(-8 164 186)"/>
+  <path d="M358 119v84m-42-42h84" stroke="#191919" stroke-width="17" stroke-linecap="square"/>
+  <circle cx="354" cy="354" r="22" fill="#e75a3b" stroke="#191919" stroke-width="8"/>
+</svg>

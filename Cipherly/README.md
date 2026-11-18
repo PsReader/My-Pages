@@ -62,4 +62,4 @@ All site assets, including fonts, are local. The pages make no third-party font 
 
 ## Hosting error pages
 
-The `errors/` folder contains standalone pages for HTTP 400, 401, 403, 404, 500, and 503, plus setup guidance and an Apache/LiteSpeed `ErrorDocument` snippet. See [`errors/README.md`](errors/README.md). The status mappings belong in the hosting panel or existing document-root configuration; do not replace an existing `.htaccess` file.
+The project root contains standalone pages for HTTP 400, 401, 403, 404, 500, and 503. Assign these files to their matching status codes in the hosting panel or existing document-root configuration. Do not replace an existing `.htaccess` file just to add the mappings.

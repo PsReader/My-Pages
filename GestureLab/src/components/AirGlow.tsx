@@ -59,6 +59,7 @@ interface AirGlowProps {
   penHand: PenHand;
   mode: number;
   modeHandIndex: number;
+  interactionEnabled: boolean;
   resetSignal: number;
 }
 
@@ -191,7 +192,7 @@ function drawStroke(ctx: CanvasRenderingContext2D, s: Stroke) {
   }
 }
 
-export function AirGlow({ landmarks, handedness, penHand, mode, modeHandIndex, resetSignal }: AirGlowProps) {
+export function AirGlow({ landmarks, handedness, penHand, mode, modeHandIndex, interactionEnabled, resetSignal }: AirGlowProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wheelRef = useRef<HTMLCanvasElement>(null);
   const dimRef = useRef({ w: 0, h: 0 });
@@ -217,6 +218,8 @@ export function AirGlow({ landmarks, handedness, penHand, mode, modeHandIndex, r
   modeRef.current = mode;
   const mhRef = useRef(modeHandIndex);
   mhRef.current = modeHandIndex;
+  const interactionEnabledRef = useRef(interactionEnabled);
+  interactionEnabledRef.current = interactionEnabled;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -280,7 +283,9 @@ export function AirGlow({ landmarks, handedness, penHand, mode, modeHandIndex, r
       const wctx = wheelCanvas?.getContext("2d");
 
       const { w, h } = dimRef.current;
-      const lm = landmarksRef.current;
+      const lm: HandLandmark[][] = interactionEnabledRef.current
+        ? landmarksRef.current
+        : [[], []];
       const curHandedness = handednessRef.current;
       const curPenHand = penHandRef.current;
       const curMode = modeRef.current;

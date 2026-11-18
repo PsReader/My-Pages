@@ -32,26 +32,42 @@ const activeShaderDescription = activeShaderEntry.description;
 
 const MODE_HOLD_FRAMES = 5;
 
+function readPreference(key: string): string | null {
+  try {
+    return window.localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function writePreference(key: string, value: string) {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    // Preferences remain usable for this session when storage is unavailable.
+  }
+}
+
 function App() {
   const { videoRef, isReady, error } = useWebcam();
   const isLowPerf = isLowPerfDevice();
   const { landmarks, handedness, isTracking, error: trackingError } = useHands(videoRef, { lowPerf: isLowPerf });
 
-  const [onboardingDone, setOnboardingDone] = useState(() => localStorage.getItem("gesturelab-onboarded") === "true");
+  const [onboardingDone, setOnboardingDone] = useState(() => readPreference("gesturelab-onboarded") === "true");
 
   const handleOnboardingDismiss = useCallback(() => {
     setOnboardingDone(true)
-    localStorage.setItem("gesturelab-onboarded", "true")
+    writePreference("gesturelab-onboarded", "true")
   }, [])
 
   const [centralParams, setCentralParams] = useState<CentralParams>(defaultCentralParams)
 
   const [interactiveId, setInteractiveId] = useState<string>(
-    () => localStorage.getItem("gesturelab-interactive") ?? "sphere-halo",
+    () => readPreference("gesturelab-interactive") ?? "sphere-halo",
   )
   const handleInteractiveChange = useCallback((id: string) => {
     setInteractiveId(id)
-    localStorage.setItem("gesturelab-interactive", id)
+    writePreference("gesturelab-interactive", id)
   }, [])
 
   const handleReset = useCallback(() => setResetSignal((s) => s + 1), [])
@@ -65,11 +81,11 @@ function App() {
   const ringCooldownRef = useRef(0)
 
   const [penHand, setPenHand] = useState<PenHand>(
-    () => (localStorage.getItem("gesturelab-airglow-hand") as PenHand) ?? "auto",
+    () => (readPreference("gesturelab-airglow-hand") as PenHand | null) ?? "auto",
   )
   const handlePenHandChange = useCallback((hand: PenHand) => {
     setPenHand(hand)
-    localStorage.setItem("gesturelab-airglow-hand", hand)
+    writePreference("gesturelab-airglow-hand", hand)
   }, [])
 
   const glRef = useRef<THREE.WebGLRenderer | null>(null);
@@ -87,6 +103,10 @@ function App() {
   }, []);
 
   const hasDetectedHand = landmarks.some((hand) => hand.length > 0);
+  const trackedHandCount = landmarks.filter((hand) => hand.length >= 21).length;
+  const hasTwoTrackedHands = trackedHandCount >= 2;
+  const twoHandInteractive = interactiveId === "sphere-halo" || interactiveId === "airglow";
+  const canSelectMode = !twoHandInteractive || hasTwoTrackedHands;
 
   // Compute palm data from the first detected hand
   const firstHand = landmarks.find((hand) => hand.length > 0);
@@ -109,18 +129,26 @@ function App() {
   const lastLandmarksRef = useRef(landmarks)
   const detectionFrame = landmarks !== lastLandmarksRef.current
   lastLandmarksRef.current = landmarks
-  const rawIdx = fCount0 >= 1 && fCount0 <= 4 ? 0 : fCount1 >= 1 && fCount1 <= 4 ? 1 : -1
-  const rawCount = rawIdx >= 0 ? (rawIdx === 0 ? fCount0 : fCount1) : 0
-  if (rawIdx === pendingIdxRef.current && rawCount === pendingCountRef.current) {
-    if (detectionFrame) stableFramesRef.current++
-    if (stableFramesRef.current >= MODE_HOLD_FRAMES) {
-      committedIdxRef.current = rawIdx
-      committedCountRef.current = rawCount
+  if (canSelectMode) {
+    let rawIdx = -1;
+    if (fCount0 >= 1 && fCount0 <= 4) rawIdx = 0;
+    else if (fCount1 >= 1 && fCount1 <= 4) rawIdx = 1;
+    const rawCount = rawIdx >= 0 ? (rawIdx === 0 ? fCount0 : fCount1) : 0
+    if (rawIdx === pendingIdxRef.current && rawCount === pendingCountRef.current) {
+      if (detectionFrame) stableFramesRef.current++
+      if (stableFramesRef.current >= MODE_HOLD_FRAMES) {
+        committedIdxRef.current = rawIdx
+        committedCountRef.current = rawCount
+      }
+    } else {
+      pendingIdxRef.current = rawIdx
+      pendingCountRef.current = rawCount
+      stableFramesRef.current = 0
     }
   } else {
-    pendingIdxRef.current = rawIdx
-    pendingCountRef.current = rawCount
-    stableFramesRef.current = 0
+    pendingIdxRef.current = -1;
+    pendingCountRef.current = 0;
+    stableFramesRef.current = 0;
   }
   const modeHandIndex = committedIdxRef.current
   const activeMode = committedCountRef.current
@@ -174,6 +202,7 @@ function App() {
               onCentralParamsChange={handleCentralChange}
               centralMode={activeMode}
               modeHandIndex={modeHandIndex}
+              interactionEnabled={hasTwoTrackedHands}
             />
             <OrbitControls enableZoom={false} enablePan={false} />
           </Canvas>
@@ -237,6 +266,7 @@ function App() {
               penHand={penHand}
               mode={activeMode}
               modeHandIndex={modeHandIndex}
+              interactionEnabled={hasTwoTrackedHands}
               resetSignal={resetSignal}
             />
             <div className="airglow-hand-menu" role="group" aria-label="Pen hand">
@@ -258,6 +288,11 @@ function App() {
         )}
         {interactiveId === "retrolens" && (
           <div className="portal-badge">RETROLENS &middot; {portalFilter}</div>
+        )}
+        {twoHandInteractive && !hasTwoTrackedHands && (
+          <div className="two-hand-prompt" role="status" aria-live="polite">
+            Show both hands to interact
+          </div>
         )}
       </div>
   );

@@ -30,12 +30,20 @@ const skeletonPairs = [
   [17, 18],
   [18, 19],
   [19, 20],
+  [17, 0],
 ];
 const maxHands = 2;
+// Mark the hand silhouette and contact points. Intermediate landmarks still drive the bones.
+const visibleJoints = new Set([0, 5, 9, 13, 17, 4, 8, 12, 16, 20]);
+const fingertips = new Set([4, 8, 12, 16, 20]);
+const boneGeometry = new THREE.CylinderGeometry(0.009, 0.009, 1, 6);
 
 // Pre-allocated scratch vectors, avoids per-frame GC pressure
 const _target = new THREE.Vector3();
 const _offscreen = new THREE.Vector3(0, 10, -2);
+const _boneTransform = new THREE.Object3D();
+const _boneDirection = new THREE.Vector3();
+const _boneUp = new THREE.Vector3(0, 1, 0);
 
 interface HandSceneProps {
   landmarks: HandLandmark[][];
@@ -50,6 +58,7 @@ interface HandSceneProps {
   onCentralParamsChange: (update: Partial<CentralParams>) => void;
   centralMode: number;
   modeHandIndex: number;
+  interactionEnabled: boolean;
 }
 
 export function HandScene({
@@ -65,13 +74,14 @@ export function HandScene({
   onCentralParamsChange,
   centralMode,
   modeHandIndex,
+  interactionEnabled,
 }: HandSceneProps) {
   const groupRef = useRef<THREE.Group>(null);
   const jointGroupRefs = useRef<Array<Array<THREE.Group | null>>>([]);
   const meshRefs = useRef<Array<Array<THREE.Mesh | null>>>([]);
+  const boneInstanceRefs = useRef<Array<THREE.InstancedMesh | null>>([]);
   const materialCacheRef = useRef<Map<string, THREE.ShaderMaterial>>(new Map());
   const prevPositionsRef = useRef<Array<THREE.Vector3>>([]);
-  const skeletonGeometryRefs = useRef<Array<THREE.BufferGeometry | null>>([]);
   const worldPositionsRef = useRef<Array<Array<THREE.Vector3>>>([]);
 
   const activeHands = [
@@ -79,7 +89,7 @@ export function HandScene({
     ...Array(maxHands - landmarks.length).fill([]),
   ];
 
-  useFrame(({ clock, size }) => {
+  useFrame(({ clock, size }, delta) => {
     const group = groupRef.current;
     if (!group) return;
 
@@ -89,6 +99,9 @@ export function HandScene({
     const aspect = size.width / Math.max(size.height, 1);
     const worldScaleX = aspect * 1.3;
     const worldScaleY = 1.3;
+    // Normalize interpolation to 60 Hz so tracking feel stays steady across frame rates.
+    const frameScale = Math.min(delta * 60, 3);
+    const frameAlpha = (base: number) => 1 - Math.pow(1 - base, frameScale);
     activeHands.forEach((handLandmarks, handIndex) => {
       // Reuse positions array from previous frame instead of allocating
       const positionsForHand = worldPositionsRef.current[handIndex];
@@ -111,13 +124,17 @@ export function HandScene({
             (0.5 - landmark.y) * worldScaleY,
             (landmark.z ?? 0) * 0.35,
           );
+          if (jointIndex > 0 && jointIndex < 5) {
+            const wrist = worldPositionsRef.current[handIndex]?.[0];
+            if (wrist) _target.lerp(wrist, 0.2);
+          }
         } else if (prev) {
           _target.copy(prev);
         } else {
           _target.copy(_offscreen);
         }
 
-        const smoothFactor = landmark ? 0.72 : 0.2;
+        const smoothFactor = frameAlpha(landmark ? 0.72 : 0.2);
         if (prev) {
           prev.lerp(_target, smoothFactor);
         } else {
@@ -128,7 +145,7 @@ export function HandScene({
         handPositions[index].copy(currentPos);
 
         if (jointGroup) {
-          jointGroup.position.lerp(currentPos, 0.85);
+          jointGroup.position.lerp(currentPos, frameAlpha(0.85));
         }
 
         if (mesh) {
@@ -149,25 +166,25 @@ export function HandScene({
         }
       });
 
-      const skeletonGeometry = skeletonGeometryRefs.current[handIndex];
-      if (skeletonGeometry && handPositions.length) {
-        // Mutate the existing Float32Array instead of recreating the attribute
-        const posAttr = skeletonGeometry.attributes.position as THREE.BufferAttribute;
-        const arr = posAttr.array as Float32Array;
-        let writeIdx = 0;
-        skeletonPairs.forEach(([from, to]) => {
+      const boneInstances = boneInstanceRefs.current[handIndex];
+      if (boneInstances && handPositions.length) {
+        skeletonPairs.forEach(([from, to], pairIndex) => {
           const fromPoint = handPositions[from];
           const toPoint = handPositions[to];
           if (fromPoint && toPoint) {
-            arr[writeIdx++] = fromPoint.x;
-            arr[writeIdx++] = fromPoint.y;
-            arr[writeIdx++] = fromPoint.z;
-            arr[writeIdx++] = toPoint.x;
-            arr[writeIdx++] = toPoint.y;
-            arr[writeIdx++] = toPoint.z;
+            _boneDirection.subVectors(toPoint, fromPoint);
+            const length = _boneDirection.length();
+            _boneTransform.position.copy(fromPoint).add(toPoint).multiplyScalar(0.5);
+            _boneTransform.quaternion.setFromUnitVectors(
+              _boneUp,
+              _boneDirection.normalize(),
+            );
+            _boneTransform.scale.set(1, length, 1);
+            _boneTransform.updateMatrix();
+            boneInstances.setMatrixAt(pairIndex, _boneTransform.matrix);
           }
         });
-        posAttr.needsUpdate = true;
+        boneInstances.instanceMatrix.needsUpdate = true;
       }
     });
 
@@ -192,6 +209,7 @@ export function HandScene({
           onParamsChange={onCentralParamsChange}
           mode={centralMode}
           modeHandIndex={modeHandIndex}
+          interactionEnabled={interactionEnabled}
           lowPerf={lowPerf}
         />
       )}
@@ -213,6 +231,7 @@ export function HandScene({
                 }}
               >
                 <mesh
+                  visible={visibleJoints.has(jointIndex)}
                   ref={(node) => {
                     if (!meshRefs.current[handIndex]) {
                       meshRefs.current[handIndex] = [];
@@ -220,27 +239,26 @@ export function HandScene({
                     meshRefs.current[handIndex][index] = node;
                   }}
                 >
-                  <sphereGeometry args={[0.035, lowPerf ? 8 : 16, lowPerf ? 8 : 16]} />
+                  <sphereGeometry
+                    args={[
+                      fingertips.has(jointIndex) ? 0.03 : 0.024,
+                      lowPerf ? 8 : 16,
+                      lowPerf ? 8 : 16,
+                    ]}
+                  />
                 </mesh>
               </group>
             ))}
-            <lineSegments>
-              <bufferGeometry
-                ref={(node) => {
-                  skeletonGeometryRefs.current[handIndex] = node;
-                  if (node) {
-                    // Pre-allocate buffer: 20 bone pairs × 2 points × 3 coords = 120 floats
-                    const arr = new Float32Array(120);
-                    node.setAttribute("position", new THREE.BufferAttribute(arr, 3));
-                  }
-                }}
-              />
-              <lineBasicMaterial
-                color={handIndex === 0 ? "#6cdcff" : "#a6a2ff"}
-                transparent
-                opacity={0.24}
-              />
-            </lineSegments>
+            {/* Solid low-poly bones give fingers and the thumb a connected, less wiry silhouette. */}
+            <instancedMesh
+              ref={(node) => {
+                boneInstanceRefs.current[handIndex] = node;
+              }}
+              args={[boneGeometry, undefined, skeletonPairs.length]}
+              frustumCulled={false}
+            >
+              <meshBasicMaterial color={handIndex === 0 ? "#6cdcff" : "#a6a2ff"} />
+            </instancedMesh>
           </group>
         );
       })}

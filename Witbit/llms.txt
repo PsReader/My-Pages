@@ -1,0 +1,23 @@
+# Witbit
+
+> A small creative idea cabinet for curious people and gloriously unfinished thoughts.
+
+Witbit is a browser-based collection of seven interactive creative generators. Its public homepage contains the product overview, generator descriptions, controls, and usage guidance in the initial HTML.
+
+## Public page
+
+- [Witbit — Creative Idea Generators for Stories & Games](https://witbit.site.je/): Homepage and interactive idea cabinet.
+
+## Available generators
+
+- Tiny quest generator: creates a small mission from a quest type, place, mood, and companion.
+- Name generator: suggests names for characters, places, pets, bands, groups, and projects, including selected naming traditions.
+- Story spark generator: creates a starting prompt from a genre and mood.
+- Team name generator: suggests a group name from a theme and personality.
+- Lore and backstory generator: combines a subject, tradition, setting, hidden truth, and tone.
+- Item and loot generator: creates a world-flavored item using tradition, item type, material, and power.
+- Encounter and trap generator: creates an encounter, trap, omen, or bargain using tradition and stakes.
+
+## Notes
+
+Witbit is intended for playful creative inspiration. Generated ideas are prompts to adapt, not factual or historical authority. Regional name and folklore content should be independently reviewed for cultural and linguistic accuracy before serious publication.

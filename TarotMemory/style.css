@@ -466,6 +466,10 @@ footer span { color: var(--rose); }
   h1 { margin-bottom: 22px; }
 }
 @media (max-width: 560px) {
+  body {
+    background-image: linear-gradient(rgba(255,250,232,0.18), rgba(90,61,35,0.06)), var(--bg);
+    background-attachment: scroll;
+  }
   .topbar { height: 70px; padding-right: 58px; }
   .brand small { font-size: 8px; letter-spacing: 0.16em; }
   .top-stats { gap: 10px; font-size: 10px; }
@@ -474,23 +478,38 @@ footer span { color: var(--rose); }
   .psreader-back::after { display: none; }
   .hero { padding: 26px 18px 24px; }
   .settings { padding: 15px 16px; }
-  .board { gap: 12px 8px; padding: 14px 4px 6px; }
+  .panel, .modal-card { box-shadow: 0 6px 16px rgba(35,25,16,0.16), inset 0 0 0 3px rgba(91,70,50,0.07); }
+  .board { gap: 12px 8px; padding: 14px 4px 6px; box-shadow: inset 0 0 30px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.08); }
   .board.small, .board.medium, .board.large { grid-template-columns: repeat(4, minmax(0, auto)); }
   .board .card { --card-w: min(104px, 24vw); }
   .board.large .card { --card-w: min(92px, 21vw); }
-  .card .face { padding: 8px 6px 9px; }
+  .card .face { padding: 8px 6px 9px; box-shadow: 0 8px 16px rgba(0,0,0,0.38), inset 0 0 0 4px rgba(201,162,39,0.10); }
+  .card .back { box-shadow: 0 8px 16px rgba(0,0,0,0.38), 0 0 0 1px rgba(201,162,39,0.08); }
   .card .numeral { font-size: 12px; padding: 3px 8px 4px; margin-bottom: 5px; letter-spacing: 2px; }
-  .card .sigil { width: 54px; height: 46px; }
+  .card .sigil { width: 54px; height: 46px; box-shadow: inset 0 1px 3px rgba(138,109,31,0.30), inset 0 -1px 2px rgba(255,255,255,0.40), 0 0 0 1px rgba(138,109,31,0.45), 0 0 0 3px rgba(201,162,39,0.08), 0 0 0 4px rgba(179,84,63,0.24); }
   .card .sigil svg { width: 32px; height: 32px; }
   .card .name { font-size: 11px; }
   .card .kw { font-size: 8px; }
   .game-title { align-items: center; }
   .game-tools { gap: 8px; }
   .tool { font-size: 11px; padding: 8px 12px; }
+  .orbit { box-shadow: inset 0 1px 3px rgba(138,109,31,0.3), 0 0 0 3px rgba(201,162,39,0.10), 0 0 0 4px rgba(179,84,63,0.22), 0 0 12px rgba(201,162,39,0.18); animation: none; }
 }
 @media (pointer: coarse) {
-  body { background-attachment: scroll; }
+  body { background-attachment: scroll; cursor: auto; }
   .card:hover .back, .card:hover .face { box-shadow: 0 12px 24px rgba(0,0,0,0.45), 0 0 0 1px rgba(201,162,39,0.08); }
+  .orbit { animation: none; }
+  .card:hover { transform: none; }
+  .nav-card:hover, .nav-card:focus-visible { transform: none; }
+  .gallery-card:hover, .gallery-card:focus-visible { transform: none; }
+  .psreader-back:hover, .psreader-back:focus-visible { transform: none; }
+  .psreader-back:hover svg, .psreader-back:focus-visible svg { transform: none; }
+  button { transition: none; }
+  .card-inner { transition: transform 0.4s ease; }
+  .progress i { transition: none; }
+  .modal { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(5,6,12,0.78); }
+  .card .back::after { display: none; }
+  .card.matched .face, .card.matched .sigil { animation: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }

@@ -808,7 +808,7 @@ https://tarotdraw.site.je/og-image.png" />
     #arena.celtic { grid-template-columns: repeat(2, auto); }
   }
   @media (max-width: 560px) {
-    body { padding: 24px 10px 42px; }
+    body { padding: 24px 10px 42px; background-attachment: scroll; background-image: linear-gradient(rgba(255,250,232,0.18), rgba(90,61,35,0.06)), var(--bg); }
     header { margin-bottom: 20px; }
     header h1 { font-size: 28px; letter-spacing: 1px; }
     header p { font-size: 9px; letter-spacing: 2px; }
@@ -819,13 +819,14 @@ https://tarotdraw.site.je/og-image.png" />
     #controls.mobile-menu-open { padding: 8px; border: 1px solid rgba(91,70,50,0.28); border-radius: 12px; background: rgba(239,227,199,0.34); }
     #controls.mobile-menu-open > button:not(#btn-mobile-menu) { display: inline-flex; }
     #controls button:not(.icon-button) { min-height: 40px; padding: 9px 11px; font-size: 11px; }
-    .settings-panel { margin-top: -8px; padding: 12px; }
-    #arena { gap: 12px; padding: 18px 6px; }
+    .settings-panel { margin-top: -8px; padding: 12px; box-shadow: 0 6px 16px rgba(35,25,16,0.16), inset 0 0 0 3px rgba(91,70,50,0.07); }
+    #arena { gap: 12px; padding: 18px 6px; box-shadow: inset 0 0 30px rgba(0,0,0,0.14), 0 10px 30px rgba(0,0,0,0.1); }
     #arena-tip { padding: 42px 16px; font-size: 12px; line-height: 1.55; }
     .slot, .card { width: 132px; }
     .card { height: 205px; }
     .slot .label { font-size: 9px; letter-spacing: 1.4px; min-height: 22px; }
     .slot .mini { font-size: 13px; line-height: 1.35; }
+    .card .back, .card .face { box-shadow: 0 10px 18px rgba(0,0,0,0.48), 0 0 0 1px rgba(201,162,39,0.08); }
     .card .sigil { width: 60px; height: 50px; }
     .card .face { padding: 10px 8px 11px; }
     .card .numeral { font-size: 13px; margin-bottom: 7px; padding: 3px 9px 4px; }
@@ -833,17 +834,25 @@ https://tarotdraw.site.je/og-image.png" />
     .card .kw { font-size: 9px; line-height: 1.25; }
     .entry { padding: 11px 5px 11px 18px; font-size: 12.5px; line-height: 1.55; }
     #reading .oracle { font-size: 15px; padding: 15px 12px; line-height: 1.45; }
-    #reading { padding: 18px 12px 22px; }
+    #reading { padding: 18px 12px 22px; box-shadow: 0 10px 24px rgba(35,25,16,0.18), inset 0 0 0 4px rgba(91,70,50,0.07); }
     #reading::before { font-size: 8px; letter-spacing: 2px; }
     .jump-reading { right: 14px; bottom: 14px; }
+    .gallery-panel, .journal-panel, .detail-panel { box-shadow: 0 16px 48px rgba(35,25,16,0.42); }
   }
   @media (pointer: coarse) {
-    body { background-attachment: scroll; }
+    body { background-attachment: scroll; cursor: auto; }
     #quill-trail { display: none; }
     .card { will-change: auto; }
     .card:hover .back::after { transform: translateX(-130%); }
     .card:hover .back, .card:hover .face { box-shadow: 0 14px 28px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,162,39,0.08); }
     .card:hover .sigil { transform: none; }
+    button { transition: none; }
+    .card, .card .inner { transition: transform 0.4s ease; }
+    .settings-panel, .journal-panel, .gallery-panel, .detail-panel { backdrop-filter: none; -webkit-backdrop-filter: none; }
+    #gallery-modal, #journal-modal, #detail-modal { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(49,34,22,0.88); }
+    .card.revealed .sigil, .card.revealed .face { animation: none; }
+    .veil-inner, .veil-stage, .card, .reading, .arena { animation: none !important; }
+    .oracle, .entry { animation: none !important; }
   }
 
   /* ---------- Mobile-first layout refinement ---------- */
