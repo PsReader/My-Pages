@@ -18,4 +18,4 @@ After uploading, submit `https://little-detour.site.je/sitemap.xml` in Google Se
 - `styles.css` contains the responsive arcade-poster design, category wheel, sound control, motion and reduced-motion styles.
 - `script.js` contains the curated 101-idea deck, category filters, category-matched wheel animation, synthesized spin/stop tones and non-repeating selection.
 - `assets/roulette-mark.svg` is the original wheel mark used in the interface and as its favicon.
-- `dist/` mirrors the static files for anyone who wants a ready-to-serve copy.
+- `dist/` is a ready-to-serve copy of the static site; the source files remain at the project root.

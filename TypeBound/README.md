@@ -19,7 +19,7 @@ This is a static site, so there is no PHP or build command required. The Supabas
 
 ## Supabase cloud account
 
-The real `src/supabase-config.js` (configured with the Supabase project URL and publishable key) is git-ignored and only exists on the deploy machine. A clone ships `src/supabase-config.example.js` instead — copy it to `src/supabase-config.js` and fill in the values for local cloud development. The browser loads the Supabase JavaScript library from jsDelivr, then loads the local cloud client and sync helper.
+The real `src/supabase-config.js` (configured with the Supabase project URL and publishable key) is git-ignored and only exists on the deploy machine. A clone ships `src/supabase-config.example.js` instead: copy it to `src/supabase-config.js` and fill in the values for local cloud development. The browser loads the Supabase JavaScript library from jsDelivr, then loads the local cloud client and sync helper.
 
 Users can optionally create an account or sign in. Completed runs are always saved locally. Signed-in runs are also submitted to Supabase, and the online leaderboard replaces the local leaderboard when cloud results are available. If Supabase is unreachable or the user is signed out, the local leaderboard remains available.
 
@@ -27,13 +27,13 @@ Before using cloud features, run `database-schema.sql` in the Supabase SQL Edito
 
 ## Included files
 
-- `index.html` — app structure, cloud account form, logo, favicon, and multiplayer controls
-- `styles.css` — responsive visual design and mobile layout
-- `script.js` — game logic, local storage, cloud run submission, and online leaderboard loading
-- `src/supabase-config.example.js` — template for the public Supabase client settings (real config is git-ignored)
-- `src/supabase-client.js` — Supabase browser initialization
-- `src/cloud-sync.js` — authentication, run submission, leaderboard queries, and local-history sync
-- `README.md` — InfinityFree deployment instructions
+- `index.html`: app structure, cloud account form, logo, favicon, and multiplayer controls
+- `styles.css`: responsive visual design and mobile layout
+- `script.js`: game logic, local storage, cloud run submission, and online leaderboard loading
+- `src/supabase-config.example.js`: template for the public Supabase client settings (real config is git-ignored)
+- `src/supabase-client.js`: Supabase browser initialization
+- `src/cloud-sync.js`: authentication, run submission, leaderboard queries, and local-history sync
+- `README.md`: InfinityFree deployment instructions
 
 ## Local mode
 
@@ -57,6 +57,6 @@ turn: {
 
 The frontend does not contain any Supabase secret key. Use a TURN provider that gives browser-safe, scoped credentials; do not put a database password or Supabase `service_role` key in this file. The app now reports a connection failure after 25 seconds instead of waiting indefinitely.
 
-## Automated end-to-end tests
+## Static deployment
 
-The original development package includes Playwright tests. The InfinityFree upload package is intended to be uploaded as-is and does not require Node.js, npm, or a build step.
+The deploy bundle contains the browser files and does not require Node.js, npm, or a build step. Optional cloud features still need a configured Supabase project and schema.

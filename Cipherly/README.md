@@ -2,26 +2,26 @@
 
 Cipherly is a static, browser-only password utility and promotional site.
 
-## Name direction
+## Overview
 
-**Cipherly** was chosen because it feels modern and approachable while still suggesting encryption and secure secrets. It also leaves room for future tools such as token generation, API key helpers, and secure identifiers.
+Cipherly provides password, passphrase, and batch generation in the browser. Generation uses the Web Crypto API. No password history or account is used.
 
 ## Files
 
-- `index.html` — promotional landing page inspired by the Pixelpress editorial utility style.
-- `generator.html` — working password generator.
-- `offline.html` — a dedicated offline landing page served for uncached navigation without a connection.
-- `styles.css` — shared responsive design system.
-- `fonts.css` and `fonts/` — locally bundled WOFF2 fonts and their SIL Open Font Licenses.
-- `visual-polish.css` — page composition accents and brand mark styling.
-- `brand-mark.svg` — reusable Cipherly favicon and logo asset.
-- `app.js` — local-only password, passphrase, bulk, custom charset, copy, and download behavior.
+- `index.html`: promotional landing page inspired by the Pixelpress editorial utility style.
+- `generator.html`: working password generator.
+- `offline.html`: a dedicated offline landing page served for uncached navigation without a connection.
+- `styles.css`: shared responsive design system.
+- `fonts.css` and `fonts/`: locally bundled WOFF2 fonts and their SIL Open Font Licenses.
+- `visual-polish.css`: page composition accents and brand mark styling.
+- `brand-mark.svg`: reusable Cipherly favicon and logo asset.
+- `app.js`: local-only password, passphrase, bulk, custom charset, copy, and download behavior.
 
 ## Generator features
 
 - Password mode with adjustable length and character groups.
 - Passphrase mode with word count, capitalization, number, symbol, and selectable word-separator options.
-- Bulk mode for generating 2–100 unique passwords.
+- Bulk mode for generating 2 to 100 unique passwords.
 - Hide or reveal a generated result, clear it from the page, or reset generator settings to defaults.
 - Custom character set support for legacy systems and constrained formats.
 - Optional look-alike character exclusion.

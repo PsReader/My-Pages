@@ -10,9 +10,9 @@ Pudding Paradise is a pastel, mobile-friendly dessert brand website designed to 
 
 ## Pages
 
-- `index.html` — landing page with brand storytelling and featured highlights
-- `menu.html` — dessert menu and product showcase
-- `review.html` — social proof and customer feedback section
+- `index.html`: landing page with brand storytelling and featured highlights
+- `menu.html`: dessert menu and product showcase
+- `review.html`: social proof and customer feedback section
 
 ## Tech stack
 

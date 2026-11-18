@@ -1,4 +1,4 @@
-STARCOIL — Cosmic Arcade
+STARCOIL: Cosmic Arcade
 ========================
 A self-contained, original browser arcade game. No PHP, database, build tools, or third-party game libraries are required.
 
@@ -23,7 +23,7 @@ Lumen Bloom: lasts 7.5 seconds and pulls nearby motes toward Pip, helping with d
 Comet Core: restores up to 35% of the Sprint reserve, capped at 100% when the reserve is already partly full.
 Nova Charge: a rare field pickup. Collect up to two charges, then press E/N or tap NOVA. Nova Pulse expands a visible ring and pushes nearby rivals away without damaging or killing them. It has a 6.5-second cooldown.
 
-The arena keeps at most two pickups in play. A new pickup appears after the opening 3.5 seconds and then roughly every 7.5–12 seconds, with Nova Charge appearing rarely. Pickups are placed near hazard lanes so they are readable but carry a route risk; their names and effects are announced when they appear.
+The arena keeps at most two pickups in play. A new pickup appears after the opening 3.5 seconds and then roughly every 7.5 to 12 seconds, with Nova Charge appearing rarely. Pickups are placed near hazard lanes so they are readable but carry a route risk; their names and effects are announced when they appear.
 
 COLLISION RULES
 ---------------

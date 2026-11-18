@@ -1,4 +1,4 @@
-# Pixelpress — Image compressor and converter
+# Pixelpress: Image compressor and converter
 
 Pixelpress is a browser-only image utility for compressing, resizing, cropping, and converting JPG, PNG, WebP, and supported AVIF images.
 

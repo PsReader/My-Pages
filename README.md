@@ -1,213 +1,50 @@
-﻿# My Projects
+# My Projects
 
-A portfolio workspace of creative web projects and interactive front-end builds. The group repository is [PsReader/My-Pages](https://github.com/PsReader/My-Pages).
-
-Each project lives in its own folder. The group repository contains the workspace, and the standalone project repositories are listed below.
-
-## GitHub repositories
-
-- Group workspace: [PsReader/My-Pages](https://github.com/PsReader/My-Pages)
-- Cipherly: [PsReader/Cipherly](https://github.com/PsReader/Cipherly)
-- FandomFate: [PsReader/Fandom-Fate](https://github.com/PsReader/Fandom-Fate)
-- GestureLab: [PsReader/GestureLab](https://github.com/PsReader/GestureLab)
-- HexFall: [PsReader/Hexfall](https://github.com/PsReader/Hexfall)
-- Lumen: [PsReader/Lumen](https://github.com/PsReader/Lumen)
-- Lord of the Mysteries Fan Wiki: [PsReader/LOTM](https://github.com/PsReader/LOTM)
-- Mystic Coin: [PsReader/MysticCoin](https://github.com/PsReader/MysticCoin)
-- PixelPress: [PsReader/PixelPress](https://github.com/PsReader/PixelPress)
-- Pomodoro Pet: [PsReader/PomodoroPet](https://github.com/PsReader/PomodoroPet)
-- Pudding Paradise: [PsReader/PuddingParadise](https://github.com/PsReader/PuddingParadise)
-- Scratchpad: [PsReader/Scratchpad](https://github.com/PsReader/Scratchpad)
-- Tarot Draw: [PsReader/TarotDraw](https://github.com/PsReader/TarotDraw)
-- Tarot Memory: [PsReader/TarotMemory](https://github.com/PsReader/TarotMemory)
-- TypeBound: [PsReader/TypeBound](https://github.com/PsReader/TypeBound)
-- MoodMatch and Witbit are also in this workspace; no standalone repository is listed here.
-
----
+A workspace of browser games, creative tools, and static sites. Each project folder is maintained independently. `Deploy/` contains publish-ready ZIP files for selected projects.
 
 ## Projects
 
-### Cipherly
+| Project | What it is | Local entry point |
+|---|---|---|
+| Cipherly | Browser-only password and passphrase generator | `Cipherly/index.html` |
+| FandomFate | Fandom personality quizzes | `FandomFate/index.html` |
+| GestureLab | Webcam hand tracking and 3D gesture effects | `GestureLab/` with Vite |
+| HexFall | Tactical hex dungeon crawler | `HexFall/index.html` via a local server |
+| Little Detour | Wheel of small activity ideas | `Little Detour/index.html` |
+| LOTM | Lord of the Mysteries fan lore archive | `LOTM/index.html` |
+| Lumen | WCAG color contrast checker | `Lumen/index.html` |
+| MoodMatch | Local moodboard generator with optional audio | `MoodMatch/index.html` |
+| MysticCoin | Yes, no, or again coin reading | `MysticCoin/index.html` |
+| PixelPress | In-browser image compressor and converter | `PixelPress/index.html` |
+| Pomodoro Pet | Focus timer with a virtual pet | `Pomodoro Pet/index.html` |
+| Pudding Paradise | Dessert storefront concept | `Pudding Paradise/index.html` |
+| Scratchpad | Local notes and thought dashboard | `Scratchpad/index.html` |
+| Starcoil | Cosmic arcade game | `Starcoil/index.html` |
+| Tarot Draw | Major Arcana reading and journal | `TarotDraw/index.html` |
+| Tarot Memory | Tarot-themed matching game | `TarotMemory/index.html` |
+| TypeBound | Typing challenge with optional cloud and multiplayer modes | `TypeBound/index.html` |
+| Witbit | Local idea generator | `Witbit/index.html` |
 
-A browser-based password utility for single and batch generation, with password and passphrase modes.
+`FandomFate/` is a nested Git repository. Most other folders belong to the workspace repository. Repository links and live addresses are documented in the individual project pages where available.
 
-- Runs in the browser and includes an offline fallback
-- Folder: `Cipherly` · repo: [github.com/PsReader/Cipherly](https://github.com/PsReader/Cipherly)
+## Run locally
 
-### FandomFate
+Most projects are static. Open their `index.html` files directly. A local HTTP server is needed for features that depend on browser secure-context rules, service workers, or module loading.
 
-An unofficial fandom personality quiz site with 17 playable quizzes across eight fandoms.
-
-- Quiz content and result cards are customized for each fandom
-- Folder: `FandomFate` · repo: [github.com/PsReader/Fandom-Fate](https://github.com/PsReader/Fandom-Fate) · live: `fandomfate.site.je`
-
-### GestureLab
-
-The only build-managed project. A webcam-powered interaction sandbox built with React, TypeScript, Three.js, and MediaPipe hand tracking.
-
-- interactive hand gesture controls
-- 3D scene rendering with React Three Fiber
-- shader-based visual effects and live motion feedback
-- real-time camera-driven experimentation
-- folder: `GestureLab` · repo: [github.com/PsReader/GestureLab](https://github.com/PsReader/GestureLab) · live: `gesturelab.site.je`
-
-### LOTM
-
-A fan-made lore archive and storytelling website for _Lord of the Mysteries_.
-
-- 60+ HTML pages organized with shared CSS and JavaScript
-- dark fantasy aesthetic
-- lore, pathways, character references, volumes, and galleries
-- static HTML/CSS/JavaScript implementation
-- folder: `LOTM` · repo: [github.com/PsReader/LOTM](https://github.com/PsReader/LOTM) · live: `lotm-archive.site.je`
-
-### Pudding Paradise
-
-A dessert-themed storefront and landing page concept with a soft, pastel personality.
-
-- responsive static website
-- menu, home, and review pages plus a shared stylesheet
-- brand-driven visual design with a custom image set
-- folder: `Pudding Paradise` · repo: [github.com/PsReader/PuddingParadise](https://github.com/PsReader/PuddingParadise) · live: `pudding-paradise.site.je`
-
-### Tarot Draw
-
-A single-file tarot reader for the 22 Major Arcana, delivered behind an open-book veil.
-
-- choose a spread, flip sigil cards, or draw today's card
-- shareable readings
-- local-only journal with backup export
-- folder: `TarotDraw` · repo: [github.com/PsReader/TarotDraw](https://github.com/PsReader/TarotDraw) · live: `tarotdraw.site.je`
-
-### Mystic Coin
-
-A small digital divination tool in a mystical gold-and-dark theme.
-
-- ask a question, flip the gilded coin, and receive a symbolic Yes / No / Again answer
-- running history of past flips
-- self-contained single-file page
-- folder: `MysticCoin` · repo: [github.com/PsReader/MysticCoin](https://github.com/PsReader/MysticCoin) · live: `mystic-coin.site.je`
-
-### Scratchpad
-
-A thought-dashboard for lightweight, browser-based note organization.
-
-- localStorage persistence
-- theme switching
-- searchable and organized notes
-- folder: `Scratchpad` · repo: [github.com/PsReader/Scratchpad](https://github.com/PsReader/Scratchpad)
-
-### Tarot Memory
-
-A tarot-themed memory card game.
-
-- card-matching gameplay with tarot artwork
-- keyboard and touch friendly controls
-- folder: `TarotMemory` · repo: [github.com/PsReader/TarotMemory](https://github.com/PsReader/TarotMemory) · live: `tarotmemory.site.je`
-
-### Pomodoro Pet
-
-A cozy pomodoro timer that rewards completed focus sessions with XP and coins for a virtual pet.
-
-- focus, short-break, and long-break timers
-- XP, coins, streaks, and session tracking
-- pet evolution and cosmetic accessory shop
-- local-only persistence
-- folder: `Pomodoro Pet` · repo: [github.com/PsReader/PomodoroPet](https://github.com/PsReader/PomodoroPet)
-
-### Type Bound
-
-A browser typing challenge with local scoring, analytics, optional Supabase cloud accounts, and multiplayer races.
-
-- multiple difficulty modes plus custom text and daily challenge
-- local history with export/import
-- optional cloud accounts with leaderboards and local-history sync
-- peer-to-peer WebRTC race mode
-- folder: `TypeBound` · repo: [github.com/PsReader/TypeBound](https://github.com/PsReader/TypeBound) · live: `typebound.site.je`
-
-### Lumen
-
-A WCAG contrast ratio checker for text and background colors.
-
-- ratio and AA, AAA, and non-text verdicts from the raw value, rounded for display only
-- HEX, RGB, HSL, and OKLCH input, with a color wheel and shade bar
-- palette contrast matrix, saved palettes of up to 12, and 10-pair local history
-- component previews, plus protanopia, deuteranopia, tritanopia, and achromatopsia simulation
-- shareable `?fg=...&bg=...` links and a browser-console self-check
-- no build step, no dependencies, works offline
-- deploy bundle: `Deploy/deploy-Lumen-root.zip`
-- folder: `Lumen` · repo: [github.com/PsReader/Lumen](https://github.com/PsReader/Lumen) · live: `lumens.site.je`
-
-### PixelPress
-
-A browser-only image utility that compresses, resizes, crops, and converts images.
-
-- JPG, PNG, WebP, and feature-detected AVIF output with a quality slider
-- fit-to-bounds, custom width, custom height, and original-size modes
-- numeric crop controls with center-crop presets
-- original vs processed preview with file size and savings comparison
-- processing stays in the browser, no upload, no build step
-- folder: `PixelPress` · repo: [github.com/PsReader/PixelPress](https://github.com/PsReader/PixelPress) · live: `pixelpress.site.je`
-
-### HexFall
-
-A tactical hex dungeon crawler that runs entirely in the browser.
-
-- seeded rooms, a sub-boss every fifth room, a full boss every tenth
-- 1,000 floors across ten prestige bands, ending at a named Big Bad
-- permanent meta-tree progression, 21 relics, and six playable classes
-- versioned localStorage saves with JSON export and import
-- folder: `HexFall` · repo: [github.com/PsReader/Hexfall](https://github.com/PsReader/Hexfall) · live: `hexfall.site.je`
-
-### MoodMatch
-
-A local moodboard generator that pairs a selected mood and intensity with colors, a soundtrack description, and a playful quote.
-
-- Results are generated in the browser and are not saved
-- Folder: `MoodMatch` · live: `moodmatch.site.je`
-
-### Witbit
-
-A small browser-based idea generator for excuses, names, story prompts, and team names.
-
-- Uses local templates and word lists without an account or API
-- Folder: `Witbit` · live: `witbit.site.je`
-
----
-
-## Root files & folders
-
-- `index.html`: portfolio landing page with the Live Demos carousel
-- `portfolio.html`: personal portfolio page
-- `ghost-cursor.js`: Three.js ES module cursor-trail effect used by the portfolio
-- `assets/`: shared card images and branding assets
-- `robots.txt`, `sitemap.xml`, `site.webmanifest`: site metadata
-- `404.html`, `400.html`, `401.html`, `403.html`, `500.html`, and `503.html`: root status pages
-- `Deploy/`: local publish-ready ZIP bundles, one per project, flat at archive root
-
----
-
-## How to use this workspace
-
-- For static HTML projects, open the relevant page directly in a browser.
-- For `GestureLab`, install dependencies and run the Vite app locally:
+GestureLab uses React, TypeScript, Vite, Three.js, and MediaPipe. From its folder:
 
 ```bash
-cd GestureLab
 npm install
 npm run dev
 ```
 
----
+TypeBound is also static, but optional Supabase accounts require a local `src/supabase-config.js`, copied from the example and filled with the project's public client settings. Never put a service-role key in browser code.
 
-## Notes
+## Workspace files
 
-Most projects are static websites without a build step; GestureLab uses React and Vite, and TypeBound supports optional Supabase accounts.
+- `index.html` and `portfolio.html` are the workspace portfolio pages.
+- `ghost-cursor.js` and `assets/` provide shared portfolio effects and artwork.
+- `privacy.html`, `terms.html`, and the root status pages belong to the portfolio site.
+- `Deploy/` stores generated hosting bundles. Keep each project's internal file paths intact when packaging.
 
-Static project status pages sit at each project's document root. GestureLab keeps its pages in `GestureLab/public/` so Vite copies them into the build output. Assign the files to HTTP status codes in the hosting configuration when needed.
-
----
-
-## License
-
-This workspace is available under the MIT License unless otherwise noted in an individual project folder.
+For project-specific behavior, requirements, and hosting notes, use that folder's README.

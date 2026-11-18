@@ -1,6 +1,3 @@
-- Every 5th floor introduces a named sub-boss variant; every 10th floor introduces a stronger boss variant; every 100th floor introduces an Apex Worldbreaker variant with unique telegraphed abilities, stat scaling, and visual rings.
-- Ultimate impacts and cooldown-ready triggers now emit dedicated particle bursts, while battle music shifts through floor-depth, milestone, Ascension, and finale palettes.
-
 # Hexfall: Hexa Battle
 
 A dependency-free browser prototype of a tactical hex dungeon crawler inspired by Hexa Battle.
@@ -25,7 +22,7 @@ The app is intentionally static. No account, backend, package install, or build 
 - Companion-only battle XP and five promotion levels that improve health, damage, movement, and attack range
 - Separate per-class Main Class mastery ranks in the Meta Tree, purchased with Meta-shards and applied only while that class leads
 - Sub-boss rooms every fifth room except every tenth; defeat the named target within five rounds and its escorts scatter. Full bosses appear every tenth room, while every hundredth floor is a named Big Bad with a seven-round hard encounter; floor 1,000 is an eight-round Worldbreaker finale with extra escorts, hazards, boss pulses, and maximum rewards
-- Ten 100-floor bands: floors 1–100 are the standard descent; floors 101–1,000 span Prestige I–IX. Every two prestige ranks add one companion (up to seven), strengthen enemies, and the map grows in width and height. Clear floor 1,000 to finish the run
+- Ten 100-floor bands: floors 1 to 100 are the standard descent; floors 101 to 1,000 span Prestige I to IX. Every two prestige ranks add one companion (up to seven), strengthen enemies, and the map grows in width and height. Clear floor 1,000 to finish the run
 - Expanded 21-relic ember-shard market, with rarity tiers, unique hand-authored SVG art, repeat purchases, and relic upgrades up to tier III
 - Additional permanent archive nodes: Ember Well, Iron Vow, and Combo Memory
 - Meta-tree visual uses an original recursive branch-and-rotated-square treatment inspired by the supplied Context Free reference
@@ -41,7 +38,7 @@ The app is intentionally static. No account, backend, package install, or build 
 - New companion classes trigger individualized ember, veil, stone, root, blade, pike, or moon-quill particle signatures when they strike or use a signature ability
 - Every Main Class and companion now has its own combat signature palette and particle silhouette; Emberling and the cinder classes use flame-shaped bursts
 - Battle plane uses a restrained tabletop perspective tilt with shadowed, depth-treated class sigils and unit bodies; reduced-motion settings disable the tilt and nonessential effects
-- Higher-tier balance target keeps a fully synergized seven-companion formation under the five-round room limit in modeled Prestige difficulty tiers (approximately 0.8–3.9 clear rounds from tier 0 through tier 4; validate with seeded benchmarks before treating this as a guarantee)
+- Higher-tier balance target keeps a fully synergized seven-companion formation under the five-round room limit in modeled Prestige difficulty tiers (approximately 0.8 to 3.9 clear rounds from tier 0 through tier 4; validate with seeded benchmarks before treating this as a guarantee)
 - Ultimate and signature balance pass: once-per-battle Ultimates now trade burst, area coverage, and formation defense more deliberately; broad guard/heal values were normalized, underpowered hazard/support tools were lifted, and Rift Execution/Pale Scribe signatures were brought up to a useful action-value floor without adding extra actions.
 - Meta Tree rebuilt as two readable branching purchase maps: General Team Tree for formation-wide upgrades and a Selected Class Tree with persistent upgrades for the currently selected Main Class; legacy saves migrate with empty class-node inventories
 - Meta Tree diagrams keep the full branch structure visible, dim future nodes, and highlight owned/next-step nodes; purchase cards show owned nodes plus prerequisite-ready upgrades regardless of shard balance
@@ -99,7 +96,7 @@ The app is intentionally static. No account, backend, package install, or build 
 - Upgrade the selected Main Class separately in the Meta Tree with permanent Meta-shards. Its three class-specific ranks grant +1 maximum HP, then +1 base damage, then +1 range and movement; changing leaders does not transfer those ranks.
 - The Meta Tree separates team-wide benefits, Main Class unlocks, per-class mastery, and branch synergies. Warden, Vanguard, and Arcanist start unlocked; all other Main Classes are bought directly with Meta-shards. Companion recruitment is handled separately in the Ember-shard market.
 - Every Main Class previews its movement pace, basic-attack trait, and signature before selection. Vanguard trades speed for armor and close damage; Arcanist burns at range; Scout and Riftblade reposition differently; Duelist rewards criticals; Geomancer exploits bramble; Conduit and Stormcaller chain hits; Soulweaver heals and guards the team.
-- The standard descent covers floors 1–100, then Prestige I–IX each cover 100 floors. Enemies strengthen every two prestige ranks and the battlefield grows at each prestige.
+- The standard descent covers floors 1 to 100, then Prestige I to IX each cover 100 floors. Enemies strengthen every two prestige ranks and the battlefield grows at each prestige.
 - The hundredth floors (100, 200, …, 1,000) replace the regular boss with a named Big Bad; defeat it within seven rounds for extra Ember and Meta-shards; floor 1,000 adds an eight-round Worldbreaker finale with stronger pressure. Clearing floor 1,000 completes the run; the final two-room market is available before returning to the completed-run archive.
 - Every market visit draws eight items from a 21-relic catalogue. Stock stays fixed while that visit is open, then rerolls the next time the market is opened after a floor.
 - Relics persist for the run. Each offer can be bought once per visit; if an owned relic appears again in a later rotation, buy its next tier instead. Items cap at tier I, II, or III and have individual shard-price progressions and battle effects.
@@ -112,7 +109,7 @@ Battle targets can be clicked directly on their enemy SVGs or in the turn-order 
 
 ## Mobile controls and expanded combat
 
-- On narrow screens, the hex board can be swiped horizontally and units have larger invisible tap targets; the action tray stays thumb-accessible with 48–54px controls and safe-area padding.
+- On narrow screens, the hex board can be swiped horizontally and units have larger invisible tap targets; the action tray stays thumb-accessible with 48 to 54px controls and safe-area padding.
 - Double-tap a reachable empty hex to move the selected ally directly without opening Move first; use Move to preview teal reachable hexes and keep the familiar single-tap move flow.
 - Touch Haptics is enabled by default in Field Settings. Supported browsers use short `navigator.vibrate()` patterns; unsupported devices get a brief board-pulse simulation. Turn the option off any time.
 - On desktop, clicking an ally selects it just like a touch tap; small mouse movement is tolerated so a click is not mistaken for a drag. Double-click/tap an unselected ally to enter Move mode, then click/tap one reachable hex to move.

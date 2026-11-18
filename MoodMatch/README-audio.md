@@ -1,5 +1,7 @@
 # MoodMatch audio
 
+This note covers the audio assets and playback behavior for the app described in [README.md](README.md). Keep the `audio/` folder beside `index.html` when serving or deploying the site.
+
 The site has one optional background bed (`audio/site-ambience.mp3`) and one original generated loop for each of the eight standard moods. All bundled music is original AI-generated instrumental audio for this project. The secret moods reuse the soft loop for Hush Mode and Midnight Radio, and the chaos loop for Confetti Emergency and Joy Jolt.
 
 ## Playback behavior
