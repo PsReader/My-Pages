@@ -1,0 +1,168 @@
+/* History article: use the archive's existing translucent plum, rose, and gold palette. */
+.history-page .history-lead { margin-top: 18px; }
+.history-page .history-lead p:last-child { margin-bottom: 0; }
+.history-page .history-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0 30px;
+  padding: 12px;
+  border: 1px solid rgba(212, 175, 159, .22);
+  border-radius: 7px;
+  background: rgba(20, 10, 25, .24);
+}
+.history-page .history-toc a {
+  padding: 6px 9px;
+  border: 1px solid rgba(212, 175, 159, .2);
+  border-radius: 5px;
+  background: rgba(212, 175, 159, .035);
+  color: #e8c8b8;
+  font-size: .78rem;
+  text-decoration: none;
+}
+.history-page .history-toc a:hover,
+.history-page .history-toc a:focus-visible {
+  border-color: rgba(255, 195, 0, .7);
+  background: rgba(255, 195, 0, .07);
+  color: #ffe6a3;
+}
+.history-page .history-note {
+  margin: 14px 0 18px;
+  padding: 12px 15px;
+  border-left: 3px solid rgba(255, 195, 0, .72);
+  background: rgba(212, 175, 159, .055);
+  color: #e8c8b8;
+}
+.history-page .history-note p { margin: 0; }
+.history-page .history-timeline-scroll { margin: 14px 0 10px; }
+.history-page .history-timeline-table {
+  width: 100%;
+  min-width: 1040px;
+  background: rgba(20, 10, 25, .52);
+  font-variant-numeric: tabular-nums;
+}
+.history-page .history-timeline-table th,
+.history-page .history-timeline-table td { padding: 10px 12px; }
+.history-page .history-timeline-table th:first-child { min-width: 120px; }
+.history-page .history-timeline-table td:nth-child(2) { min-width: 225px; color: #f0d6c3; font-weight: 700; }
+.history-page .history-timeline-table td:nth-child(3),
+.history-page .history-timeline-table td:nth-child(4),
+.history-page .history-timeline-table td:nth-child(5) { white-space: nowrap; }
+.history-page .timeline-subhead { color: #c49a7f; font-size: .72rem; font-weight: 400; }
+.history-page .timeline-page-status {
+  display: inline-block;
+  padding: 3px 8px;
+  border: 1px solid rgba(212, 175, 159, .27);
+  border-radius: 999px;
+  background: rgba(212, 175, 159, .045);
+  color: #c49a7f;
+  font-size: .7rem;
+  white-space: nowrap;
+}
+.history-page .timeline-table-note { margin: 8px 0 0; color: #b99789; font-size: .78rem; line-height: 1.65; }
+.history-page .timeline-table-note code { color: #ffe6a3; font-size: .75rem; }
+.history-page .member-article h3 { scroll-margin-top: 96px; }
+.history-page .source-note { margin-top: 12px; }
+.history-page .source-note a { color: #e8c8b8; }
+.history-page .history-next { margin: 24px 0 0; }
+@media (max-width: 600px) {
+  .history-page .history-toc { gap: 6px; padding: 9px; }
+  .history-page .history-toc a { padding: 6px 8px; font-size: .74rem; }
+  .history-page .history-note { padding: 10px 12px; }
+  .history-page .history-timeline-table th,
+  .history-page .history-timeline-table td { padding: 9px 10px; font-size: .78rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .history-page .history-toc a { scroll-behavior: auto; }
+}
+
+/* Timeline layout follows the source's grouped Epoch cells and split date columns. */
+.history-page .history-timeline-table {
+  min-width: 960px;
+  table-layout: fixed;
+}
+.history-page .history-timeline-table thead tr:first-child th {
+  text-align: center;
+  vertical-align: middle;
+  border-bottom-color: rgba(212, 175, 159, .26);
+}
+.history-page .history-timeline-table thead tr:nth-child(2) th {
+  padding-top: 7px;
+  padding-bottom: 9px;
+  color: #e8c8b8;
+  text-align: center;
+  white-space: nowrap;
+}
+.history-page .history-timeline-table th.timeline-epoch {
+  width: 130px;
+  min-width: 130px;
+  color: #d4af9f;
+  font-weight: 600;
+  vertical-align: middle;
+}
+.history-page .history-timeline-table th.timeline-era {
+  width: 235px;
+  min-width: 205px;
+  color: #c49a7f;
+  font-weight: 500;
+}
+.history-page .history-timeline-table tbody td:nth-child(n+3) {
+  text-align: center;
+  white-space: nowrap;
+}
+.history-page .history-timeline-table tbody td:last-child { color: #e8c8b8; }
+.history-page .history-timeline-table caption {
+  padding: 0 0 8px;
+  color: #c49a7f;
+  caption-side: top;
+  text-align: center;
+}
+@media (max-width: 600px) {
+  .history-page .history-timeline-table { min-width: 960px; }
+}
+
+.history-page .history-timeline-table col.timeline-epoch-col { width: 130px; }
+.history-page .history-timeline-table col.timeline-era-col { width: 235px; }
+.history-page .history-timeline-table colgroup:nth-of-type(2),
+.history-page .history-timeline-table colgroup:nth-of-type(3) { width: 150px; }
+.history-page .history-timeline-table col.timeline-duration-col { width: 120px; }
+
+.history-page .history-timeline-table tbody.timeline-epoch-group tr:last-child > * {
+  border-bottom: 1px solid rgba(212, 175, 159, .16);
+}
+
+.history-page .history-timeline-table .timeline-epoch a,
+.history-page .history-timeline-table .timeline-epoch a:link,
+.history-page .history-timeline-table .timeline-epoch a:visited {
+  color: #d4af9f;
+  text-decoration-color: rgba(212, 175, 159, .42);
+  text-underline-offset: 3px;
+}
+.history-page .history-timeline-table .timeline-epoch a:hover,
+.history-page .history-timeline-table .timeline-epoch a:focus-visible { color: #ffe6a3; }
+.history-page .member-article .epoch-guide-link,
+.history-page .member-article .epoch-guide-link:link,
+.history-page .member-article .epoch-guide-link:visited {
+  display: inline-block;
+  margin-left: 8px;
+  color: #c49a7f;
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: .66rem;
+  font-weight: 400;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.history-page .member-article .epoch-guide-link:hover,
+.history-page .member-article .epoch-guide-link:focus-visible {
+  color: #ffe6a3;
+}
+
+.history-page .member-article a,
+.history-page .member-article a:link,
+.history-page .member-article a:visited {
+  color: #e8c8b8;
+}
+.history-page .member-article a:hover,
+.history-page .member-article a:focus-visible {
+  color: #ffe6a3;
+}

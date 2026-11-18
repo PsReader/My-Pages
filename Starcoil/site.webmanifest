@@ -1,0 +1,8 @@
+{
+  "name": "Starcoil: Cosmic Arcade",
+  "short_name": "Starcoil",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#08091b",
+  "theme_color": "#08091b"
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" role="img" aria-label="Four-color roulette wheel mark">
+  <circle cx="40" cy="40" r="36" fill="#1b2030" />
+  <path d="M40 8A32 32 0 0 1 72 40H40Z" fill="#f1816e" />
+  <path d="M72 40A32 32 0 0 1 40 72V40Z" fill="#d9ec78" />
+  <path d="M40 72A32 32 0 0 1 8 40h32Z" fill="#b6e2ed" />
+  <path d="M8 40A32 32 0 0 1 40 8v32Z" fill="#fffdf7" />
+  <circle cx="40" cy="40" r="10" fill="#4354d8" stroke="#1b2030" stroke-width="3" />
+  <path d="M40 15 46 4H34Z" fill="#d9ec78" stroke="#1b2030" stroke-width="2" stroke-linejoin="round" />
+</svg>

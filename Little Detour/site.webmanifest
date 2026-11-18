@@ -1,0 +1,8 @@
+{
+  "name": "Little Detour: Five-Minute Boredom Roulette",
+  "short_name": "Little Detour",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fffaf0",
+  "theme_color": "#ffe16b"
+}

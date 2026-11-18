@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ==============================================================================
  * DYNAMIC WEBSITE FUNCTIONALITY
  * ==============================================================================
@@ -6,21 +6,7 @@
  * scroll-to-top.
  */
 
-// Share one search-index request between the homepage browser and navbar suggestions.
-window.loadLOTMSearchIndex = window.loadLOTMSearchIndex || (() => {
-  let request;
-  return () => {
-    if (!request) {
-      request = fetch('search-index.json')
-        .then(response => {
-          if (!response.ok) throw new Error(`Search index request failed: ${response.status}`);
-          return response.json();
-        })
-        .catch(error => { request = null; throw error; });
-    }
-    return request;
-  };
-})();
+// Search core (window.LOTMSearch, window.loadLOTMSearchIndex) lives in js/search-core.js.
 
 /* ============================================================================= */
 /* ACCORDION COMPONENT */
@@ -281,23 +267,27 @@ const PART_CARDS = {
   'Emlyn White': 'Moon_Symbol2.webp',
   'Cattleya': 'Hermit_Symbol2.webp',
   'Leonard Mitchell': 'Darkness_Symbol2.webp',
-  'Xio Derecha': 'Justiciar_Symbol2.webp'
+  'Xio Derecha': 'Justiciar_Symbol2.webp',
+  'Sharron': 'Chained_Symbol2.webp',
+  'Lumian Lee': 'Red_Priest_Symbol2.webp'
 };
 
 function setupParticipantChips() {
-  const order = Object.keys(PART_CARDS).sort((a, b) => b.length - a.length);
-
   document.querySelectorAll('p').forEach(p => {
     if (!p.textContent.trim().startsWith('Participants')) return;
-    let html = p.innerHTML;
-    order.forEach(name => {
-      html = html.split(name).join(
-        '<span class="participant-chip">' +
-        '<img src="images/' + PART_CARDS[name] + '" width="18" height="18" alt="' + name + '">' +
-        '<span>' + name + '</span></span>'
-      );
+    p.querySelectorAll('a.character-link[data-character]').forEach(link => {
+      const icon = PART_CARDS[link.dataset.character];
+      if (!icon || link.querySelector('.participant-chip-icon')) return;
+      const image = document.createElement('img');
+      image.className = 'participant-chip-icon';
+      image.src = `images/${icon}`;
+      image.width = 18;
+      image.height = 18;
+      image.alt = '';
+      image.setAttribute('aria-hidden', 'true');
+      link.classList.add('participant-chip');
+      link.prepend(image);
     });
-    p.innerHTML = html;
   });
 }
 
@@ -408,6 +398,201 @@ function setupMemberTabs() {
   });
   window.addEventListener('hashchange', setActive);
   setActive();
+}
+
+function setupMobileContentDisclosures() {
+  const mobile = window.matchMedia('(max-width: 720px)');
+
+  const registerDisclosure = (details, index) => {
+    details.open = !mobile.matches || index === 0;
+    details.addEventListener('toggle', () => {
+      if (!mobile.matches && !details.open) details.open = true;
+    });
+    mobile.addEventListener('change', event => {
+      details.open = !event.matches || index === 0;
+    });
+  };
+
+  const sectionHeading = section =>
+    section.querySelector(':scope > h2, :scope > h3') ||
+    (section.matches('.lore-group') ? section.querySelector('h3') : null);
+
+  const wrapSection = (section, index) => {
+    const heading = sectionHeading(section);
+    if (!heading) return false;
+
+    const details = document.createElement('details');
+    details.className = 'mobile-page-disclosure';
+    const summary = document.createElement('summary');
+    const content = document.createElement('div');
+    content.className = 'mobile-page-disclosure__content';
+    summary.append(heading);
+    for (const child of Array.from(section.children)) {
+      if (child !== heading) content.append(child);
+    }
+    details.append(summary, content);
+    section.classList.add('has-mobile-disclosure');
+    section.append(details);
+    registerDisclosure(details, section.matches('.lore-group') ? index + 1 : index);
+    return true;
+  };
+
+  const wrapHeadingGroups = (container) => {
+    const children = Array.from(container.children);
+    const h2s = children.filter(child => child.tagName === 'H2');
+    const headings = h2s.length > 1
+      ? h2s
+      : children.filter(child => child.tagName === 'H3');
+    if (headings.length < 2) return;
+
+    headings.forEach((heading, index) => {
+      const start = children.indexOf(heading);
+      const end = index + 1 < headings.length
+        ? children.indexOf(headings[index + 1])
+        : children.length;
+      const details = document.createElement('details');
+      details.className = 'mobile-page-disclosure';
+      const summary = document.createElement('summary');
+      const content = document.createElement('div');
+      content.className = 'mobile-page-disclosure__content';
+      container.insertBefore(details, heading);
+      summary.append(heading);
+      details.append(summary, content);
+      for (const child of children.slice(start + 1, end)) content.append(child);
+      registerDisclosure(details, index);
+    });
+  };
+
+  const buildDisclosures = () => {
+    if (!mobile.matches || document.querySelector('.mobile-page-disclosure')) return;
+    const roots = new Set(document.querySelectorAll(
+      '.member-article, .content, .volume-reading, .lore-panel, .site-page__content > div'
+    ));
+    for (const root of roots) {
+      if (root.closest('.novel-hub, .organizations-panel, .ingredient-panel') ||
+          root.querySelector('.novel-hub, .organizations-panel, .ingredient-panel, .home-pathway-feature') ||
+          root.querySelector('details.mobile-page-disclosure') ||
+          (root.scrollHeight < 1800 && !root.matches('.lore-panel'))) continue;
+
+      const parents = [root, ...root.querySelectorAll('article, div, section')];
+      let sectionCount = 0;
+      for (const parent of parents) {
+        const sections = Array.from(parent.children).filter(child =>
+          child.tagName === 'SECTION' && sectionHeading(child)
+        );
+        if (sections.length < 2) continue;
+        sections.forEach((section, index) => {
+          if (wrapSection(section, index)) sectionCount++;
+        });
+      }
+      if (!sectionCount) {
+        wrapHeadingGroups(root);
+      }
+    }
+  };
+  buildDisclosures();
+  mobile.addEventListener('change', event => {
+    if (event.matches) {
+      buildDisclosures();
+    } else {
+      document.querySelectorAll('details.mobile-page-disclosure').forEach(details => {
+        details.open = true;
+      });
+    }
+  });
+
+  const openHashTarget = (target) => {
+    if (!target) return;
+    const section = target.closest('.has-mobile-disclosure');
+    const nestedDetails = section && section.querySelector(':scope > .mobile-page-disclosure');
+    if (nestedDetails) nestedDetails.open = true;
+    for (let details = target.closest('details.mobile-page-disclosure'); details; details = details.parentElement.closest('details.mobile-page-disclosure')) {
+      details.open = true;
+    }
+  };
+
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    const id = link.getAttribute('href').slice(1);
+    openHashTarget(document.getElementById(decodeURIComponent(id)));
+  }, true);
+  window.addEventListener('hashchange', () => {
+    const id = window.location.hash.slice(1);
+    if (id) openHashTarget(document.getElementById(decodeURIComponent(id)));
+  });
+  if (window.location.hash) {
+    const id = window.location.hash.slice(1);
+    openHashTarget(document.getElementById(decodeURIComponent(id)));
+  }
+}
+
+function setupMobileHomeDisclosures() {
+  const content = document.querySelector('.site-page__content');
+  if (!content) return;
+  const mobile = window.matchMedia('(max-width: 720px)');
+
+  const wrapGrid = (grid, heading, label) => {
+    if (!grid || grid.closest('details.home-grid-disclosure')) return;
+    const details = document.createElement('details');
+    details.className = 'mobile-page-disclosure home-grid-disclosure';
+    if (grid.matches('.explore-grid')) details.classList.add('home-explore-disclosure');
+    const summary = document.createElement('summary');
+    const body = document.createElement('div');
+    body.className = 'mobile-page-disclosure__content';
+    const anchor = heading || grid;
+    anchor.parentElement.insertBefore(details, anchor);
+    if (heading) summary.append(heading);
+    else summary.textContent = label;
+    body.append(grid);
+    details.append(summary, body);
+    details.open = !mobile.matches;
+    details.addEventListener('toggle', () => {
+      if (!mobile.matches && !details.open) details.open = true;
+    });
+    mobile.addEventListener('change', event => {
+      details.open = !event.matches;
+    });
+  };
+
+  const volumes = content.querySelector('.vol-grid');
+  wrapGrid(volumes, volumes?.previousElementSibling?.matches('h2') ? volumes.previousElementSibling : null, '');
+
+  const explore = content.querySelector('.explore-grid');
+  wrapGrid(explore, null, 'More archive links');
+}
+
+function setupArchiveCollectionDisclosures() {
+  if (!document.body.classList.contains('sitemap-page')) return;
+  const groups = Array.from(document.querySelectorAll('.archive-map-group'));
+  let isDesktop = window.innerWidth >= 741;
+
+  groups.forEach((group, index) => {
+    const heading = group.querySelector(':scope > h2');
+    const links = group.querySelector(':scope > ul');
+    if (!heading || !links) return;
+
+    const details = document.createElement('details');
+    details.className = 'archive-map-group__disclosure';
+    const summary = document.createElement('summary');
+    summary.append(heading);
+    details.append(summary, links);
+    group.append(details);
+    details.open = isDesktop || index === 0;
+    details.addEventListener('toggle', () => {
+      if (isDesktop && !details.open) details.open = true;
+    });
+  });
+
+  window.addEventListener('resize', () => {
+    const nextIsDesktop = window.innerWidth >= 741;
+    if (nextIsDesktop === isDesktop) return;
+    isDesktop = nextIsDesktop;
+    groups.forEach((group, index) => {
+      const details = group.querySelector('.archive-map-group__disclosure');
+      if (details) details.open = isDesktop || index === 0;
+    });
+  });
 }
 
 /* ============================================================================= */
@@ -561,6 +746,9 @@ document.addEventListener('DOMContentLoaded', function() {
   setupParticipantChips();
   setupQuoteRotator();
   setupMemberTabs();
+  setupMobileContentDisclosures();
+  setupMobileHomeDisclosures();
+  setupArchiveCollectionDisclosures();
   setupCharacterTooltips();
   setupImageLoading();
   setupNovelReveals();

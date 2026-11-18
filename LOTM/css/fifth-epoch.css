@@ -1,0 +1,103 @@
+/* Fifth Epoch page styling */
+.fifth-epoch-page .member-article-header h1 {
+  letter-spacing: .04em;
+}
+
+.fifth-epoch-page .member-article section > h2 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.fifth-epoch-page .member-article .epoch-guide-link {
+  display: inline-block;
+  margin-left: 8px;
+  color: #d9b9a8;
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: .66rem;
+  font-weight: 400;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.fifth-epoch-page .member-article .epoch-guide-link:hover,
+.fifth-epoch-page .member-article .epoch-guide-link:focus-visible {
+  color: #f0c9a8;
+}
+
+.fifth-epoch-page .member-article a,
+.fifth-epoch-page .member-article a:link,
+.fifth-epoch-page .member-article a:visited {
+  color: #e8c8b8;
+}
+
+.fifth-epoch-page .member-article a:hover,
+.fifth-epoch-page .member-article a:focus-visible {
+  color: #f0c9a8;
+}
+
+.fifth-epoch-page .member-article blockquote {
+  border-color: rgba(210, 140, 90, .36);
+  background: radial-gradient(circle at top left, rgba(210, 140, 90, .12), transparent 55%), rgba(212, 175, 159, .08);
+}
+
+.fifth-epoch-page .member-article blockquote::before {
+  color: rgba(210, 140, 90, .72);
+}
+
+.fifth-epoch-page .fifth-epoch-table {
+  min-width: 880px;
+}
+
+.fifth-epoch-page .fifth-epoch-table th,
+.fifth-epoch-page .fifth-epoch-table td {
+  vertical-align: top;
+}
+
+.fifth-epoch-page .fifth-epoch-table tbody tr:hover {
+  background: rgba(210, 140, 90, .05);
+}
+
+.fifth-epoch-page .epoch-date {
+  display: inline-block;
+  margin-left: 7px;
+  padding: 3px 8px;
+  border: 1px solid rgba(212, 175, 159, .28);
+  border-radius: 999px;
+  color: #c49a7f;
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: .68rem;
+  font-weight: 400;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.fifth-epoch-page .history-next {
+  margin: 24px 0 0;
+}
+
+@media (max-width: 700px) {
+  .fifth-epoch-table {
+    min-width: 820px;
+  }
+}
+
+@media (max-width: 600px) {
+  .fifth-epoch-page .history-toc {
+    gap: 6px;
+    padding: 9px;
+  }
+  .fifth-epoch-page .history-toc a {
+    padding: 6px 8px;
+    font-size: .74rem;
+  }
+  .fifth-epoch-table th,
+  .fifth-epoch-table td {
+    padding: 9px 10px;
+    font-size: .78rem;
+  }
+  .fifth-epoch-page .member-article ul {
+    margin-left: 18px;
+  }
+}

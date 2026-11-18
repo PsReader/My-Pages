@@ -1,0 +1,15 @@
+# TODO
+- [x] Random activity roulette
+  - A prominent roulette-style control reveals one random activity idea per spin.
+  - A curated collection of simple, low-effort activity ideas provides varied results.
+  - A clear “Try again” action lets visitors immediately reveal another idea.
+- [x] Responsive, playful and accessible experience
+  - A playful reveal animation and responsive interaction feedback make each result feel fun.
+  - The responsive, accessible layout works smoothly on mobile and desktop.
+- [x] More lively roulette flow
+  - A colorful seven-slice wheel spins to the category of the revealed idea.
+  - Category controls filter the roll; exhausted categories are unavailable until the deck reshuffles.
+  - The 101-idea counter and progress bar show remaining ideas, and ideas do not repeat before the deck is complete.
+- [x] Spin and stop sound effects
+  - The roulette plays short spin ticks followed by a stop chime, with an accessible sound on/off control.
+  - Sounds are synthesized in the browser and begin only after the user starts a spin.

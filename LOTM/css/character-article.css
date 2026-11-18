@@ -1,0 +1,178 @@
+.character-article-page .member-tabs{display:flex;gap:6px;margin:14px 0 0;padding:0 0 8px;overflow-x:auto;border-bottom:1px solid rgba(212,175,159,.25);scrollbar-width:thin;-webkit-overflow-scrolling:touch}.character-article-page .member-tabs a{display:inline-flex;flex:0 0 auto;align-items:center;padding:8px 11px;border:1px solid rgba(212,175,159,.28);border-radius:6px 6px 0 0;background:rgba(212,175,159,.05);color:#d4af9f;font-size:.78rem;text-decoration:none;white-space:nowrap}.character-article-page .member-tabs a:hover,.character-article-page .member-tabs a:focus-visible{border-color:#ffd700;background:rgba(255,215,0,.08);color:#ffe6a3;text-decoration:none;outline-offset:2px}.character-article-page .member-tabs a.active{border-color:rgba(255,215,0,.65);background:rgba(255,215,0,.1);color:#ffe6a3}.character-article-page .quote-attribution{margin:-10px 0 24px;text-align:right;font-size:.8rem;line-height:1.5}@media(max-width:520px){.character-article-page .member-tabs{gap:4px}.character-article-page .member-tabs a{padding:7px 9px;font-size:.72rem}.character-article-page .quote-attribution{text-align:left}}.character-article-page .character-facets{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0;padding:0;list-style:none}.character-article-page .character-facets li{padding:5px 10px;border:1px solid rgba(255,195,0,.28);border-radius:999px;background:rgba(255,195,0,.06);color:#f0d6c3;font-size:.7rem;letter-spacing:.04em}.character-article-page #biography .character-timeline{margin:18px 0 4px;padding:0;list-style:none;counter-reset:timeline}.character-article-page .timeline-entry{position:relative;margin:0;padding:0 0 22px 30px;border-left:1px solid rgba(212,175,159,.28);counter-increment:timeline}.character-article-page .timeline-entry:before{content:counter(timeline,decimal-leading-zero);position:absolute;top:0;left:-14px;display:grid;width:26px;height:26px;place-items:center;border:1px solid rgba(255,195,0,.65);border-radius:50%;background:#1d1026;color:#ffd700;font-size:.63rem;font-weight:700}.character-article-page .timeline-entry:last-child{padding-bottom:0;border-left-color:transparent}.character-article-page .timeline-entry h3{margin:0 0 7px}.character-article-page .timeline-entry p{margin:0}.character-article-page #identities .identity-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:14px 0 0;padding:0;list-style:none}.character-article-page .identity-grid li{margin:0;padding:14px 15px;border:1px solid rgba(212,175,159,.24);border-radius:8px;background:linear-gradient(135deg,rgba(255,215,0,.06),rgba(212,175,159,.04))}.character-article-page .identity-grid strong{display:block;margin-bottom:6px;color:#ffd700;font-family:"Merriweather",Georgia,serif}.character-article-page #role ul.archive-tags{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 18px;padding:0;list-style:none}.character-article-page .archive-tags li{margin:0;padding:6px 10px;border:1px solid rgba(212,175,159,.28);border-radius:999px;background:rgba(212,175,159,.06);color:#e8c8b8;font-size:.76rem;line-height:1.35}.character-article-page #role ul.occupation-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:9px;margin:0;padding:0;list-style:none}.character-article-page .occupation-grid li{margin:0;padding:12px 14px;border:1px solid rgba(212,175,159,.22);border-radius:7px;background:rgba(212,175,159,.05);font-size:.82rem;line-height:1.6}.character-article-page #quotes h2{display:flex;align-items:center;justify-content:space-between;gap:10px}.character-article-page .quote-count{flex:0 0 auto;padding:4px 8px;border:1px solid rgba(255,215,0,.25);border-radius:999px;background:rgba(255,215,0,.06);color:#ffc300;font-family:Georgia,serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}@media(max-width:520px){.character-article-page .character-facets{gap:6px}.character-article-page .character-facets li{font-size:.65rem}.character-article-page #identities .identity-grid{grid-template-columns:1fr}.character-article-page #role ul.occupation-grid{grid-template-columns:1fr}.character-article-page #quotes h2{align-items:flex-start;flex-direction:column}}
+/* In-page article tabs: content remains in this HTML file while one panel is shown at a time. */
+.character-article-page .member-tabs button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  padding: 8px 11px;
+  border: 1px solid rgba(212,175,159,.28);
+  border-radius: 6px 6px 0 0;
+  background: rgba(212,175,159,.05);
+  color: #d4af9f;
+  font: inherit;
+  font-size: .78rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.character-article-page .member-tabs button:hover,
+.character-article-page .member-tabs button:focus-visible {
+  border-color: #ffd700;
+  background: rgba(255,215,0,.08);
+  color: #ffe6a3;
+  outline-offset: 2px;
+}
+.character-article-page .member-tabs button.active {
+  border-color: rgba(255,215,0,.65);
+  background: rgba(255,215,0,.1);
+  color: #ffe6a3;
+}
+.character-article-page .member-tabs[role="tablist"] {
+  min-width: 0;
+  max-width: 100%;
+  overscroll-behavior-inline: contain;
+  scrollbar-gutter: stable;
+}
+.character-article-page .member-tabs button {
+  min-height: 42px;
+  justify-content: center;
+  scroll-snap-align: start;
+}
+.character-article-page .member-tab-panel[hidden] { display: none; }
+.character-article-page .member-tab-panel:focus-visible {
+  outline: 2px solid rgba(255,215,0,.55);
+  outline-offset: 4px;
+}
+@media (max-width: 520px) {
+  .character-article-page .member-tabs[role="tablist"] {
+    scroll-snap-type: x proximity;
+    padding-inline: 2px;
+  }
+  .character-article-page .member-tabs button {
+    min-height: 44px;
+    padding: 7px 11px;
+    font-size: .72rem;
+  }
+}
+
+/* Imported wiki records keep the source article's full detail while matching the archive theme. */
+.character-article-page .wiki-record-note {
+  padding: 10px 12px;
+  border-left: 2px solid rgba(255,215,0,.55);
+  background: rgba(255,215,0,.05);
+  font-size: .84rem;
+}
+.character-article-page .wiki-record-content {
+  color: #d4af9f;
+  line-height: 1.7;
+}
+.character-article-page .wiki-record-content h2,
+.character-article-page .wiki-record-content h3,
+.character-article-page .wiki-record-content h4 {
+  margin: 22px 0 10px;
+  color: #ffe6a3;
+  font-family: "Merriweather", Georgia, serif;
+}
+.character-article-page .wiki-record-content h2 { font-size: 1.25rem; }
+.character-article-page .wiki-record-content h3 { font-size: 1.05rem; }
+.character-article-page .wiki-record-content h4 { font-size: .95rem; }
+.character-article-page .wiki-record-content p { margin: 0 0 13px; }
+.character-article-page .wiki-record-content ul,
+.character-article-page .wiki-record-content ol { margin: 0 0 16px; padding-left: 1.35rem; }
+.character-article-page .wiki-record-content li { margin: 5px 0; }
+.character-article-page .wiki-record-content table {
+  width: 100%;
+  margin: 14px 0 18px;
+  border-collapse: collapse;
+  background: rgba(212,175,159,.04);
+  font-size: .84rem;
+}
+.character-article-page .wiki-record-content th,
+.character-article-page .wiki-record-content td {
+  padding: 8px 10px;
+  border: 1px solid rgba(212,175,159,.2);
+  text-align: left;
+  vertical-align: top;
+}
+.character-article-page .wiki-record-content th {
+  color: #ffe6a3;
+  background: rgba(255,215,0,.08);
+}
+.character-article-page .wiki-record-content img {
+  max-width: 100%;
+  height: auto;
+}
+.character-article-page .wiki-record-content blockquote {
+  margin: 14px 0;
+}
+.character-article-page .wiki-record-content a {
+  overflow-wrap: anywhere;
+}
+
+/* Embedded Klein identities tab: preserves the standalone article's details in the profile. */
+.identity-tab-panel > h2 { margin-bottom: 16px; }
+.identity-embedded-content { color: #f0d6c3; font: .84rem/1.68 "Libre Baskerville", Georgia, serif; }
+.identity-embedded-content > div { margin: 0; }
+.identity-embedded-content h2 { margin: 22px 0 10px; padding: 10px 12px; border-left: 3px solid #ffc300; border-bottom: 1px solid rgba(212,175,159,.22); background: rgba(212,175,159,.08); color: #ffe6a3; font: 700 1.12rem/1.35 "Merriweather", Georgia, serif; }
+.identity-embedded-content h3 { margin: 15px 0 8px; padding: 7px 10px; border-left: 2px solid rgba(255,195,0,.72); background: rgba(255,195,0,.055); color: #ffe6a3; font: 700 .9rem/1.35 "Merriweather", Georgia, serif; }
+.identity-embedded-content p { margin: 9px 0; }
+.identity-embedded-content .left-align { text-align: left; }
+.identity-embedded-content .quote-attribution { color: #c49a7f; font-size: .76rem; font-style: italic; }
+.identity-embedded-content img { display: block; width: min(100%, 300px); height: 230px; object-fit: contain; margin: 10px auto 16px; padding: 8px; border: 1px solid rgba(255,195,0,.28); border-radius: 7px; background: rgba(10,6,15,.48); }
+.identity-embedded-content a { color: #e7c28b; }
+.identity-embedded-content .center-align { text-align: center; }
+@media (max-width: 620px) { .identity-embedded-content { font-size: .76rem; } .identity-embedded-content img { height: 190px; } }
+
+/* Quotes view is deliberately a single content column with no adjacent profile card. */
+.character-article-page.quotes-only-view .member-layout {
+  grid-template-columns: minmax(0, 1fr);
+}
+.character-article-page.quotes-only-view .member-article {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+
+/* Roselle Gustav character profile: pathway progression and timeline details. */
+.roselle-profile .member-infobox figure img { width: auto; max-width: 100%; max-height: 380px; object-fit: contain; }
+.roselle-profile .member-infobox figcaption { padding: 0 4px 4px; }
+.roselle-profile .roselle-feature-quote { margin-top: 18px; }
+.roselle-profile .roselle-feature-quote footer { margin-top: 10px; color: #c49a7f; font-size: .78rem; font-style: normal; text-align: right; }
+.roselle-profile #history .character-timeline { margin: 18px 0 4px; padding: 0; list-style: none; counter-reset: timeline; }
+.roselle-profile #history .timeline-entry { position: relative; margin: 0; padding: 0 0 22px 30px; border-left: 1px solid rgba(212,175,159,.28); counter-increment: timeline; }
+.roselle-profile #history .timeline-entry::before { content: counter(timeline, decimal-leading-zero); position: absolute; top: 0; left: -14px; display: grid; width: 26px; height: 26px; place-items: center; border: 1px solid rgba(255,195,0,.65); border-radius: 50%; background: #1d1026; color: #ffd700; font-size: .63rem; font-weight: 700; }
+.roselle-profile #history .timeline-entry:last-child { padding-bottom: 0; border-left-color: transparent; }
+.roselle-profile #history .timeline-entry h3 { margin: 0 0 7px; }
+.roselle-profile #history .timeline-entry p { margin: 0; }
+.roselle-profile .roselle-progress-grid { display: grid; gap: 12px; margin: 18px 0 26px; }
+.roselle-profile .roselle-stage { position: relative; display: grid; grid-template-columns: 34px 64px minmax(0, 1fr); gap: 14px; align-items: center; margin: 0; padding: 15px; border: 1px solid rgba(212,175,159,.24); border-radius: 8px; background: linear-gradient(110deg, rgba(255,215,0,.06), rgba(212,175,159,.04)); }
+.roselle-profile .roselle-stage-number { display: grid; width: 30px; height: 30px; place-items: center; border: 1px solid rgba(255,195,0,.5); border-radius: 50%; color: #ffd700; font-size: .67rem; font-weight: 700; }
+.roselle-profile .roselle-stage img { width: 58px; height: 58px; object-fit: contain; }
+.roselle-profile .roselle-stage .member-kicker { font-size: .62rem; }
+.roselle-profile .roselle-stage h3 { margin: 4px 0 6px; }
+.roselle-profile .roselle-stage p { margin: 0; font-size: .84rem; }
+.roselle-profile .roselle-status-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
+.roselle-profile .roselle-status-grid div { padding: 13px; border: 1px solid rgba(212,175,159,.22); border-radius: 7px; background: rgba(212,175,159,.05); }
+.roselle-profile .roselle-status-grid span { display: block; margin-bottom: 6px; color: #ffc300; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.roselle-profile .roselle-status-grid strong { display: block; margin-bottom: 6px; color: #f0d6c3; font-size: .84rem; }
+.roselle-profile .roselle-status-grid p { margin: 0; font-size: .78rem; line-height: 1.55; }
+.roselle-profile .source-list { font-size: .84rem; }
+@media (max-width: 640px) {
+  .roselle-profile .member-tab-panel { min-width: 0; }
+  .roselle-profile .roselle-stage { grid-template-columns: 28px 48px minmax(0, 1fr); gap: 10px; padding: 12px; }
+  .roselle-profile .roselle-stage-number { width: 26px; height: 26px; }
+  .roselle-profile .roselle-stage img { width: 46px; height: 46px; }
+  .roselle-profile .roselle-status-grid { grid-template-columns: 1fr; }
+  .roselle-profile .roselle-feature-quote footer { text-align: left; }
+}
+
+
+/* Roselle's pathway abilities: compact Sequence cards that remain readable on mobile. */
+.roselle-profile .roselle-abilities-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 14px 0 18px; }
+.roselle-profile .roselle-ability-card { display: grid; grid-template-columns: 78px minmax(0, 1fr); gap: 10px; align-items: start; margin: 0; padding: 13px; border: 1px solid rgba(212,175,159,.22); border-left: 3px solid rgba(255,195,0,.68); border-radius: 7px; background: linear-gradient(120deg, rgba(255,215,0,.055), rgba(212,175,159,.035)); }
+.roselle-profile .roselle-ability-card > span { color: #ffc300; font-size: .7rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.roselle-profile .roselle-ability-card h4 { margin: 0 0 5px; color: #f0d6c3; font-family: "Merriweather", Georgia, serif; font-size: .91rem; }
+.roselle-profile .roselle-ability-card p { margin: 0; font-size: .79rem; line-height: 1.58; }
+.roselle-profile .roselle-power-highlight { margin: 12px 0 20px; padding: 15px 17px; border: 1px solid rgba(212,175,159,.24); border-left: 3px solid #ffc300; background: rgba(212,175,159,.06); }
+.roselle-profile .roselle-power-highlight p { margin: 8px 0 0; }
+.roselle-profile .roselle-power-highlight .member-kicker { font-size: .66rem; }
+@media (max-width: 640px) { .roselle-profile .roselle-abilities-grid { grid-template-columns: 1fr; } .roselle-profile .roselle-ability-card { grid-template-columns: 70px minmax(0, 1fr); padding: 11px; } }

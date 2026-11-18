@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -33,30 +33,21 @@
 </script>
 <link href="site.webmanifest" rel="manifest"/>
 <link href="images/favicon.png" rel="icon" type="image/png"/>
-
-
-
 <link href="css/volume-style.css" rel="stylesheet"/>
 <link href="css/dynamic-styles.css" rel="stylesheet"/>
 <script>(() => { try { const saved = localStorage.getItem("lotm-theme"); if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved; } catch {} })();</script>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&amp;family=Merriweather:wght@400;700&amp;display=optional" rel="stylesheet" media="(min-width: 621px)"><link href="css/navbar-search.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&amp;family=Merriweather:wght@400;700&amp;display=optional" media="(min-width: 621px)" rel="stylesheet"/><link href="css/navbar-search.css" rel="stylesheet"/>
 <link href="css/archive-refinements.css" rel="stylesheet"/>
+<link href="css/uniform-layout.css" rel="stylesheet"/>
 </head>
-<body align="center" background="images/crimson moon.webp">
-<div class="topnav">
-<a href="index.html">Home</a>
-<a class="character-link" data-character="Klein Moretti" href="Mc_Profile.html">MC</a>
+<body align="center" background="images/crimson moon.webp"><a aria-label="Go back to the previous page" class="back-button" href="index.html" onclick="if (window.history.length &gt; 1) { window.history.back(); } else { window.location.href = 'index.html'; } return false;" title="Go back to the previous page"><span aria-hidden="true">←</span></a><nav aria-label="Primary navigation" class="topnav">
+<a href="index.html">Home</a><a href="Sitemap.html">Archive</a>
+<a class="character-link" data-character="Klein Moretti" href="Klein%20Moretti.html">MC</a>
 <a href="Novel.html">Novel</a>
 <a href="Author.html">Author</a>
-<a href="Songs.html">Songs</a>
-<form action="index.html" class="navbar-search" method="get" role="search" aria-label="Search the wiki archive"><input aria-label="Search the wiki archive" autocomplete="off" name="q" placeholder="Search the archive…" type="search"/><button aria-label="Search" type="submit"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg></button><div class="navbar-search-suggestions" hidden></div></form></div>
-<p class="spoiler-note" role="note">This page includes spoilers from across the novels.</p>
-<button aria-label="Back to top" id="scrollToTop">↑</button>
-<h1 style="color: #ffc300; font-size: 60px"><b>Volume 4: Undying</b></h1>
-<hr/>
-<a href="Novel.html"><button class="button button1">← Back</button></a>
-<nav class="novel-related-nav" aria-label="Related sections"><a href="Church.html">Church of the Fool</a><a href="TarotClub.html">Tarot Club</a><a href="Quotes.html">Quotes</a></nav>
-<div class="volume-reading" style="max-width: 1000px; margin: 0 auto; padding: 0 20px">
+<form action="index.html" aria-label="Search the wiki archive" class="navbar-search" method="get" role="search"><input aria-label="Search the wiki archive" autocomplete="off" name="q" placeholder="Search the archive…" type="search"/><button aria-label="Search" type="submit"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg></button><div class="navbar-search-suggestions" hidden=""></div></form></nav>
+<!-- Professional Footer with Disclaimer -->
+<main class="site-page"><header class="site-page__header page-header"><p class="spoiler-note" role="note">This page includes spoilers from across the novels.</p><button aria-label="Back to top" id="scrollToTop">↑</button><h1 style="color: #ffc300; font-size: 60px"><b>Volume 4: Undying</b></h1><hr/><a href="Novel.html"><button class="button button1">← Back</button></a></header><div class="site-page__content page-content"><div class="volume-reading" style="max-width: 1000px; margin: 0 auto; padding: 0 20px">
 <h2>Quote</h2>
 <p align="left">
 <i>Undying is a bestowment or a curse.</i>, Cuttlefish That Loves
@@ -94,13 +85,7 @@
         powers and force him to make difficult choices that reshape the
         political landscape of Backlund.
       </p>
-</div>
-<hr/>
-<a href="Novel.html"><button class="button button1">← Back</button></a>
-<a href="index.html"><button class="button button1">Home</button></a>
-<hr/>
-<!-- Professional Footer with Disclaimer -->
-<footer style="
+</div><hr/><a href="Novel.html"><button class="button button1">← Back</button></a><a href="index.html"><button class="button button1">Home</button></a><hr/></div></main><footer style="
         background-color: rgba(212, 175, 159, 0.1);
         border-top: 1px solid rgba(212, 175, 159, 0.3);
         margin-top: 40px;
@@ -128,8 +113,7 @@
         Built with passion by an aspiring web developer |
         <a href="index.html" style="color: #d4af9f; text-decoration: none; transition: color 0.3s">Back to Home</a>
 </p>
-</footer>
-<script defer src="js/navbar-search.js"></script>
-</body>
+</footer><script src="js/search-core.js"></script><script defer="" src="js/navbar-search.js"></script>
 <script src="js/script.js"></script>
+</body>
 </html>

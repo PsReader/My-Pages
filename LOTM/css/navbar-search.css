@@ -87,16 +87,16 @@
 .navbar-search-suggestions p { margin: 0; padding: 11px 12px; color: #c49a7f; font-size: 0.82rem; }
 @media (max-width: 620px) {
   .topnav { gap: 0; padding: 0 5px; }
-  .topnav > a { padding: 6px 5px !important; font-size: 0.75rem !important; line-height: 1.15; }
+  .topnav > a { min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; padding: 8px 7px !important; font-size: 0.75rem !important; line-height: 1.15; }
   .navbar-search { order: 10; flex: 1 0 100%; width: auto; margin: 3px 0 4px; }
-  .navbar-search input { min-height: 31px; padding: 5px 9px; font-size: 0.82rem; }
-  .navbar-search button { flex-basis: 34px; min-height: 31px; }
+  .navbar-search input { min-height: 44px; padding: 8px 9px; font-size: 0.88rem; }
+  .navbar-search button { flex-basis: 44px; min-height: 44px; }
   .navbar-search button svg { width: 15px; height: 15px; }
   body:has(.back-button) .back-button {
     top: 9px !important;
     right: 9px !important;
-    width: 34px !important;
-    height: 34px !important;
+    width: 44px !important;
+    height: 44px !important;
     border-width: 1.5px !important;
   }
   body:has(.back-button) .back-button a { font-size: 1.2rem !important; }

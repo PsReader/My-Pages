@@ -221,6 +221,12 @@
 /* =============================================================================
    Archive-wide UI/UX refinement
    ============================================================================= */
+/* color-scheme: dark makes the browser's default link colour the pale blue
+   #9e9eff. Any anchor without a scoped rule fell back to it. Zero specificity
+   keeps this a default: every page-specific link rule still wins. */
+:where(a) { color: #e8c8b8; }
+:where(a):hover, :where(a):focus-visible { color: #ffe6a3; }
+
 :root {
   color-scheme: dark;
   --ink: #d4af9f;

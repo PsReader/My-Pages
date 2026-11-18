@@ -1,0 +1,50 @@
+/* Beyonder systems archive: source-dense lore presented as readable local pathway cards. */
+.lore-shell { width: min(1180px, calc(100% - 28px)); }
+.lore-article { min-width: 0; }
+.lore-hero { display: grid; grid-template-columns: 112px minmax(0,1fr); gap: 18px; align-items: center; padding: 18px; margin-bottom: 20px; border: 1px solid rgba(212,175,159,.25); border-radius: 10px; background: linear-gradient(135deg, rgba(212,175,159,.08), rgba(20,10,25,.54)); }
+.lore-hero img { width: 92px; height: 92px; object-fit: contain; padding: 9px; border: 1px solid rgba(255,195,0,.28); border-radius: 50%; background: rgba(10,6,15,.48); }
+.lore-hero h2 { margin: 0 0 7px; color: #ffe6a3; font: 700 1.18rem/1.35 "Merriweather", Georgia, serif; }
+.lore-hero p, .lore-intro p { margin: 0 0 10px; color: #d4af9f; line-height: 1.7; }
+.lore-intro { padding: 15px 17px; margin-bottom: 20px; border-left: 3px solid #ffc300; border-radius: 5px; background: rgba(212,175,159,.06); }
+.lore-intro p:last-child { margin-bottom: 0; }
+.lore-tabs { display: flex; flex-wrap: wrap; gap: 8px; padding-bottom: 9px; margin-bottom: 18px; border-bottom: 1px solid rgba(212,175,159,.27); }
+.lore-tab { padding: 9px 15px; border: 1px solid rgba(212,175,159,.32); border-radius: 999px; background: rgba(20,10,25,.5); color: #d4af9f; font: 700 .78rem/1.2 "Merriweather", Georgia, serif; cursor: pointer; }
+.lore-tab:hover, .lore-tab[aria-selected="true"] { border-color: rgba(255,195,0,.72); background: rgba(255,195,0,.12); color: #ffe6a3; }
+.lore-tab:focus-visible { outline: 2px solid #ffc300; outline-offset: 2px; }
+.lore-panel[hidden] { display: none; }
+.lore-panel-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 12px 14px; margin-bottom: 14px; border-left: 3px solid #ffc300; border-bottom: 1px solid rgba(212,175,159,.24); background: linear-gradient(100deg, rgba(212,175,159,.14), rgba(20,10,25,.42)); }
+.lore-panel-heading h2 { margin: 0; color: #ffe6a3; font: 700 clamp(1.1rem,2vw,1.45rem)/1.3 "Merriweather", Georgia, serif; }
+.lore-panel-heading span, .lore-count { color: #c49a7f; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; }
+.lore-group { position: relative; margin: 0 0 18px; padding: 0 0 12px; border: 1px solid rgba(212,175,159,.22); border-radius: 9px; overflow: hidden; background: rgba(10,6,15,.42); }
+.lore-group-content { padding: 0 14px; color: #f0d6c3; font: .81rem/1.58 "Libre Baskerville", Georgia, serif; }
+.lore-group-content h3 { margin: 0 -14px 10px; padding: 11px 14px; border-bottom: 1px solid rgba(212,175,159,.25); background: linear-gradient(100deg, rgba(212,175,159,.18), rgba(60,35,55,.64)); color: #ffe6a3; font: 700 1rem/1.35 "Merriweather", Georgia, serif; }
+.lore-group-content h3 + div { margin-top: 0; }
+.lore-group-content a { color: inherit; text-decoration: none; }
+.lore-group-content ul { margin: 5px 0 12px; padding-left: 1.3rem; }
+.lore-group-content li { margin: 4px 0; }
+.lore-group-content li::marker { color: #ffc300; }
+.lore-group-content b, .lore-group-content strong { color: #ffe6a3; }
+.lore-group-content i { color: #d9b79e; }
+.lore-group-content .sequence-label { margin-top: 14px; padding: 8px 10px; border-left: 2px solid #ffc300; background: rgba(255,195,0,.08); color: #ffe6a3; font: 700 .9rem/1.35 "Merriweather", Georgia, serif; }
+.lore-group-content .lore-label { margin-top: 8px; color: #ffd15c; font: 700 .86rem/1.4 "Merriweather", Georgia, serif; }
+.lore-count { display: block; padding: 0 14px; }
+.lore-panel[data-lore-panel="formulas"] .lore-group-content .lore-label { color: #d4af9f; }
+@media (max-width:680px) {
+  .lore-shell { width: calc(100% - 18px); }
+  .lore-hero { grid-template-columns: 70px minmax(0,1fr); gap: 12px; padding: 13px; }
+  .lore-hero img { width: 62px; height: 62px; }
+  .lore-group-content { padding: 0 11px; font-size: .74rem; }
+  .lore-group-content h3 { margin-left: -11px; margin-right: -11px; padding-left: 11px; padding-right: 11px; }
+}
+
+/* Readability pass for imported formula/characteristic markup. */
+.lore-group-content > div { min-width: 0; }
+.lore-group-content div:empty, .lore-group-content span:empty { display: none; }
+.lore-group-content br { display: none; }
+.lore-group-content .lore-label { display: block; margin: 16px -2px 7px; padding: 9px 11px; border-left: 3px solid rgba(255,195,0,.8); border-bottom: 1px solid rgba(212,175,159,.2); background: linear-gradient(100deg, rgba(255,195,0,.1), rgba(20,10,25,.2)); color: #ffe6a3; font: 700 1rem/1.35 "Merriweather", Georgia, serif; }
+.lore-group-content .sequence-label { display: block; margin: 13px 0 5px; padding: 8px 10px; border: 1px solid rgba(212,175,159,.22); border-left: 3px solid #ffc300; border-radius: 5px; background: rgba(212,175,159,.09); color: #ffe6a3; font: 700 .88rem/1.35 "Merriweather", Georgia, serif; }
+.lore-group-content .sequence-label + div { margin-bottom: 7px; }
+.lore-group-content .sequence-label ~ div > div > span > b > i, .lore-group-content .sequence-label ~ div span > b > i { display: inline-block; margin: 5px 0 2px; color: #ffd15c; font-size: .76rem; letter-spacing: .045em; text-transform: uppercase; }
+.lore-group-content ul { padding: 7px 12px 7px 28px; border-left: 1px solid rgba(212,175,159,.18); border-radius: 4px; background: rgba(10,6,15,.25); }
+.lore-group-content li { margin: 3px 0; }
+.lore-panel[data-lore-panel="formulas"] .lore-group-content .sequence-label::before { content: "Formula"; float: right; color: #c49a7f; font: 700 .63rem/1.5 "Libre Baskerville", Georgia, serif; letter-spacing: .08em; text-transform: uppercase; }

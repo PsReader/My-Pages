@@ -1,0 +1,82 @@
+/* Second Epoch article details, matching the First Epoch page and archive palette. */
+.second-epoch-page .second-epoch-table-scroll { margin: 14px 0 10px; }
+.second-epoch-page .second-epoch-table { width: 100%; min-width: 820px; }
+.second-epoch-page .second-epoch-table th,
+.second-epoch-page .second-epoch-table td { padding: 11px 13px; }
+.second-epoch-page .second-epoch-table th:first-child { min-width: 190px; }
+.second-epoch-page .second-epoch-table td:nth-child(2),
+.second-epoch-page .second-epoch-table td:nth-child(3) { white-space: nowrap; text-align: center; }
+.second-epoch-page .second-epoch-table td:last-child { min-width: 330px; }
+.second-epoch-page .second-epoch-table a { color: #e8c8b8; text-decoration-color: rgba(212, 175, 159, .4); text-underline-offset: 3px; }
+.second-epoch-page .second-epoch-table a:hover { color: #ffe6a3; }
+.second-epoch-page .ancient-god-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  margin: 16px 0 6px;
+  border: 1px solid rgba(212, 175, 159, .24);
+  border-radius: 7px;
+  background: rgba(212, 175, 159, .2);
+}
+.second-epoch-page .ancient-god-grid div {
+  min-height: 78px;
+  padding: 13px 15px;
+  background: rgba(20, 10, 25, .55);
+}
+.second-epoch-page .ancient-god-grid span {
+  display: block;
+  margin-bottom: 5px;
+  color: #c49a7f;
+  font-size: .7rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.second-epoch-page .ancient-god-grid strong {
+  color: #f0d6c3;
+  font-family: "Merriweather", Georgia, serif;
+  font-size: .92rem;
+}
+.second-epoch-page .epoch-date {
+  display: inline-block;
+  margin-left: 7px;
+  padding: 3px 8px;
+  border: 1px solid rgba(212, 175, 159, .28);
+  border-radius: 999px;
+  color: #c49a7f;
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: .68rem;
+  font-weight: 400;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.second-epoch-page .member-article section > h2 { scroll-margin-top: 96px; }
+.second-epoch-page .member-article section > p a,
+.second-epoch-page .timeline-table-note a { color: #e8c8b8; }
+.second-epoch-page .member-article section > p a:hover,
+.second-epoch-page .timeline-table-note a:hover { color: #ffe6a3; }
+.second-epoch-page .member-article a,
+.second-epoch-page .member-article a:link,
+.second-epoch-page .member-article a:visited { color: #e8c8b8; }
+.second-epoch-page .member-article a:hover,
+.second-epoch-page .member-article a:focus-visible { color: #ffe6a3; }
+@media (max-width: 800px) {
+  .second-epoch-page .ancient-god-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.second-epoch-page .member-article blockquote {
+  border-color: rgba(255, 195, 0, .32);
+  background: radial-gradient(circle at top left, rgba(255, 195, 0, .12), transparent 55%), rgba(212, 175, 159, .08);
+}
+
+.second-epoch-page .member-article blockquote::before {
+  color: rgba(255, 195, 0, .7);
+}
+
+@media (max-width: 600px) {
+  .second-epoch-page .second-epoch-table { min-width: 820px; }
+  .second-epoch-page .second-epoch-table th,
+  .second-epoch-page .second-epoch-table td { padding: 9px 10px; font-size: .8rem; }
+  .second-epoch-page .ancient-god-grid div { min-height: 70px; padding: 11px; }
+  .second-epoch-page .ancient-god-grid span { font-size: .62rem; }
+  .second-epoch-page .epoch-date { margin: 5px 0 0; }
+}

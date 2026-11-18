@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffe16b" />
+    <meta name="description" content="Pick a five-minute activity with Little Detour. Filter 101 tiny quests by category or spin the boredom roulette wheel for an idea." />
+    <link rel="canonical" href="https://little-detour.site.je/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Little Detour: Five-Minute Boredom Roulette" />
+    <meta property="og:description" content="Filter 101 tiny quests by category or spin the wheel for a five-minute idea." />
+    <meta property="og:url" content="https://little-detour.site.je/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Little Detour: Five-Minute Boredom Roulette" />
+    <meta name="twitter:description" content="Filter 101 tiny quests by category or spin the wheel for a five-minute idea." />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Little Detour",
+        "url": "https://little-detour.site.je/",
+        "description": "Filter 101 tiny activities by category or spin a wheel to pick a five-minute idea.",
+        "applicationCategory": "EntertainmentApplication",
+        "operatingSystem": "Web browser"
+      }
+    </script>
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>Little Detour: Five-Minute Boredom Roulette</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/roulette-mark.svg" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to the activity</a>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="wordmark" href="/" aria-label="Boredom Roulette home">
+          <img src="/assets/roulette-mark.svg" alt="" width="48" height="48" />
+          <span class="wordmark-copy">
+            <span class="wordmark-name">little detour</span>
+            <span class="wordmark-subtitle">THE BOREDOM ROULETTE</span>
+          </span>
+        </a>
+        <p class="header-note"><span class="header-note-dot" aria-hidden="true"></span> 101 tiny quests. Zero setup.</p>
+      </header>
+      <main id="main-content">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span> YOUR FIVE-MINUTE ARCADE</p>
+            <h1 id="hero-title">Bored?<br /><span>Let's play.</span></h1>
+            <p class="hero-description">Choose a category, give the wheel a spin, and get one tiny side quest for right now. No prep, no pressure, no productivity points—just a little plot twist.</p>
+            <div class="side-note">
+              <span class="side-note-line" aria-hidden="true"></span>
+              <p>No big reset required.<br /><span>Just one small plot twist.</span></p>
+            </div>
+            <div class="idea-stamp" aria-label="One hundred one simple ideas">
+              <span class="idea-stamp-number" id="idea-total">101</span>
+              <span class="idea-stamp-copy">tiny quests<br />in the deck</span>
+              <span class="idea-stamp-spark" aria-hidden="true">✳</span>
+            </div>
+          </div>
+          <div class="roulette-panel">
+            <span class="orbit orbit-one" aria-hidden="true"></span>
+            <span class="orbit orbit-two" aria-hidden="true"></span>
+            <span class="panel-spark panel-spark-one" aria-hidden="true">✳</span>
+            <span class="panel-spark panel-spark-two" aria-hidden="true">✦</span>
+            <div class="panel-heading">
+              <span class="panel-kicker">THE FIVE-MINUTE ARCADE</span>
+              <span class="panel-controls">
+                <span class="deck-counter" id="deck-counter">101 IDEAS LEFT</span>
+                <button class="sound-toggle" id="sound-toggle" type="button" aria-label="Sound effects" aria-pressed="true" title="Sound effects on"><span class="sound-icon" aria-hidden="true">♫</span><span id="sound-label">SFX ON</span></button>
+              </span>
+            </div>
+            <div class="vibe-toolbar">
+              <div class="vibe-heading">
+                <span class="vibe-title">FILTER BY CATEGORY</span>
+                <span class="vibe-note" id="vibe-note" aria-live="polite">All categories are in the mix.</span>
+              </div>
+              <div class="vibe-options" role="group" aria-label="Filter activities by category">
+                <button class="vibe-option is-selected" type="button" data-vibe="all" aria-pressed="true"><span aria-hidden="true">✦</span> All</button>
+                <button class="vibe-option" type="button" data-vibe="creative" aria-pressed="false"><span aria-hidden="true">✎</span> Creative</button>
+                <button class="vibe-option" type="button" data-vibe="cozy" aria-pressed="false"><span aria-hidden="true">♡</span> Cozy</button>
+                <button class="vibe-option" type="button" data-vibe="movement" aria-pressed="false"><span aria-hidden="true">↗</span> Movement</button>
+                <button class="vibe-option" type="button" data-vibe="play" aria-pressed="false"><span aria-hidden="true">☻</span> Silly</button>
+                <button class="vibe-option" type="button" data-vibe="social" aria-pressed="false"><span aria-hidden="true">✉</span> Social</button>
+                <button class="vibe-option" type="button" data-vibe="curious" aria-pressed="false"><span aria-hidden="true">?</span> Curious</button>
+                <button class="vibe-option" type="button" data-vibe="reset" aria-pressed="false"><span aria-hidden="true">↻</span> Reset</button>
+              </div>
+            </div>
+            <div class="roulette-stage">
+              <div class="wheel-wrap" aria-hidden="true">
+                <span class="wheel-pointer"></span>
+                <div class="roulette-wheel" id="roulette-wheel">
+                  <span class="wheel-sector-icon" style="--angle: 0deg">✎</span>
+                  <span class="wheel-sector-icon" style="--angle: 51.4286deg">♡</span>
+                  <span class="wheel-sector-icon" style="--angle: 102.8572deg">↗</span>
+                  <span class="wheel-sector-icon" style="--angle: 154.2858deg">☻</span>
+                  <span class="wheel-sector-icon" style="--angle: 205.7144deg">✉</span>
+                  <span class="wheel-sector-icon" style="--angle: 257.143deg">?</span>
+                  <span class="wheel-sector-icon" style="--angle: 308.5716deg">↻</span>
+                  <span class="wheel-center"><span>ROLL</span></span>
+                </div>
+                <span class="wheel-caption">LET CHANCE DECIDE</span>
+              </div>
+              <article class="activity-card" id="activity-card" aria-live="polite" aria-atomic="true">
+                <div class="card-topline">
+                  <span class="category-tag" id="activity-category">READY WHEN YOU ARE</span>
+                  <span class="card-star" aria-hidden="true">✳</span>
+                </div>
+                <div class="card-main">
+                  <p class="card-overline" id="activity-overline">ONE FIVE-MINUTE PLOT TWIST</p>
+                  <h2 id="activity-title">Your next tiny quest is on the wheel.</h2>
+                  <p class="activity-description" id="activity-description">Choose a category or leave it to chance. The wheel has a little idea with your name on it.</p>
+                </div>
+                <div class="card-footer">
+                  <span class="card-footer-note">NO PREP. NO PRESSURE.</span>
+                  <span class="card-count" id="round-count">01 <span>/ 101</span></span>
+                </div>
+              </article>
+            </div>
+            <button class="spin-button" id="spin-button" type="button" aria-describedby="spin-hint">
+              <span class="spin-disc" aria-hidden="true"><span class="wheel-face"></span></span>
+              <span class="spin-button-copy">
+                <span class="button-kicker">YOUR NEXT TINY QUEST</span>
+                <span class="spin-button-label" id="spin-button-label">Spin for a surprise</span>
+              </span>
+              <svg class="button-arrow" aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                <path d="M4.5 12h14m-5.5-5.5L18.5 12 13 17.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <p class="spin-hint" id="spin-hint">No repeats until the whole deck has landed.</p>
+            <div class="deck-progress-wrap">
+              <div class="deck-progress-label"><span id="deck-progress-label">0 OF 101 IDEAS TRIED</span><span>THE NO-REPEAT DECK</span></div>
+              <div class="deck-progress" id="deck-progress" role="progressbar" aria-label="Ideas tried this round" aria-valuemin="0" aria-valuemax="101" aria-valuenow="0">
+                <span id="deck-progress-fill"></span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="site-footer">
+        <span>MADE FOR THE IN-BETWEEN MOMENTS</span>
+        <span class="footer-doodle" aria-hidden="true">—&nbsp; go on, take a detour &nbsp;—</span>
+        <span>ONE SPIN AT A TIME</span>
+      </footer>
+    </div>
+  </body>
+</html>

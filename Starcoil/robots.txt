@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://starcoil.site.je/sitemap.xml

@@ -1,0 +1,211 @@
+/* Deities and organizations archive. */
+.organizations-shell { width: min(1180px, calc(100% - 28px)); }
+.organizations-article { min-width: 0; }
+.organizations-hero { display: grid; grid-template-columns: 112px minmax(0,1fr); gap: 18px; align-items: center; padding: 18px; margin-bottom: 20px; border: 1px solid rgba(212,175,159,.25); border-radius: 10px; background: linear-gradient(135deg, rgba(212,175,159,.08), rgba(20,10,25,.54)); }
+.organizations-hero img { width: 92px; height: 92px; object-fit: contain; padding: 9px; border: 1px solid rgba(255,195,0,.28); border-radius: 50%; background: rgba(10,6,15,.48); }
+.organizations-hero h2 { margin: 0 0 7px; color: #ffe6a3; font: 700 1.18rem/1.35 "Merriweather", Georgia, serif; }
+.organizations-hero p, .organizations-intro p { margin: 0 0 10px; color: #d4af9f; line-height: 1.7; }
+.organizations-intro { padding: 15px 17px; margin-bottom: 20px; border-left: 3px solid #ffc300; border-radius: 5px; background: rgba(212,175,159,.06); }
+.organizations-intro p:last-child { margin-bottom: 0; }
+.organizations-tabs { display: flex; flex-wrap: wrap; gap: 8px; padding-bottom: 9px; margin-bottom: 18px; border-bottom: 1px solid rgba(212,175,159,.27); }
+.organizations-tab { padding: 9px 15px; border: 1px solid rgba(212,175,159,.32); border-radius: 999px; background: rgba(20,10,25,.5); color: #d4af9f; font: 700 .78rem/1.2 "Merriweather", Georgia, serif; cursor: pointer; }
+.organizations-tab:hover, .organizations-tab[aria-selected="true"] { border-color: rgba(255,195,0,.72); background: rgba(255,195,0,.12); color: #ffe6a3; }
+.organizations-tab:focus-visible { outline: 2px solid #ffc300; outline-offset: 2px; }
+.organizations-panel[hidden] { display: none; }
+.organizations-panel-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 12px 14px; margin-bottom: 14px; border-left: 3px solid #ffc300; border-bottom: 1px solid rgba(212,175,159,.24); background: linear-gradient(100deg, rgba(212,175,159,.14), rgba(20,10,25,.42)); }
+.organizations-panel-heading h2 { margin: 0; color: #ffe6a3; font: 700 clamp(1.1rem,2vw,1.45rem)/1.3 "Merriweather", Georgia, serif; }
+.organizations-panel-heading span { color: #c49a7f; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; }
+.org-source-content { color: #f0d6c3; font: .81rem/1.58 "Libre Baskerville", Georgia, serif; }
+/* Pinyin tone marks (ǐ ǔ ǒ ǎ ē ī) are missing from Libre Baskerville and fall
+   back per glyph, which leaves gaps. Segoe UI carries the full set. */
+.pinyin { font-family: "Segoe UI", "Trebuchet MS", Arial, sans-serif; font-style: normal; }
+.org-source-content h2 { margin: 20px 0 10px; padding: 10px 12px; border-left: 3px solid #ffc300; border-bottom: 1px solid rgba(212,175,159,.22); background: rgba(212,175,159,.08); color: #ffe6a3; font: 700 1.12rem/1.35 "Merriweather", Georgia, serif; }
+.org-source-section { min-width: 0; }
+.org-source-section > summary { cursor: pointer; }
+.org-source-section > summary:focus-visible { outline: 2px solid #ffc300; outline-offset: 3px; }
+.org-source-section > summary h2 { margin-bottom: 10px; }
+.org-source-section__content { min-width: 0; }
+.org-source-content h3 { margin: 16px 0 8px; padding: 8px 10px; border-left: 2px solid rgba(255,195,0,.72); background: rgba(255,195,0,.06); color: #ffe6a3; font: 700 .94rem/1.35 "Merriweather", Georgia, serif; }
+.org-source-content p, .org-source-content blockquote { margin: 9px 0; }
+.org-source-content blockquote { padding: 9px 12px; border-left: 2px solid #c49a7f; color: #d9b79e; font-style: italic; background: rgba(212,175,159,.05); }
+.org-source-content ul, .org-source-content ol { margin: 6px 0 12px; padding-left: 1.35rem; }
+.org-source-content li { margin: 4px 0; }
+.org-source-content li::marker { color: #ffc300; }
+.org-source-content table { width: 100%; min-width: 620px; margin: 10px 0 18px; border-collapse: separate; border-spacing: 0; table-layout: fixed; color: #f0d6c3; }
+.org-source-content .org-table { overflow: hidden; border: 1px solid rgba(212,175,159,.25); border-radius: 8px; background: rgba(10,6,15,.44); }
+.org-source-content th, .org-source-content td { padding: 9px 10px; border-right: 1px solid rgba(212,175,159,.17); border-bottom: 1px solid rgba(212,175,159,.17); vertical-align: top; text-align: left; overflow-wrap: anywhere; }
+.org-source-content th { background: linear-gradient(100deg, rgba(212,175,159,.24), rgba(60,35,55,.9)); color: #ffe6a3; font-family: "Merriweather", Georgia, serif; font-size: .72rem; }
+.org-source-content td { font-size: .77rem; }
+.org-source-content tr:nth-child(even) td { background: rgba(212,175,159,.045); }
+.org-source-content th:last-child, .org-source-content td:last-child { border-right: 0; }
+.org-source-content tr:last-child td { border-bottom: 0; }
+.org-source-content table ul { margin: 0; padding-left: 1.1rem; }
+.org-source-content table p { margin: 0; }
+@media (max-width:680px) {
+  .organizations-shell { width: calc(100% - 18px); }
+  .organizations-hero { grid-template-columns: 70px minmax(0,1fr); gap: 12px; padding: 13px; }
+  .organizations-hero img { width: 62px; height: 62px; }
+  .org-source-content { font-size: .74rem; }
+  .org-source-content table { min-width: 620px; }
+  .org-source-content th, .org-source-content td { padding: 8px 9px; }
+  .org-source-section > summary { min-height: 44px; }
+  .org-source-section > summary h2 { margin-top: 12px; }
+}
+
+
+/* Expanded organization and faction archive. */
+.org-faction-card { margin: 20px 0 24px; border: 1px solid rgba(212,175,159,.24); border-radius: 9px; overflow: hidden; background: rgba(10,6,15,.25); }
+.org-faction-card__heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 11px 14px; border-left: 3px solid #ffc300; border-bottom: 1px solid rgba(212,175,159,.22); background: linear-gradient(100deg, rgba(212,175,159,.14), rgba(20,10,25,.45)); }
+.org-faction-card__heading h3 { margin: 0; padding: 0; border: 0; background: transparent; color: #ffe6a3; font: 700 1.06rem/1.35 "Merriweather", Georgia, serif; }
+.org-faction-card__heading span { color: #c49a7f; font-size: .7rem; letter-spacing: .07em; text-transform: uppercase; }
+.org-faction-card__content { padding: 0 14px 10px; }
+.org-faction-card__content > h2:first-child { margin-top: 14px; }
+.org-faction-card__content table { display: table; overflow: visible; }
+@media (max-width:680px) { .org-faction-card__heading { align-items: flex-start; flex-direction: column; gap: 4px; } .org-faction-card__content { padding: 0 10px 8px; } }
+
+/* Keep wide organization tables readable without expanding the page viewport. */
+.organizations-panel { min-width: 0; max-width: 100%; overflow-x: hidden; }
+.org-source-content { min-width: 0; max-width: 100%; overflow-x: auto; }
+.org-faction-card__content { min-width: 0; max-width: 100%; overflow-x: auto; }
+
+/* Imported tables can carry 20+ columns. Scroll them instead of squeezing every
+   column to an equal width, which broke words mid-syllable under table-layout:fixed. */
+.org-table-scroll { max-width: 100%; overflow-x: auto; margin: 10px 0 18px; }
+.org-table-scroll > table.org-table { width: max-content; min-width: 100%; margin: 0; table-layout: auto; }
+
+.org-panel-link, .org-faction-link { color: #e7c28b; font-size: .72rem; letter-spacing: .03em; text-decoration: none; white-space: nowrap; }
+.org-panel-link:hover, .org-faction-link:hover { color: #ffe6a3; text-decoration: underline; }
+.org-back-link { margin: 0 0 18px; font: 700 .78rem/1.4 "Merriweather", Georgia, serif; }
+.org-back-link a { color: #e7c28b; text-decoration: none; }
+.org-back-link a:hover { color: #ffe6a3; text-decoration: underline; }
+@media (max-width:680px) { .org-panel-link, .org-faction-link { white-space: normal; } }
+
+/* Source-listed minor factions and Outer-Deity worship orders. */
+.minor-org-intro {
+  padding: 15px 17px;
+  margin: 0 0 20px;
+  border-left: 3px solid #ffc300;
+  border-radius: 5px;
+  background: rgba(212,175,159,.06);
+}
+.minor-org-intro p { margin: 0 0 9px; color: #d4af9f; line-height: 1.7; }
+.minor-org-intro p:last-child { margin-bottom: 0; }
+.minor-org-intro a,
+.minor-org-source-note a { color: #e7c28b; text-underline-offset: 3px; }
+.minor-org-groups { display: grid; gap: 16px; }
+.minor-org-group {
+  min-width: 0;
+  padding: 15px;
+  border: 1px solid rgba(212,175,159,.22);
+  border-radius: 9px;
+  background: rgba(10,6,15,.22);
+}
+.minor-org-group__heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 14px;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(212,175,159,.2);
+}
+.minor-org-group__heading h3 {
+  margin: 0;
+  color: #ffe6a3;
+  font: 700 1.04rem/1.35 "Merriweather", Georgia, serif;
+}
+.minor-org-group__heading span {
+  color: #c49a7f;
+  font-size: .69rem;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+.minor-org-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 9px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.minor-org-grid li { min-width: 0; margin: 0; }
+.minor-org-card {
+  display: flex;
+  min-height: 86px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 11px 13px;
+  border: 1px solid rgba(212,175,159,.22);
+  border-radius: 7px;
+  background: linear-gradient(135deg, rgba(255,215,0,.055), rgba(20,10,25,.5));
+  color: #f0d6c3;
+  text-decoration: none;
+  transition: border-color .18s ease, background-color .18s ease, transform .18s ease;
+}
+.minor-org-card:hover,
+.minor-org-card:focus-visible {
+  border-color: rgba(255,195,0,.68);
+  background: rgba(255,195,0,.09);
+  color: #ffe6a3;
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+.minor-org-card:focus-visible { outline: 2px solid #ffc300; outline-offset: 2px; }
+.minor-org-card strong { color: #ffe6a3; font: 700 .86rem/1.4 "Merriweather", Georgia, serif; overflow-wrap: anywhere; }
+.minor-org-card span { color: #d4af9f; font-size: .67rem; letter-spacing: .04em; text-transform: uppercase; }
+.minor-org-card small { color: #b99789; font-size: .7rem; line-height: 1.4; }
+.minor-org-detail-card {
+  box-sizing: border-box;
+  width: min(900px, 100%);
+  margin: 0 auto 26px;
+  padding: clamp(18px, 4vw, 30px);
+  border: 1px solid rgba(212,175,159,.25);
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(212,175,159,.075), rgba(20,10,25,.52));
+}
+.minor-org-detail-card__eyebrow {
+  color: #ffc300;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+.minor-org-detail-card > h2 {
+  margin: 7px 0 18px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #ffe6a3;
+  font: 700 clamp(1.25rem, 3vw, 1.8rem)/1.35 "Merriweather", Georgia, serif;
+  overflow-wrap: anywhere;
+}
+.minor-org-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0 0 18px;
+  border: 1px solid rgba(212,175,159,.2);
+  background: rgba(212,175,159,.2);
+}
+.minor-org-facts div { min-width: 0; padding: 11px 13px; background: rgba(20,10,25,.76); }
+.minor-org-facts dt { margin-bottom: 5px; color: #ffc300; font-size: .66rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+.minor-org-facts dd { margin: 0; color: #f0d6c3; font-size: .82rem; line-height: 1.55; overflow-wrap: anywhere; }
+.minor-org-prose p { line-height: 1.75; }
+.minor-org-source-note { padding-top: 12px; margin-top: 15px !important; border-top: 1px solid rgba(212,175,159,.19); color: #c49a7f; font-size: .76rem; }
+.minor-org-source-note a { display: inline-block; margin-left: 4px; }
+@media (max-width: 680px) {
+  .minor-org-group { padding: 12px; }
+  .minor-org-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .minor-org-card { min-height: 72px; }
+  .minor-org-facts { grid-template-columns: 1fr; }
+  .minor-org-detail-card { padding: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .minor-org-card { transition: none; }
+  .minor-org-card:hover { transform: none; }
+}
+
+.outer-deity-card h2 a { color: inherit; text-decoration: none; }
+.outer-deity-card h2 a:hover, .outer-deity-card h2 a:focus-visible { color: #ffc300; text-decoration: underline; }

@@ -47,6 +47,41 @@ body {
 }
 /* The homepage's fixed portfolio shortcut shares the top edge with the navbar. */
 body:has(.back-button) .topnav { padding-right: 68px !important; }
+.back-button {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 100;
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid rgba(212, 175, 159, .52);
+  border-radius: 50%;
+  background: rgba(20, 10, 25, .72);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .22);
+  color: var(--archive-bright);
+  font: 700 1.35rem/1 Georgia, serif;
+  text-decoration: none;
+  transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+.back-button:hover,
+.back-button:focus-visible {
+  transform: translateY(-1px);
+  border-color: var(--archive-highlight);
+  background: rgba(20, 10, 25, .88);
+  color: var(--archive-highlight);
+  text-decoration: none;
+}
+@media (max-width: 620px) {
+  body:has(.back-button) .back-button {
+    top: 8px !important;
+    right: 8px !important;
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 1.2rem;
+  }
+}
 
 h1, h2, h3, h4, h5, h6 { text-wrap: balance; }
 h1 {
@@ -671,136 +706,102 @@ footer a:hover, .member-footer a:hover { color: var(--archive-highlight); }
   .pathway-directory .pathway-card span.pathway-card-sequence:last-child { font-size: .57rem; }
 }
 
-/* Final archive-wide pass: predictable contrast, focus, spacing and light rendering. */
+/* Use one quiet, translucent surface across archive cards and reading panels. */
 :root {
-  --archive-surface: rgba(25, 14, 33, .88);
-  --archive-surface-raised: rgba(35, 20, 43, .94);
-  --archive-focus: #ffe6a3;
-  --archive-gold-soft: rgba(255, 195, 0, .18);
+  --archive-panel-surface: rgba(20, 10, 25, .32);
+  --archive-card-surface: rgba(20, 10, 25, .2);
 }
-html { scroll-padding-top: 96px; }
-body {
-  min-height: 100vh;
-  color: var(--archive-ink);
-  background-color: #140a19 !important;
-  background-image:
-    radial-gradient(ellipse at 90% 0%, rgba(98, 42, 72, .22), transparent 38%),
-    radial-gradient(ellipse at 8% 30%, rgba(56, 34, 78, .20), transparent 44%),
-    linear-gradient(145deg, #140a19, #1b1022 54%, #160b1b) !important;
-  background-attachment: scroll !important;
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
-  line-height: 1.7;
-}
-.member-page {
-  background-color: #140a19 !important;
-  background-image:
-    radial-gradient(ellipse at 90% 0%, rgba(98, 42, 72, .22), transparent 38%),
-    radial-gradient(ellipse at 8% 30%, rgba(56, 34, 78, .20), transparent 44%),
-    linear-gradient(145deg, #140a19, #1b1022 54%, #160b1b) !important;
-  background-attachment: scroll !important;
-}
-::selection { background: rgba(255, 195, 0, .34); color: #fff8e7; }
-a { text-underline-offset: 3px; }
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible,
-[tabindex="0"]:focus-visible {
-  outline: 2px solid var(--archive-focus);
-  outline-offset: 3px;
-}
-button, input, select, textarea { font: inherit; }
-img { max-width: 100%; }
-.topnav {
-  border-color: var(--archive-line) !important;
-  background: rgba(24, 13, 31, .94) !important;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, .16);
-}
-.topnav > a { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; }
-.topnav > a.active-page { box-shadow: inset 0 -2px var(--archive-gold); }
-.navbar-search { border-radius: 7px; }
-.navbar-search input { font-family: inherit; }
+
 .content,
-.member-article,
-.wiki-search-browser,
+.member-hero,
+.member-facts,
+.member-facts > div,
+.member-symbol,
+.member-infobox,
+.member-infobox figure,
+.member-directory,
+.member-lead,
+.member-article-header,
+.pathway-callout,
+.fact-grid,
+.fact-grid > div,
+.member-gallery figure,
+.pathway-symbol-large,
+.novel-related-nav,
 .spotlight,
-.member-infobox,
-.member-directory,
-.pathway-group,
-.home-pathway-feature,
-.rotator { border-color: rgba(212, 175, 159, .23); }
-.content,
-.member-article,
-.member-infobox,
-.member-directory,
-.pathway-group,
-.wiki-search-browser { border-radius: 12px; }
-.content { background: linear-gradient(150deg, rgba(30, 17, 38, .88), rgba(20, 10, 25, .9)); }
-.member-article { min-width: 0; }
-.member-article section { line-height: 1.72; }
-.member-article h2,
-.content h2,
-.member-content h2 { scroll-margin-top: 100px; line-height: 1.32; }
-.member-infobox {
-  background: rgba(25, 14, 33, .95);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, .18);
-}
-.member-infobox figure img,
-.member-gallery img { border-radius: 6px; }
-.vol-card, .explore-tile, .pathway-card, .member-directory-card,
-.home-pathway-feature__links a, .novel-related-nav a, .wiki-search-result,
-.button, .button1, .member-next a { border-radius: 9px; }
-.vol-card:focus-visible, .explore-tile:focus-visible,
-.pathway-card:focus-visible, .member-directory-card:focus-visible,
-.home-pathway-feature__links a:focus-visible, .member-next a:focus-visible,
-.button:focus-visible, .button1:focus-visible {
-  outline: 2px solid var(--archive-focus);
-  outline-offset: 3px;
-}
-#scrollToTop {
-  display: block;
-  visibility: hidden;
-  opacity: 0;
-  transform: translateY(8px);
-  pointer-events: none;
-  transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease;
-  background: rgba(29, 16, 38, .94);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-#scrollToTop.is-visible { visibility: visible; opacity: 1; transform: translateY(0); pointer-events: auto; }
-#scrollToTop:hover { background: #4a2e43; color: var(--archive-focus); }
-.accordion-content, .pathway-profile .member-infobox { will-change: auto; }
-.home-pathway-feature,
-.pathway-group,
 .rotator,
-.wiki-search-browser { backdrop-filter: none; -webkit-backdrop-filter: none; }
-@media (max-width: 760px) {
-  html { scroll-padding-top: 84px; }
-  .member-shell { width: min(100% - 24px, 1180px); }
-  .member-layout { gap: 18px; }
-  .member-article section { margin-bottom: 24px; }
-  .member-table, .records-table { font-size: .82rem; }
-  .topnav { position: sticky; }
+.wiki-search-browser,
+.pathway-directory .member-article-header,
+.pathway-directory .pathway-index-intro,
+.pathway-directory .pathway-group,
+.home-pathway-feature,
+.pathway-lore-card,
+.nonstandard-pathway-card,
+.outer-deity-card,
+.history-page .history-toc,
+.history-page .history-note,
+.history-toc,
+.history-note,
+.ancient-god-grid div,
+.member-article blockquote {
+  background: var(--archive-panel-surface) !important;
+  box-shadow: none;
 }
-@media (max-width: 620px) {
-  .topnav { padding: 3px 5px; border-radius: 8px !important; }
-  .topnav > a { min-height: 36px; }
-  .navbar-search { flex-basis: 100%; }
-  .member-shell { padding-top: 10px; }
-  .member-article-header { padding-top: 12px; }
-  .member-lead { border-radius: 0 8px 8px 0; }
-  #scrollToTop { right: 14px; bottom: 14px; width: 44px; height: 44px; padding: 10px; }
+
+.vol-card,
+.explore-tile,
+.pathway-card,
+.member-directory-card,
+.member-card-grid > a,
+.pathway-sequence,
+.member-next a,
+.home-pathway-feature__links a,
+.novel-related-nav a,
+.wiki-search-result,
+.pathway-quickfact,
+.pathway-lore-figures li,
+.history-page .history-toc a,
+.nonstandard-pathway-card .pathway-card {
+  background: var(--archive-card-surface) !important;
+  box-shadow: none;
 }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto !important; }
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: .01ms !important;
-  }
-  #scrollToTop { transition: none !important; }
+
+.pathway-directory .pathway-card:hover,
+.member-directory .member-directory-card:hover,
+.vol-card:hover,
+.explore-tile:hover,
+.home-pathway-feature__links a:hover,
+.novel-related-nav a:hover {
+  background: rgba(212, 175, 159, .11) !important;
+}
+
+.member-table,
+.records-table,
+.pathway-profile .pathway-sequence-table,
+.history-page .history-timeline-table,
+.first-epoch-table,
+.second-epoch-table,
+.third-epoch-table,
+.fourth-epoch-table,
+.fifth-epoch-table {
+  background: rgba(20, 10, 25, .34) !important;
+  box-shadow: none;
+}
+
+.member-table thead th,
+.records-table th,
+.pathway-sequence-table thead th,
+.first-epoch-table thead th,
+.second-epoch-table thead th,
+.third-epoch-table thead th,
+.fourth-epoch-table thead th,
+.fifth-epoch-table thead th,
+.third-epoch-table tbody th,
+.fourth-epoch-table tbody th {
+  background: rgba(212, 175, 159, .1) !important;
+}
+
+.tarot-card,
+.tarot-card.fool {
+  background: rgba(29, 17, 34, .36) !important;
 }

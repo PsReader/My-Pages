@@ -1,0 +1,566 @@
+/*
+ * LOTM archive-wide layout system
+ * Final cascade layer: keeps the existing crimson-moon theme, translucent surfaces,
+ * rose/gold palette, and repeating background while normalizing page geometry.
+ */
+:root {
+  --archive-layout-width: 1120px;
+  --archive-reading-width: 980px;
+  --archive-page-gutter: clamp(14px, 3vw, 28px);
+  --archive-section-gap: clamp(22px, 4vw, 42px);
+}
+
+html { scroll-padding-top: 82px; }
+body {
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+/* Stable title block used by every non-profile page. */
+body > h1 {
+  box-sizing: border-box;
+  width: min(var(--archive-reading-width), calc(100% - 28px));
+  max-width: none !important;
+  margin: 30px auto 8px !important;
+  padding: 0 var(--archive-page-gutter) !important;
+  font-size: clamp(2rem, 5vw, 3.3rem) !important;
+  line-height: 1.14 !important;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+body > h1 + hr,
+body > hr {
+  width: min(110px, 24vw);
+  margin: 14px auto 26px !important;
+}
+body > .spoiler-note,
+body > p.spoiler-note {
+  width: min(var(--archive-reading-width), calc(100% - 28px));
+  box-sizing: border-box;
+  margin: 12px auto 0 !important;
+}
+
+/* Shared reading surfaces for all legacy direct-content pages. */
+body > h1 ~ div[style*="max-width"],
+body > h1 ~ div.content,
+body > h1 ~ div.volume-reading,
+body > h1 ~ div.novel-hub,
+body > h1 ~ div.center-align,
+body > h1 ~ div:not(.topnav):not(.back-button):not(.character-tooltip):not(.rotator):not(.spotlight):not(.home-pathway-feature) {
+  box-sizing: border-box;
+  width: min(var(--archive-reading-width), calc(100% - 28px));
+  max-width: var(--archive-reading-width) !important;
+  margin: 0 auto var(--archive-section-gap) !important;
+  padding: clamp(17px, 3vw, 30px) !important;
+  border: 1px solid rgba(212, 175, 159, .22);
+  border-radius: 12px;
+  background: rgba(20, 10, 25, .30);
+}
+
+/* Profiles and history pages share the same outer reading column. */
+.member-shell,
+.pathway-directory {
+  box-sizing: border-box;
+  width: min(var(--archive-layout-width), calc(100% - 28px)) !important;
+  margin: 0 auto !important;
+  padding: 22px 0 46px !important;
+}
+.member-article-header { margin-top: 0 !important; }
+.member-layout { gap: clamp(20px, 3vw, 32px); }
+.member-article section:last-child { margin-bottom: 0; }
+
+/* Content rhythm is shared, while component-specific grids retain their identity. */
+.content,
+.volume-reading,
+.novel-hub,
+.member-article,
+.history-page,
+.pathway-profile {
+  line-height: 1.75;
+}
+.content > h2,
+.volume-reading > h2,
+.novel-hub > h2,
+.member-article h2,
+.history-page h2 {
+  margin-top: 1.25em;
+  margin-bottom: .72em;
+}
+.content > h2:first-child,
+.volume-reading > h2:first-child,
+.novel-hub > h2:first-child,
+.member-article h2:first-child { margin-top: 0; }
+
+/* Keep archive panels transparent and calm, but give them one consistent frame. */
+.content,
+.volume-reading,
+.novel-hub,
+.member-article-header,
+.member-lead,
+.member-infobox,
+.pathway-group,
+.member-directory,
+.history-toc,
+.history-note,
+.home-pathway-feature,
+.rotator,
+.spotlight {
+  border-color: rgba(212, 175, 159, .24) !important;
+  border-radius: 12px;
+  box-shadow: none !important;
+}
+
+/* Tables should read as one component even when their source pages differ. */
+.table-scroll { width: 100%; margin: 18px 0 24px; }
+.member-table,
+.records-table,
+.pathway-sequence-table,
+.history-timeline-table,
+.first-epoch-table,
+.second-epoch-table,
+.third-epoch-table,
+.fourth-epoch-table,
+.fifth-epoch-table {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Footer rhythm is uniform without changing its established colors. */
+body > footer,
+.member-footer {
+  box-sizing: border-box;
+  width: min(var(--archive-layout-width), calc(100% - 28px));
+  margin: 18px auto 24px !important;
+  padding: 18px var(--archive-page-gutter) !important;
+  border-radius: 10px;
+}
+
+/* Consistent mobile behavior: no horizontal page drift, readable tap targets. */
+@media (max-width: 720px) {
+  .member-shell,
+  .pathway-directory,
+  body > h1 ~ div[style*="max-width"],
+  body > h1 ~ div.content,
+  body > h1 ~ div.volume-reading,
+  body > h1 ~ div.novel-hub,
+  body > h1 ~ div.center-align,
+  body > h1 ~ div:not(.topnav):not(.back-button):not(.character-tooltip):not(.rotator):not(.spotlight):not(.home-pathway-feature) {
+    width: calc(100% - 16px) !important;
+  }
+  .member-shell,
+  .pathway-directory { padding-top: 14px !important; }
+  body > h1 { margin-top: 22px !important; }
+  .member-layout { grid-template-columns: 1fr; }
+  .member-infobox { order: -1; }
+}
+
+@media (max-width: 480px) {
+  body > h1 { font-size: clamp(1.75rem, 9vw, 2.45rem) !important; }
+  .content,
+  .volume-reading,
+  .novel-hub { padding: 15px !important; }
+  body > footer,
+  .member-footer { width: calc(100% - 16px); margin-bottom: 16px !important; }
+}
+
+
+/* Shared template hooks used by every page after the HTML refactor. */
+.site-page {
+  box-sizing: border-box;
+  width: min(var(--archive-layout-width), calc(100% - 28px));
+  margin: 0 auto;
+  padding: 0 0 34px;
+}
+.site-page__header,
+.page-header {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 auto;
+}
+.site-page__content,
+.page-content {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+}
+.site-page__header > h1,
+.page-header > h1 {
+  box-sizing: border-box;
+  width: min(var(--archive-reading-width), 100%);
+  max-width: none !important;
+  margin: 30px auto 8px !important;
+  padding: 0 var(--archive-page-gutter) !important;
+  color: var(--archive-paper, #d4af9f) !important;
+  font-size: clamp(2rem, 5vw, 3.3rem) !important;
+  line-height: 1.14 !important;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.site-page__header > hr,
+.page-header > hr {
+  width: min(110px, 24vw);
+  margin: 14px auto 26px !important;
+}
+.site-page__header > .spoiler-note,
+.page-header > .spoiler-note {
+  width: min(var(--archive-reading-width), calc(100% - 28px));
+  box-sizing: border-box;
+  margin: 12px auto 0 !important;
+}
+/* Preserve the homepage's existing rhythm under the common shell. */
+.site-page:has(.spotlight) .site-page__header > h1,
+.site-page:has(.spotlight) .page-header > h1 {
+  width: min(1100px, calc(100% - 28px));
+  margin: 26px auto 18px !important;
+  font-size: clamp(2.1rem, 5vw, 3.45rem) !important;
+  letter-spacing: .02em;
+}
+/* Profile/history pages retain their own article grid, but share the outer width. */
+.site-page.member-shell,
+.site-page.pathway-directory {
+  width: 100% !important;
+  padding: 22px 0 46px !important;
+}
+.site-page.member-shell > .site-page__header,
+.site-page.pathway-directory > .site-page__header {
+  width: min(var(--archive-layout-width), 100%);
+}
+.site-page.member-shell > .site-page__content,
+.site-page.pathway-directory > .site-page__content {
+  width: min(var(--archive-layout-width), 100%);
+}
+.site-page.member-shell .member-article-header { margin-top: 0 !important; }
+.site-page.member-shell .member-article,
+.site-page.member-shell .member-layout,
+.site-page.member-shell .history-toc,
+.site-page.member-shell .member-next { min-width: 0; }
+/* Error pages use the same shell and title block despite having minimal content. */
+.site-page:not(.member-shell) .site-page__content > main { width: 100%; }
+@media (max-width: 720px) {
+  .site-page { width: calc(100% - 16px); }
+  .site-page__header > h1,
+  .page-header > h1 { margin-top: 22px !important; }
+  .site-page.member-shell,
+  .site-page.pathway-directory { width: 100% !important; padding-top: 14px !important; }
+}
+@media (max-width: 480px) {
+  .site-page__header > h1,
+  .page-header > h1 { font-size: clamp(1.75rem, 9vw, 2.45rem) !important; }
+}
+
+
+/* Legacy page bodies now live inside page-content; retain their panel treatment. */
+.site-page__content > div[style*="max-width"],
+.site-page__content > div.content,
+.site-page__content > div.volume-reading,
+.site-page__content > div.novel-hub,
+.site-page__content > div.center-align,
+.site-page__content > div:not(.spotlight):not(.rotator):not(.home-pathway-feature):not(.content):not(.volume-reading):not(.novel-hub):not(.center-align) {
+  box-sizing: border-box;
+  width: min(var(--archive-reading-width), 100%);
+  max-width: var(--archive-reading-width) !important;
+  margin: 0 auto var(--archive-section-gap) !important;
+  padding: clamp(17px, 3vw, 30px) !important;
+  border: 1px solid rgba(212, 175, 159, .22);
+  border-radius: 12px;
+  background: rgba(20, 10, 25, .30);
+}
+.site-page__content > div.content,
+.site-page__content > div.volume-reading,
+.site-page__content > div.novel-hub {
+  width: 100%;
+}
+@media (max-width: 720px) {
+  .site-page__content > div[style*="max-width"],
+  .site-page__content > div.content,
+  .site-page__content > div.volume-reading,
+  .site-page__content > div.novel-hub,
+  .site-page__content > div.center-align,
+  .site-page__content > div:not(.spotlight):not(.rotator):not(.home-pathway-feature):not(.content):not(.volume-reading):not(.novel-hub):not(.center-align) {
+    width: 100%;
+    padding: 15px !important;
+  }
+}
+
+/* Semantic captions replacing legacy heading-level attributions. */
+.quote-attribution,
+.ritual-caption,
+.gathering-meta {
+  margin: 8px 0 16px;
+  color: var(--archive-muted, #b99789);
+  font-size: .78rem;
+  line-height: 1.55;
+}
+
+/* Keep every page-family content column centered inside the shared shell. */
+.site-page,
+.site-page__header,
+.site-page__content,
+.page-header,
+.page-content,
+.site-page.member-shell > .site-page__header,
+.site-page.member-shell > .site-page__content,
+.site-page.pathway-directory > .site-page__header,
+.site-page.pathway-directory > .site-page__content {
+  margin-inline: auto !important;
+}
+.site-page.member-shell > .site-page__content,
+.site-page.pathway-directory > .site-page__content {
+  width: min(var(--archive-layout-width), 100%) !important;
+}
+
+/* Keep shared navigation readable while content scrolls behind it. */
+.topnav {
+  isolation: isolate;
+  background-color: rgba(25, 13, 30, .98) !important;
+}
+
+.site-page,
+.site-page__header,
+.site-page__content,
+.member-shell,
+.member-article,
+.member-infobox,
+.content {
+  min-width: 0;
+}
+
+.site-page :target,
+.member-shell :target,
+body > h1 ~ div :target {
+  scroll-margin-top: 92px;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+}
+
+@media (max-width: 720px) {
+  .topnav > a,
+  .back-button,
+  button,
+  .button,
+  .button1,
+  [role="tab"],
+  .member-next a {
+    min-height: 44px;
+  }
+
+  .topnav > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .table-scroll,
+  .artifact-table-scroll,
+  .org-table-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .pathway-tabs,
+  .member-tabs,
+  .artifact-tabs,
+  .organizations-tabs,
+  .lore-tabs,
+  .bh-tabs,
+  [role="tablist"] {
+    box-sizing: border-box;
+    display: flex;
+    max-width: 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .pathway-tabs > *,
+  .member-tabs > *,
+  .artifact-tabs > *,
+  .organizations-tabs > *,
+  .lore-tabs > *,
+  .bh-tabs > *,
+  [role="tablist"] > [role="tab"] {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 620px) {
+  .topnav {
+    background-color: rgba(25, 13, 30, .98) !important;
+  }
+
+  .topnav > a {
+    padding-inline: 8px !important;
+    font-size: .78rem !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .vol-grid,
+  .explore-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .vol-grid {
+    margin-block: 16px;
+  }
+
+  .vol-card {
+    padding: 12px;
+  }
+
+  .vol-card h3 {
+    font-size: .98rem;
+  }
+
+  .vol-card p,
+  .explore-tile small {
+    font-size: .78rem;
+  }
+
+  .explore-tile {
+    padding: 12px 10px;
+  }
+
+  .explore-tile img {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+.mobile-page-disclosure > summary {
+  cursor: pointer;
+  list-style: disclosure-closed;
+}
+
+.mobile-page-disclosure[open] > summary {
+  list-style: disclosure-open;
+}
+
+.mobile-page-disclosure > summary::marker {
+  color: var(--archive-gold, #ffc300);
+}
+
+@media (max-width: 720px) {
+  .mobile-page-disclosure {
+    min-width: 0;
+    margin-block: 0 12px;
+    border: 1px solid rgba(212, 175, 159, .28);
+    border-radius: 8px;
+    background: rgba(29, 16, 38, .48);
+  }
+
+  .mobile-page-disclosure > summary {
+    box-sizing: border-box;
+    display: flex;
+    min-height: 44px;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+  }
+
+  .mobile-page-disclosure > summary h2,
+  .mobile-page-disclosure > summary h3 {
+    margin-block: 0;
+  }
+
+  .mobile-page-disclosure__content {
+    min-width: 0;
+    padding: 10px 12px 12px;
+    border-top: 1px solid rgba(212, 175, 159, .18);
+  }
+
+  .mobile-page-disclosure__content > :first-child {
+    margin-top: 0;
+  }
+
+  .mobile-page-disclosure__content > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.archive-map-group__disclosure > summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.archive-map-group__disclosure > summary::marker {
+  color: var(--archive-gold, #ffc300);
+}
+
+.archive-map-group__disclosure > summary h2 {
+  margin-bottom: 0;
+}
+
+.archive-map-group__disclosure[open] > summary h2 {
+  margin-bottom: 14px;
+}
+
+@media (max-width: 740px) {
+  .site-page .archive-map-group__disclosure > summary {
+    display: flex;
+    min-height: 44px;
+    align-items: center;
+  }
+
+  .archive-map-group__disclosure > summary {
+    list-style: disclosure-closed;
+  }
+
+  .archive-map-group__disclosure[open] > summary {
+    list-style: disclosure-open;
+  }
+
+  .site-page .archive-map-group ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .site-page .archive-map-group a {
+    min-height: 44px;
+  }
+}
+
+.home-grid-disclosure > summary {
+  list-style: none;
+}
+
+.home-explore-disclosure > summary {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .home-grid-disclosure > summary {
+    list-style: disclosure-closed;
+  }
+
+  .home-grid-disclosure > .mobile-page-disclosure__content {
+    padding: 0;
+    border: 0;
+  }
+
+  .home-grid-disclosure[open] > summary {
+    list-style: disclosure-open;
+  }
+
+  .home-explore-disclosure > summary {
+    display: flex;
+  }
+}
+
+@media (min-width: 721px) {
+  .mobile-page-disclosure > summary,
+  .archive-map-group__disclosure > summary {
+    cursor: default;
+    list-style: none;
+  }
+}

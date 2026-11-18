@@ -1,0 +1,49 @@
+/* First Epoch article details, consistent with the archive's existing translucent palette. */
+.first-epoch-page .first-epoch-table-scroll { margin: 14px 0 10px; }
+.first-epoch-page .first-epoch-table { width: 100%; min-width: 820px; }
+.first-epoch-page .first-epoch-table th,
+.first-epoch-page .first-epoch-table td { padding: 11px 13px; }
+.first-epoch-page .first-epoch-table th:first-child { min-width: 190px; }
+.first-epoch-page .first-epoch-table td:nth-child(2),
+.first-epoch-page .first-epoch-table td:nth-child(3) { white-space: nowrap; text-align: center; }
+.first-epoch-page .first-epoch-table td:last-child { min-width: 330px; }
+.first-epoch-page .first-epoch-table a { color: #e8c8b8; text-decoration-color: rgba(212, 175, 159, .4); text-underline-offset: 3px; }
+.first-epoch-page .first-epoch-table a:hover { color: #ffe6a3; }
+.first-epoch-page .epoch-date {
+  display: inline-block;
+  margin-left: 7px;
+  padding: 3px 8px;
+  border: 1px solid rgba(212, 175, 159, .28);
+  border-radius: 999px;
+  color: #c49a7f;
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: .68rem;
+  font-weight: 400;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.first-epoch-page .member-article section > h2 { scroll-margin-top: 96px; }
+.first-epoch-page .member-article section > p a,
+.first-epoch-page .timeline-table-note a { color: #e8c8b8; }
+.first-epoch-page .member-article section > p a:hover,
+.first-epoch-page .timeline-table-note a:hover { color: #ffe6a3; }
+.first-epoch-page .member-article a,
+.first-epoch-page .member-article a:link,
+.first-epoch-page .member-article a:visited { color: #e8c8b8; }
+.first-epoch-page .member-article a:hover,
+.first-epoch-page .member-article a:focus-visible { color: #ffe6a3; }
+.first-epoch-page .member-article blockquote {
+  border-color: rgba(255, 215, 150, .32);
+  background: radial-gradient(circle at top left, rgba(255, 215, 150, .12), transparent 55%), rgba(212, 175, 159, .08);
+}
+
+.first-epoch-page .member-article blockquote::before {
+  color: rgba(255, 215, 150, .7);
+}
+
+@media (max-width: 600px) {
+  .first-epoch-page .first-epoch-table { min-width: 820px; }
+  .first-epoch-page .first-epoch-table th,
+  .first-epoch-page .first-epoch-table td { padding: 9px 10px; font-size: .8rem; }
+  .first-epoch-page .epoch-date { margin: 5px 0 0; }
+}

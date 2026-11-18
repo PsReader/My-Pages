@@ -31,11 +31,13 @@ The rival collision model follows the core Worms Zone-style rule: a worm's head 
 
 HOST ON INFINITYFREE
 --------------------
-1. Extract the ZIP on your computer.
-2. In InfinityFree, open your hosting account's Online File Manager (or connect with FTP).
-3. Open the website's htdocs folder.
-4. Upload index.html directly into htdocs. If you upload the extracted folder instead, move index.html into htdocs or use that folder's URL.
-5. Visit your domain. The file is the whole game; no install or server configuration is needed.
+1. Extract Deploy/deploy-Starcoil-root.zip on your computer.
+2. In InfinityFree, open your hosting account's Online File Manager or connect with FTP.
+3. Open the website's htdocs folder and upload every extracted file directly into it. Keep robots.txt, sitemap.xml, site.webmanifest, 404.html, and .htaccess at the same level as index.html. Enable hidden-file uploads for .htaccess.
+4. Visit your domain. The game is static and needs no install or server-side runtime.
+5. If .htaccess cannot be used, set 404.html as the 404 page in InfinityFree's Error Pages control panel.
+
+The sitemap lists the home page. After uploading, submit https://starcoil.site.je/sitemap.xml in Google Search Console.
 
 The game is static HTML/CSS/JavaScript and can run on other basic static web hosts too. Internet access is only needed to fetch the optional Google Fonts; system sans-serif/monospace fallbacks are included. All game art and sound effects are drawn/generated locally in the browser. Music and sound can be toggled in Settings. Scores and settings are stored locally in the player's browser and are not shared between devices; if storage is blocked or corrupted, the game falls back to safe defaults. Pip and rivals have a length cap to keep long sessions responsive.
 

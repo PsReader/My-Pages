@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -33,9 +33,6 @@
 </script>
 <link href="site.webmanifest" rel="manifest"/>
 <link href="images/favicon.png" rel="icon" type="image/png"/>
-
-
-
 <style>
       @keyframes fadeIn {
         from {
@@ -321,26 +318,20 @@
     </style>
 <link href="css/dynamic-styles.css" rel="stylesheet"/>
 <script>(() => { try { const saved = localStorage.getItem("lotm-theme"); if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved; } catch {} })();</script>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&amp;family=Merriweather:wght@400;700&amp;display=optional" rel="stylesheet" media="(min-width: 621px)"><link href="css/navbar-search.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&amp;family=Merriweather:wght@400;700&amp;display=optional" media="(min-width: 621px)" rel="stylesheet"/><link href="css/navbar-search.css" rel="stylesheet"/>
 <link href="css/archive-refinements.css" rel="stylesheet"/>
+<link href="css/uniform-layout.css" rel="stylesheet"/>
 </head>
-<body style="text-align: center">
-<div class="topnav">
-<a href="index.html">Home</a>
-<a class="character-link" data-character="Klein Moretti" href="Mc_Profile.html">MC</a>
+<body style="text-align: center"><a aria-label="Go back to the previous page" class="back-button" href="index.html" onclick="if (window.history.length &gt; 1) { window.history.back(); } else { window.location.href = 'index.html'; } return false;" title="Go back to the previous page"><span aria-hidden="true">←</span></a><nav aria-label="Primary navigation" class="topnav">
+<a href="index.html">Home</a><a href="Sitemap.html">Archive</a>
+<a class="character-link" data-character="Klein Moretti" href="Klein%20Moretti.html">MC</a>
 <a href="Novel.html">Novel</a>
 <a href="Author.html">Author</a>
-<a href="Songs.html">Songs</a>
-<form action="index.html" class="navbar-search" method="get" role="search" aria-label="Search the wiki archive"><input aria-label="Search the wiki archive" autocomplete="off" name="q" placeholder="Search the archive…" type="search"/><button aria-label="Search" type="submit"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg></button><div class="navbar-search-suggestions" hidden></div></form></div>
-<p class="spoiler-note" role="note">This page includes spoilers from across the novels.</p>
-<button aria-label="Back to top" id="scrollToTop">↑</button>
-<h1>
+<form action="index.html" aria-label="Search the wiki archive" class="navbar-search" method="get" role="search"><input aria-label="Search the wiki archive" autocomplete="off" name="q" placeholder="Search the archive…" type="search"/><button aria-label="Search" type="submit"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg></button><div class="navbar-search-suggestions" hidden=""></div></form></nav>
+<!-- Professional Footer with Disclaimer -->
+<main class="site-page"><header class="site-page__header page-header"><p class="spoiler-note" role="note">This page includes spoilers from across the novels.</p><button aria-label="Back to top" id="scrollToTop">↑</button><h1>
 <b><i>Cuttlefish That Loves Diving</i></b>
-</h1>
-<hr/>
-<a href="index.html"><button class="button button1">← Back</button></a>
-<hr/>
-<div style="max-width: 1000px; margin: 0 auto; padding: 0 20px">
+</h1><hr/><a href="index.html"><button class="button button1">← Back</button></a><hr/></header><div class="site-page__content page-content"><div style="max-width: 1000px; margin: 0 auto; padding: 0 20px">
 <!-- Author Bio Card -->
 <div style="
           background-color: rgba(212, 175, 159, 0.1);
@@ -353,7 +344,7 @@
           align-items: flex-start;
           flex-wrap: wrap;
         ">
-<img class="image-frame" decoding="async" loading="eager" src="images/Cuttlefish.webp" width="170px" alt="Portrait of Cuttlefish That Loves Diving" height="1728"/>
+<img alt="Portrait of Cuttlefish That Loves Diving" class="image-frame" decoding="async" height="1728" loading="eager" src="images/Cuttlefish.webp" width="170px"/>
 <div style="flex: 1; text-align: left">
 <h2 style="
               color: #ffd700;
@@ -654,12 +645,7 @@
 </div>
 </div>
 </div>
-</div>
-<hr/>
-<a href="index.html"><button class="button button1">Home</button></a>
-<hr/>
-<!-- Professional Footer with Disclaimer -->
-<footer style="
+</div><hr/><a href="index.html"><button class="button button1">Home</button></a><hr/></div></main><footer style="
         background-color: rgba(212, 175, 159, 0.1);
         border-top: 1px solid rgba(212, 175, 159, 0.3);
         margin-top: 40px;
@@ -687,8 +673,7 @@
         Built with passion by an aspiring web developer |
         <a href="index.html" style="color: #d4af9f; text-decoration: none; transition: color 0.3s">Back to Home</a>
 </p>
-</footer>
-<script defer src="js/navbar-search.js"></script>
-</body>
+</footer><script src="js/search-core.js"></script><script defer="" src="js/navbar-search.js"></script>
 <script src="js/script.js"></script>
+</body>
 </html>
