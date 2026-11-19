@@ -12,16 +12,15 @@
 <meta property="og:title" content="Tarot Draw: Tarot Club Divination" />
 <meta property="og:description" content="A single-file tarot reader for the 22 Major Arcana. Choose a spread, flip the sigil cards, or draw today's card." />
 <meta property="og:url" content="https://tarotdraw.site.je/" />
-<meta property="og:image" content="User-agent: *
-Allow: /
-https://tarotdraw.site.je/og-image.png" />
-		<meta property="og:image:width" content="1200" />
-		<meta property="og:image:height" content="630" />
-		<meta name="twitter:image" content="User-agent: *
-Allow: /
-https://tarotdraw.site.je/og-image.png" />
-		<link rel="apple-touch-icon" href="apple-touch-icon.png" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="https://tarotdraw.site.je/og-image.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Tarot Draw Major Arcana reading" />
+<meta name="twitter:image" content="https://tarotdraw.site.je/og-image.png" />
+<meta name="twitter:image:alt" content="Tarot Draw Major Arcana reading" />
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Tarot Draw: Tarot Club Divination" />
 <meta name="twitter:description" content="A single-file tarot reader for the 22 Major Arcana. Choose a spread, flip the sigil cards, or draw today's card." />
 <link rel="manifest" href="site.webmanifest" />
@@ -1761,13 +1760,19 @@ https://tarotdraw.site.je/og-image.png" />
     var base = location.href.replace(/#.*$/, "");
     history.replaceState(null, "", base);
   }
-  function journalEntries() { try { return JSON.parse(localStorage.getItem("tarot-journal") || "[]"); } catch (e) { return []; } }
+  function validJournalEntry(entry) {
+    if (!entry || typeof entry !== "object" || Array.isArray(entry) || !Number.isSafeInteger(Number(entry.id)) || Number(entry.id) < 1 || !Number.isFinite(Date.parse(entry.date)) || !SPREADS[entry.spread] || !Array.isArray(entry.cards) || entry.cards.length !== SPREADS[entry.spread].n) return false;
+    if (entry.cards.some(function (card, index) { return !card || typeof card !== "object" || card.position !== SPREADS[entry.spread].positions[index] || typeof card.name !== "string" || !CARDS.some(function (known) { return known.name === card.name; }) || typeof card.reversed !== "boolean"; })) return false;
+    return (entry.oracle === undefined || typeof entry.oracle === "string") && (entry.note === undefined || typeof entry.note === "string") && (entry.favorite === undefined || typeof entry.favorite === "boolean") && (entry.tags === undefined || typeof entry.tags === "string" || (Array.isArray(entry.tags) && entry.tags.every(function (tag) { return typeof tag === "string"; })));
+  }
+  function journalEntries() { try { var entries = JSON.parse(localStorage.getItem("tarot-journal") || "[]"); return Array.isArray(entries) ? entries.filter(validJournalEntry) : []; } catch (e) { return []; } }
+  function persistJournalEntries(entries) { try { localStorage.setItem("tarot-journal", JSON.stringify(entries)); return true; } catch (e) { announce("Journal changes could not be saved. Check browser storage and try again."); showActionToast("Could not save journal changes"); return false; } }
   function journalEscape(value) { return String(value || "").replace(/[&<>\"']/g, function (c) { return ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[c]; }); }
   function saveJournalEntry() {
     if (!dealt.length || !currentSpread) return announce("Complete a reading before saving it to the journal.");
     var entries = journalEntries();
     entries.unshift({ id: Date.now(), date: new Date().toISOString(), spread: currentSpreadId, cards: dealt.map(function (d, i) { return { name: CARDS[d.idx].name, reversed: d.reversed, position: currentSpread.positions[i] }; }), oracle: currentOracle || "", note: "", tags: [], favorite: false });
-    try { localStorage.setItem("tarot-journal", JSON.stringify(entries.slice(0, 100))); } catch (e) {}
+    if (!persistJournalEntries(entries.slice(0, 100))) return;
     announce("Reading saved to the Grimoire Journal.");
     showActionToast("Reading saved to the Grimoire Journal");
     renderJournal();
@@ -1785,22 +1790,24 @@ https://tarotdraw.site.je/og-image.png" />
   function exportJournal() { var backup = { format: "tarot-club-journal", version: 1, exportedAt: new Date().toISOString(), entries: journalEntries() }; var blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" }); var link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = "grimoire-journal-backup.json"; link.click(); URL.revokeObjectURL(link.href); showActionToast("Journal backup downloaded"); }
   function importJournalFile(file) {
     if (!file) return;
+    if (file.size > 2 * 1024 * 1024) { announce("Journal backups must be under 2 MB."); showActionToast("Journal backup is too large"); journalFileInput.value = ""; return; }
     var reader = new FileReader();
     reader.onload = function () {
       try {
         var parsed = JSON.parse(reader.result);
         var imported = Array.isArray(parsed) ? parsed : parsed && Array.isArray(parsed.entries) ? parsed.entries : null;
-        if (!imported || imported.some(function (entry) { return !entry || !entry.id || !entry.date || !entry.spread || !Array.isArray(entry.cards); })) throw new Error("Invalid journal backup");
-        imported = imported.map(function (entry) { entry.tags = Array.isArray(entry.tags) ? entry.tags : (entry.tags ? String(entry.tags).split(",").map(function (tag) { return tag.trim(); }).filter(Boolean) : []); entry.favorite = Boolean(entry.favorite); return entry; });
+        if (!imported || imported.length > 100 || imported.some(function (entry) { return !validJournalEntry(entry); })) throw new Error("Invalid journal backup");
+        imported = imported.map(function (entry) { return { id: Number(entry.id), date: new Date(entry.date).toISOString(), spread: entry.spread, cards: entry.cards.map(function (card) { return { name: card.name, reversed: card.reversed, position: card.position }; }), oracle: entry.oracle || "", note: entry.note || "", tags: Array.isArray(entry.tags) ? entry.tags.slice(0, 12) : (entry.tags ? String(entry.tags).split(",").map(function (tag) { return tag.trim(); }).filter(Boolean).slice(0, 12) : []), favorite: entry.favorite === true }; });
         var existing = journalEntries();
         var merged = existing.concat(imported).filter(function (entry, index, all) { return all.findIndex(function (item) { return String(item.id) === String(entry.id); }) === index; }).sort(function (a, b) { return new Date(b.date) - new Date(a.date); }).slice(0, 100);
-        localStorage.setItem("tarot-journal", JSON.stringify(merged));
+        if (!persistJournalEntries(merged)) { journalFileInput.value = ""; return; }
         renderJournal();
         announce("Journal backup imported.");
         showActionToast(imported.length + " journal " + (imported.length === 1 ? "reading" : "readings") + " restored");
       } catch (e) { announce("That file is not a valid Grimoire Journal backup."); showActionToast("Could not import journal backup"); }
       journalFileInput.value = "";
     };
+    reader.onerror = function () { announce("That journal backup could not be read."); showActionToast("Could not read journal backup"); journalFileInput.value = ""; };
     reader.readAsText(file);
   }
 
@@ -2509,9 +2516,9 @@ https://tarotdraw.site.je/og-image.png" />
     if (!action || !entry) return;
     var entries = journalEntries(), id = Number(entry.dataset.id), index = entries.findIndex(function (item) { return item.id === id; });
     if (index < 0) return;
-    if (action === "delete") { entries.splice(index, 1); localStorage.setItem("tarot-journal", JSON.stringify(entries)); renderJournal(); announce("Journal entry deleted."); }
-    if (action === "favorite") { entries[index].favorite = !entries[index].favorite; localStorage.setItem("tarot-journal", JSON.stringify(entries)); renderJournal(); announce(entries[index].favorite ? "Reading added to favorites." : "Reading removed from favorites."); }
-    if (action === "save-meta" || action === "save-note") { entries[index].note = entry.querySelector(".journal-note").value; entries[index].tags = entry.querySelector(".journal-tags").value.split(",").map(function (tag) { return tag.trim(); }).filter(Boolean).slice(0, 12); localStorage.setItem("tarot-journal", JSON.stringify(entries)); renderJournal(); announce("Reading tags and note saved."); showActionToast("Reading tags saved"); }
+    if (action === "delete") { entries.splice(index, 1); if (!persistJournalEntries(entries)) return; renderJournal(); announce("Reading deleted from the journal."); }
+    if (action === "favorite") { entries[index].favorite = !entries[index].favorite; if (!persistJournalEntries(entries)) return; renderJournal(); announce(entries[index].favorite ? "Reading added to favorites." : "Reading removed from favorites."); }
+    if (action === "save-meta" || action === "save-note") { entries[index].note = entry.querySelector(".journal-note").value; entries[index].tags = entry.querySelector(".journal-tags").value.split(",").map(function (tag) { return tag.trim(); }).filter(Boolean).slice(0, 12); if (!persistJournalEntries(entries)) return; renderJournal(); announce("Reading tags and note saved."); showActionToast("Reading tags saved"); }
   });
   journalModal.addEventListener("click", function (e) { if (e.target === journalModal) closeJournal(); });
   btnDetailClose.addEventListener("click", closeDetails);
