@@ -8,11 +8,11 @@
     <meta name="robots" content="index,follow" />
     <title>Witbit — Creative Idea Generators for Stories &amp; Games</title>
     <link rel="canonical" href="https://witbit.site.je/" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
-    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="icon" href="favicon-96.png" type="image/png" sizes="96x96" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" sizes="any" />
+    <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Witbit" />
     <meta property="og:title" content="Witbit — Creative Idea Generators for Stories &amp; Games" />
@@ -320,15 +320,13 @@
                   <p class="result-text" id="result-text" aria-live="polite" aria-atomic="true">Choose a drawer, then let a small idea take shape.</p>
                   <span class="result-underline" aria-hidden="true"></span>
                   <section class="result-context" id="result-context" hidden aria-labelledby="context-heading">
-                    <p class="context-heading" id="context-heading">Name notes</p>
+                    <p class="context-heading" id="context-heading">Name note</p>
                     <p id="context-etymology"></p>
-                    <p id="context-culture"></p>
-                    <div class="context-sources" id="context-sources"></div>
                   </section>
                 </div>
                 <div class="result-footer">
                   <p class="result-status" id="result-status" role="status" aria-live="polite">Ready when you are, reader.</p>
-                  <div class="result-actions"><button class="copy-button" id="copy-button" type="button" disabled aria-label="Copy generated idea">Copy</button><button class="again-button" id="again-button" type="button" disabled>Another <span aria-hidden="true">↻</span></button><button class="sound-button" id="sound-button" type="button" aria-pressed="false" aria-label="Toggle drawer sound cues">Sound cue <span aria-hidden="true">♪</span></button></div>
+                  <div class="result-actions"><button class="copy-button" id="copy-button" type="button" disabled aria-label="Copy generated idea">Copy</button><button class="save-button" id="save-button" type="button" disabled>Keep this</button><button class="again-button" id="again-button" type="button" disabled>Another <span aria-hidden="true">↻</span></button><button class="sound-button" id="sound-button" type="button" aria-pressed="false" aria-label="Toggle drawer sound cues">Sound cue <span aria-hidden="true">♪</span></button></div>
                 </div>
                 <span class="result-seal" aria-hidden="true">W</span>
               </section>
@@ -336,6 +334,15 @@
             <div class="leaf-bottomline"><span>Witbit miscellany</span><span>Leave room in the margin</span><span>✳</span></div>
           </div>
         </div>
+
+        <section class="idea-shelf" aria-labelledby="shelf-heading">
+          <div class="shelf-heading-row">
+            <div><p class="kicker section-kicker">Your saved scraps</p><h3 id="shelf-heading">The idea shelf</h3></div>
+            <p class="shelf-count" id="shelf-count" aria-live="polite">0 kept</p>
+          </div>
+          <p class="shelf-empty" id="shelf-empty">Keep an idea and it will wait here on this device.</p>
+          <ul class="shelf-list" id="shelf-list" aria-label="Saved ideas"></ul>
+        </section>
       </section>
 
       <section class="how-it-works" aria-labelledby="how-title">

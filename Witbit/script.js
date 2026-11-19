@@ -4,18 +4,128 @@ const resultCard = document.querySelector(".result-card");
 const resultText = document.querySelector("#result-text");
 const resultStatus = document.querySelector("#result-status");
 const copyButton = document.querySelector("#copy-button");
+const saveButton = document.querySelector("#save-button");
 const againButton = document.querySelector("#again-button");
 const soundButton = document.querySelector("#sound-button");
 const resultContext = document.querySelector("#result-context");
 const contextEtymology = document.querySelector("#context-etymology");
-const contextCulture = document.querySelector("#context-culture");
-const contextSources = document.querySelector("#context-sources");
+const contextHeading = document.querySelector("#context-heading");
 const cardIndex = document.querySelector("#card-index");
 const particleLayer = document.querySelector("#particle-layer");
+const shelfList = document.querySelector("#shelf-list");
+const shelfEmpty = document.querySelector("#shelf-empty");
+const shelfCount = document.querySelector("#shelf-count");
+const shelfStorageKey = "witbit.saved-ideas.v1";
+const drawerNames = Object.fromEntries(tools.map((tool) => [tool.dataset.tool, tool.querySelector(".entry-title")?.textContent.trim() || tool.dataset.tool]));
 
 let activeTool = "quest";
 let lastResult = "";
 let generationTimer;
+
+function readSavedIdeas() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(shelfStorageKey) || "[]");
+    return Array.isArray(saved) ? saved.filter((idea) => idea && typeof idea.id === "string" && typeof idea.text === "string" && typeof idea.tool === "string").slice(0, 100) : [];
+  } catch {
+    return [];
+  }
+}
+
+let savedIdeas = readSavedIdeas();
+
+function renderShelf() {
+  shelfCount.textContent = `${savedIdeas.length} kept`;
+  shelfEmpty.hidden = savedIdeas.length > 0;
+  shelfList.replaceChildren(...savedIdeas.map((idea) => {
+    const item = document.createElement("li");
+    item.className = "shelf-item";
+    const copy = document.createElement("p");
+    copy.className = "shelf-item-text";
+    copy.textContent = idea.text;
+    const meta = document.createElement("span");
+    meta.className = "shelf-item-meta";
+    meta.textContent = `${drawerNames[idea.tool] || "An idea"} · ${new Date(idea.savedAt).toLocaleDateString()}`;
+    const actions = document.createElement("div");
+    actions.className = "shelf-item-actions";
+    const copyItem = document.createElement("button");
+    copyItem.type = "button";
+    copyItem.dataset.shelfAction = "copy";
+    copyItem.textContent = "Copy";
+    copyItem.setAttribute("aria-label", "Copy saved idea");
+    const removeItem = document.createElement("button");
+    removeItem.type = "button";
+    removeItem.dataset.shelfAction = "remove";
+    removeItem.textContent = "Remove";
+    removeItem.setAttribute("aria-label", "Remove saved idea");
+    actions.append(copyItem, removeItem);
+    item.append(meta, copy, actions);
+    item.dataset.ideaId = idea.id;
+    return item;
+  }));
+}
+
+function saveCurrentIdea() {
+  if (!lastResult) return;
+  if (savedIdeas.some((idea) => idea.text === lastResult && idea.tool === activeTool)) {
+    resultStatus.textContent = "That thought is already on your shelf.";
+    return;
+  }
+  const nextSaved = [{ id: `${Date.now()}-${Math.random().toString(36).slice(2)}`, text: lastResult, tool: activeTool, savedAt: new Date().toISOString() }, ...savedIdeas].slice(0, 100);
+  try {
+    localStorage.setItem(shelfStorageKey, JSON.stringify(nextSaved));
+    savedIdeas = nextSaved;
+    renderShelf();
+    resultStatus.textContent = "Kept on your shelf on this device.";
+  } catch {
+    resultStatus.textContent = "The shelf could not save here. Check this browser's storage settings.";
+  }
+}
+
+async function copyShelfIdea(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    const temporaryField = document.createElement("textarea");
+    temporaryField.value = text;
+    temporaryField.setAttribute("readonly", "");
+    temporaryField.style.position = "fixed";
+    temporaryField.style.opacity = "0";
+    document.body.append(temporaryField);
+    temporaryField.select();
+    let copied = false;
+    try { copied = document.execCommand("copy"); } catch { /* Clipboard access may be unavailable. */ }
+    temporaryField.remove();
+    return copied;
+  }
+}
+
+function handleShelfAction(event) {
+  const button = event.target.closest("button[data-shelf-action]");
+  const item = button?.closest(".shelf-item");
+  if (!button || !item) return;
+  const idea = savedIdeas.find((entry) => entry.id === item.dataset.ideaId);
+  if (!idea) return;
+  if (button.dataset.shelfAction === "copy") {
+    void copyShelfIdea(idea.text).then((copied) => {
+      resultStatus.textContent = copied ? "Copied from your shelf." : "Copying is unavailable here. Select the idea text to keep it.";
+    });
+    return;
+  }
+  const nextSaved = savedIdeas.filter((entry) => entry.id !== idea.id);
+  try {
+    localStorage.setItem(shelfStorageKey, JSON.stringify(nextSaved));
+    savedIdeas = nextSaved;
+    renderShelf();
+    resultStatus.textContent = "Removed from your shelf.";
+  } catch {
+    resultStatus.textContent = "Could not update the shelf. Check this browser's storage settings.";
+  }
+}
+
+renderShelf();
+shelfList.addEventListener("click", handleShelfAction);
+saveButton.addEventListener("click", saveCurrentIdea);
 
 const choice = (items) => items[Math.floor(Math.random() * items.length)];
 
@@ -157,6 +267,7 @@ const nameParts = {
 };
 
 const regionalTraditions = new Set(["japanese", "chinese", "korean", "latin", "greek", "german", "french", "italian", "spanish"]);
+const familyNameFirstTraditions = new Set(["japanese", "chinese", "korean"]);
 
 
 const nameMeanings = {
@@ -175,17 +286,6 @@ const nameMeanings = {
   spanish: { Alba: "dawn", Mateo: "gift of God", Lucia: "light", Diego: "teacher or supplanter", Ines: "pure", Rafael: "God has healed", Pilar: "pillar", Tomas: "twin", Sol: "sun", Vega: "meadow", Cruz: "cross", Navarro: "from Navarre", Marquez: "son of Marcos", Castillo: "castle", Reyes: "kings", Valera: "strong or healthy" },
 };
 
-const regionalNameNotes = {
-  japanese: { etymology: "Japanese given names often draw meaning from the semantic content of kanji; the same written name can still have more than one possible reading.", culture: "Contemporary naming balances sound, kanji meaning and visual form, while historical naming also included formal adult names and birth-order patterns.", sources: ["https://www.artsci.kyushu-u.ac.jp/~ssaito/eng/column/name.html", "https://sengokudaimyo.com/japanese-names"] },
-  chinese: { etymology: "Chinese given names are usually lexical combinations of characters chosen for meanings such as health, bravery, beauty or wisdom; family names conventionally come first.", culture: "Generation names once marked lineage position in many families, but their use declined in the 20th century and is not universal across Chinese-speaking communities.", sources: ["https://ans-names.pitt.edu/ans/article/view/1220", "https://afe.easia.columbia.edu/special/china_1000bce_names.htm"] },
-  korean: { etymology: "Many Korean given names are disyllabic and use syllables associated with hanja, so each syllable can carry an intended lexical meaning.", culture: "A generational syllable was historically tied to bon-gwan lineage practice; modern parents may use native Korean names or omit that syllable.", sources: ["https://asiasociety.org/korea/introduction-korean-names-are-all-kims-same", "https://folklife.si.edu/magazine/korean-immigrant-names"] },
-  latin: { etymology: "Classical Roman names used recurring elements: praenomen, hereditary nomen and cognomen; cognomina could begin as descriptive, occupational or physical nicknames.", culture: "The tria nomina was a historically specific system for many free Roman men and changed substantially in late antiquity, so it should not be treated as a modern naming template.", sources: ["https://dcc.dickinson.edu/grammar/latin/names-persons", "https://www.britannica.com/topic/name/Personal-names"] },
-  greek: { etymology: "Ancient Greek names could combine meaningful elements for animals, plants, civic life or prowess; theophoric names also incorporated divine names or theos, ‘god.’", culture: "Public identification could add a father’s name or a deme/place label, practices documented for antiquity and not automatically transferable to modern Greek naming.", sources: ["https://www.lgpn.ox.ac.uk/meanings-names", "https://www.lgpn.ox.ac.uk/naming-practices"] },
-  german: { etymology: "Germanic names often used inherited elements in two-part formations, while German family names later developed from patronymics, places, occupations and characteristics.", culture: "Modern German name stock also includes substantial biblical, Latin and Greek Christian influence, so a German name need not be Germanic in origin.", sources: ["https://library.indianapolis.iu.edu/static/collections/kade/nameword/apend-a.html", "https://www.deutschland.de/en/topic/life/a-guide-to-german-etiquette"] },
-  french: { etymology: "French given names draw heavily on Christian names of biblical figures, saints and martyrs, with later additions from Greco-Roman mythology and literature.", culture: "Contemporary France permits broad parental choice, though a harmful choice can be referred to a prosecutor; this modern framework should not be projected backward onto historical practice.", sources: ["https://doi.org/10.3897/popecon.6.e81580", "https://www.service-public.fr/particuliers/vosdroits/F882"] },
-  italian: { etymology: "Italian personal names combine Christian and biblical, Latin/Roman, Greek and Germanic layers, later enriched by saints, literature and popular culture.", culture: "Italy moved from ancient multi-part names through medieval single names toward name-plus-surname systems, while family traditions such as renewing a grandparent’s name continue.", sources: ["https://www.treccani.it/enciclopedia/antroponimi_(Enciclopedia-dell%27Italiano)/", "https://www.treccani.it/enciclopedia/nomi-e-cognomi_(Enciclopedia-dei-ragazzi)/"] },
-  spanish: { etymology: "Spanish repertoires combine Christian, biblical, Greco-Latin and West Gothic layers; surnames also preserve patronymic formations such as Álvarez and Fernández.", culture: "Traditional compound names remain part of the record, but modern Spanish practice allows broad choice and commonly records a first surname from each parent.", sources: ["https://www.rae.es/buen-uso-espa%C3%B1ol/los-antrop%C3%B3nimos-i-los-nombres-de-pila", "https://www.oxfordreference.com/display/10.1093/acref/9780190245115.001.0001/acref-9780190245115-e-83364"] },
-};
 
 function meaningFor(flavor, words) {
   const bank = nameMeanings[flavor] ?? {};
@@ -245,8 +345,9 @@ function buildName(form) {
     name = choice(parts.game ?? [`${first} ${second}`]);
     words = [name];
   } else if (regionalTraditions.has(flavor)) {
-    name = `${first} ${second}`;
-    words = [first, second];
+    const orderedParts = familyNameFirstTraditions.has(flavor) ? [second, first] : [first, second];
+    name = orderedParts.join(" ");
+    words = orderedParts;
   } else if (kind === "place") {
     const suffix = choice(["Harbor", "Hollow", "Meadow", "Market", "Isle", "Crossing", "Falls", "Glen"]);
     name = `${first} ${suffix}`;
@@ -266,7 +367,10 @@ function buildName(form) {
   }
 
   const meaning = meaningFor(flavor, words);
-  currentContext = regionalNameNotes[flavor] ? { ...regionalNameNotes[flavor], meaning } : null;
+  const explanation = kind === "game" && meaning === "a name with its own little story"
+    ? `generated ${flavor}-inspired title; translation unavailable`
+    : meaning;
+  currentContext = regionalTraditions.has(flavor) ? { note: `"${name}": ${explanation}.` } : null;
   return `${name} — meaning: ${meaning}.`;
 }
 
@@ -524,19 +628,18 @@ function generate(triggerButton) {
     resultText.classList.remove("is-entering");
     resultText.textContent = next;
     if (currentContext) {
-      contextEtymology.textContent = `Etymology: ${currentContext.etymology}`;
-      contextCulture.textContent = `Cultural context: ${currentContext.culture}`;
-      contextSources.replaceChildren(...currentContext.sources.map((url, index) => { const link = document.createElement("a"); link.href = url; link.target = "_blank"; link.rel = "noreferrer noopener"; link.textContent = `Source ${index + 1}`; return link; }));
+      contextHeading.textContent = "Name note";
+      contextEtymology.textContent = currentContext.note;
       resultContext.hidden = false;
     } else {
       resultContext.hidden = true;
-      contextSources.replaceChildren();
     }
     void resultText.offsetWidth;
     resultText.classList.add("is-entering");
     resultCard.setAttribute("aria-busy", "false");
     resultStatus.textContent = "Freshly pressed. Copy it or turn another leaf.";
     copyButton.disabled = false;
+    saveButton.disabled = false;
     againButton.disabled = false;
     setBusy(button, false);
   }, 160);
@@ -552,11 +655,12 @@ function selectTool(toolName, shouldFocus = false) {
   lastResult = "";
   currentContext = null;
   resultContext.hidden = true;
-  contextSources.replaceChildren();
+  contextHeading.textContent = "Name note";
   resultText.classList.remove("is-entering");
   resultText.textContent = "Choose a page, then let a small idea take shape.";
   resultStatus.textContent = drawerVoices[toolName] ?? "Ready when you are, reader.";
   copyButton.disabled = true;
+  saveButton.disabled = true;
   againButton.disabled = true;
 
   tools.forEach((button, index) => {
