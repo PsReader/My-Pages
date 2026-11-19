@@ -274,7 +274,7 @@ h2 em { color: var(--rose); font-style: normal; }
 
 .card {
   --card-w: 124px;
-  width: var(--card-w); aspect-ratio: 156 / 238;
+  width: min(var(--card-w), 100%); aspect-ratio: 156 / 238;
   perspective: 900px;
   border: 0; padding: 0; border-radius: 9px; background: none;
   transition: transform 0.2s ease;
@@ -480,7 +480,7 @@ footer span { color: var(--rose); }
   .settings { padding: 15px 16px; }
   .panel, .modal-card { box-shadow: 0 6px 16px rgba(35,25,16,0.16), inset 0 0 0 3px rgba(91,70,50,0.07); }
   .board { gap: 12px 8px; padding: 14px 4px 6px; box-shadow: inset 0 0 30px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.08); }
-  .board.small, .board.medium, .board.large { grid-template-columns: repeat(4, minmax(0, auto)); }
+  .board.small, .board.medium, .board.large { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .board .card { --card-w: min(104px, 24vw); }
   .board.large .card { --card-w: min(92px, 21vw); }
   .card .face { padding: 8px 6px 9px; box-shadow: 0 8px 16px rgba(0,0,0,0.38), inset 0 0 0 4px rgba(201,162,39,0.10); }
@@ -494,6 +494,10 @@ footer span { color: var(--rose); }
   .game-tools { gap: 8px; }
   .tool { font-size: 11px; padding: 8px 12px; }
   .orbit { box-shadow: inset 0 1px 3px rgba(138,109,31,0.3), 0 0 0 3px rgba(201,162,39,0.10), 0 0 0 4px rgba(179,84,63,0.22), 0 0 12px rgba(201,162,39,0.18); animation: none; }
+}
+@media (max-width: 380px) {
+  .board.small, .board.medium, .board.large { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .board .card { --card-w: 100%; }
 }
 @media (pointer: coarse) {
   body { background-attachment: scroll; cursor: auto; }

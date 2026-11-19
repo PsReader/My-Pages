@@ -38,21 +38,35 @@
     rose: { mark: "#mark-moon-r", descriptor: "ROSEWOOD RITUAL // MEMORY PROTOCOL" }
   };
 
+  function read(key, fallback) {
+    try { return localStorage.getItem("tm." + key) || fallback; }
+    catch (e) { return fallback; }
+  }
+
+  function readCount(key) {
+    var value = Number(read(key, "0"));
+    return Number.isFinite(value) && value > 0 ? Math.floor(value) : 0;
+  }
+
+  var savedTheme = read("theme", "classic");
+  var savedDiff = read("diff", "medium");
   var state = {
-    theme: localStorage.getItem("tm.theme") || "classic",
-    safe: localStorage.getItem("tm.safe") === "1",
-    stars: Number(localStorage.getItem("tm.stars")) || 0,
-    completed: Number(localStorage.getItem("tm.completed")) || 0,
+    theme: THEMES[savedTheme] ? savedTheme : "classic",
+    safe: read("safe", "0") === "1",
+    stars: readCount("stars"),
+    completed: readCount("completed"),
     runs: loadRuns(),
-    diff: localStorage.getItem("tm.diff") || "medium"
+    diff: DIFFS[savedDiff] ? savedDiff : "medium"
   };
 
   function loadRuns() {
     var r = { small: 0, medium: 0, large: 0 };
     try {
-      var saved = JSON.parse(localStorage.getItem("tm.runs") || "{}");
+      var saved = JSON.parse(read("runs", "{}"));
       if (saved && typeof saved === "object") {
-        ["small", "medium", "large"].forEach(function (k) { if (typeof saved[k] === "number") r[k] = saved[k]; });
+        ["small", "medium", "large"].forEach(function (k) {
+          if (typeof saved[k] === "number" && Number.isFinite(saved[k])) r[k] = Math.max(0, Math.floor(saved[k]));
+        });
       }
     } catch (e) {}
     return r;
@@ -154,6 +168,10 @@
 
   function render() {
     var board = $("#board");
+    var focusedCard = document.activeElement && document.activeElement.closest
+      ? document.activeElement.closest(".card") : null;
+    var focusIndex = focusedCard && focusedCard.parentNode === board
+      ? Array.prototype.indexOf.call(board.children, focusedCard) : -1;
     board.innerHTML = "";
     board.className = "board " + state.diff + (dealing ? " dealing" : "");
     cards.forEach(function (c, i) {
@@ -182,6 +200,7 @@
       });
       board.appendChild(b);
     });
+    if (focusIndex >= 0 && board.children[focusIndex]) board.children[focusIndex].focus();
     dealing = false;
   }
 
@@ -347,9 +366,6 @@
     CARDS.forEach(function (c) {
       var item = document.createElement("div");
       item.className = "gallery-card";
-      item.tabIndex = 0;
-      item.setAttribute("role", "button");
-      item.setAttribute("aria-label", c.name + ": " + c.k);
       item.innerHTML =
         '<div class="g-numeral">' + c.roman + '</div>' +
         '<div class="g-sigil"><svg viewBox="0 0 48 48" aria-hidden="true">' + c.s + '</svg></div>' +
